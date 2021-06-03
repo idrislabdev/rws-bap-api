@@ -19,13 +19,13 @@ class PenggunaController extends Controller
             $q = $_GET['q'];
             if ($user->role == 'ROOT'){
                 $data = MaPengguna::where('nama_lengkap', 'like', '%' . $q . '%')
-                                ->orWhere('username', 'like', '%' . $q . '%')
+                                // ->orWhere('username', 'like', '%' . $q . '%')
                                 ->paginate(10)
                                 ->onEachSide(5);
             } else {
                 $data = MaPengguna::where('role', '<>', 'ROOT')
                             ->where('nama_lengkap', 'like', '%' . $q . '%')
-                            ->orWhere('username', 'like', '%' . $q . '%')
+                            // ->orWhere('username', 'like', '%' . $q . '%')
                             ->paginate(10)
                             ->onEachSide(5);
             }
