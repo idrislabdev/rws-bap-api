@@ -41,7 +41,7 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('data')->group(function(){
     Route::group(['middleware' => 'auth:api'], function(){
-        Route::group(['middleware' => 'isRootOrAdmin'], function(){
+        Route::group(['middleware' => 'isRootOrAdminOrRWS'], function(){
             Route::resource('pengaturan', PengaturanController::class);
             Route::resource('pengguna', PenggunaController::class);
             Route::resource('wilayah', WilayahController::class);
