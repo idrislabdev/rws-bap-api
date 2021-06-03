@@ -17,13 +17,13 @@ class PenggunaController extends Controller
         $user = MaPengguna::find(Auth::user()->id);
         if (isset($_GET['q'])){
             $q = $_GET['q'];
-            if ($user->role == 'root'){
+            if ($user->role == 'ROOT'){
                 $data = MaPengguna::where('nama_lengkap', 'like', '%' . $q . '%')
                                 ->orWhere('username', 'like', '%' . $q . '%')
                                 ->paginate(10)
                                 ->onEachSide(5);
             } else {
-                $data = MaPengguna::where('role', '<>', 'root')
+                $data = MaPengguna::where('role', '<>', 'ROOT')
                             ->where('nama_lengkap', 'like', '%' . $q . '%')
                             ->orWhere('username', 'like', '%' . $q . '%')
                             ->paginate(10)
@@ -31,10 +31,10 @@ class PenggunaController extends Controller
             }
 
         } else {
-            if ($user->role =='root') {
+            if ($user->role =='ROOT') {
                 $data = MaPengguna::paginate(10)->onEachSide(5);
             } else   {
-                $data = MaPengguna::where('role','<>','root')->paginate(10)->onEachSide(5);
+                $data = MaPengguna::where('role','<>','ROOT')->paginate(10)->onEachSide(5);
             }
             
         }
