@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Berita Acara Upgarde</title>
 
         <!-- Fonts -->
         <!-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> -->
@@ -199,7 +199,7 @@
                     </table>
                 </div>
                 <div class="header">
-                    <h3 class="header-margin font-weight-bold"><center>BERITA ACARA UJI TERIMA (BAUT) NEW AKSES LINK</center></h3>
+                    <h3 class="header-margin font-weight-bold"><center>BERITA ACARA UJI TERIMA (BAUT) UPGRADE</center></h3>
                     <h4 class="header-margin font-weight-bold"><center>Nomor : {{$data_ba->no_dokumen}}</center></h4>
                 </div>
                 <div class="margin-body">
@@ -548,7 +548,7 @@
                             <table class="table-kelengkapan cellpadding="0" cellspacing="0">
                                 <tbody>
                                     <tr>
-                                        <td colspan="2" style="padding-bottom: 15px; font-weight:bold;"><span style="font-style: italic;">Lampiran BAUT Nomor</span> : {{$data_ba->n_dokumen}}</td>
+                                        <td colspan="2" style="padding-bottom: 15px; font-weight:bold;"><span style="font-style: italic;">Lampiran BAUT Nomor</span> : {{$data_ba->no_dokumen}}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="padding-bottom: 15px;"></td>

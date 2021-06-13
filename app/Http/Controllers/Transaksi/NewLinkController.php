@@ -126,13 +126,13 @@ class NewLinkController extends Controller
         if ($q) {
             $data = $data->whereRaw("(program like '%$q%' or 
                                     site_name like '%$q%' or 
-                                    site_witel like '%$q%' or 
+                                    tr.site_witel like '%$q%' or 
                                     tr.tsel_reg like '%$q%' or 
                                     site_id like '%$q%' or 
                                     dasar_order like '%$q%')");
         }
                                     
-        $data = $data->orderBy('trw.dasar_order')->paginate(25)->onEachSide(5);       
+        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(25)->onEachSide(5);       
 
         return NewlinkResource::collection(($data))->additional([
             'success' => true,
@@ -145,6 +145,15 @@ class NewLinkController extends Controller
         $v = Validator::make($request->all(), [
             'sites' => 'required',
         ]);
+
+        if ($v->fails())
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'error',
+                'data' => $v->errors()
+            ], 422);
+        }   
         
         DB::beginTransaction();
         try {
@@ -697,12 +706,12 @@ class NewLinkController extends Controller
             'people_ttd'        => $people_ttd
         ])->setPaper('a4');
 
-        // $file_name = $id.'.pdf';
+        $file_name = $id.'.pdf';
 
-        // Storage::put('public/pdf/'.$file_name, $pdf->output());
+        Storage::put('public/pdf/'.$file_name, $pdf->output());
 
-        // return $file_name;
-        return $pdf->download('berita_acara.pdf');
+        return $file_name;
+        // return $pdf->download('berita_acara.pdf');
     }
 
     public function downloadBA($id)

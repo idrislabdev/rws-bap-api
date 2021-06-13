@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\PengaturanController;
 use App\Http\Controllers\Master\PenggunaController;
 use App\Http\Controllers\Master\WilayahController;
@@ -68,7 +69,8 @@ Route::prefix('transaksi')->group(function(){
         Route::post('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'store']);
         Route::get('evident/image/{wo_id}/site/{wo_site_id}/data/{id}', [ImageController::class, 'show']);
         Route::delete('evident/image/{wo_id}/site/{wo_site_id}/data/{id}', [ImageController::class, 'destroy']);
-        
+
+       
         Route::group(['middleware' => 'isMSO'], function(){
             
             Route::get('evident/qc/{wo_id}/site/{wo_site_id}', [QcController::class, 'index']);
@@ -117,6 +119,15 @@ Route::prefix('transaksi')->group(function(){
             // });
             
         });
+    });
+});
+
+Route::prefix('dashboard')->group(function(){
+    Route::group(['middleware' => 'auth:api'], function(){
+        Route::get('donut', [DashboardController::class, 'donut']);
+        Route::get('newlink', [DashboardController::class, 'newlink']);
+        Route::get('upgrade', [DashboardController::class, 'upgrade']);
+
     });
 });
 

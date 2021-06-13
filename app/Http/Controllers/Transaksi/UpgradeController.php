@@ -83,13 +83,13 @@ class UpgradeController extends Controller
         if ($q) {
             $data = $data->whereRaw("(program like '%$q%' or 
                                     site_name like '%$q%' or 
-                                    site_witel like '%$q%' or 
+                                    tr.site_witel like '%$q%' or 
                                     tr.tsel_reg like '%$q%' or 
                                     site_id like '%$q%' or 
                                     dasar_order like '%$q%')");
         }
                                     
-        $data = $data->orderBy('trw.dasar_order')->paginate(25)->onEachSide(5);       
+        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(25)->onEachSide(5);       
 
         return UpgradeResource::collection(($data))->additional([
             'success' => true,
@@ -102,6 +102,15 @@ class UpgradeController extends Controller
         $v = Validator::make($request->all(), [
             'sites' => 'required',
         ]);
+
+        if ($v->fails())
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'error',
+                'data' => $v->errors()
+            ], 422);
+        }   
         
         DB::beginTransaction();
         try {
@@ -386,7 +395,7 @@ class UpgradeController extends Controller
                                                 ->whereRaw("p.id = tr.dibuat_oleh")
                                                 ->whereRaw("tr.wo_id = trw.id")
                                                 ->whereRaw("tr.tipe_ba = 'UPGRADE'")
-                                                ->whereRaw("tr.status = true")
+                                                ->whereRaw("tr.progress = true")
                                                 ->where('tsel_reg', $request->tsel_reg)
                                                 ->whereNull('ba_id')
                                                 ->get();
@@ -458,7 +467,7 @@ class UpgradeController extends Controller
 
             foreach ($sites as $site) {
                 TrWoSite::where('tipe_ba', 'UPGRADE')
-                ->where('status', true)
+                ->where('progress', true)
                 ->where('tsel_reg', $request->tsel_reg)
                 ->where('wo_id',$site['wo_id'])
                 ->where('wo_site_id', $site['wo_site_id'])
@@ -579,7 +588,7 @@ class UpgradeController extends Controller
         $tahun = date('Y', strtotime($data_ba->tgl_dokumen));
 
         $format_tanggal = new \stdClass();
-        $format_tanggal->hari = $this->_hari[$hari];
+        $format_tanggal->hari = $this->_hari[$hari-1];
         $format_tanggal->tgl = strtoupper(UtilityHelper::terbilang($tgl));
         $format_tanggal->tgl_nomor = $tgl;
         $format_tanggal->bulan = $this->_month[$bulan-1];

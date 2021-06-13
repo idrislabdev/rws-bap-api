@@ -916,6 +916,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <p class="font-weight-bold font-size-12 font-italic mt-0">Note: As Information</p>
                         </div>
                         <div class="margin-content margin-body mb-large">
                             <p class="font-weight-bold font-size-12">2. Remarks</p>
@@ -981,7 +982,7 @@
                             <table class="table-kelengkapan cellpadding="0" cellspacing="0">
                                 <tbody>
                                     <tr>
-                                        <td colspan="2" style="padding-bottom: 15px; font-weight:bold;"><span style="font-style: italic;">Lampiran Capture LV & QC</td>
+                                        <td colspan="2" style="padding-bottom: 15px; font-weight:bold;"><span style="font-style: italic;">Lampiran Capture LV & QC {{$data_site[$a]->site_id}}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="padding-bottom: 15px;"></td>
@@ -1029,7 +1030,7 @@
                             <table class="table-kelengkapan cellpadding="0" cellspacing="0">
                                 <tbody>
                                     <tr>
-                                        <td colspan="2" style="padding-bottom: 15px; font-weight:bold;"><span style="font-style: italic;">Lampiran BAUT Nomor</span> : {{$data_ba->n_dokumen}}</td>
+                                        <td colspan="2" style="padding-bottom: 15px; font-weight:bold;"><span style="font-style: italic;">Lampiran BAUT Nomor</span> : {{$data_ba->no_dokumen}}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="padding-bottom: 15px;"></td>
