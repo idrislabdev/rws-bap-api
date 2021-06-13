@@ -19,6 +19,7 @@ class CreateMaPenggunasTable extends Migration
             $table->string('username', 35)->unique();
             $table->string('password', 100);
             $table->string('telegram_id', 100)->nullable();
+            $table->string('site_witel', 50)->nullable();
             $table->enum('role', ['ROOT','ADMIN', 'RWS', 'WITEL', 'MSO']);
             $table->enum('status', ['AKTIF', 'TIDAK-AKTIF']);
             $table->string('referrence_id')->unique()->nullable();

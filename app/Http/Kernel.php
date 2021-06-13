@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'isRootOrAdminOrRWS' => \App\Http\Middleware\CheckIsRootOrAdminOrRWS::class,
         'isWITEL' => \App\Http\Middleware\CheckIsWITEL::class,
         'isMSO' => \App\Http\Middleware\CheckIsMSO::class,
+        'optimizeImages' => \Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages::class,
     ];
 }

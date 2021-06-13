@@ -28,7 +28,8 @@ class CreateTrWoSitesTable extends Migration
             $table->integer('jumlah');
             $table->string('program', 25);
             $table->primary(['wo_id', 'wo_site_id']);
-            $table->boolean('status');
+            $table->enum('status', ['OGP', 'OA']);
+            $table->boolean('progress');
             $table->string('ba_id', 100)->nullable();
             $table->foreign('ba_id')->references('id')->on('tr_bas');
             $table->string('dibuat_oleh', 100);

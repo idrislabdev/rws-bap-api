@@ -8,6 +8,7 @@ use App\Http\Resources\TrBaResource;
 use App\Http\Resources\TrWoSiteResource;
 use App\Http\Resources\UpgradeResource;
 use App\Models\MaPengaturan;
+use App\Models\MaPengguna;
 use App\Models\TrBa;
 use App\Models\TrWo;
 use App\Models\TrWoSite;
@@ -28,6 +29,8 @@ class UpgradeController extends Controller
 
     public function index()
     {
+        $pengguna = MaPengguna::find(Auth::user()->id);
+
         $data = DB::table(DB::raw('tr_wo_sites tr')) 
                                     ->select(DB::raw("tr.*, 
                                                       trw.dasar_order, 
@@ -71,6 +74,9 @@ class UpgradeController extends Controller
                                     ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
                                     ->whereRaw("tr.tipe_ba = 'UPGRADE'");
 
+        if ($pengguna->site_witel) {
+            $data = $data->whereRaw("tr.site_witel = '$pengguna->site_witel'");
+        }                            
         
         $q = $_GET['q'];
         
@@ -83,7 +89,7 @@ class UpgradeController extends Controller
                                     dasar_order like '%$q%')");
         }
                                     
-        $data = $data->orderBy('tr.created_at')->paginate(25)->onEachSide(5);       
+        $data = $data->orderBy('trw.dasar_order')->paginate(25)->onEachSide(5);       
 
         return UpgradeResource::collection(($data))->additional([
             'success' => true,
@@ -142,7 +148,8 @@ class UpgradeController extends Controller
                     $wo_site->jumlah = $site['data_bandwidth'];
                     $wo_site->program = $site['program'];
                     $wo_site->dibuat_oleh = Auth::user()->id;
-                    $wo_site->status = false;
+                    $wo_site->status = 'OGP';
+                    $wo_site->progress = false;
                     $wo_site->tipe_ba = 'UPGRADE';
                     $wo_site->save();
                 }
@@ -298,6 +305,44 @@ class UpgradeController extends Controller
                                 'data_2g' => $request->data_2g,
                                 'data_3g' => $request->data_3g,
                                 'data_4g' => $request->data_4g,
+                            ));
+
+            return response()->json([
+                'data' => $data,
+                'success' => true,
+                'message' => null,
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => $e,
+            ], 400);
+        }
+    }
+
+    public function updateOA($wo_id, $wo_site_id)
+    {
+        $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('status', 'OGP')->first();
+
+        if($data == null)
+        {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => 'Data Tidak Ditemukan'
+            ], 422);
+        }
+
+
+        try {
+
+            $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                            ->update(array(
+                                'status' => 'OA',
+                                'tgl_on_air' => date('Y-m-d')
                             ));
 
             return response()->json([

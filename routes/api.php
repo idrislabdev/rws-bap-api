@@ -51,13 +51,23 @@ Route::prefix('data')->group(function(){
 
 Route::prefix('transaksi')->group(function(){
     Route::group(['middleware' => 'auth:api'], function(){
+        
+        Route::get('work-order/{id}', [WoController::class, 'show']);
+       
         Route::get('new-link', [NewLinkController::class, 'index']);
         Route::get('new-link/{wo_id}/site/{wo_site_id}', [NewLinkController::class, 'show']);
+        Route::patch('new-link/{wo_id}/site/{wo_site_id}/oa', [NewLinkController::class, 'updateOA']);
+        Route::patch('new-link/{wo_id}/site/{wo_site_id}/bandwidth', [NewLinkController::class, 'updateBW']);
 
         Route::get('upgrade', [UpgradeController::class, 'index']);
         Route::get('upgrade/{wo_id}/site/{wo_site_id}', [UpgradeController::class, 'show']);
-        
-        Route::get('work-order/{id}', [WoController::class, 'show']);
+        Route::patch('upgrade/{wo_id}/site/{wo_site_id}/oa', [NewLinkController::class, 'updateOA']);
+        Route::patch('upgrade/{wo_id}/site/{wo_site_id}/bandwidth', [NewLinkController::class, 'updateBW']);
+
+        Route::get('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'index']);
+        Route::post('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'store']);
+        Route::get('evident/image/{wo_id}/site/{wo_site_id}/data/{id}', [ImageController::class, 'show']);
+        Route::delete('evident/image/{wo_id}/site/{wo_site_id}/data/{id}', [ImageController::class, 'destroy']);
         
         Route::group(['middleware' => 'isMSO'], function(){
             
@@ -71,14 +81,14 @@ Route::prefix('transaksi')->group(function(){
             
         });
 
-        Route::group(['middleware' => 'isWITEL'], function(){
+        // Route::group(['middleware' => ['isWITEL', 'optimizeImages']], function(){
             
-            Route::get('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'index']);
-            Route::post('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'store']);
-            Route::get('evident/image/{wo_id}/site/{wo_site_id}/data/{id}', [ImageController::class, 'show']);
-            Route::delete('evident/image/{wo_id}/site/{wo_site_id}/data/{id}', [ImageController::class, 'destroy']);
+        //     Route::get('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'index']);
+        //     Route::post('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'store']);
+        //     Route::get('evident/image/{wo_id}/site/{wo_site_id}/data/{id}', [ImageController::class, 'show']);
+        //     Route::delete('evident/image/{wo_id}/site/{wo_site_id}/data/{id}', [ImageController::class, 'destroy']);
             
-        });
+        // });
 
         Route::group(['middleware' => 'isRootOrAdminOrRWS'], function(){
             // Route::resource('berita-acara', BeritaAcaraController::class);
@@ -87,14 +97,12 @@ Route::prefix('transaksi')->group(function(){
 
             Route::post('new-link', [NewLinkController::class, 'store']);
             Route::patch('new-link/{wo_id}/site/{wo_site_id}', [NewLinkController::class, 'update']);
-            Route::patch('new-link/{wo_id}/site/{wo_site_id}/bandwidth', [NewLinkController::class, 'updateBW']);
             Route::post('new-link/create-ba', [NewLinkController::class, 'createBA']);
             Route::post('new-link/create-ba/check', [NewLinkController::class, 'checkSiteBA']);
             Route::get('new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
 
             Route::post('upgrade', [UpgradeController::class, 'store']);
             Route::patch('upgrade/{wo_id}/site/{wo_site_id}', [UpgradeController::class, 'update']);
-            Route::patch('upgrade/{wo_id}/site/{wo_site_id}/bandwidth', [UpgradeController::class, 'updateBW']);
             Route::post('upgrade/create-ba', [UpgradeController::class, 'createBA']);
             Route::post('upgrade/create-ba/check', [UpgradeController::class, 'checkSiteBA']);
             Route::get('upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);

@@ -8,6 +8,8 @@ use App\Http\Resources\NewlinkResource;
 use App\Http\Resources\TrBaResource;
 use App\Http\Resources\TrWoSiteResource;
 use App\Models\MaPengaturan;
+use App\Models\MaPengguna;
+use App\Models\MaWitel;
 use App\Models\TrBa;
 use App\Models\TrWo;
 use App\Models\TrWoSite;
@@ -30,6 +32,11 @@ class NewLinkController extends Controller
 
     public function index()
     {
+        $pengguna = MaPengguna::find(Auth::user()->id);
+        // $witel = "";
+        // if ($pengguna->witel_id != null) {
+        //     $witel = MaWitel::find($pengguna->witel_id); 
+        // }
         $data = DB::table(DB::raw('tr_wo_sites tr')) 
                                     ->select(DB::raw("tr.*, 
                                                       trw.dasar_order, 
@@ -62,6 +69,27 @@ class NewLinkController extends Controller
                                                                 tr.wo_site_id = ti.wo_site_id
                                                             AND
                                                                 ti.tipe = 'KONFIGURASI') as konfigurasi,
+
+
+                                                        (SELECT count(*) 
+                                                                FROM 
+                                                                    tr_wo_site_images ti
+                                                                WHERE 
+                                                                    tr.wo_id = ti.wo_id 
+                                                                AND 
+                                                                    tr.wo_site_id = ti.wo_site_id
+                                                                AND
+                                                                    ti.tipe = 'LV') as lv_image,
+
+                                                        (SELECT count(*) 
+                                                                    FROM 
+                                                                        tr_wo_site_images ti
+                                                                    WHERE 
+                                                                        tr.wo_id = ti.wo_id 
+                                                                    AND 
+                                                                        tr.wo_site_id = ti.wo_site_id
+                                                                    AND
+                                                                        ti.tipe = 'QC') as qc_image,
                                                         
                                                         (SELECT count(*) 
                                                             FROM 
@@ -88,6 +116,10 @@ class NewLinkController extends Controller
                                     ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
                                     ->whereRaw("tr.tipe_ba = 'NEW_LINK'");
 
+        if ($pengguna->site_witel) {
+            $data = $data->whereRaw("tr.site_witel = '$pengguna->site_witel'");
+        }
+
         
         $q = $_GET['q'];
         
@@ -100,7 +132,7 @@ class NewLinkController extends Controller
                                     dasar_order like '%$q%')");
         }
                                     
-        $data = $data->orderBy('tr.created_at')->paginate(25)->onEachSide(5);       
+        $data = $data->orderBy('trw.dasar_order')->paginate(25)->onEachSide(5);       
 
         return NewlinkResource::collection(($data))->additional([
             'success' => true,
@@ -159,7 +191,8 @@ class NewLinkController extends Controller
                     $wo_site->jumlah = $site['data_bandwidth'];
                     $wo_site->program = $site['program'];
                     $wo_site->dibuat_oleh = Auth::user()->id;
-                    $wo_site->status = false;
+                    $wo_site->status = 'OGP';
+                    $wo_site->progress = false;
                     $wo_site->tipe_ba = 'NEW_LINK';
                     $wo_site->save();
                 }
@@ -333,6 +366,44 @@ class NewLinkController extends Controller
         }
     }
 
+    public function updateOA($wo_id, $wo_site_id)
+    {
+        $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('status', 'OGP')->first();
+
+        if($data == null)
+        {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => 'Data Tidak Ditemukan'
+            ], 422);
+        }
+
+
+        try {
+
+            $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                            ->update(array(
+                                'status' => 'OA',
+                                'tgl_on_air' => date('Y-m-d')
+                            ));
+
+            return response()->json([
+                'data' => $data,
+                'success' => true,
+                'message' => null,
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => $e,
+            ], 400);
+        }
+    }
+
     public function checkSiteBA(Request $request)
     {
         $v = Validator::make($request->all(), [
@@ -358,7 +429,7 @@ class NewLinkController extends Controller
                                                 ->whereRaw("p.id = tr.dibuat_oleh")
                                                 ->whereRaw("tr.wo_id = trw.id")
                                                 ->whereRaw("tr.tipe_ba = 'NEW_LINK'")
-                                                ->whereRaw("tr.status = true")
+                                                ->whereRaw("tr.progress = true")
                                                 ->where('tsel_reg', $request->tsel_reg)
                                                 ->whereNull('ba_id')
                                                 ->get();
@@ -430,7 +501,7 @@ class NewLinkController extends Controller
 
             foreach ($sites as $site) {
                 TrWoSite::where('tipe_ba', 'NEW_LINK')
-                ->where('status', true)
+                ->where('progress', true)
                 ->where('tsel_reg', $request->tsel_reg)
                 ->where('wo_id',$site['wo_id'])
                 ->where('wo_site_id', $site['wo_site_id'])
@@ -550,6 +621,20 @@ class NewLinkController extends Controller
                                                 ->first();
                 
                 $site->topologi = $topologi->image_url;
+
+                $lv_image = TrWoSiteImage::where('wo_id', $site->wo_id)
+                                                ->where('wo_site_id', $site->wo_site_id)
+                                                ->where('tipe', 'LV')
+                                                ->first();
+                
+                $site->lv_image = $lv_image->image_url;
+
+                $qc_image = TrWoSiteImage::where('wo_id', $site->wo_id)
+                                                ->where('wo_site_id', $site->wo_site_id)
+                                                ->where('tipe', 'QC')
+                                                ->first();
+                
+                $site->qc_image = $qc_image->image_url;
     
                 $total_site++;
                 $total_bw = $total_bw + $site->jumlah;
@@ -572,7 +657,7 @@ class NewLinkController extends Controller
         $tahun = date('Y', strtotime($data_ba->tgl_dokumen));
 
         $format_tanggal = new \stdClass();
-        $format_tanggal->hari = $this->_hari[$hari];
+        $format_tanggal->hari = $this->_hari[$hari-1];
         $format_tanggal->tgl = strtoupper(UtilityHelper::terbilang($tgl));
         $format_tanggal->tgl_nomor = $tgl;
         $format_tanggal->bulan = $this->_month[$bulan-1];
@@ -612,12 +697,12 @@ class NewLinkController extends Controller
             'people_ttd'        => $people_ttd
         ])->setPaper('a4');
 
-        $file_name = $id.'.pdf';
+        // $file_name = $id.'.pdf';
 
-        Storage::put('public/pdf/'.$file_name, $pdf->output());
+        // Storage::put('public/pdf/'.$file_name, $pdf->output());
 
-        return $file_name;
-
+        // return $file_name;
+        return $pdf->download('berita_acara.pdf');
     }
 
     public function downloadBA($id)

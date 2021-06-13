@@ -69,6 +69,8 @@ class PenggunaController extends Controller
         $data->username = $request->username;
         $data->password = bcrypt($request->password);
         $data->role = $request->role;
+        $data->witel_id = ($request->witel_id) ? $request->witel_id : null;
+        $data->site_witel = ($request->site_witel) ? $request->site_witel : null;
         $data->status = $request->status;
         $data->save();
 
@@ -94,7 +96,7 @@ class PenggunaController extends Controller
     {
         $v = Validator::make($request->all(), [
             'nama_lengkap' => 'required',
-            'role' => 'in:ADMIN,GURU,SISWA',
+            'role' => 'in:ADMIN,RWS,MSO,WITEL',
         ]);
 
         if ($v->fails())
@@ -123,6 +125,7 @@ class PenggunaController extends Controller
         $data->status = $request->status;
         $data->username = $request->username;
         $data->password = bcrypt($request->password);
+        $data->site_witel = ($request->site_witel) ? $request->site_witel : null;
         $data->update();
 
         return response()->json([

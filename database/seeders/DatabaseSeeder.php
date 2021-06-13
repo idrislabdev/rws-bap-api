@@ -35,7 +35,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            PengaturanSeeder::class
+            PengaturanSeeder::class,
+            PenggunaSeeder::class,
+            WitelSeeder::class
         ]);
     }
 }

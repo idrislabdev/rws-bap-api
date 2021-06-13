@@ -34,14 +34,14 @@ class ImageController extends Controller
     public function store(Request $request, $wo_id, $wo_site_id)
     {
         $v = Validator::make($request->all(), [
-            'tipe' => 'in:KONFIGURASI,TOPOLOGI,CAPTURE_TRAFIK',
+            'tipe' => 'in:KONFIGURASI,TOPOLOGI,CAPTURE_TRAFIK,LV,QC',
             'images' => 'required'
         ]);
 
         if ($v->fails())
         {
             return response()->json([
-                'status' => false,
+                'progress' => false,
                 'message' => 'error',
                 'data' => $v->errors()
             ], 422);
@@ -79,13 +79,15 @@ class ImageController extends Controller
                 if ( $check_evident->lampiran_url != null
                 && $check_evident->lv == 2 
                 && $check_evident->qc == 2 
+                && $check_evident->lv_image > 0 
+                && $check_evident->qc_image > 0 
                 && $check_evident->topologi > 0 
                 && $check_evident->konfigurasi > 0 
                 && $check_evident->capture_trafik > 0)
                 {
                     TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
                                 ->update(array(
-                                    'status' => true,
+                                    'progress' => true,
                                 ));
 
                 }
@@ -97,7 +99,7 @@ class ImageController extends Controller
                 {
                     TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
                                 ->update(array(
-                                    'status' => true,
+                                    'progress' => true,
                                 ));
 
                 }
@@ -148,7 +150,7 @@ class ImageController extends Controller
         if(!$data)
         {
             return response()->json([
-                'status' => false,
+                'progress' => false,
                 'message' => 'Data Tidak Ditemukan',
                 'data' => null
             ], 404);
@@ -167,13 +169,13 @@ class ImageController extends Controller
 
             TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
             ->update(array(
-                'status' => false,
+                'progress' => false,
             )); 
 
             DB::commit();
 
             return response()->json([
-                'status' => true,
+                'progress' => true,
                 'message' => 'success',
                 'data' => $data
             ], 200);

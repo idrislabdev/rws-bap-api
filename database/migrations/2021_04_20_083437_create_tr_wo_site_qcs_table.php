@@ -24,6 +24,12 @@ class CreateTrWoSiteQcsTable extends Migration
             $table->string('day4', 25);
             $table->string('day5', 25);
             $table->string('day6', 25);
+            $table->date('day1_date');
+            $table->date('day2_date');
+            $table->date('day3_date');
+            $table->date('day4_date');
+            $table->date('day5_date');
+            $table->date('day6_date');
             $table->string('result', 25);
             $table->string('pass', 15);
             $table->primary(['wo_id', 'wo_site_id','tipe'], 'wo_site_qcs');

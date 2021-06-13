@@ -63,6 +63,26 @@ class UtilityHelper
                                                     tr.wo_site_id = t.wo_site_id) as qc,
 
                                         (SELECT count(*) 
+                                                    FROM 
+                                                        tr_wo_site_images ti
+                                                    WHERE 
+                                                        tr.wo_id = ti.wo_id 
+                                                    AND 
+                                                        tr.wo_site_id = ti.wo_site_id
+                                                    AND
+                                                        ti.tipe = 'LV') as lv_image,
+
+                                        (SELECT count(*) 
+                                                        FROM 
+                                                            tr_wo_site_images ti
+                                                        WHERE 
+                                                            tr.wo_id = ti.wo_id 
+                                                        AND 
+                                                            tr.wo_site_id = ti.wo_site_id
+                                                        AND
+                                                            ti.tipe = 'QC') as qc_image,
+                                            
+                                        (SELECT count(*) 
                                             FROM 
                                                 tr_wo_site_images ti
                                             WHERE 

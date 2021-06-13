@@ -48,7 +48,13 @@ class QcController extends Controller
             'latency_d5' => 'required',
             'latency_d6' => 'required',
             'latency_result' => 'required',
-            'latency_pass' => 'required'
+            'latency_pass' => 'required',
+            'day1_date' => 'required',
+            'day2_date' => 'required',
+            'day3_date' => 'required',
+            'day4_date' => 'required',
+            'day5_date' => 'required',
+            'day6_date' => 'required',
 
         ]);
 
@@ -96,6 +102,14 @@ class QcController extends Controller
             $packet->day4 = $request->packet_loss_d4;
             $packet->day5 = $request->packet_loss_d5;
             $packet->day6 = $request->packet_loss_d6;
+
+            $packet->day1_date = $request->day1_date;
+            $packet->day2_date = $request->day2_date;
+            $packet->day3_date = $request->day3_date;
+            $packet->day4_date = $request->day4_date;
+            $packet->day5_date = $request->day5_date;
+            $packet->day6_date = $request->day6_date;
+
             $packet->result = $request->packet_loss_result;
             $packet->pass = $request->packet_loss_pass;
             $packet->dibuat_oleh = Auth::user()->id;
@@ -111,6 +125,14 @@ class QcController extends Controller
             $latency->day4 = $request->latency_d4;
             $latency->day5 = $request->latency_d5;
             $latency->day6 = $request->latency_d6;
+
+            $latency->day1_date = $request->day1_date;
+            $latency->day2_date = $request->day2_date;
+            $latency->day3_date = $request->day3_date;
+            $latency->day4_date = $request->day4_date;
+            $latency->day5_date = $request->day5_date;
+            $latency->day6_date = $request->day6_date;
+
             $latency->result = $request->latency_result;
             $latency->pass = $request->latency_pass;
             $latency->dibuat_oleh = Auth::user()->id;
@@ -169,7 +191,13 @@ class QcController extends Controller
             'latency_d5' => 'required',
             'latency_d6' => 'required',
             'latency_result' => 'required',
-            'latency_pass' => 'required'
+            'latency_pass' => 'required',
+            'day1_date' => 'required',
+            'day2_date' => 'required',
+            'day3_date' => 'required',
+            'day4_date' => 'required',
+            'day5_date' => 'required',
+            'day6_date' => 'required',
 
         ]);
 
@@ -217,7 +245,13 @@ class QcController extends Controller
                             'day5' => $request->packet_loss_d5,
                             'day6' => $request->packet_loss_d6,
                             'result' => $request->packet_loss_result,
-                            'pass' => $request->packet_loss_pass
+                            'pass' => $request->packet_loss_pass,
+                            'day1_date' => $request->day1_date,
+                            'day2_date' => $request->day2_date,
+                            'day3_date' => $request->day3_date,
+                            'day4_date' => $request->day4_date,
+                            'day5_date' => $request->day5_date,
+                            'day6_date' => $request->day6_date,
                         ));
 
             
@@ -232,7 +266,13 @@ class QcController extends Controller
                                 'day5' => $request->latency_d5,
                                 'day6' => $request->latency_d6,
                                 'result' => $request->latency_result,
-                                'pass' => $request->latency_pass
+                                'pass' => $request->latency_pass,
+                                'day1_date' => $request->day1_date,
+                                'day2_date' => $request->day2_date,
+                                'day3_date' => $request->day3_date,
+                                'day4_date' => $request->day4_date,
+                                'day5_date' => $request->day5_date,
+                                'day6_date' => $request->day6_date,
                             ));                                
             
 

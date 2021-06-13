@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Berita Acara New Link</title>
 
         <!-- Fonts -->
         <!-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> -->
@@ -558,8 +558,8 @@
                                 </tr>
                                 <tr class="font-italic">
                                     <td class="td-center">{{$data_site[$a]->site_name}}</td>
-                                    <td class="td-center">JATIM</td>
-                                    <td class="td-center">3G/4G</td>
+                                    <td class="td-center">{{$data_site[$a]->tsel_reg}}</td>
+                                    <td class="td-center">{{(($data_site[$a]->data_2g !== 0) ? '2G/' : '').(($data_site[$a]->data_3g !== 0) ? '3G/' : '').(($data_site[$a]->data_2g !== 0) ? '4G' : '')}}</td>
                                     <td class="td-center"></td>
                                     <td class="td-center"></td>
                                 </tr>
@@ -727,226 +727,291 @@
                 </div>
 
                 <div class="page_break_after">
-                <div class="margin-header-logo">
-                        <table style="width:100%;">
-                            <tr>
-                                <td style="width:50%"></td>
-                                <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
-                            </tr>
-                        </table>
+                    <div class="margin-header-logo">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width:50%"></td>
+                                    <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="header">
+                            <h3 class="header-margin font-weight-bold"><center>4G SITE <span class="text-telkom">QC</span> ACCEPTANCE CERTIFICATE</center></h3>
+                        </div>
+                        <div class="margin-content margin-body mb-small">
+                            <table class="table-site" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr class="font-weight-bold">
+                                        <td class="td-center">Site Name</td>
+                                        <td class="td-center">Sales Cluster</td>
+                                        <td class="td-center">Band</td>
+                                        <td class="td-center">LNBTSID</td>
+                                        <td class="td-center">eutranCellID</td>
+                                    </tr>
+                                    <tr class="font-italic">
+                                        <td class="td-center">{{$data_site[$a]->site_name}}</td>
+                                        <td class="td-center">{{$data_site[$a]->tsel_reg}}</td>
+                                        <td class="td-center">{{(($data_site[$a]->data_2g !== 0) ? '2G/' : '').(($data_site[$a]->data_3g !== 0) ? '3G/' : '').(($data_site[$a]->data_2g !== 0) ? '4G' : '')}}</td>
+                                        <td class="td-center"></td>
+                                        <td class="td-center"></td>
+                                    </tr>
+                                    <tr class="font-weight-bold ">
+                                        <td class="td-center">Site ID</td>
+                                        <td class="td-center">NE Type</td>
+                                        <td class="td-center">Integration Date</td>
+                                        <td class="td-center">Area</td>
+                                        <td class="td-center">Type of Work</td>
+                                    </tr>   
+                                    <tr class="font-italic">
+                                        <td class="td-center">{{$data_site[$a]->site_id}}</td>
+                                        <td class="td-center"></td>
+                                        <td class="td-center">{{strtoupper(date('d-M-Y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
+                                        <td class="td-center">{{strtoupper($data_ba->tsel_reg)}}</td>
+                                        <td class="td-center">{{$data_site[$a]->program}}</td>
+                                    </tr>
+                                    <tr class="font-weight-bold ">
+                                        <td class="td-center">Problem :</td>
+                                        <td class="td-center" colspan="4"></td>
+                                    </tr>   
+                                    <tr class="font-weight-bold ">
+                                        <td class="td-center" >Justification :</td>
+                                        <td class="td-center" colspan="4"></td>
+                                    </tr>   
+                                    <tr class="font-weight-bold ">
+                                        <td class="td-center">Escalation :</td>
+                                        <td class="td-center" colspan="4">[ Y/N ]</td>
+                                    </tr>   
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="margin-content margin-body mb-small">
+                            <p class="font-weight-bold font-size-12" style="margin-bottom:0px;">1. Statistical Quality</p>
+                            <p class="font-weight-bold font-size-12" style="margin-top:0px;">1.1 KPI Transport Performance</p>
+                            <table class="table-lv-qc" cellpadding="0" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="4" class="td-center">KPI Parameter</th>
+                                        <th colspan="10" class="td-center">SITE LEVEL</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="td-center" colspan="3">1st 3 Days</th>
+                                        <th class="td-center" colspan="3">2nd 3 Days</th>
+                                        <th rowspan="3" class="td-center">Result</th>
+                                        <th rowspan="3" class="td-center">Target</th>
+                                        <th rowspan="3" class="td-center">Threshold</th>
+                                        <th rowspan="3" class="td-center">Pass</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="td-center">Day 1</th>
+                                        <th class="td-center">Day 2</th>
+                                        <th class="td-center">Day 3</th>
+                                        <th class="td-center">Day 4</th>
+                                        <th class="td-center">Day 5</th>
+                                        <th class="td-center">Day 6</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day1_date}}
+                                        </th>
+                                        <th class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day2_date}}
+                                        </th>
+                                        <th class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day3_date}}
+                                        </th>
+                                        <th class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day4_date}}
+                                        </th>
+                                        <th class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day5_date}}
+                                        </th>
+                                        <th class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day6_date}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold" style="text-align: left !important;">L2 Packet Loss</td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day1}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day2}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day3}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day4}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day5}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->day6}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_packet_loss->result}}
+                                        </td>
+                                        <td class="td-center font-weight-bold">Clear/Spike</td>
+                                        <td class="td-center font-weight-bold">&lt;=0.1%</td>
+                                        <td class="td-center font-weight-bold">
+                                            {{$data_site[$a]->qc_packet_loss->pass}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold" style="text-align: left !important;">L3 Latency</td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_latency->day1}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_latency->day2}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_latency->day3}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_latency->day4}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_latency->day5}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_latency->day6}}
+                                        </td>
+                                        <td class="td-center">
+                                            {{$data_site[$a]->qc_latency->result}}
+                                        </td>
+                                        <td class="td-center font-weight-bold">&lt;=20ms</td>
+                                        <td class="td-center font-weight-bold">&lt;=20ms</td>
+                                        <td class="td-center font-weight-bold">
+                                            {{$data_site[$a]->qc_latency->pass}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="margin-content margin-body mb-small">
+                            <p class="font-weight-bold font-size-12">1.2 Document</p>
+                            <table class="table-lv-qc" style="width:50%" cellpadding="0" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="td-center">Document Attachment</th>
+                                        <th  class="td-center">Pass</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:left;">Topology Link Route</td>
+                                        <td style="text-align:left;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left;">Bandwidth Capacity</td>
+                                        <td style="text-align:left;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left;">Configuration Snapshoot</td>
+                                        <td style="text-align:left;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="margin-content margin-body mb-large">
+                            <p class="font-weight-bold font-size-12">2. Remarks</p>
+                            <table class="table-kelengkapan" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td style="padding-bottom:70px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="margin-content margin-body mb-small">
+                            <table class="table-site" cellpadding="0" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Document Prepared by:</th>
+                                        <th>Measurement Prepared by:</th>
+                                        <th>Approved by:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding-bottom:70px;"></td>
+                                        <td style="padding-bottom:70px;"></td>
+                                        <td style="padding-bottom:70px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOM</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL RTO REGION</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL PROJECT</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">MANAGEMENT REGION</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Teguh Cipto E.</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Hanif Zakarya</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Didin Kuswoyo</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; font-weight:bold; border-top:none;">Date: {{strtoupper(date('d-m-Y', strtotime($data_ba->tgl_dokumen)))}}</td>
+                                        <td style="text-align:left; font-weight:bold; border-top:none;">Date: {{strtoupper(date('d-m-Y', strtotime($data_ba->tgl_dokumen)))}}</td>
+                                        <td style="text-align:left; font-weight:bold; border-top:none;">Date: {{strtoupper(date('d-m-Y', strtotime($data_ba->tgl_dokumen)))}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="header">
-                        <h3 class="header-margin font-weight-bold"><center>4G SITE <span class="text-telkom">QC</span> ACCEPTANCE CERTIFICATE</center></h3>
-                    </div>
-                    <div class="margin-content margin-body mb-small">
-                        <table class="table-site" cellpadding="0" cellspacing="0">
-                            <tbody>
-                                <tr class="font-weight-bold">
-                                    <td class="td-center">Site Name</td>
-                                    <td class="td-center">Sales Cluster</td>
-                                    <td class="td-center">Band</td>
-                                    <td class="td-center">LNBTSID</td>
-                                    <td class="td-center">eutranCellID</td>
-                                </tr>
-                                <tr class="font-italic">
-                                    <td class="td-center">RADIOANDIKA</td>
-                                    <td class="td-center">JATIM</td>
-                                    <td class="td-center">3G/4G</td>
-                                    <td class="td-center"></td>
-                                    <td class="td-center"></td>
-                                </tr>
-                                <tr class="font-weight-bold ">
-                                    <td class="td-center">Site ID</td>
-                                    <td class="td-center">NE Type</td>
-                                    <td class="td-center">Integration Date</td>
-                                    <td class="td-center">Area</td>
-                                    <td class="td-center">Type of Work</td>
-                                </tr>   
-                                <tr class="font-italic">
-                                    <td class="td-center">KED418</td>
-                                    <td class="td-center"></td>
-                                    <td class="td-center">12-MAR-21</td>
-                                    <td class="td-center">JATIM</td>
-                                    <td class="td-center">FIMO</td>
-                                </tr>
-                                <tr class="font-weight-bold ">
-                                    <td class="td-center">Problem :</td>
-                                    <td class="td-center" colspan="4"></td>
-                                </tr>   
-                                <tr class="font-weight-bold ">
-                                    <td class="td-center" >Justification :</td>
-                                    <td class="td-center" colspan="4"></td>
-                                </tr>   
-                                <tr class="font-weight-bold ">
-                                    <td class="td-center">Escalation :</td>
-                                    <td class="td-center" colspan="4">[ Y/N ]</td>
-                                </tr>   
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="margin-content margin-body mb-small">
-                        <p class="font-weight-bold font-size-12" style="margin-bottom:0px;">1. Statistical Quality</p>
-                        <p class="font-weight-bold font-size-12" style="margin-top:0px;">1.1 KPI Transport Performance</p>
-                        <table class="table-lv-qc" cellpadding="0" cellspacing="0">
-                            <thead>
+                </div>
+
+                <div class="page_break_after">
+                    <div class="margin-header-logo">
+                            <table style="width:100%;">
                                 <tr>
-                                    <th rowspan="3" class="td-center">KPI Parameter</th>
-                                    <th colspan="10" class="td-center">SITE LEVEL</th>
+                                    <td style="width:50%"></td>
+                                    <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
                                 </tr>
-                                <tr>
-                                    <th class="td-center" colspan="3">1st 3 Days</th>
-                                    <th class="td-center" colspan="3">2nd 3 Days</th>
-                                    <th rowspan="2" class="td-center">Result</th>
-                                    <th rowspan="2" class="td-center">Target</th>
-                                    <th rowspan="2" class="td-center">Threshold</th>
-                                    <th rowspan="2" class="td-center">Pass</th>
-                                </tr>
-                                <tr>
-                                    <th class="td-center">Day 1</th>
-                                    <th class="td-center">Day 2</th>
-                                    <th class="td-center">Day 3</th>
-                                    <th class="td-center">Day 4</th>
-                                    <th class="td-center">Day 5</th>
-                                    <th class="td-center">Day 6</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="font-weight-bold" style="text-align: left !important;">L2 Packet Loss</td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_packet_loss->day1}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_packet_loss->day2}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_packet_loss->day3}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_packet_loss->day4}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_packet_loss->day5}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_packet_loss->day6}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_packet_loss->result}}
-                                    </td>
-                                    <td class="td-center font-weight-bold">Clear/Spike</td>
-                                    <td class="td-center font-weight-bold">&lt;=0.1%</td>
-                                    <td class="td-center font-weight-bold">
-                                        {{$data_site[$a]->qc_packet_loss->pass}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-bold" style="text-align: left !important;">L3 Latency</td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_latency->day1}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_latency->day2}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_latency->day3}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_latency->day4}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_latency->day5}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_latency->day6}}
-                                    </td>
-                                    <td class="td-center">
-                                        {{$data_site[$a]->qc_latency->result}}
-                                    </td>
-                                    <td class="td-center font-weight-bold">&lt;=20ms</td>
-                                    <td class="td-center font-weight-bold">&lt;=20ms</td>
-                                    <td class="td-center font-weight-bold">
-                                        {{$data_site[$a]->qc_latency->pass}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="margin-content margin-body mb-small">
-                        <p class="font-weight-bold font-size-12">1.2 Document</p>
-                        <table class="table-lv-qc" style="width:50%" cellpadding="0" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th class="td-center">Document Attachment</th>
-                                    <th  class="td-center">Pass</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="text-align:left;">Topology Link Route</td>
-                                    <td style="text-align:left;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:left;">Bandwidth Capacity</td>
-                                    <td style="text-align:left;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:left;">Configuration Snapshoot</td>
-                                    <td style="text-align:left;"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="margin-content margin-body mb-large">
-                        <p class="font-weight-bold font-size-12">2. Remarks</p>
-                        <table class="table-kelengkapan" cellpadding="0" cellspacing="0">
-                            <tbody>
-                                <tr>
-                                    <td style="padding-bottom:70px;"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="margin-content margin-body mb-small">
-                        <table class="table-site" cellpadding="0" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Document Prepared by:</th>
-                                    <th>Measurement Prepared by:</th>
-                                    <th>Approved by:</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="padding-bottom:70px;"></td>
-                                    <td style="padding-bottom:70px;"></td>
-                                    <td style="padding-bottom:70px;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOM</td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL RTO REGION</td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL PROJECT</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">MANAGEMENT REGION</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Teguh Cipto E.</td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Hanif Zakarya</td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Didin Kuswoyo</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:left; font-weight:bold; border-top:none;">Date: {{strtoupper(date('d-m-Y', strtotime($data_ba->tgl_dokumen)))}}</td>
-                                    <td style="text-align:left; font-weight:bold; border-top:none;">Date: {{strtoupper(date('d-m-Y', strtotime($data_ba->tgl_dokumen)))}}</td>
-                                    <td style="text-align:left; font-weight:bold; border-top:none;">Date: {{strtoupper(date('d-m-Y', strtotime($data_ba->tgl_dokumen)))}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            </table>
+                        </div>
+                        <div class="margin-content margin-body mb-small">
+                            <table class="table-kelengkapan cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" style="padding-bottom: 15px; font-weight:bold;"><span style="font-style: italic;">Lampiran Capture LV & QC</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-bottom: 15px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: left !important; font-weight:bold;">Capture LV Site {{$data_site[$a]->site_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"></td>
+                                        <td>
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[$a]->lv_image }}" style="width:700px; height:400px; object-fit: cover;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: left !important; font-weight:bold;">Capture QC Site {{$data_site[$a]->site_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"></td>
+                                        <td>
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[$a]->qc_image }}" style="width:700px; height:400px; object-fit: cover;">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
             @endfor
+
 
             <!-- halaman konfigurasi  -->
             @if (@count($data_site) > 1)
