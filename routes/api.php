@@ -51,7 +51,7 @@ Route::prefix('data')->group(function(){
 });
 
 Route::prefix('transaksi')->group(function(){
-    Route::group(['middleware' => [ 'auth:api', 'optimizeImages']]], function(){
+    Route::group(['middleware' => [ 'auth:api', 'optimizeImages']], function(){
         
         Route::get('work-order/{id}', [WoController::class, 'show']);
        
