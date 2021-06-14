@@ -57,18 +57,34 @@ class WoController extends Controller
             foreach ($sites as $site) {
                 $check_evident = UtilityHelper::checkEvident($site['wo_id'], $site['wo_site_id']);
 
-                if ( $check_evident->lampiran_url != null
+                if ($check_evident->tipe_ba == 'NEW_LINK') {
+                    if ( $check_evident->lampiran_url != null
                     && $check_evident->lv == 2 
                     && $check_evident->qc == 2 
+                    && $check_evident->lv_image > 0 
+                    && $check_evident->qc_image > 0 
                     && $check_evident->topologi > 0 
                     && $check_evident->konfigurasi > 0 
                     && $check_evident->capture_trafik > 0)
-                {
-                    TrWoSite::where('wo_id',  $site['wo_id'])->where('wo_site_id', $site['wo_site_id'])
-                                ->update(array(
-                                    'status' => true,
-                                ));
+                    {
+                        TrWoSite::where('wo_id',  $site['wo_id'])->where('wo_site_id', $site['wo_site_id'])
+                                    ->update(array(
+                                        'progress' => true,
+                                    ));
 
+                    }
+                }else {
+                    if ( $check_evident->lampiran_url != null
+                    && $check_evident->topologi > 0 
+                    && $check_evident->konfigurasi > 0 
+                    && $check_evident->capture_trafik > 0)
+                    {
+                        TrWoSite::where('wo_id',  $site['wo_id'])->where('wo_site_id', $site['wo_site_id'])
+                            ->update(array(
+                                'progress' => true,
+                            ));
+
+                    }
                 }
             }
 
