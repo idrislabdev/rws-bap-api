@@ -9,6 +9,7 @@ use App\Http\Controllers\Master\PenggunaController;
 use App\Http\Controllers\Master\WilayahController;
 use App\Http\Controllers\Transaksi\BaNewLinkController;
 use App\Http\Controllers\Transaksi\BeritaAcaraController;
+use App\Http\Controllers\Transaksi\DualHomingController;
 use App\Http\Controllers\Transaksi\EvidentController;
 use App\Http\Controllers\Transaksi\ImageController;
 use App\Http\Controllers\Transaksi\LvController;
@@ -59,11 +60,18 @@ Route::prefix('transaksi')->group(function(){
         Route::get('new-link/{wo_id}/site/{wo_site_id}', [NewLinkController::class, 'show']);
         Route::patch('new-link/{wo_id}/site/{wo_site_id}/oa', [NewLinkController::class, 'updateOA']);
         Route::patch('new-link/{wo_id}/site/{wo_site_id}/bandwidth', [NewLinkController::class, 'updateBW']);
+        Route::patch('new-link/{wo_id}/site/{wo_site_id}/ne-type', [NewLinkController::class, 'updateNeType']);
+
 
         Route::get('upgrade', [UpgradeController::class, 'index']);
         Route::get('upgrade/{wo_id}/site/{wo_site_id}', [UpgradeController::class, 'show']);
-        Route::patch('upgrade/{wo_id}/site/{wo_site_id}/oa', [NewLinkController::class, 'updateOA']);
-        Route::patch('upgrade/{wo_id}/site/{wo_site_id}/bandwidth', [NewLinkController::class, 'updateBW']);
+        Route::patch('upgrade/{wo_id}/site/{wo_site_id}/oa', [UpgradeController::class, 'updateOA']);
+        Route::patch('upgrade/{wo_id}/site/{wo_site_id}/bandwidth', [UpgradeController::class, 'updateBW']);
+
+        Route::get('dual-homing', [DualHomingController::class, 'index']);
+        Route::get('dual-homing/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'show']);
+        Route::get('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'showParameter']);
+        Route::patch('dual-homing/{wo_id}/site/{wo_site_id}/oa', [DualHomingController::class, 'updateOA']);
 
         Route::get('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'index']);
         Route::post('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'store']);
@@ -80,6 +88,9 @@ Route::prefix('transaksi')->group(function(){
             Route::get('evident/lv/{wo_id}/site/{wo_site_id}', [LvController::class, 'index']);     
             Route::post('evident/lv/{wo_id}/site/{wo_site_id}', [LvController::class, 'store']);
             Route::patch('evident/lv/{wo_id}/site/{wo_site_id}', [LvController::class, 'update']);
+
+            Route::post('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'storeParameter']);
+            Route::patch('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'updateParameter']);
             
         });
 
@@ -109,6 +120,12 @@ Route::prefix('transaksi')->group(function(){
             Route::post('upgrade/create-ba/check', [UpgradeController::class, 'checkSiteBA']);
             Route::get('upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
 
+            Route::post('dual-homing', [DualHomingController::class, 'store']);
+            Route::patch('dual-homing/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'update']);
+            Route::post('dual-homing/create-ba', [DualHomingController::class, 'createBA']);
+            Route::post('dual-homing/create-ba/check', [DualHomingController::class, 'checkSiteBA']);
+            Route::get('dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
+
             Route::post('work-order/{id}', [WoController::class, 'update']);
             Route::delete('work-order/{id}', [WoController::class, 'destroy']);
 
@@ -125,6 +142,7 @@ Route::prefix('transaksi')->group(function(){
 Route::prefix('dashboard')->group(function(){
     Route::group(['middleware' => 'auth:api'], function(){
         Route::get('donut', [DashboardController::class, 'donut']);
+        Route::get('list', [DashboardController::class, 'list']);
         Route::get('newlink', [DashboardController::class, 'newlink']);
         Route::get('upgrade', [DashboardController::class, 'upgrade']);
 

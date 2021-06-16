@@ -148,9 +148,9 @@ class QcController extends Controller
                 && $check_evident->capture_trafik > 0)
             {
                 TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                            ->update(array(
-                                'status' => true,
-                            ));
+                                ->update(array(
+                                    'progress' => true,
+                                ));
 
             }
 

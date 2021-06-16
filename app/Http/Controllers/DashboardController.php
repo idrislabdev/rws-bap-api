@@ -29,36 +29,29 @@ class DashboardController extends Controller
             $tipe_ba = $_GET['tipe_ba'];
         }
 
-        $all = TrWoSite::where('status', 'OA')
-                        ->where('tipe_ba', $tipe_ba);
 
-        if ($site_witel != 'ALL') {
-            $all = $all->where('site_witel', $site_witel);
-        }
-        $all = $all->count();
-
-        $finish = TrWoSite::where('progress', true)
-                            ->where('status', 'OA')
+        $ba = TrWoSite::where('progress', true)
+                            ->whereNotNull('ba_id')
                             ->where('tipe_ba', $tipe_ba);
 
         if ($site_witel != 'ALL') {
-            $finish = $finish->where('site_witel', $site_witel);
+            $ba = $ba->where('site_witel', $site_witel);
         }
-        $finish = $finish->count();
+        $ba = $ba->count();
 
-        $not_yet = TrWoSite::where('progress', false)
-                            ->where('status', 'OA')
+        $not_ba = TrWoSite::where('progress', false)
+                            ->whereNull('ba_id')
                             ->where('tipe_ba', $tipe_ba);
 
         if ($site_witel != 'ALL') {
-            $not_yet = $not_yet->where('site_witel', $site_witel);
+            $not_ba = $not_ba->where('site_witel', $site_witel);
         }
 
-        $not_yet = $not_yet->count();
+        $not_ba = $not_ba->count();
 
         $data = new \stdClass();
-        $series = array($finish, $not_yet);
-        $labels = array ('FINISH', 'NOT YET');
+        $series = array($ba, $not_ba);
+        $labels = array ('B.A COMPLETE', 'B.A NOT COMPLETE');
 
         $data->series = $series;
         $data->labels = $labels;
@@ -70,108 +63,159 @@ class DashboardController extends Controller
         ], 200);
     }
 
+    public function list()
+    {
+        if (isset($_GET['tipe_ba'])){
+            $tipe_ba = $_GET['tipe_ba'];
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pilih Tipe BA Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+        
+        $witel = ['Singaraja','Denpasar','Mataram','Malang','Jember','Kediri','Pasuruan','Sidoarjo','Madiun','Madura','Kupang','Surabaya Utara','Surabaya Selatan'];
+
+        $obj = new \stdClass();
+        $data = array();
+        if (isset($_GET['site_witel'])){
+            $obj = new \stdClass(); 
+            $obj->witel = $_GET['site_witel'];
+            $obj->total_order =TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->count();
+            $obj->total_ogp = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OGP')->count();
+            $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->count();
+            $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 1)->count();
+            $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->count();
+
+            array_push($data, $obj);
+        } else {
+            for ($i=0; $i<count($witel); $i++) {
+                $obj = new \stdClass(); 
+                $obj->witel = $witel[$i];
+                $obj->total_order =TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->count();
+                $obj->total_ogp = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OGP')->count();
+                $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->count();
+                $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->where('progress', 1)->count();
+                $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->where('progress', 0)->count();
+    
+                array_push($data, $obj);
+            }
+        }
+        
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $data
+        ], 200);
+
+    }
+
     public function newlink()
     {
-        $site_witel = "";
-        $progress = null;
-
         if (isset($_GET['site_witel'])){
             $site_witel = $_GET['site_witel'];
-        }
-
-        if (isset($_GET['progress'])){
-            $progress = $_GET['progress'];
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pilih Witel Terlebih Dahulu',
+                'data' => null
+            ], 422);
         }
 
         $data = DB::table(DB::raw('tr_wo_sites tr')) 
-                ->select(DB::raw("tr.*, 
-                                    trw.dasar_order, 
-                                    trw.lampiran_url,  
-                                    p.id pengguna_id, 
-                                    p.nama_lengkap,
-                                    b.no_dokumen,
-                                    (SELECT count(*) 
-                                        FROM 
-                                            tr_wo_site_lvs t
-                                        WHERE 
-                                            tr.wo_id = t.wo_id 
-                                        AND 
-                                            tr.wo_site_id = t.wo_site_id) as lv,
+                                    ->select(DB::raw("tr.*, 
+                                                      trw.dasar_order, 
+                                                      trw.lampiran_url,  
+                                                      p.id pengguna_id, 
+                                                      p.nama_lengkap,
+                                                      b.no_dokumen,
+                                                        (SELECT count(*) 
+                                                            FROM 
+                                                                tr_wo_site_lvs t
+                                                            WHERE 
+                                                                tr.wo_id = t.wo_id 
+                                                            AND 
+                                                                tr.wo_site_id = t.wo_site_id) as lv,
 
-                                    (SELECT count(*) 
-                                            FROM 
-                                                tr_wo_site_qcs t
-                                            WHERE 
-                                                tr.wo_id = t.wo_id 
-                                            AND 
-                                                tr.wo_site_id = t.wo_site_id) as qc,
+                                                        (SELECT count(*) 
+                                                                FROM 
+                                                                    tr_wo_site_qcs t
+                                                                WHERE 
+                                                                    tr.wo_id = t.wo_id 
+                                                                AND 
+                                                                    tr.wo_site_id = t.wo_site_id) as qc,
 
-                                    (SELECT count(*) 
-                                        FROM 
-                                            tr_wo_site_images ti
-                                        WHERE 
-                                            tr.wo_id = ti.wo_id 
-                                        AND 
-                                            tr.wo_site_id = ti.wo_site_id
-                                        AND
-                                            ti.tipe = 'KONFIGURASI') as konfigurasi,
+                                                        (SELECT count(*) 
+                                                            FROM 
+                                                                tr_wo_site_images ti
+                                                            WHERE 
+                                                                tr.wo_id = ti.wo_id 
+                                                            AND 
+                                                                tr.wo_site_id = ti.wo_site_id
+                                                            AND
+                                                                ti.tipe = 'KONFIGURASI') as konfigurasi,
 
 
-                                    (SELECT count(*) 
-                                            FROM 
-                                                tr_wo_site_images ti
-                                            WHERE 
-                                                tr.wo_id = ti.wo_id 
-                                            AND 
-                                                tr.wo_site_id = ti.wo_site_id
-                                            AND
-                                                ti.tipe = 'LV') as lv_image,
+                                                        (SELECT count(*) 
+                                                                FROM 
+                                                                    tr_wo_site_images ti
+                                                                WHERE 
+                                                                    tr.wo_id = ti.wo_id 
+                                                                AND 
+                                                                    tr.wo_site_id = ti.wo_site_id
+                                                                AND
+                                                                    ti.tipe = 'LV') as lv_image,
 
-                                    (SELECT count(*) 
-                                                FROM 
-                                                    tr_wo_site_images ti
-                                                WHERE 
-                                                    tr.wo_id = ti.wo_id 
-                                                AND 
-                                                    tr.wo_site_id = ti.wo_site_id
-                                                AND
-                                                    ti.tipe = 'QC') as qc_image,
-                                    
-                                    (SELECT count(*) 
-                                        FROM 
-                                            tr_wo_site_images ti
-                                        WHERE 
-                                            tr.wo_id = ti.wo_id 
-                                        AND 
-                                            tr.wo_site_id = ti.wo_site_id
-                                        AND
-                                            ti.tipe = 'TOPOLOGI') as topologi,
-                                            
-                                    (SELECT count(*) 
-                                            FROM 
-                                                tr_wo_site_images ti
-                                            WHERE 
-                                                tr.wo_id = ti.wo_id 
-                                            AND 
-                                                tr.wo_site_id = ti.wo_site_id
-                                            AND
-                                                ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"),
-                                    )
-                ->leftJoin('tr_wos as trw','tr.wo_id', '=', 'trw.id')
-                ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
-                ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
-                ->whereRaw("tr.tipe_ba = 'NEW_LINK'")
-                ->whereRaw("tr.status = 'OA'");
-        
-        if ($progress != null) {
-            $data = $data->where('tr.progress', $progress);
-        }                
+                                                        (SELECT count(*) 
+                                                                    FROM 
+                                                                        tr_wo_site_images ti
+                                                                    WHERE 
+                                                                        tr.wo_id = ti.wo_id 
+                                                                    AND 
+                                                                        tr.wo_site_id = ti.wo_site_id
+                                                                    AND
+                                                                        ti.tipe = 'QC') as qc_image,
+                                                        
+                                                        (SELECT count(*) 
+                                                            FROM 
+                                                                tr_wo_site_images ti
+                                                            WHERE 
+                                                                tr.wo_id = ti.wo_id 
+                                                            AND 
+                                                                tr.wo_site_id = ti.wo_site_id
+                                                            AND
+                                                                ti.tipe = 'TOPOLOGI') as topologi,
+                                                                
+                                                        (SELECT count(*) 
+                                                                FROM 
+                                                                    tr_wo_site_images ti
+                                                                WHERE 
+                                                                    tr.wo_id = ti.wo_id 
+                                                                AND 
+                                                                    tr.wo_site_id = ti.wo_site_id
+                                                                AND
+                                                                    ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"),
+                                                        )
+                                    ->leftJoin('tr_wos as trw','tr.wo_id', '=', 'trw.id')
+                                    ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
+                                    ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
+                                    ->whereRaw("tr.tipe_ba = 'NEW_LINK'")
+                                    ->where('tr.site_witel', $site_witel);
 
-        if ($site_witel != 'ALL') {
-            $data = $data->where('tr.site_witel', $site_witel);
+                
+        if (isset($_GET['status'])){
+            $data = $data->where('tr.status', $_GET['status']);
+
+            if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 1) {
+                $data = $data->where('progress', true);
+            } else  if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 0) {
+                $data = $data->where('progress', false);
+            }
         }
-             
-        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(5)->onEachSide(5);       
+                                    
+        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(10)->onEachSide(5);       
 
         return NewlinkResource::collection(($data))->additional([
             'success' => true,
@@ -181,75 +225,77 @@ class DashboardController extends Controller
 
     public function upgrade()
     {
-        $site_witel = "";
-        $progress = null;
-
         if (isset($_GET['site_witel'])){
             $site_witel = $_GET['site_witel'];
-        }
-
-        if (isset($_GET['progress'])){
-            $progress = $_GET['progress'];
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pilih Witel Terlebih Dahulu',
+                'data' => null
+            ], 422);
         }
 
         $data = DB::table(DB::raw('tr_wo_sites tr')) 
-                ->select(DB::raw("tr.*, 
-                                    trw.dasar_order, 
-                                    trw.lampiran_url,  
-                                    p.id pengguna_id, 
-                                    p.nama_lengkap,
-                                    b.no_dokumen,
-                                   
-                                    (SELECT count(*) 
-                                        FROM 
-                                            tr_wo_site_images ti
-                                        WHERE 
-                                            tr.wo_id = ti.wo_id 
-                                        AND 
-                                            tr.wo_site_id = ti.wo_site_id
-                                        AND
-                                            ti.tipe = 'KONFIGURASI') as konfigurasi,
+                                    ->select(DB::raw("tr.*, 
+                                                      trw.dasar_order, 
+                                                      trw.lampiran_url,  
+                                                      p.id pengguna_id, 
+                                                      p.nama_lengkap,
+                                                      b.no_dokumen,
 
-                                    
-                                    (SELECT count(*) 
-                                        FROM 
-                                            tr_wo_site_images ti
-                                        WHERE 
-                                            tr.wo_id = ti.wo_id 
-                                        AND 
-                                            tr.wo_site_id = ti.wo_site_id
-                                        AND
-                                            ti.tipe = 'TOPOLOGI') as topologi,
-                                            
-                                    (SELECT count(*) 
-                                            FROM 
-                                                tr_wo_site_images ti
-                                            WHERE 
-                                                tr.wo_id = ti.wo_id 
-                                            AND 
-                                                tr.wo_site_id = ti.wo_site_id
-                                            AND
-                                                ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"),
-                                    )
-                ->leftJoin('tr_wos as trw','tr.wo_id', '=', 'trw.id')
-                ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
-                ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
-                ->whereRaw("tr.tipe_ba = 'UPGRADE'")
-                ->whereRaw("tr.status = 'OA'");
-        
-        if ($progress != null) {
-            $data = $data->where('tr.progress', $progress);
-        }                
+                                                        (SELECT count(*) 
+                                                            FROM 
+                                                                tr_wo_site_images ti
+                                                            WHERE 
+                                                                tr.wo_id = ti.wo_id 
+                                                            AND 
+                                                                tr.wo_site_id = ti.wo_site_id
+                                                            AND
+                                                                ti.tipe = 'KONFIGURASI') as konfigurasi,
+                                                        
+                                                        (SELECT count(*) 
+                                                            FROM 
+                                                                tr_wo_site_images ti
+                                                            WHERE 
+                                                                tr.wo_id = ti.wo_id 
+                                                            AND 
+                                                                tr.wo_site_id = ti.wo_site_id
+                                                            AND
+                                                                ti.tipe = 'TOPOLOGI') as topologi,
+                                                                
+                                                        (SELECT count(*) 
+                                                                FROM 
+                                                                    tr_wo_site_images ti
+                                                                WHERE 
+                                                                    tr.wo_id = ti.wo_id 
+                                                                AND 
+                                                                    tr.wo_site_id = ti.wo_site_id
+                                                                AND
+                                                                    ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"),
+                                                        )
+                                    ->leftJoin('tr_wos as trw','tr.wo_id', '=', 'trw.id')
+                                    ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
+                                    ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
+                                    ->whereRaw("tr.tipe_ba = 'UPGRADE'")
+                                    ->where('tr.site_witel', $site_witel);
 
-        if ($site_witel != 'ALL') {
-            $data = $data->where('tr.site_witel', $site_witel);
+                
+        if (isset($_GET['status'])){
+            $data = $data->where('tr.status', $_GET['status']);
+
+            if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 1) {
+                $data = $data->where('progress', true);
+            } else  if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 0) {
+                $data = $data->where('progress', false);
+            }
         }
-             
-        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(5)->onEachSide(5);       
+                                    
+        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(10)->onEachSide(5);       
 
         return UpgradeResource::collection(($data))->additional([
             'success' => true,
             'message' => null,
         ]);
     }
+
 }

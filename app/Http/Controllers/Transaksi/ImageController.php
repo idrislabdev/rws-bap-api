@@ -34,14 +34,14 @@ class ImageController extends Controller
     public function store(Request $request, $wo_id, $wo_site_id)
     {
         $v = Validator::make($request->all(), [
-            'tipe' => 'in:KONFIGURASI,TOPOLOGI,CAPTURE_TRAFIK,LV,QC',
+            'tipe' => 'in:KONFIGURASI,TOPOLOGI,CAPTURE_TRAFIK,LV,QC,NODE_1,NODE_2',
             'images' => 'required'
         ]);
 
         if ($v->fails())
         {
             return response()->json([
-                'progress' => false,
+                'status' => false,
                 'message' => 'error',
                 'data' => $v->errors()
             ], 422);
@@ -91,11 +91,23 @@ class ImageController extends Controller
                                 ));
 
                 }
-            }else {
+            } else if ($check_evident->tipe_ba == 'UPGRADE') {
                 if ( $check_evident->lampiran_url != null
                 && $check_evident->topologi > 0 
                 && $check_evident->konfigurasi > 0 
                 && $check_evident->capture_trafik > 0)
+                {
+                    TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                                ->update(array(
+                                    'progress' => true,
+                                ));
+
+                }
+            } else if ($check_evident->tipe_ba == 'DUAL_HOMING') {
+                if ( $check_evident->lampiran_url != null
+                && $check_evident->topologi == 1 
+                && $check_evident->konfigurasi == 2 
+                && $check_evident->pr_dual_homing == 1) 
                 {
                     TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
                                 ->update(array(
@@ -150,7 +162,7 @@ class ImageController extends Controller
         if(!$data)
         {
             return response()->json([
-                'progress' => false,
+                'status' => false,
                 'message' => 'Data Tidak Ditemukan',
                 'data' => null
             ], 404);

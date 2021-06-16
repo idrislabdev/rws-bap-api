@@ -45,6 +45,12 @@ class LvController extends Controller
             'latency_h4' => 'required',
             'latency_h5' => 'required',
             'latency_result' => 'required',
+            'hour1_time' => 'required',
+            'hour2_time' => 'required',
+            'hour3_time' => 'required',
+            'hour4_time' => 'required',
+            'hour5_time' => 'required',
+            'day_date'  => 'required',
 
         ]);
 
@@ -91,6 +97,15 @@ class LvController extends Controller
             $packet->hour3 = $request->packet_loss_h3;
             $packet->hour4 = $request->packet_loss_h4;
             $packet->hour5 = $request->packet_loss_h5;
+
+            $packet->hour1_time = $request->hour1_time;
+            $packet->hour2_time = $request->hour2_time;
+            $packet->hour3_time = $request->hour3_time;
+            $packet->hour4_time = $request->hour4_time;
+            $packet->hour5_time = $request->hour5_time;
+
+            $packet->day_date = $request->day_date;
+
             $packet->result = $request->packet_loss_result;
             $packet->pass = $request->packet_loss_pass;
             $packet->dibuat_oleh = Auth::user()->id;
@@ -105,6 +120,15 @@ class LvController extends Controller
             $latency->hour3 = $request->latency_h3;
             $latency->hour4 = $request->latency_h4;
             $latency->hour5 = $request->latency_h5;
+
+            $latency->hour1_time = $request->hour1_time;
+            $latency->hour2_time = $request->hour2_time;
+            $latency->hour3_time = $request->hour3_time;
+            $latency->hour4_time = $request->hour4_time;
+            $latency->hour5_time = $request->hour5_time;
+
+            $latency->day_date = $request->day_date;
+
             $latency->result = $request->latency_result;
             $latency->pass = $request->latency_pass;
             $latency->dibuat_oleh = Auth::user()->id;
@@ -120,9 +144,9 @@ class LvController extends Controller
                 && $check_evident->capture_trafik > 0)
             {
                 TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                            ->update(array(
-                                'status' => true,
-                            ));
+                    ->update(array(
+                        'progress' => true,
+                    ));
 
             }
             
@@ -162,8 +186,13 @@ class LvController extends Controller
             'latency_h4' => 'required',
             'latency_h5' => 'required',
             'latency_result' => 'required',
-            'latency_pass' => 'required'
-
+            'latency_pass' => 'required',
+            'hour1_time' => 'required',
+            'hour2_time' => 'required',
+            'hour3_time' => 'required',
+            'hour4_time' => 'required',
+            'hour5_time' => 'required',
+            'day_date'  => 'required',
         ]);
 
         if($v->fails())
@@ -209,6 +238,14 @@ class LvController extends Controller
                             'hour3' => $request->packet_loss_h3,
                             'hour4' => $request->packet_loss_h4,
                             'hour5' => $request->packet_loss_h5,
+
+                            'hour1_time' => $request->hour1_time,
+                            'hour2_time' => $request->hour2_time,
+                            'hour3_time' => $request->hour3_time,
+                            'hour4_time' => $request->hour4_time,
+                            'hour5_time' => $request->hour5_time,
+                            'day_date'   => $request->day_date,
+
                             'result' => $request->packet_loss_result,
                             'pass' => $request->packet_loss_pass
                         ));
@@ -224,6 +261,14 @@ class LvController extends Controller
                                 'hour4' => $request->latency_h4,
                                 'hour5' => $request->latency_h5,
                                 'result' => $request->latency_result,
+
+                                'hour1_time' => $request->hour1_time,
+                                'hour2_time' => $request->hour2_time,
+                                'hour3_time' => $request->hour3_time,
+                                'hour4_time' => $request->hour4_time,
+                                'hour5_time' => $request->hour5_time,
+                                'day_date'   => $request->day_date,
+
                                 'pass' => $request->latency_pass
                             ));                                
             

@@ -18,7 +18,7 @@ class CreateTrWoSiteImagesTable extends Migration
             $table->integer('wo_site_id');
             $table->integer('id');
             $table->foreign(['wo_id', 'wo_site_id'])->references(['wo_id', 'wo_site_id'])->on('tr_wo_sites')->onDelete('cascade');
-            $table->enum('tipe', ['KONFIGURASI', 'TOPOLOGI', 'CAPTURE_TRAFIK', 'LV', 'QC']);
+            $table->enum('tipe', ['KONFIGURASI', 'TOPOLOGI', 'CAPTURE_TRAFIK', 'LV', 'QC', 'NODE_1', 'NODE_2']);
             $table->string('image_url');
             $table->primary(['wo_id', 'wo_site_id','id'], 'ba_site_konfigurasi');
             $table->string('dibuat_oleh', 100);

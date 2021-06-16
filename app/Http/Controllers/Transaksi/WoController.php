@@ -73,11 +73,23 @@ class WoController extends Controller
                                     ));
 
                     }
-                }else {
+                } else if ($check_evident->tipe_ba == 'UPGRADE') {
                     if ( $check_evident->lampiran_url != null
                     && $check_evident->topologi > 0 
                     && $check_evident->konfigurasi > 0 
                     && $check_evident->capture_trafik > 0)
+                    {
+                        TrWoSite::where('wo_id',  $site['wo_id'])->where('wo_site_id', $site['wo_site_id'])
+                            ->update(array(
+                                'progress' => true,
+                            ));
+
+                    }
+                } else if ($check_evident->tipe_ba == 'DUAL_HOMING') {
+                    if ( $check_evident->lampiran_url != null
+                    && $check_evident->topologi == 1 
+                    && $check_evident->konfigurasi  == 2
+                    && $check_evident->pr_dual_homing == 1 )
                     {
                         TrWoSite::where('wo_id',  $site['wo_id'])->where('wo_site_id', $site['wo_site_id'])
                             ->update(array(
@@ -127,18 +139,38 @@ class WoController extends Controller
     public function destroy($id)
     {
         try {
-            $data = TrWo::findOrFail($id);
+            DB::beginTransaction();
+            try {
+    
+                $data = TrWo::findOrFail($id);
             
-            $path = public_path().'/lampirans/'.$data->lampiran_url;
-            unlink($path);
+                $path = public_path().'/lampirans/'.$data->lampiran_url;
+                unlink($path);
+    
+                $data->lampiran_url = null;
+                $data->save();
+    
+                TrWoSite::where('wo_id')->where('wo_site_id')
+                ->update(array(
+                    'progress' => false,
+                )); 
 
-            $data->lampiran_url = null;
-            $data->save();
-            
-            return (new TrWoResource($data))->additional([
-                'success' => true,
-                'message' => 'suksess'
-            ]);
+                DB::commit();
+
+                
+                return (new TrWoResource($data))->additional([
+                    'success' => true,
+                    'message' => 'suksess'
+                ]);
+    
+            } catch (\Exception $e) {
+                DB::rollback();
+                return response()->json([
+                    'data' => $e->getMessage(),
+                    'success' => true,
+                    'message' => 'error',
+                ], 400);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                'data' => null,

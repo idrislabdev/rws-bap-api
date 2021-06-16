@@ -23,6 +23,12 @@ class CreateTrWoSiteLvsTable extends Migration
             $table->string('hour3', 25);
             $table->string('hour4', 25);
             $table->string('hour5', 25);
+            $table->string('hour1_time', 10);
+            $table->string('hour2_time', 10);
+            $table->string('hour3_time', 10);
+            $table->string('hour4_time', 10);
+            $table->string('hour5_time', 10);
+            $table->date('day_date');
             $table->string('result', 25);
             $table->string('pass', 15);
             $table->primary(['wo_id', 'wo_site_id','tipe'], 'wo_site_lvs');

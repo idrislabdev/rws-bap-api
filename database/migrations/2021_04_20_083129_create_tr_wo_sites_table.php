@@ -26,7 +26,9 @@ class CreateTrWoSitesTable extends Migration
             $table->integer('data_3g');
             $table->integer('data_4g');
             $table->integer('jumlah');
-            $table->string('program', 25);
+            $table->string('program', 25)->nullable();
+            $table->string('ne_type', 25)->nullable();
+            $table->string('keterangan', 50)->nullable();
             $table->primary(['wo_id', 'wo_site_id']);
             $table->enum('status', ['OGP', 'OA']);
             $table->boolean('progress');

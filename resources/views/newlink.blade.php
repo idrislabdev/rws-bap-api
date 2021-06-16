@@ -572,7 +572,7 @@
                                 </tr>   
                                 <tr class="font-italic">
                                     <td class="td-center">{{$data_site[$a]->site_id}}</td>
-                                    <td class="td-center"></td>
+                                    <td class="td-center">{{$data_site[$a]->ne_type}}</td>
                                     <td class="td-center">{{strtoupper(date('d-M-Y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
                                     <td class="td-center">{{strtoupper($data_ba->tsel_reg)}}</td>
                                     <td class="td-center">{{$data_site[$a]->program}}</td>

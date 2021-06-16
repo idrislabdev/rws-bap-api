@@ -110,7 +110,15 @@ class UtilityHelper
                                                 AND 
                                                     tr.wo_site_id = ti.wo_site_id
                                                 AND
-                                                    ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"),
+                                                    ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik,
+                                                    
+                                        (SELECT count(*) 
+                                                    FROM 
+                                                        tr_wo_site_dual_homings dh
+                                                    WHERE 
+                                                        tr.wo_id = dh.wo_id 
+                                                    AND 
+                                                        tr.wo_site_id = dh.wo_site_id) as pr_dual_homing"),
                                         )
                     ->where('tr.wo_id', $wo_id)
                     ->where('tr.wo_site_id', $wo_site_id)
