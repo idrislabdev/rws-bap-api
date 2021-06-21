@@ -24,7 +24,7 @@ use PDF;
 
 class DualHomingController extends Controller
 {
-    private $_hari = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
+    private $_hari = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU','MINGGU'];
     private $_month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
     public function index()
@@ -111,7 +111,8 @@ class DualHomingController extends Controller
             'site_name'     => 'required',
             'site_witel'    => 'required',
             'tsel_reg'      => 'required',
-            'keterangan'    => 'required'
+            'keterangan'    => 'required',
+            'bandwidth'     => 'required'
         ]);
 
         if ($v->fails())
@@ -148,7 +149,7 @@ class DualHomingController extends Controller
                 $wo_site->data_2g = 0; 
                 $wo_site->data_3g = 0; 
                 $wo_site->data_4g = 0; 
-                $wo_site->jumlah = 0;
+                $wo_site->jumlah = $request->bandwidth;
                 $wo_site->dibuat_oleh = Auth::user()->id;
                 $wo_site->status = 'OGP';
                 $wo_site->progress = false;
@@ -483,14 +484,11 @@ class DualHomingController extends Controller
             ], 422);
         }
 
-        $sites = DB::table(DB::raw('tr_wo_sites tr, tr_wos trw, ma_penggunas p')) 
+        $sites = DB::table(DB::raw('tr_wo_sites tr,  ma_penggunas p')) 
                                 ->select(DB::raw("tr.*, 
-                                                trw.dasar_order, 
-                                                trw.lampiran_url,  
                                                 p.id pengguna_id, 
                                                 p.nama_lengkap"))
                                                 ->whereRaw("p.id = tr.dibuat_oleh")
-                                                ->whereRaw("tr.wo_id = trw.id")
                                                 ->whereRaw("tr.tipe_ba = 'DUAL_HOMING'")
                                                 ->whereRaw("tr.progress = true")
                                                 ->where('tsel_reg', $request->tsel_reg)
@@ -606,9 +604,8 @@ class DualHomingController extends Controller
     {
         $jenis_dokumen = array(
                             "Dokumen uji terima", 
-                            "Data konfigurasi& Topology E2E", 
-                            "Capture trafik oleh Telkom",
-                            "Referensi Work Order"
+                            "Data Parameter & Topology E2E",
+                            "Data Konfigurasi Tiap Node" 
                         );
 
         $data_ba = TrBa::where('id', $id)->first();
@@ -643,26 +640,32 @@ class DualHomingController extends Controller
                 $site->dasar_order = $w->dasar_order;
 
     
-                $konfigurasi = TrWoSiteImage::where('wo_id', $site->wo_id)
+                $node_1 = TrWoSiteImage::where('wo_id', $site->wo_id)
                                                         ->where('wo_site_id', $site->wo_site_id)
-                                                        ->where('tipe', 'KONFIGURASI')
+                                                        ->where('tipe', 'node_1')
                                                         ->first();
     
-                $site->konfigurasi = $konfigurasi->image_url;
+                $site->node_1 = $node_1->image_url;
                 
-                $trafik = TrWoSiteImage::where('wo_id', $site->wo_id)
+                $node_2 = TrWoSiteImage::where('wo_id', $site->wo_id)
                                                 ->where('wo_site_id', $site->wo_site_id)
-                                                ->where('tipe', 'CAPTURE_TRAFIK')
+                                                ->where('tipe', 'node_2')
                                                 ->first();
     
-                $site->trafik = $trafik->image_url;
+                $site->node_2 = $node_2->image_url;
                 
                 $topologi = TrWoSiteImage::where('wo_id', $site->wo_id)
                                                 ->where('wo_site_id', $site->wo_site_id)
                                                 ->where('tipe', 'TOPOLOGI')
                                                 ->first();
-                
+
                 $site->topologi = $topologi->image_url;
+
+                $parameter = TrWoSiteDualHomings::where('wo_id', $site->wo_id)
+                                                ->where('wo_site_id', $site->wo_site_id)
+                                                ->first();
+                
+                $site->parameter = $parameter;
     
                 $total_site++;
                 $total_bw = $total_bw + $site->jumlah;
@@ -701,7 +704,7 @@ class DualHomingController extends Controller
         $people_ttd->gm_network = MaPengaturan::where('nama', 'GM_NETWORK_ENGINEERING_PROJECT')->first();
         
 
-        $pdf = PDF::loadView('DUAL_HOMING', [
+        $pdf = PDF::loadView('dualhoming', [
             'jenis_dokumen'     => $jenis_dokumen,
             'data_wo'           => $data_wo,
             'data_site'         => $data_site,
@@ -713,11 +716,28 @@ class DualHomingController extends Controller
             'people_ttd'        => $people_ttd
         ])->setPaper('a4');
 
+        // return $pdf->download('berita_acara.pdf');
+
+
         $file_name = $id.'.pdf';
 
         Storage::put('public/pdf/'.$file_name, $pdf->output());
 
         return $file_name;
+
+
+
+        // return view('dualhoming',  [
+        //     'jenis_dokumen'     => $jenis_dokumen,
+        //     'data_wo'           => $data_wo,
+        //     'data_site'         => $data_site,
+        //     'data_ba'           => $data_ba,
+        //     'dasar_permintaan'  => $dasar_permintaan,
+        //     'total_bw'          => $total_bw,
+        //     'total_site'        => $total_site,
+        //     'format_tanggal'    => $format_tanggal,
+        //     'people_ttd'        => $people_ttd
+        // ]);
 
     }
 

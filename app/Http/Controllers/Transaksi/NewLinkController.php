@@ -27,7 +27,7 @@ use PDF;
 
 class NewLinkController extends Controller
 {
-    private $_hari = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
+    private $_hari = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU','MINGGU'];
     private $_month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
     public function index()
@@ -604,7 +604,7 @@ class NewLinkController extends Controller
                             "Dokumen uji terima", 
                             "LV Certificate*", 
                             "QC Certificate*", 
-                            "Data konfigurasi& Topology E2E", 
+                            "Data Konfigurasi & Topology E2E", 
                             "Capture trafik oleh Telkom",
                             "Referensi Work Order"
                         );

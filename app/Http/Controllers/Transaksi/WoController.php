@@ -86,10 +86,10 @@ class WoController extends Controller
 
                     }
                 } else if ($check_evident->tipe_ba == 'DUAL_HOMING') {
-                    if ( $check_evident->lampiran_url != null
-                    && $check_evident->topologi == 1 
-                    && $check_evident->konfigurasi  == 2
-                    && $check_evident->pr_dual_homing == 1 )
+                    if ($check_evident->topologi == 1 
+                    && $check_evident->node_1 == 1 
+                    && $check_evident->node_2 == 1 
+                    && $check_evident->pr_dual_homing == 1) 
                     {
                         TrWoSite::where('wo_id',  $site['wo_id'])->where('wo_site_id', $site['wo_site_id'])
                             ->update(array(

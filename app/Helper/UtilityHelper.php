@@ -112,6 +112,28 @@ class UtilityHelper
                                                 AND
                                                     ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik,
                                                     
+
+                                        (SELECT count(*) 
+                                            FROM 
+                                                tr_wo_site_images ti
+                                            WHERE 
+                                                tr.wo_id = ti.wo_id 
+                                            AND 
+                                                tr.wo_site_id = ti.wo_site_id
+                                            AND
+                                                ti.tipe = 'NODE_1') as node_1,
+
+
+                                        (SELECT count(*) 
+                                            FROM 
+                                                tr_wo_site_images ti
+                                            WHERE 
+                                                tr.wo_id = ti.wo_id 
+                                            AND 
+                                                tr.wo_site_id = ti.wo_site_id
+                                            AND
+                                                ti.tipe = 'NODE_1') as node_2,
+
                                         (SELECT count(*) 
                                                     FROM 
                                                         tr_wo_site_dual_homings dh

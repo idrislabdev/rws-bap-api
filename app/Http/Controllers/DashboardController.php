@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DualHomingResource;
 use App\Http\Resources\NewlinkResource;
 use App\Http\Resources\TrWoSiteResource;
 use App\Http\Resources\UpgradeResource;
@@ -30,8 +31,7 @@ class DashboardController extends Controller
         }
 
 
-        $ba = TrWoSite::where('progress', true)
-                            ->whereNotNull('ba_id')
+        $ba = TrWoSite::whereNotNull('ba_id')
                             ->where('tipe_ba', $tipe_ba);
 
         if ($site_witel != 'ALL') {
@@ -39,8 +39,7 @@ class DashboardController extends Controller
         }
         $ba = $ba->count();
 
-        $not_ba = TrWoSite::where('progress', false)
-                            ->whereNull('ba_id')
+        $not_ba = TrWoSite::whereNull('ba_id')
                             ->where('tipe_ba', $tipe_ba);
 
         if ($site_witel != 'ALL') {
@@ -293,6 +292,90 @@ class DashboardController extends Controller
         $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(10)->onEachSide(5);       
 
         return UpgradeResource::collection(($data))->additional([
+            'success' => true,
+            'message' => null,
+        ]);
+    }
+
+    public function dualHoming()
+    {
+        if (isset($_GET['site_witel'])){
+            $site_witel = $_GET['site_witel'];
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pilih Witel Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
+        $data = DB::table(DB::raw('tr_wo_sites tr')) 
+                                    ->select(DB::raw("tr.*, 
+                                                      p.id pengguna_id, 
+                                                      p.nama_lengkap,
+                                                      b.no_dokumen,
+                                                      dh.node_1, dh.node_2, dh.sto_a, dh.sto_b,
+                                                        (SELECT count(*) 
+                                                            FROM 
+                                                                tr_wo_site_images ti
+                                                            WHERE 
+                                                                tr.wo_id = ti.wo_id 
+                                                            AND 
+                                                                tr.wo_site_id = ti.wo_site_id
+                                                            AND
+                                                                ti.tipe = 'NODE_1') as konfigurasi_node_1,
+                                                        
+                                                        (SELECT count(*) 
+                                                                FROM 
+                                                                    tr_wo_site_images ti
+                                                                WHERE 
+                                                                    tr.wo_id = ti.wo_id 
+                                                                AND 
+                                                                    tr.wo_site_id = ti.wo_site_id
+                                                                AND
+                                                                    ti.tipe = 'NODE_2') as konfigurasi_node_2,
+                                                                
+                                                        (SELECT count(*) 
+                                                                FROM 
+                                                                    tr_wo_site_images ti
+                                                                WHERE 
+                                                                    tr.wo_id = ti.wo_id 
+                                                                AND 
+                                                                    tr.wo_site_id = ti.wo_site_id
+                                                                AND
+                                                                    ti.tipe = 'TOPOLOGI') as topologi,
+                                                        
+                                                        (SELECT count(*) 
+                                                                    FROM 
+                                                                        tr_wo_site_dual_homings dh
+                                                                    WHERE 
+                                                                        tr.wo_id = dh.wo_id 
+                                                                    AND 
+                                                                        tr.wo_site_id = dh.wo_site_id) as pr_dual_homing"),
+                                                        )
+                                    ->leftJoin('tr_wo_site_dual_homings as dh', function ($join) {
+                                        $join->on('dh.wo_id', '=', 'tr.wo_id')
+                                             ->on('dh.wo_site_id', '=', 'tr.wo_site_id');
+                                    })                                                     
+                                    ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
+                                    ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
+                                    ->whereRaw("tr.tipe_ba = 'DUAL_HOMING'")
+                                    ->where('tr.site_witel', $site_witel);
+
+                
+        if (isset($_GET['status'])){
+            $data = $data->where('tr.status', $_GET['status']);
+
+            if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 1) {
+                $data = $data->where('progress', true);
+            } else  if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 0) {
+                $data = $data->where('progress', false);
+            }
+        }
+                                    
+        $data = $data->orderBy('tr.created_at')->orderBy('tr.site_id')->paginate(25)->onEachSide(5);       
+
+        return DualHomingResource::collection(($data))->additional([
             'success' => true,
             'message' => null,
         ]);

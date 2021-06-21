@@ -24,7 +24,7 @@ use PDF;
 
 class UpgradeController extends Controller
 {
-    private $_hari = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
+    private $_hari = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU','MINGGU'];
     private $_month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
     public function index()
@@ -509,8 +509,8 @@ class UpgradeController extends Controller
     {
         $jenis_dokumen = array(
                             "Dokumen uji terima", 
-                            "Data konfigurasi& Topology E2E", 
-                            "Capture trafik oleh Telkom",
+                            "Data Konfigurasi & Topology E2E", 
+                            "Capture Trafik oleh Telkom",
                             "Referensi Work Order"
                         );
 

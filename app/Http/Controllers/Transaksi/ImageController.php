@@ -104,9 +104,9 @@ class ImageController extends Controller
 
                 }
             } else if ($check_evident->tipe_ba == 'DUAL_HOMING') {
-                if ( $check_evident->lampiran_url != null
-                && $check_evident->topologi == 1 
-                && $check_evident->konfigurasi == 2 
+                if ($check_evident->topologi == 1 
+                && $check_evident->node_1 == 1 
+                && $check_evident->node_2 == 1 
                 && $check_evident->pr_dual_homing == 1) 
                 {
                     TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
@@ -123,7 +123,8 @@ class ImageController extends Controller
     
             return (new TrWoSiteImageResource($image))->additional([
                 'success' => true,
-                'message' => 'Data image Berhasil Diupdate'
+                'message' => 'Data image Berhasil Diupdate',
+                'data' => $check_evident
             ]);
 
         } catch (\Exception $e) {

@@ -199,7 +199,7 @@
                     </table>
                 </div>
                 <div class="header">
-                    <h3 class="header-margin font-weight-bold"><center>BERITA ACARA UJI TERIMA (BAUT) UPGRADE</center></h3>
+                    <h3 class="header-margin font-weight-bold"><center>BERITA ACARA UJI TERIMA (BAUT) DUAL HOMING</center></h3>
                     <h4 class="header-margin font-weight-bold"><center>Nomor : {{$data_ba->no_dokumen}}</center></h4>
                 </div>
                 <div class="margin-body">
@@ -262,15 +262,15 @@
                 </div>
                 <div class="margin-content margin-body">
                     <table>
-                        <tr>
+                        <!-- <tr>
                             <td style="width:288px">Dasar Permintaan</td>
                             <td style="width:10px">:</td>
                             <td>{{$dasar_permintaan}}</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td style="width:288px">Produk</td>
                             <td style="width:10px">:</td>
-                            <td>Produk</td>
+                            <td>Upgrade</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Jenis Layanan</td>
@@ -280,7 +280,7 @@
                         <tr>
                             <td style="width:288px">Lingkup Pekerjaan</td>
                             <td style="width:10px">:</td>
-                            <td>Produk</td>
+                            <td>Upgrade</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Jumlah Upgrade (Jumlah BW)</td>
@@ -308,21 +308,17 @@
                 <div class="margin-content margin-body">
                     <table class="table-site" cellpadding="0" cellspacing="0">
                         <thead>
-                            <tr>
-                                <th style="width:4%" rowspan="2" class="td-center">No. </th>
-                                <th style="width:10%" rowspan="2" class="td-center">SITE ID</th>
-                                <th style="width:18%" rowspan="2" class="td-center">SITE NAME</th>
-                                <th style="width:10%" rowspan="2" class="td-center">WITEL</th>
-                                <th style="width:13%" rowspan="2" class="td-center">TANGGAL ON AIR</th>
-                                <th style="width:20%" colspan="4" style="text-align:center;">BANDWIDTH (Mbps)</th>
-                                <th style="width:10%" rowspan="2" class="td-center">PROGRAM</th>
-                                <th style="width:15%" rowspan="2" class="td-center">NO. ORDER</th>
-                            </tr>
-                            <tr>
-                                <th style="text-align: center;">2G</th>
-                                <th style="text-align: center;">3G</th>
-                                <th style="text-align: center;">4G</th>
-                                <th style="text-align: center;">JML</th>
+                            <tr style="background-color: #c4e9e9;">
+                                <th style="width:5%" rowspan="2" class="td-center">No. </th>
+                                <th style="width:5%" rowspan="2" class="td-center">SITE ID</th>
+                                <th style="width:25%" rowspan="2" class="td-center">SITE NAME</th>
+                                <th style="width:5%" rowspan="2" class="td-center">BW</th>
+                                <th style="width:10%" rowspan="2" class="td-center">JENIS NODE</th>
+                                <th style="width:15%" rowspan="2" class="td-center">NODE 1</th>
+                                <th style="width:5%" rowspan="2" class="td-center">STO 1</th>
+                                <th style="width:15%" rowspan="2" class="td-center">NODE 2</th>
+                                <th style="width:5%" rowspan="2" class="td-center">STO 2</th>
+                                <th style="width:20%" rowspan="2" class="td-center">KETERANGAN</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -331,14 +327,14 @@
                                     <td>{{$a+1}}</td>
                                     <td>{{$data_site[$a]->site_id}}</td>
                                     <td class="wrapword">{{$data_site[$a]->site_name}}</td>
-                                    <td>{{$data_site[$a]->site_witel}}</td>
-                                    <td>{{strtoupper(date('d-M-y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
-                                    <td>{{$data_site[$a]->data_2g}}</td>
-                                    <td>{{$data_site[$a]->data_3g}}</td>
-                                    <td>{{$data_site[$a]->data_4g}}</td>
                                     <td>{{$data_site[$a]->jumlah}}</td>
-                                    <td>{{$data_site[$a]->program}}</td>
-                                    <td>{{$data_site[$a]->dasar_order}}</td>
+                                    <td>{{$data_site[$a]->parameter->jenis_node}}</td>
+                                    <td>{{$data_site[$a]->parameter->node_1}}</td>
+                                    <td>{{$data_site[$a]->parameter->sto_a}}</td>
+                                    <td>{{$data_site[$a]->parameter->node_2}}</td>
+                                    <td>{{$data_site[$a]->parameter->sto_b}}</td>
+                                    <td>Dual Homing</td>
+                                    <!-- <td>{{$data_site[$a]->parameter->keterangan}}</td> -->
                                 </tr>
                             @endfor 
                         </tbody>
@@ -416,7 +412,7 @@
                 </div>
                 <div class="margin-body mb-large">
                     <p>
-                        Catatan : * hanya untuk upgrade
+                        Catatan : * hanya untuk new link
                     </p>
                 </div>
                 <div class="margin-body">
@@ -465,21 +461,17 @@
                 <div class="margin-content margin-body mb-xl">
                     <table class="table-site" cellpadding="0" cellspacing="0">
                         <thead>
-                            <tr>
-                                <th style="width:4%" rowspan="2" class="td-center">No. </th>
-                                <th style="width:10%" rowspan="2" class="td-center">SITE ID</th>
-                                <th style="width:18%" rowspan="2" class="td-center">SITE NAME</th>
-                                <th style="width:10%" rowspan="2" class="td-center">WITEL</th>
-                                <th style="width:13%" rowspan="2" class="td-center">TANGGAL ON AIR</th>
-                                <th style="width:20%" colspan="4" style="text-align:center;">BANDWIDTH (Mbps)</th>
-                                <th style="width:10%" rowspan="2" class="td-center">PROGRAM</th>
-                                <th style="width:15%" rowspan="2" class="td-center">NO. ORDER</th>
-                            </tr>
-                            <tr>
-                                <th style="text-align: center;">2G</th>
-                                <th style="text-align: center;">3G</th>
-                                <th style="text-align: center;">4G</th>
-                                <th style="text-align: center;">JML</th>
+                            <tr style="background-color: #c4e9e9;">
+                                <th style="width:5%" rowspan="2" class="td-center">No. </th>
+                                <th style="width:5%" rowspan="2" class="td-center">SITE ID</th>
+                                <th style="width:25%" rowspan="2" class="td-center">SITE NAME</th>
+                                <th style="width:5%" rowspan="2" class="td-center">BW</th>
+                                <th style="width:10%" rowspan="2" class="td-center">JENIS NODE</th>
+                                <th style="width:15%" rowspan="2" class="td-center">NODE 1</th>
+                                <th style="width:5%" rowspan="2" class="td-center">STO 1</th>
+                                <th style="width:15%" rowspan="2" class="td-center">NODE 2</th>
+                                <th style="width:5%" rowspan="2" class="td-center">STO 2</th>
+                                <th style="width:20%" rowspan="2" class="td-center">KETERANGAN</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -488,14 +480,14 @@
                                     <td>{{$a+1}}</td>
                                     <td>{{$data_site[$a]->site_id}}</td>
                                     <td class="wrapword">{{$data_site[$a]->site_name}}</td>
-                                    <td>{{$data_site[$a]->site_witel}}</td>
-                                    <td>{{strtoupper(date('d-M-y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
-                                    <td>{{$data_site[$a]->data_2g}}</td>
-                                    <td>{{$data_site[$a]->data_3g}}</td>
-                                    <td>{{$data_site[$a]->data_4g}}</td>
                                     <td>{{$data_site[$a]->jumlah}}</td>
-                                    <td>{{$data_site[$a]->program}}</td>
-                                    <td>{{$data_site[$a]->dasar_order}}</td>
+                                    <td>{{$data_site[$a]->parameter->jenis_node}}</td>
+                                    <td>{{$data_site[$a]->parameter->node_1}}</td>
+                                    <td>{{$data_site[$a]->parameter->sto_a}}</td>
+                                    <td>{{$data_site[$a]->parameter->node_2}}</td>
+                                    <td>{{$data_site[$a]->parameter->sto_b}}</td>
+                                    <td>Dual Homing</td>
+                                    <!-- <td>{{$data_site[$a]->parameter->keterangan}}</td> -->
                                 </tr>
                             @endfor 
                         </tbody>
@@ -532,9 +524,9 @@
                 </div>
             </div>
 
-            <!-- halaman konfigurasi  -->
+            <!-- halaman topologi dan parameter  -->
             @if (@count($data_site) > 1)
-                @for($a=1; $a<=@count($data_site); $a+=2)
+                @for($a=0; $a<@count($data_site); $a++)
                     <div class="page_break_after">
                         <div class="margin-header-logo">
                             <table style="width:100%;">
@@ -553,26 +545,93 @@
                                     <tr>
                                         <td colspan="2" style="padding-bottom: 15px;"></td>
                                     </tr>
-                                    @for ($b=$a; $b<=$a+1; $b++)
-                                        @if ($b <= @count($data_site))
-                                            <tr>
-                                                <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Konfigurasi Site {{$data_site[$b-1]->site_id}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td width="5%"></td>
-                                                <td>
-                                                    <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->konfigurasi }}" style="width:700px; height:400px; object-fit: cover;">
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endfor
+                                    <tr>
+                                        <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Topologi Site {{$data_site[$a]->site_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"></td>
+                                        <td>
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[$a]->topologi }}" style="width:700px; height:400px; object-fit: cover;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%"></td>
+                                        <td>
+                                            <table class="table-kelengkapan" cellpading="0" cellspacing="0">
+                                                <thead>
+                                                    <tr style="background-color: #c4e9e9;">
+                                                        <th>PARAMETER SITE</th>
+                                                        <th>KETERANGAN DETAIL</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Site ID</td>
+                                                        <td>{{$data_site[$a]->site_id}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Type Topologi</td>
+                                                        <td>{{$data_site[$a]->parameter->tipe_topologi}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nama STO A</td>
+                                                        <td>{{$data_site[$a]->parameter->sto_a}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nama STO B</td>
+                                                        <td>{{$data_site[$a]->parameter->sto_b}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>METRO 1</td>
+                                                        <td>{{$data_site[$a]->parameter->metro_1}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>METRO 2</td>
+                                                        <td>{{$data_site[$a]->parameter->metro_2}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{$data_site[$a]->parameter->jenis_node}} 1</td>
+                                                        <td>{{$data_site[$a]->parameter->node_1}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{$data_site[$a]->parameter->jenis_node}} 2</td>
+                                                        <td>{{$data_site[$a]->parameter->node_2}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>PORT OTB 1</td>
+                                                        <td>{{$data_site[$a]->parameter->port_otb_1}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>PORT OTB 2</td>
+                                                        <td>{{$data_site[$a]->parameter->port_otb_2}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>ODC/ODP 1</td>
+                                                        <td>{{$data_site[$a]->parameter->odc_odp_1}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>ODC/ODP 2</td>
+                                                        <td>{{$data_site[$a]->parameter->odc_odp_2}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tipe Service</td>
+                                                        <td>{{$data_site[$a]->parameter->tipe_service}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tipe Modem  ONT/L2/L3SW</td>
+                                                        <td>{{$data_site[$a]->parameter->tipe_modem}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 @endfor
 
-                <!-- halaman topologi -->
+                <!-- halaman node 1 -->
 
                 @for($a=1; $a<=@count($data_site); $a+=2)
                     @if ($a <= @count($data_site))
@@ -597,12 +656,12 @@
                                         @for ($b=$a; $b<=$a+1; $b++)
                                             @if ($b <= @count($data_site))
                                                 <tr>
-                                                    <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Topologi Site {{$data_site[$b-1]->site_id}}</td>
+                                                    <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Konfigurasi Node 1 Site {{$data_site[$b-1]->site_id}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="5%"></td>
                                                     <td>
-                                                        <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->topologi }}" style="width:700px; height:400px; object-fit: cover;">
+                                                        <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->node_1 }}" style="width:700px; height:400px; object-fit: cover;">
                                                     </td>
                                                 </tr>
                                             @endif
@@ -614,7 +673,7 @@
                     @endif
                 @endfor
 
-                <!-- halaman traffic  -->
+                <!-- halaman node 2  -->
                 
                 @for($a=1; $a<=@count($data_site); $a+=2)
                     @if ($a <= @count($data_site))
@@ -639,12 +698,12 @@
                                         @for ($b=$a; $b<=$a+1; $b++)
                                             @if ($b <= @count($data_site))
                                                 <tr>
-                                                    <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Trafik Site {{$data_site[$b-1]->site_id}}</td>
+                                                    <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Konfigurasi Node 2 Site {{$data_site[$b-1]->site_id}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td width="5%"></td>
                                                     <td>
-                                                        <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->trafik }}" style="width:700px; height:400px; object-fit: cover;">
+                                                        <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->node_2 }}" style="width:700px; height:400px; object-fit: cover;">
                                                     </td>
                                                 </tr>
                                             @endif
@@ -677,15 +736,6 @@
                                     <td colspan="2" style="padding-bottom: 15px;"></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Konfigurasi Site {{$data_site[0]->site_id}}</td>
-                                </tr>
-                                <tr>
-                                    <td width="5%"></td>
-                                    <td>
-                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; height:300px; object-fit: cover;">
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Topologi Site {{$data_site[0]->site_id}}</td>
                                 </tr>
                                 <tr>
@@ -695,12 +745,111 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Trafik Site {{$data_site[0]->site_id}}</td>
+                                    <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Parameter Site {{$data_site[0]->site_id}}</td>
                                 </tr>
                                 <tr>
                                     <td width="5%"></td>
                                     <td>
-                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->trafik }}" style="width:700px; height:300px; object-fit: cover;">
+                                        <table class="table-kelengkapan" cellpading="0" cellspacing="0">
+                                            <thead>
+                                                <tr style="background-color: #c4e9e9;">
+                                                    <th>PARAMETER SITE</th>
+                                                    <th>KETERANGAN DETAIL</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Site ID</td>
+                                                    <td>{{ $data_site[0]->site_id}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Type Topologi</td>
+                                                    <td>{{$data_site[0]->parameter->tipe_topologi}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nama STO A</td>
+                                                    <td>{{$data_site[0]->parameter->sto_a}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Nama STO B</td>
+                                                    <td>{{$data_site[0]->parameter->sto_b}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>METRO 1</td>
+                                                    <td>{{$data_site[0]->parameter->metro_1}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>METRO 2</td>
+                                                    <td>{{$data_site[0]->parameter->metro_2}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{$data_site[0]->parameter->jenis_node}} 1</td>
+                                                    <td>{{$data_site[0]->parameter->node_1}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{$data_site[0]->parameter->jenis_node}} 2</td>
+                                                    <td>{{$data_site[0]->parameter->node_2}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PORT OTB 1</td>
+                                                    <td>{{$data_site[0]->parameter->port_otb_1}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PORT OTB 2</td>
+                                                    <td>{{$data_site[0]->parameter->port_otb_2}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ODC/ODP 1</td>
+                                                    <td>{{$data_site[0]->parameter->odc_odp_1}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ODC/ODP 2</td>
+                                                    <td>{{$data_site[0]->parameter->odc_odp_2}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tipe Service</td>
+                                                    <td>{{$data_site[0]->parameter->tipe_service}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tipe Modem  ONT/L2/L3SW</td>
+                                                    <td>{{$data_site[0]->parameter->tipe_modem}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <div class="page_break_after">
+                    <div class="margin-header-logo">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:50%"><img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:100px;"></td>
+                                <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="margin-content margin-body mb-small">
+                        <table class="table-kelengkapan cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Konfigurasi Node 1 Site {{$data_site[0]->site_id}}</td>
+                                </tr>
+                                <tr>
+                                    <td width="5%"></td>
+                                    <td>
+                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->node_1 }}" style="width:700px; height:300px; object-fit: cover;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Konfigurasi Node 2 Site {{$data_site[0]->site_id}}</td>
+                                </tr>
+                                <tr>
+                                    <td width="5%"></td>
+                                    <td>
+                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->node_2 }}" style="width:700px; height:300px; object-fit: cover;">
                                     </td>
                                 </tr>
                             </tbody>
@@ -708,47 +857,6 @@
                     </div>
                 </div> 
             @endif
-
-            <!-- Halaman lampiran order -->
-            
-            @for($a=1; $a<=count($data_wo); $a++)
-                @if ($a < count($data_wo))
-                    <div class="page_break_after">
-                @else
-                    <div>
-                @endif
-
-                        <div class="margin-header-logo">
-                            <table style="width:100%;">
-                                <tr>
-                                    <td style="width:50%"><img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:100px;"></td>
-                                    <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="margin-content margin-body mb-small">
-                            <table class="table-kelengkapan cellpadding="0" cellspacing="0">
-                                <tbody>
-                                    <tr>
-                                        <td colspan="2" style="padding-bottom: 15px; font-weight:bold;"><span style="font-style: italic;">Lampiran BAUT Nomor</span> : {{$data_ba->no_dokumen}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="padding-bottom: 15px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="text-align: left !important; font-weight:bold;">Work Order Site {{$data_wo[$a-1]->daftar_site}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"></td>
-                                        <td>
-                                            <img src="{{ public_path().'/lampirans/'. $data_wo[$a-1]->lampiran_url }}" style="width:600px; object-fit: cover;">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
-            @endfor
         </main>
     </body>
 </html>

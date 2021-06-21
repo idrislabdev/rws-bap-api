@@ -145,12 +145,15 @@ Route::prefix('dashboard')->group(function(){
         Route::get('list', [DashboardController::class, 'list']);
         Route::get('newlink', [DashboardController::class, 'newlink']);
         Route::get('upgrade', [DashboardController::class, 'upgrade']);
+        Route::get('dual-homing', [DashboardController::class, 'dualHoming']);
 
     });
 });
 
 // Route::get('new-link/ba', [BaNewLinkController::class, 'fileBA']);
 Route::get('new-link/ba/{id}', [NewLinkController::class, 'fileBA']);
+Route::get('dual-homing/ba/{id}', [DualHomingController::class, 'fileBA']);
+
 
 
 Route::get('file/{file_name}', [BaNewLinkController::class, 'fileLampiran']);
