@@ -86,6 +86,20 @@ class DashboardController extends Controller
             $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->count();
             $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 1)->count();
             $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->count();
+            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->whereNotNull('ba_id')->count();
+            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->whereNull('ba_id')->count();
+
+            array_push($data, $obj);
+
+            $obj = new \stdClass(); 
+            $obj->witel = 'Total';
+            $obj->total_order =TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->count();
+            $obj->total_ogp = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OGP')->count();
+            $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->count();
+            $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 1)->count();
+            $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->count();
+            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->whereNotNull('ba_id')->count();
+            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->whereNull('ba_id')->count();
 
             array_push($data, $obj);
         } else {
@@ -97,10 +111,27 @@ class DashboardController extends Controller
                 $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->count();
                 $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->where('progress', 1)->count();
                 $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->where('progress', 0)->count();
+                $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel',  $witel[$i])->where('status', 'OA')->where('progress', 0)->whereNotNull('ba_id')->count();
+                $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel',  $witel[$i])->where('status', 'OA')->where('progress', 0)->whereNull('ba_id')->count();
     
                 array_push($data, $obj);
             }
+
+            $obj = new \stdClass(); 
+
+            $obj->witel = 'Total';
+            $obj->total_order =TrWoSite::where('tipe_ba', $tipe_ba)->count();
+            $obj->total_ogp = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OGP')->count();
+            $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->count();
+            $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 1)->count();
+            $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 0)->count();
+            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 0)->whereNotNull('ba_id')->count();
+            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 0)->whereNull('ba_id')->count();
+
+            array_push($data, $obj);
+
         }
+
         
 
         return response()->json([
