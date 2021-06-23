@@ -190,7 +190,7 @@ class NewLinkController extends Controller
                     $wo_site->wo_id = $wo_id;
                     $wo_site->wo_site_id = $counter;
                     $wo_site->site_id = $site['site_id'];
-                    $wo_site->site_name = $site['site_name'];
+                    $wo_site->site_name = (isset($site['site_name'])) ? $site['site_name'] : '-';
                     $wo_site->site_witel = $site['site_witel'];
                     $wo_site->tsel_reg = $site['tsel_reg'];
                     $wo_site->tgl_on_air = $site['tgl_on_air'];

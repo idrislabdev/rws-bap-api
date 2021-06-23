@@ -18,7 +18,7 @@ class CreateTrWoSitesTable extends Migration
             $table->integer('wo_site_id');
             $table->foreign('wo_id')->references('id')->on('tr_wos')->onDelete('cascade');
             $table->string('site_id', 25);
-            $table->string('site_name', 50);
+            $table->string('site_name');
             $table->string('site_witel', 50);
             $table->string('tsel_reg', 50);
             $table->date('tgl_on_air');

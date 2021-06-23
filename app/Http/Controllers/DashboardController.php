@@ -86,8 +86,8 @@ class DashboardController extends Controller
             $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->count();
             $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 1)->count();
             $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->count();
-            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->whereNotNull('ba_id')->count();
-            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->whereNull('ba_id')->count();
+            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 1)->whereNotNull('ba_id')->count();
+            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 1)->whereNull('ba_id')->count();
 
             array_push($data, $obj);
 
@@ -98,8 +98,8 @@ class DashboardController extends Controller
             $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->count();
             $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 1)->count();
             $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->count();
-            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->whereNotNull('ba_id')->count();
-            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 0)->whereNull('ba_id')->count();
+            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 1)->whereNotNull('ba_id')->count();
+            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $_GET['site_witel'])->where('status', 'OA')->where('progress', 1)->whereNull('ba_id')->count();
 
             array_push($data, $obj);
         } else {
@@ -111,8 +111,8 @@ class DashboardController extends Controller
                 $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->count();
                 $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->where('progress', 1)->count();
                 $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->where('progress', 0)->count();
-                $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel',  $witel[$i])->where('status', 'OA')->where('progress', 0)->whereNotNull('ba_id')->count();
-                $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel',  $witel[$i])->where('status', 'OA')->where('progress', 0)->whereNull('ba_id')->count();
+                $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel',  $witel[$i])->where('status', 'OA')->where('progress', 1)->whereNotNull('ba_id')->count();
+                $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel',  $witel[$i])->where('status', 'OA')->where('progress', 1)->whereNull('ba_id')->count();
     
                 array_push($data, $obj);
             }
@@ -125,8 +125,8 @@ class DashboardController extends Controller
             $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->count();
             $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 1)->count();
             $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 0)->count();
-            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 0)->whereNotNull('ba_id')->count();
-            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 0)->whereNull('ba_id')->count();
+            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 1)->whereNotNull('ba_id')->count();
+            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 1)->whereNull('ba_id')->count();
 
             array_push($data, $obj);
 
@@ -238,10 +238,22 @@ class DashboardController extends Controller
         if (isset($_GET['status'])){
             $data = $data->where('tr.status', $_GET['status']);
 
-            if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 1) {
-                $data = $data->where('progress', true);
-            } else  if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 0) {
-                $data = $data->where('progress', false);
+            if ( $_GET['status'] == 'OA') {
+                if (isset($_GET['progress'])) {
+                    if ($_GET['progress'] == 0) {
+                        $data = $data->where('progress', true);
+                    } else {
+                        $data = $data->where('progress', false);
+                    }
+                }
+            } 
+        }
+
+        if (isset($_GET['ba'])){
+            if ($_GET['ba'] == 0) {
+                $data = $data->where('progress', 1)->whereNull('ba_id');
+            } else {
+                $data = $data->where('progress', 1)->whereNotNull('ba_id');
             }
         }
                                     
@@ -313,10 +325,22 @@ class DashboardController extends Controller
         if (isset($_GET['status'])){
             $data = $data->where('tr.status', $_GET['status']);
 
-            if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 1) {
-                $data = $data->where('progress', true);
-            } else  if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 0) {
-                $data = $data->where('progress', false);
+            if ( $_GET['status'] == 'OA') {
+                if (isset($_GET['progress'])) {
+                    if ($_GET['progress'] == 0) {
+                        $data = $data->where('progress', true);
+                    } else {
+                        $data = $data->where('progress', false);
+                    }
+                }
+            } 
+        }
+
+        if (isset($_GET['ba'])){
+            if ($_GET['ba'] == 0) {
+                $data = $data->where('progress', 1)->whereNull('ba_id');
+            } else {
+                $data = $data->where('progress', 1)->whereNotNull('ba_id');
             }
         }
                                     
@@ -397,13 +421,25 @@ class DashboardController extends Controller
         if (isset($_GET['status'])){
             $data = $data->where('tr.status', $_GET['status']);
 
-            if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 1) {
-                $data = $data->where('progress', true);
-            } else  if ( $_GET['status'] == 'OA' &&  $_GET['progress'] == 0) {
-                $data = $data->where('progress', false);
-            }
+            if ( $_GET['status'] == 'OA') {
+                if (isset($_GET['progress'])) {
+                    if ($_GET['progress'] == 0) {
+                        $data = $data->where('progress', true);
+                    } else {
+                        $data = $data->where('progress', false);
+                    }
+                }
+            } 
         }
-                                    
+
+        if (isset($_GET['ba'])){
+            if ($_GET['ba'] == 0) {
+                $data = $data->where('progress', 1)->whereNull('ba_id');
+            } else {
+                $data = $data->where('progress', 1)->whereNotNull('ba_id');
+            }
+        }         
+                     
         $data = $data->orderBy('tr.created_at')->orderBy('tr.site_id')->paginate(25)->onEachSide(5);       
 
         return DualHomingResource::collection(($data))->additional([

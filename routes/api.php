@@ -71,6 +71,8 @@ Route::prefix('transaksi')->group(function(){
         Route::get('dual-homing', [DualHomingController::class, 'index']);
         Route::get('dual-homing/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'show']);
         Route::get('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'showParameter']);
+        Route::post('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'storeParameter']);
+        Route::patch('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'updateParameter']);
         Route::patch('dual-homing/{wo_id}/site/{wo_site_id}/oa', [DualHomingController::class, 'updateOA']);
 
         Route::get('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'index']);
@@ -89,8 +91,6 @@ Route::prefix('transaksi')->group(function(){
             Route::post('evident/lv/{wo_id}/site/{wo_site_id}', [LvController::class, 'store']);
             Route::patch('evident/lv/{wo_id}/site/{wo_site_id}', [LvController::class, 'update']);
 
-            Route::post('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'storeParameter']);
-            Route::patch('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'updateParameter']);
             
         });
 
