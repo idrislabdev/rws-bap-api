@@ -505,6 +505,104 @@ class UpgradeController extends Controller
         }
     }
 
+    public function createBAByPass(Request $request)
+    {
+        $v = Validator::make($request->all(), [
+            'no_dokumen' => 'required',
+            'tgl_dokumen' => 'required',
+            'tsel_reg' => 'required',
+            'sites' => 'required',
+            // 'file_ba' => 'required'
+        ]);
+
+        if($v->fails())
+        {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => $v->errors()
+            ], 422);
+        }
+
+        $check_dokumen = TrBa::where('no_dokumen', $request->no_dokumen)->first();
+
+        if ($check_dokumen)
+        {
+            return response()->json([
+                'data' => null,
+                'success' => true,
+                'message' => 'Maaf, No dokumen sudah pernah digunakan sebelumnya.',
+             ], 200);
+        }
+
+
+        DB::beginTransaction();
+        try {
+            
+            // $pengguna = MaPengguna::findOrFail(Auth::user()->id);
+
+            $ba = new TrBa();
+            $id = Uuid::uuid4()->toString();
+            $ba->id = $id;
+            $ba->no_dokumen = $request->no_dokumen;
+            $ba->tgl_dokumen = $request->tgl_dokumen;
+            $ba->tsel_reg = $request->tsel_reg;
+            $ba->tipe = 'UPGRADE';
+            $ba->dibuat_oleh = Auth::user()->id;
+            $ba->save();
+
+            $sites = $request->sites;
+        
+            $count = 0;
+            foreach ($sites as $site) {
+                $update = TrWoSite::where('tipe_ba', 'UPGRADE')
+                        ->where('progress', false)
+                        ->where('tsel_reg', $request->tsel_reg)
+                        ->where('site_id', $site)
+                        ->whereNull('ba_id')
+                        ->update(array(
+                            'ba_id' => $id,
+                            'progress' => true,
+                            'status' => 'OA'
+                        ));
+                if ($update > 0)
+                    $count++;
+            }
+
+            if ($count > 0) {
+
+                Storage::putFileAs('public/pdf',$request->file('file_ba'), $id.'.'.$request->file('file_ba')->getClientOriginalExtension());
+                
+                DB::commit();
+        
+    
+                return response()->json([
+                    'data' => $ba,
+                    'success' => true,
+                    'message' => 'succes',
+                ], 200);
+            } else {
+                DB::rollback();
+                return response()->json([
+                    'data' => 'Tidak Ada Data Yang Diproses',
+                    'success' => false,
+                    'message' => null,
+                ], 400);
+            }
+
+
+
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => false,
+                'message' => 'error',
+            ], 400);
+        }
+    }
+
     public function fileBA($id)
     {
         $jenis_dokumen = array(

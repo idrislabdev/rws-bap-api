@@ -111,12 +111,15 @@ Route::prefix('transaksi')->group(function(){
             Route::post('new-link', [NewLinkController::class, 'store']);
             Route::patch('new-link/{wo_id}/site/{wo_site_id}', [NewLinkController::class, 'update']);
             Route::post('new-link/create-ba', [NewLinkController::class, 'createBA']);
+            Route::post('new-link/create-ba-bypass', [NewLinkController::class, 'createBAByPass']);
+
             Route::post('new-link/create-ba/check', [NewLinkController::class, 'checkSiteBA']);
             Route::get('new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
 
             Route::post('upgrade', [UpgradeController::class, 'store']);
             Route::patch('upgrade/{wo_id}/site/{wo_site_id}', [UpgradeController::class, 'update']);
             Route::post('upgrade/create-ba', [UpgradeController::class, 'createBA']);
+            Route::post('upgrade/create-ba-bypass', [NewLinkController::class, 'createBAByPass']);
             Route::post('upgrade/create-ba/check', [UpgradeController::class, 'checkSiteBA']);
             Route::get('upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
 
