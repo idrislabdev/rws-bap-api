@@ -28,10 +28,10 @@ class BeritaAcaraController extends Controller
 
             if (isset($_GET['q'])){
                 $q = $_GET['q'];
-                $data = $data->where('tsel_reg', 'like', '%'.$q.'%');
+                $data = $data->whereRaw("(tsel_reg like '%$q%' or no_dokumen like '%$q%' or wilayah like '%$q%')");
             }
 
-            $data = $data->paginate(25)->onEachSide(5);
+            $data = $data->orderBy('no_dokumen')->paginate(25)->onEachSide(5);
         } else {
             $data = $data->get();
         }
