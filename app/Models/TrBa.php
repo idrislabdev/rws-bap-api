@@ -13,6 +13,6 @@ class TrBa extends Model
 
     public function dibuatOleh()
     {
-        return $this->belongsTo('App\Models\MaPengguna', 'dibuat_oleh');
+        return $this->hasOne('App\Models\MaPengguna', 'id', 'dibuat_oleh');
     }
 }
