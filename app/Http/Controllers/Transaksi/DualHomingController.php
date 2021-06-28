@@ -265,7 +265,6 @@ class DualHomingController extends Controller
             ], 200);
 
         } catch (\Exception $e) {
-            DB::rollback();
             return response()->json([
                 'data' => $e->getMessage(),
                 'success' => true,
@@ -311,7 +310,7 @@ class DualHomingController extends Controller
             ], 422);
         }
 
-
+        DB::beginTransaction();
         try {
 
             $dual_homing = new TrWoSiteDualHomings();
@@ -333,6 +332,22 @@ class DualHomingController extends Controller
             $dual_homing->tipe_service =  $request->tipe_service;
 
             $dual_homing->save();
+
+            $check_evident = UtilityHelper::checkEvident($wo_id, $wo_site_id);
+
+            if ($check_evident->topologi == 1 
+            && $check_evident->node_1 == 1 
+            && $check_evident->node_2 == 1 
+            && $check_evident->pr_dual_homing == 1) 
+            {
+                TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                        ->update(array(
+                            'progress' => true,
+                        ));
+
+            }
+
+            DB::commit();
 
             return response()->json([
                 'data' => $data,
@@ -363,7 +378,7 @@ class DualHomingController extends Controller
             ], 422);
         }
 
-
+        DB::beginTransaction();
         try {
 
             $update = TrWoSiteDualHomings::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
@@ -383,6 +398,23 @@ class DualHomingController extends Controller
                                 'tipe_modem' => ($request->tipe_modem) ? $request->tipe_modem : null,
                                 'tipe_service' => ($request->tipe_service) ? $request->tipe_service : null,
                             ));
+
+            $check_evident = UtilityHelper::checkEvident($wo_id, $wo_site_id);
+
+            if ($check_evident->topologi == 1 
+            && $check_evident->node_1 == 1 
+            && $check_evident->node_2 == 1 
+            && $check_evident->pr_dual_homing == 1) 
+            {
+                TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                        ->update(array(
+                            'progress' => true,
+                        ));
+
+            }
+
+            DB::commit();
+
 
             return response()->json([
                 'data' => $data,

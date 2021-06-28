@@ -180,7 +180,7 @@ class ImageController extends Controller
 
             $data = TrWoSiteImage::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('id', $id)->delete();
 
-            TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+            TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->whereNull('ba_id')
             ->update(array(
                 'progress' => false,
             )); 

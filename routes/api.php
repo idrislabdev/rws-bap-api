@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\PengaturanController;
 use App\Http\Controllers\Master\PenggunaController;
 use App\Http\Controllers\Master\WilayahController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Transaksi\BaNewLinkController;
 use App\Http\Controllers\Transaksi\BeritaAcaraController;
 use App\Http\Controllers\Transaksi\DualHomingController;
@@ -153,6 +154,15 @@ Route::prefix('dashboard')->group(function(){
     });
 });
 
+Route::prefix('report')->group(function(){
+    Route::group(['middleware' => 'auth:api'], function(){
+        Route::get('newlink', [ReportController::class,'newlink']);
+        Route::get('upgrade', [ReportController::class,'upgrade']);
+        Route::get('dualhoming', [ReportController::class,'dualhoming']);
+
+    });
+});
+
 // Route::get('new-link/ba', [BaNewLinkController::class, 'fileBA']);
 Route::get('new-link/ba/{id}', [NewLinkController::class, 'fileBA']);
 Route::get('dual-homing/ba/{id}', [DualHomingController::class, 'fileBA']);
@@ -160,3 +170,4 @@ Route::get('dual-homing/ba/{id}', [DualHomingController::class, 'fileBA']);
 
 
 Route::get('file/{file_name}', [BaNewLinkController::class, 'fileLampiran']);
+

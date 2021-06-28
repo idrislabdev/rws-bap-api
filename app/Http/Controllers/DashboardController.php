@@ -231,9 +231,11 @@ class DashboardController extends Controller
                                     ->leftJoin('tr_wos as trw','tr.wo_id', '=', 'trw.id')
                                     ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
                                     ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
-                                    ->whereRaw("tr.tipe_ba = 'NEW_LINK'")
-                                    ->where('tr.site_witel', $site_witel);
+                                    ->whereRaw("tr.tipe_ba = 'NEW_LINK'");
 
+        if ($site_witel != 'ALL') {
+            $data = $data->where('tr.site_witel', $site_witel);
+        }                                   
                 
         if (isset($_GET['status'])){
             $data = $data->where('tr.status', $_GET['status']);
@@ -318,9 +320,11 @@ class DashboardController extends Controller
                                     ->leftJoin('tr_wos as trw','tr.wo_id', '=', 'trw.id')
                                     ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
                                     ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
-                                    ->whereRaw("tr.tipe_ba = 'UPGRADE'")
-                                    ->where('tr.site_witel', $site_witel);
+                                    ->whereRaw("tr.tipe_ba = 'UPGRADE'");
 
+        if ($site_witel != 'ALL') {
+            $data = $data->where('tr.site_witel', $site_witel);
+        }                                   
                 
         if (isset($_GET['status'])){
             $data = $data->where('tr.status', $_GET['status']);
@@ -414,9 +418,11 @@ class DashboardController extends Controller
                                     })                                                     
                                     ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
                                     ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
-                                    ->whereRaw("tr.tipe_ba = 'DUAL_HOMING'")
-                                    ->where('tr.site_witel', $site_witel);
-
+                                    ->whereRaw("tr.tipe_ba = 'DUAL_HOMING'");
+        
+        if ($site_witel != 'ALL') {
+            $data = $data->where('tr.site_witel', $site_witel);
+        }   
                 
         if (isset($_GET['status'])){
             $data = $data->where('tr.status', $_GET['status']);

@@ -150,7 +150,7 @@ class WoController extends Controller
                 $data->lampiran_url = null;
                 $data->save();
     
-                TrWoSite::where('wo_id')->where('wo_site_id')
+                TrWoSite::where('wo_id', $id)->whereNull('ba_id')
                 ->update(array(
                     'progress' => false,
                 )); 
