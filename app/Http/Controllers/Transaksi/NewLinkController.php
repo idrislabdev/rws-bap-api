@@ -425,7 +425,7 @@ class NewLinkController extends Controller
         }
     }
 
-    public function updateOA($wo_id, $wo_site_id)
+    public function updateOA(Request $request, $wo_id, $wo_site_id)
     {
         $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('status', 'OGP')->first();
 
@@ -444,7 +444,7 @@ class NewLinkController extends Controller
             $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
                             ->update(array(
                                 'status' => 'OA',
-                                'tgl_on_air' => date('Y-m-d')
+                                'tgl_on_air' => $request->tgl_on_air
                             ));
 
             return response()->json([
