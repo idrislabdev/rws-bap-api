@@ -353,9 +353,9 @@
                 <div class="margin-body">
                     <table style="width:100%;">
                         <tr class="text-center">
-                            <td style="padding-bottom: 100px; width:40%; font-weight:bold;">TELKOM</td>
+                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOM</td>
                             <td style="width:20%;"></td>
-                            <td style="padding-bottom: 100px; width:40%; font-weight:bold;">TELKOMSEL</td>
+                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOMSEL</td>
                         </tr>
                         <tr class="text-center">
                             <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->osm_regional->nilai}}</td>
@@ -422,9 +422,9 @@
                 <div class="margin-body">
                     <table style="width:100%;">
                         <tr class="text-center">
-                            <td style="padding-bottom: 100px; width:40%; font-weight:bold;">TELKOM</td>
+                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOM</td>
                             <td style="width:20%;"></td>
-                            <td style="padding-bottom: 100px; width:40%; font-weight:bold;">TELKOMSEL</td>
+                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOMSEL</td>
                         </tr>
                         <tr class="text-center">
                             <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->manager_wholesale->nilai}}</td>
@@ -515,7 +515,7 @@
                         </tr>
                         <tr class="text-center">
                             <td style="width:35%"></td>
-                            <td style="padding-bottom: 50px;font-weight:bold;">TELKOM</td>
+                            <td style="padding-bottom: 100px;font-weight:bold;">TELKOM</td>
                             <td style="width:35%"></td>
                         </tr>
                         <tr class="text-center">
@@ -624,22 +624,22 @@
                                 <tr>
                                     <td class="font-weight-bold" style="text-align: left !important;">L2 Packet Loss</td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_packet_loss->hour1, 3)}}
+                                        {{$data_site[$a]->lv_packet_loss->hour1}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_packet_loss->hour2, 3)}}
+                                        {{$data_site[$a]->lv_packet_loss->hour2}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_packet_loss->hour3, 3)}}
+                                        {{$data_site[$a]->lv_packet_loss->hour3}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_packet_loss->hour4, 3)}}
+                                        {{$data_site[$a]->lv_packet_loss->hour4}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_packet_loss->hour5, 3)}}
+                                        {{$data_site[$a]->lv_packet_loss->hour5}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_packet_loss->result, 3)}}
+                                        {{$data_site[$a]->lv_packet_loss->result}}
                                     </td>
                                     <td class="td-center font-weight-bold">Clear/Spike</td>
                                     <td class="td-center font-weight-bold">&lt;=0.1%</td>
@@ -650,22 +650,22 @@
                                 <tr>
                                     <td class="font-weight-bold" style="text-align: left !important;">L3 Latency</td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_latency->hour1, 3)}}
+                                        {{$data_site[$a]->lv_latency->hour1}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_latency->hour2, 3)}}
+                                        {{$data_site[$a]->lv_latency->hour2}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_latency->hour3, 3)}}
+                                        {{$data_site[$a]->lv_latency->hour3}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_latency->hour4, 3)}}
+                                        {{$data_site[$a]->lv_latency->hour4}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_latency->hour5, 3)}}
+                                        {{$data_site[$a]->lv_latency->hour5}}
                                     </td>
                                     <td class="td-center">
-                                        {{round($data_site[$a]->lv_latency->result, 3)}}
+                                        {{$data_site[$a]->lv_latency->result}}
                                     </td>
                                     <td class="td-center font-weight-bold">&lt;=20ms</td>
                                     <td class="td-center font-weight-bold">&lt;=20ms</td>
@@ -834,25 +834,25 @@
                                     <tr>
                                         <td class="font-weight-bold" style="text-align: left !important;">L2 Packet Loss</td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_packet_loss->day1, 3)}}
+                                            {{$data_site[$a]->qc_packet_loss->day1}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_packet_loss->day2, 3)}}
+                                            {{$data_site[$a]->qc_packet_loss->day2}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_packet_loss->day3, 3)}}
+                                            {{$data_site[$a]->qc_packet_loss->day3}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_packet_loss->day4, 3)}}
+                                            {{$data_site[$a]->qc_packet_loss->day4}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_packet_loss->day5, 3)}}
+                                            {{$data_site[$a]->qc_packet_loss->day5}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_packet_loss->day6, 3)}}
+                                            {{$data_site[$a]->qc_packet_loss->day6}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_packet_loss->result, 3)}}
+                                            {{$data_site[$a]->qc_packet_loss->result}}
                                         </td>
                                         <td class="td-center font-weight-bold">Clear/Spike</td>
                                         <td class="td-center font-weight-bold">&lt;=0.1%</td>
@@ -863,25 +863,25 @@
                                     <tr>
                                         <td class="font-weight-bold" style="text-align: left !important;">L3 Latency</td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_latency->day1, 3)}}
+                                            {{$data_site[$a]->qc_latency->day1}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_latency->day2, 3)}}
+                                            {{$data_site[$a]->qc_latency->day2}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_latency->day3, 3)}}
+                                            {{$data_site[$a]->qc_latency->day3}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_latency->day4, 3)}}
+                                            {{$data_site[$a]->qc_latency->day4}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_latency->day5, 3)}}
+                                            {{$data_site[$a]->qc_latency->day5}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_latency->day6, 3)}}
+                                            {{$data_site[$a]->qc_latency->day6}}
                                         </td>
                                         <td class="td-center">
-                                            {{round($data_site[$a]->qc_latency->result, 3)}}
+                                            {{$data_site[$a]->qc_latency->result}}
                                         </td>
                                         <td class="td-center font-weight-bold">&lt;=20ms</td>
                                         <td class="td-center font-weight-bold">&lt;=20ms</td>
