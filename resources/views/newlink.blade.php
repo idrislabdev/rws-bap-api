@@ -599,7 +599,7 @@
                             <thead>
                                 <tr>
                                     <th rowspan="3" class="td-center">KPI Parameter</th>
-                                    <th colspan="9" class="td-center">SITE LEVEL ({{$data_site[$a]->lv_latency->day_date}})</th>
+                                    <th colspan="9" class="td-center">SITE LEVEL ({{ strtoupper(date('d-M-y', strtotime($data_site[$a]->lv_latency->day_date)))}})</th>
                                 </tr>
                                 <tr>
                                     <th class="td-center">Hour 1</th>
@@ -811,22 +811,22 @@
                                     </tr>
                                     <tr>
                                         <th class="td-center">
-                                            {{$data_site[$a]->qc_packet_loss->day1_date}}
+                                            {{strtoupper(date('d-M-y', strtotime($data_site[$a]->qc_latency->day1_date)))}}
                                         </th>
                                         <th class="td-center">
-                                            {{$data_site[$a]->qc_packet_loss->day2_date}}
+                                            {{strtoupper(date('d-M-y', strtotime($data_site[$a]->qc_latency->day2_date)))}}
                                         </th>
                                         <th class="td-center">
-                                            {{$data_site[$a]->qc_packet_loss->day3_date}}
+                                            {{strtoupper(date('d-M-y', strtotime($data_site[$a]->qc_latency->day3_date)))}}
                                         </th>
                                         <th class="td-center">
-                                            {{$data_site[$a]->qc_packet_loss->day4_date}}
+                                            {{strtoupper(date('d-M-y', strtotime($data_site[$a]->qc_latency->day4_date)))}}
                                         </th>
                                         <th class="td-center">
-                                            {{$data_site[$a]->qc_packet_loss->day5_date}}
+                                            {{strtoupper(date('d-M-y', strtotime($data_site[$a]->qc_latency->day5_date)))}}
                                         </th>
                                         <th class="td-center">
-                                            {{$data_site[$a]->qc_packet_loss->day6_date}}
+                                            {{strtoupper(date('d-M-y', strtotime($data_site[$a]->qc_latency->day6_date)))}}
                                         </th>
                                     </tr>
                                 </thead>
