@@ -712,7 +712,7 @@
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">MANAGEMENT REGION</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Teguh Cipto E.</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$people_ttd->manager_wholesale->nilai}}</td>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_rto_region_jatim->nilai : $people_ttd->telkomsel_rto_region_balnus->nilai}}</td>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_pm_region_jatim->nilai : $people_ttd->telkomsel_pm_region_balnus->nilai}}</td>
                                 </tr>
@@ -954,7 +954,7 @@
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">MANAGEMENT REGION</td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Teguh Cipto E.</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$people_ttd->manager_wholesale->nilai}}</td>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_rto_region_jatim->nilai : $people_ttd->telkomsel_rto_region_balnus->nilai}}</td>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_pm_region_jatim->nilai : $people_ttd->telkomsel_pm_region_balnus->nilai}}</td>
                                     </tr>
