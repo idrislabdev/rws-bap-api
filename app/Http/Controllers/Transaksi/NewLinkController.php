@@ -828,6 +828,10 @@ class NewLinkController extends Controller
         $people_ttd->manager_pm_jatim = MaPengaturan::where('nama', 'PM_JATIM')->first();
         $people_ttd->manager_pm_balnus = MaPengaturan::where('nama', 'PM_BALNUS')->first();
         $people_ttd->gm_network = MaPengaturan::where('nama', 'GM_NETWORK_ENGINEERING_PROJECT')->first();
+        $people_ttd->telkomsel_rto_region_jatim = MaPengaturan::where('nama', 'TELKOMSEL_RTO_REGION_JATIM')->first();
+        $people_ttd->telkomsel_rto_region_balnus = MaPengaturan::where('nama', 'TELKOMSEL_RTO_REGION_BALNUS')->first();
+        $people_ttd->telkomsel_pm_region_jatim = MaPengaturan::where('nama', 'TELKOMSEL_PM_REGION_JATIM')->first();
+        $people_ttd->telkomsel_pm_region_balnus = MaPengaturan::where('nama', 'TELKOMSEL_PM_REGION_BALNUS')->first();
 
         // return view('newlink',  [
         //     'jenis_dokumen'     => $jenis_dokumen,
