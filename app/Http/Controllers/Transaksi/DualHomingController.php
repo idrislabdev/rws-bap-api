@@ -734,32 +734,13 @@ class DualHomingController extends Controller
         $people_ttd->manager_pm_jatim = MaPengaturan::where('nama', 'PM_JATIM')->first();
         $people_ttd->manager_pm_balnus = MaPengaturan::where('nama', 'PM_BALNUS')->first();
         $people_ttd->gm_network = MaPengaturan::where('nama', 'GM_NETWORK_ENGINEERING_PROJECT')->first();
-        
-
-        $pdf = PDF::loadView('dualhoming', [
-            'jenis_dokumen'     => $jenis_dokumen,
-            'data_wo'           => $data_wo,
-            'data_site'         => $data_site,
-            'data_ba'           => $data_ba,
-            'dasar_permintaan'  => $dasar_permintaan,
-            'total_bw'          => $total_bw,
-            'total_site'        => $total_site,
-            'format_tanggal'    => $format_tanggal,
-            'people_ttd'        => $people_ttd
-        ])->setPaper('a4');
-
-        // return $pdf->download('berita_acara.pdf');
+        $people_ttd->telkomsel_rto_region_jatim = MaPengaturan::where('nama', 'TELKOMSEL_RTO_REGION_JATIM')->first();
+        $people_ttd->telkomsel_rto_region_balnus = MaPengaturan::where('nama', 'TELKOMSEL_RTO_REGION_BALNUS')->first();
+        $people_ttd->telkomsel_qc_network_region_jatim = MaPengaturan::where('nama', 'TELKOMSEL_QC_NETWORK_REGION_JATIM')->first();
+        $people_ttd->telkomsel_qc_network_region_balnus = MaPengaturan::where('nama', 'TELKOMSEL_QC_NETWORK_REGION_BALNUS')->first();
 
 
-        $file_name = $id.'.pdf';
-
-        Storage::put('public/pdf/'.$file_name, $pdf->output());
-
-        return $file_name;
-
-
-
-        // return view('dualhoming',  [
+        // $pdf = PDF::loadView('dualhoming', [
         //     'jenis_dokumen'     => $jenis_dokumen,
         //     'data_wo'           => $data_wo,
         //     'data_site'         => $data_site,
@@ -769,7 +750,30 @@ class DualHomingController extends Controller
         //     'total_site'        => $total_site,
         //     'format_tanggal'    => $format_tanggal,
         //     'people_ttd'        => $people_ttd
-        // ]);
+        // ])->setPaper('a4');
+
+        // // return $pdf->download('berita_acara.pdf');
+
+
+        // $file_name = $id.'.pdf';
+
+        // Storage::put('public/pdf/'.$file_name, $pdf->output());
+
+        // return $file_name;
+
+
+
+        return view('dualhoming',  [
+            'jenis_dokumen'     => $jenis_dokumen,
+            'data_wo'           => $data_wo,
+            'data_site'         => $data_site,
+            'data_ba'           => $data_ba,
+            'dasar_permintaan'  => $dasar_permintaan,
+            'total_bw'          => $total_bw,
+            'total_site'        => $total_site,
+            'format_tanggal'    => $format_tanggal,
+            'people_ttd'        => $people_ttd
+        ]);
 
     }
 
