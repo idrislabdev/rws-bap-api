@@ -199,7 +199,7 @@
                     </table>
                 </div>
                 <div class="header">
-                    <h3 class="header-margin font-weight-bold"><center>BERITA ACARA UJI TERIMA (BAUT) UPGRADE</center></h3>
+                    <h3 class="header-margin font-weight-bold"><center>BERITA ACARA UJI TERIMA (BAUT) REBALANCING</center></h3>
                     <h4 class="header-margin font-weight-bold"><center>Nomor : {{$data_ba->no_dokumen}}</center></h4>
                 </div>
                 <div class="margin-body">
@@ -265,22 +265,22 @@
                         <tr>
                             <td style="width:288px">Dasar Permintaan</td>
                             <td style="width:10px">:</td>
-                            <td>{{$dasar_permintaan}}</td>
+                            <td>Terlampir</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Produk</td>
                             <td style="width:10px">:</td>
-                            <td>Produk</td>
+                            <td>Akses Link</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Jenis Layanan</td>
                             <td style="width:10px">:</td>
-                            <td>FO</td>
+                            <td>FO & Radio</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Lingkup Pekerjaan</td>
                             <td style="width:10px">:</td>
-                            <td>Produk</td>
+                            <td>Rebalancing</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Jumlah Upgrade (Jumlah BW)</td>
