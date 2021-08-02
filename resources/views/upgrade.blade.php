@@ -362,17 +362,17 @@
                         <tr>
                             <td style="width:288px">Produk</td>
                             <td style="width:10px">:</td>
-                            <td>Produk</td>
+                            <td>Akses Link</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Jenis Layanan</td>
                             <td style="width:10px">:</td>
-                            <td>FO</td>
+                            <td>FO & Radio</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Lingkup Pekerjaan</td>
                             <td style="width:10px">:</td>
-                            <td>Produk</td>
+                            <td>Rebalancing</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Jumlah Upgrade (Jumlah BW)</td>
