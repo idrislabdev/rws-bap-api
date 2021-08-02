@@ -715,11 +715,22 @@ class UpgradeController extends Controller
         ])->setPaper('a4');
 
         $file_name = $id.'.pdf';
+        
 
         Storage::put('public/pdf/'.$file_name, $pdf->output());
 
         return $file_name;
 
+    }
+
+    public function refresh($id)
+    {
+        $file_name = $id.'.pdf';
+
+        $path = storage_path().'/app/public/pdf/'.$file_name;
+        unlink($path);
+
+        $this->fileBA($id);
     }
 
     public function downloadBA($id)

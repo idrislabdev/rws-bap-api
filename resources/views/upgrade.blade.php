@@ -305,45 +305,6 @@
                         </tr>
                     </table>
                 </div>
-                <div class="margin-content margin-body">
-                    <table class="table-site" cellpadding="0" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th style="width:4%" rowspan="2" class="td-center">No. </th>
-                                <th style="width:10%" rowspan="2" class="td-center">SITE ID</th>
-                                <th style="width:18%" rowspan="2" class="td-center">SITE NAME</th>
-                                <th style="width:10%" rowspan="2" class="td-center">WITEL</th>
-                                <th style="width:13%" rowspan="2" class="td-center">TANGGAL ON AIR</th>
-                                <th style="width:20%" colspan="4" style="text-align:center;">BANDWIDTH (Mbps)</th>
-                                <th style="width:10%" rowspan="2" class="td-center">PROGRAM</th>
-                                <th style="width:15%" rowspan="2" class="td-center">NO. ORDER</th>
-                            </tr>
-                            <tr>
-                                <th style="text-align: center;">2G</th>
-                                <th style="text-align: center;">3G</th>
-                                <th style="text-align: center;">4G</th>
-                                <th style="text-align: center;">JML</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for ($a=0; $a<@count($data_site); $a++)
-                                <tr>
-                                    <td>{{$a+1}}</td>
-                                    <td>{{$data_site[$a]->site_id}}</td>
-                                    <td class="wrapword">{{$data_site[$a]->site_name}}</td>
-                                    <td>{{$data_site[$a]->site_witel}}</td>
-                                    <td>{{strtoupper(date('d-M-y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
-                                    <td>{{$data_site[$a]->data_2g}}</td>
-                                    <td>{{$data_site[$a]->data_3g}}</td>
-                                    <td>{{$data_site[$a]->data_4g}}</td>
-                                    <td>{{$data_site[$a]->jumlah}}</td>
-                                    <td>{{$data_site[$a]->program}}</td>
-                                    <td>{{$data_site[$a]->dasar_order}}</td>
-                                </tr>
-                            @endfor 
-                        </tbody>
-                    </table>
-                </div>
                 <div class="margin-body">
                     <p>
                         Demikian Berita Acara ini dibuat dengan sebenarnya dalam rangkap 2 (dua) yang sama bunyinya dan mempunyai
@@ -371,7 +332,103 @@
                 </div>
             </div>
 
-            <!-- halaman 2 (kedua) -->
+            <!-- halaman ke 2 -->
+            <div class="page_break_after">
+                <div class="margin-header-logo">
+                    <!-- <img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:50px;"> -->
+                    <table style="width:100%;">
+                        <tr>
+                            <!-- <td style="width:50%"><img src="/assets/images/telkomsel.png" style="width:100px;"></td>
+                            <td style="width:50%; text-align: right;"><img src="/assets/images/telkom.png" style="width:100px;"></td> -->
+                            <td style="width:50%"><img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:100px;"></td>
+                            <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="header">
+                    <h3 class="header-margin font-underline"><center>Berita Acara Kelengkapan Dokument BAUT</center></h3>
+                    <h4 class="header-margin"><center><span class="font-italic">Lampiran Baut</span> Nomor : {{$data_ba->no_dokumen}}</center></h4>
+                </div>
+                <div class="margin-body">
+                    <p>TELKOM dan TELKOMSEL Menyatakan bahwa sebagai berikut : :</p>
+                </div>
+                <div class="margin-content margin-body">
+                    <table>
+                        <tr>
+                            <td style="width:288px">Dasar Permintaan</td>
+                            <td style="width:10px">:</td>
+                            <td>{{$dasar_permintaan}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width:288px">Produk</td>
+                            <td style="width:10px">:</td>
+                            <td>Produk</td>
+                        </tr>
+                        <tr>
+                            <td style="width:288px">Jenis Layanan</td>
+                            <td style="width:10px">:</td>
+                            <td>FO</td>
+                        </tr>
+                        <tr>
+                            <td style="width:288px">Lingkup Pekerjaan</td>
+                            <td style="width:10px">:</td>
+                            <td>Produk</td>
+                        </tr>
+                        <tr>
+                            <td style="width:288px">Jumlah Upgrade (Jumlah BW)</td>
+                            <td style="width:10px">:</td>
+                            <td>{{$total_site}} Upgrade dengan BW {{$total_bw}} Mbps</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="margin-content margin-body">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="width:30px">1.</td>
+                            <td>TELKOM telah menyelesaikan pekerjaan dan melakukan uji terima dengan hasil pengujian terlampir</td>
+                        </tr>
+                        <tr>
+                            <td style="width:30px">2.</td>
+                            <td>TELKOMSEL menyatakan bahwa hasil pekerjaan tersebut “BAIK”</td>
+                        </tr>
+                        <tr>
+                            <td style="width:30px">3.</td>
+                            <td>Telah selesai dilakukan aktivasi/integrasi link milik TELKOM oleh TELKOMSEL dengan data sebagai terlampir</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="margin-body">
+                    <table style="width:100%;">
+                        <tr class="text-center">
+                            <td style="width:35%"></td>
+                            <td style="font-weight:bold;">Surabaya, {{$format_tanggal->tgl_nomor}} {{$format_tanggal->bulan}} {{$format_tanggal->tahun_nomor}}</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="width:35%"></td>
+                            <td>Mengetahui,</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="width:35%"></td>
+                            <td style="padding-bottom: 50px;font-weight:bold;">TELKOM</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="width:35%"></td>
+                            <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->gm_network->nilai}}</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                        <tr class="text-center font-weight-bold">
+                            <td style="width:35%"></td>
+                            <td style="vertical-align: top;">{{$people_ttd->gm_network->detail_nilai}}</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                    </table>            
+                </div>
+            </div>
+
+            <!-- halaman 3 (ketiga) -->
             <div class="page_break_after">
                 <div class="margin-header-logo">
                     <!-- <img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:50px;"> -->
@@ -440,7 +497,7 @@
                 </div>
             </div>
 
-            <!-- halaman 3 (ketiga) -->
+            <!-- halaman 4 (keempat) -->
             <div class="page_break_after">
                 <div class="margin-header-logo">
                     <!-- <img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:50px;"> -->
@@ -453,14 +510,9 @@
                         </tr>
                     </table>
                 </div>
-                <div class="header">
-                    <h3 class="header-margin font-underline"><center>Berita Acara Kelengkapan Dokument BAUT</center></h3>
-                    <h4 class="header-margin"><center><span class="font-italic">Lampiran Baut</span> Nomor : {{$data_ba->no_dokumen}}</center></h4>
-                </div>
-                <div class="margin-body mb-large">
-                    <p>
-                        Aktivasi/ integrasi link milik TELKOM oleh TELKOMSEL dengan data sebagai berikut :
-                    </p>
+                <div class="margin-content margin-body header">
+                    <h4 class="header-margin"><span class="font-italic">Lampiran Baut</span> Nomor : {{$data_ba->no_dokumen}}</h4>
+                    <h4 class="header-margin"><span class="font-italic">Data Konfigurasi Order Upgrade</h4>
                 </div>
                 <div class="margin-content margin-body mb-xl">
                     <table class="table-site" cellpadding="0" cellspacing="0">
@@ -469,10 +521,10 @@
                                 <th style="width:4%" rowspan="2" class="td-center">No. </th>
                                 <th style="width:10%" rowspan="2" class="td-center">SITE ID</th>
                                 <th style="width:18%" rowspan="2" class="td-center">SITE NAME</th>
+                                <th style="width:18%" rowspan="2" class="td-center">POSITION</th>
                                 <th style="width:10%" rowspan="2" class="td-center">WITEL</th>
-                                <th style="width:13%" rowspan="2" class="td-center">TANGGAL ON AIR</th>
-                                <th style="width:20%" colspan="4" style="text-align:center;">BANDWIDTH (Mbps)</th>
-                                <th style="width:10%" rowspan="2" class="td-center">PROGRAM</th>
+                                <th style="width:13%" rowspan="2" class="td-center">ON DATE</th>
+                                <th style="width:20%" colspan="4" style="text-align:center;">BW</th>
                                 <th style="width:15%" rowspan="2" class="td-center">NO. ORDER</th>
                             </tr>
                             <tr>
@@ -488,47 +540,18 @@
                                     <td>{{$a+1}}</td>
                                     <td>{{$data_site[$a]->site_id}}</td>
                                     <td class="wrapword">{{$data_site[$a]->site_name}}</td>
+                                    <td>END SITE</td>
                                     <td>{{$data_site[$a]->site_witel}}</td>
                                     <td>{{strtoupper(date('d-M-y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
                                     <td>{{$data_site[$a]->data_2g}}</td>
                                     <td>{{$data_site[$a]->data_3g}}</td>
                                     <td>{{$data_site[$a]->data_4g}}</td>
                                     <td>{{$data_site[$a]->jumlah}}</td>
-                                    <td>{{$data_site[$a]->program}}</td>
                                     <td>{{$data_site[$a]->dasar_order}}</td>
                                 </tr>
                             @endfor 
                         </tbody>
                     </table>
-                </div>
-                <div class="margin-body">
-                    <table style="width:100%;">
-                        <tr class="text-center">
-                            <td style="width:35%"></td>
-                            <td style="font-weight:bold;">Surabaya, {{$format_tanggal->tgl_nomor}} {{$format_tanggal->bulan}} {{$format_tanggal->tahun_nomor}}</td>
-                            <td style="width:35%"></td>
-                        </tr>
-                        <tr class="text-center">
-                            <td style="width:35%"></td>
-                            <td>Mengetahui,</td>
-                            <td style="width:35%"></td>
-                        </tr>
-                        <tr class="text-center">
-                            <td style="width:35%"></td>
-                            <td style="padding-bottom: 50px;font-weight:bold;">TELKOM</td>
-                            <td style="width:35%"></td>
-                        </tr>
-                        <tr class="text-center">
-                            <td style="width:35%"></td>
-                            <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->gm_network->nilai}}</td>
-                            <td style="width:35%"></td>
-                        </tr>
-                        <tr class="text-center font-weight-bold">
-                            <td style="width:35%"></td>
-                            <td style="vertical-align: top;">{{$people_ttd->gm_network->detail_nilai}}</td>
-                            <td style="width:35%"></td>
-                        </tr>
-                    </table>            
                 </div>
             </div>
 

@@ -505,6 +505,7 @@ class DualHomingController extends Controller
         $v = Validator::make($request->all(), [
             'tsel_reg' => 'required',
             'no_dokumen' => 'required',
+            'jenis_node' => 'required'
         ]);
 
         if($v->fails())
@@ -516,14 +517,17 @@ class DualHomingController extends Controller
             ], 422);
         }
 
-        $sites = DB::table(DB::raw('tr_wo_sites tr,  ma_penggunas p')) 
+        $sites = DB::table(DB::raw('tr_wo_sites tr,  ma_penggunas p, tr_wo_site_dual_homings dh')) 
                                 ->select(DB::raw("tr.*, 
                                                 p.id pengguna_id, 
                                                 p.nama_lengkap"))
                                                 ->whereRaw("p.id = tr.dibuat_oleh")
+                                                ->whereRaw("dh.wo_id = tr.wo_id")
+                                                ->whereRaw("dh.wo_site_id = tr.wo_site_id")
                                                 ->whereRaw("tr.tipe_ba = 'DUAL_HOMING'")
                                                 ->whereRaw("tr.progress = true")
                                                 ->where('tsel_reg', $request->tsel_reg)
+                                                ->where('jenis_node', $request->jenis_node)
                                                 ->whereNull('ba_id')
                                                 ->get();
 
@@ -740,30 +744,7 @@ class DualHomingController extends Controller
         $people_ttd->telkomsel_qc_network_region_balnus = MaPengaturan::where('nama', 'TELKOMSEL_QC_NETWORK_REGION_BALNUS')->first();
 
 
-        // $pdf = PDF::loadView('dualhoming', [
-        //     'jenis_dokumen'     => $jenis_dokumen,
-        //     'data_wo'           => $data_wo,
-        //     'data_site'         => $data_site,
-        //     'data_ba'           => $data_ba,
-        //     'dasar_permintaan'  => $dasar_permintaan,
-        //     'total_bw'          => $total_bw,
-        //     'total_site'        => $total_site,
-        //     'format_tanggal'    => $format_tanggal,
-        //     'people_ttd'        => $people_ttd
-        // ])->setPaper('a4');
-
-        // // return $pdf->download('berita_acara.pdf');
-
-
-        // $file_name = $id.'.pdf';
-
-        // Storage::put('public/pdf/'.$file_name, $pdf->output());
-
-        // return $file_name;
-
-
-
-        return view('dualhoming',  [
+        $pdf = PDF::loadView('dualhoming', [
             'jenis_dokumen'     => $jenis_dokumen,
             'data_wo'           => $data_wo,
             'data_site'         => $data_site,
@@ -773,7 +754,30 @@ class DualHomingController extends Controller
             'total_site'        => $total_site,
             'format_tanggal'    => $format_tanggal,
             'people_ttd'        => $people_ttd
-        ]);
+        ])->setPaper('a4');
+
+        // return $pdf->download('berita_acara.pdf');
+
+
+        $file_name = $id.'.pdf';
+
+        Storage::put('public/pdf/'.$file_name, $pdf->output());
+
+        return $file_name;
+
+
+
+        // return view('dualhoming',  [
+        //     'jenis_dokumen'     => $jenis_dokumen,
+        //     'data_wo'           => $data_wo,
+        //     'data_site'         => $data_site,
+        //     'data_ba'           => $data_ba,
+        //     'dasar_permintaan'  => $dasar_permintaan,
+        //     'total_bw'          => $total_bw,
+        //     'total_site'        => $total_site,
+        //     'format_tanggal'    => $format_tanggal,
+        //     'people_ttd'        => $people_ttd
+        // ]);
 
     }
 
