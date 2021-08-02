@@ -357,7 +357,7 @@
                         <tr>
                             <td style="width:288px">Dasar Permintaan</td>
                             <td style="width:10px">:</td>
-                            <td>{{$dasar_permintaan}}</td>
+                            <td>Terlampir</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Produk</td>
