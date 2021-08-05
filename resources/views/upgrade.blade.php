@@ -524,14 +524,8 @@
                                 <th style="width:18%" rowspan="2" class="td-center">POSITION</th>
                                 <th style="width:10%" rowspan="2" class="td-center">WITEL</th>
                                 <th style="width:13%" rowspan="2" class="td-center">ON DATE</th>
-                                <th style="width:20%" colspan="4" style="text-align:center;">BW</th>
+                                <th style="width:20%" rowspan="2 style="text-align:center;">Order BW</th>
                                 <th style="width:15%" rowspan="2" class="td-center">NO. ORDER</th>
-                            </tr>
-                            <tr>
-                                <th style="text-align: center;">2G</th>
-                                <th style="text-align: center;">3G</th>
-                                <th style="text-align: center;">4G</th>
-                                <th style="text-align: center;">JML</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -543,9 +537,6 @@
                                     <td>END SITE</td>
                                     <td>{{$data_site[$a]->site_witel}}</td>
                                     <td>{{strtoupper(date('d-M-y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
-                                    <td>{{$data_site[$a]->data_2g}}</td>
-                                    <td>{{$data_site[$a]->data_3g}}</td>
-                                    <td>{{$data_site[$a]->data_4g}}</td>
                                     <td>{{$data_site[$a]->jumlah}}</td>
                                     <td>{{$data_site[$a]->dasar_order}}</td>
                                 </tr>
