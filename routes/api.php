@@ -170,6 +170,7 @@ Route::prefix('report')->group(function(){
 // Route::get('new-link/ba', [BaNewLinkController::class, 'fileBA']);
 Route::get('new-link/ba/{id}', [NewLinkController::class, 'fileBA']);
 Route::get('dual-homing/ba/{id}', [DualHomingController::class, 'fileBA']);
+Route::get('upgrade/ba/{id}', [UpgradeController::class, 'fileBA']);
 
 
 

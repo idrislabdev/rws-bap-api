@@ -1161,30 +1161,60 @@
                                 <tr>
                                     <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Konfigurasi Site {{$data_site[0]->site_id}}</td>
                                 </tr>
-                                <tr>
-                                    <td width="5%"></td>
-                                    <td>
-                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; height:300px; object-fit: cover;">
-                                    </td>
-                                </tr>
+                                @php($image = getimagesize(public_path().'/lampirans/'. $data_site[0]->konfigurasi ))
+                                @if($image[1] < 300)
+                                    <tr style="height:300px;">
+                                        <td width="5%"></td>
+                                        <td>
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; object-fit: cover;">
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td width="5%"></td>
+                                        <td>
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; height:300px; object-fit: cover;">
+                                        </td>
+                                    </tr>
+                                @endif
                                 <tr>
                                     <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Topologi Site {{$data_site[0]->site_id}}</td>
                                 </tr>
-                                <tr>
-                                    <td width="5%"></td>
-                                    <td>
-                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->topologi }}" style="width:700px; height:300px; object-fit: cover;">
-                                    </td>
-                                </tr>
+                                @php($image = getimagesize(public_path().'/lampirans/'. $data_site[0]->topologi ))
+                                @if($image[1] < 300)
+                                    <tr style="height:300px;">
+                                        <td width="5%"></td>
+                                        <td>
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->topologi }}" style="width:700px; object-fit: cover;">
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td width="5%"></td>
+                                        <td>
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->topologi }}" style="width:700px; height:300px; object-fit: cover;">
+                                        </td>
+                                    </tr>
+                                @endif
                                 <tr>
                                     <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Trafik Site {{$data_site[0]->site_id}}</td>
                                 </tr>
-                                <tr>
-                                    <td width="5%"></td>
-                                    <td>
-                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->trafik }}" style="width:700px; height:300px; object-fit: cover;">
-                                    </td>
-                                </tr>
+                                @php($image = getimagesize(public_path().'/lampirans/'. $data_site[0]->trafik ))
+                                @if($image[1] < 300)
+                                    <tr style="height:300px;">
+                                        <td width="5%"></td>
+                                        <td>
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->trafik }}" style="width:700px; object-fit: cover;">
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td width="5%"></td>
+                                        <td>
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->trafik }}" style="width:700px; height:300px; object-fit: cover;">
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
