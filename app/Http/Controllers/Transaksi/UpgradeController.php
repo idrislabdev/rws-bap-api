@@ -161,6 +161,11 @@ class UpgradeController extends Controller
                     $wo_site->progress = false;
                     $wo_site->tipe_ba = 'UPGRADE';
                     $wo_site->save();
+                } else {
+                    TrWoSite::where('wo_id', $wo_id)->where('site_id', $site['site_id'])->where('tipe_ba', 'UPGRADE')
+                                ->update(array(
+                                    'program' => $site['program']
+                                ));
                 }
                 
             }

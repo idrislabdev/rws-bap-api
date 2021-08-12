@@ -204,6 +204,11 @@ class NewLinkController extends Controller
                     $wo_site->progress = false;
                     $wo_site->tipe_ba = 'NEW_LINK';
                     $wo_site->save();
+                } else {
+                    TrWoSite::where('wo_id', $wo_id)->where('site_id', $site['site_id'])->where('tipe_ba', 'NEW_LINK')
+                    ->update(array(
+                        'program' => $site['program']
+                    ));
                 }
                 
             }
