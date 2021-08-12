@@ -696,7 +696,7 @@
                                 <tr>
                                     <td width="5%"></td>
                                     <td>
-                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; object-fit: cover;">
+                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; height:300px; object-fit: cover;">
                                     </td>
                                 </tr>
                                 <tr>
@@ -705,7 +705,7 @@
                                 <tr>
                                     <td width="5%"></td>
                                     <td>
-                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->topologi }}" style="width:700px; object-fit: cover;">
+                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->topologi }}" style="width:700px; height:300px; object-fit: cover;">
                                     </td>
                                 </tr>
                                 <tr>
@@ -714,7 +714,7 @@
                                 <tr>
                                     <td width="5%"></td>
                                     <td>
-                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->trafik }}" style="width:700px; object-fit: cover;">
+                                        <img src="{{ public_path().'/lampirans/'. $data_site[0]->trafik }}" style="width:700px; height:300px; object-fit: cover;">
                                     </td>
                                 </tr>
                             </tbody>
