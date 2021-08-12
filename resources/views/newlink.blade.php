@@ -993,7 +993,7 @@
                                     <tr>
                                         <td width="5%"></td>
                                         <td>
-                                            <img src="{{ public_path().'/lampirans/'. $data_site[$a]->lv_image }}" style="width:700px; height:400px; object-fit: cover;">
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[$a]->lv_image }}" style="width:700px; object-fit: cover;">
                                         </td>
                                     </tr>
                                     <tr>
@@ -1002,7 +1002,7 @@
                                     <tr>
                                         <td width="5%"></td>
                                         <td>
-                                            <img src="{{ public_path().'/lampirans/'. $data_site[$a]->qc_image }}" style="width:700px; height:400px; object-fit: cover;">
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[$a]->qc_image }}" style="width:700px; object-fit: cover;">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1043,7 +1043,7 @@
                                             <tr>
                                                 <td width="5%"></td>
                                                 <td>
-                                                    <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->konfigurasi }}" style="width:700px; height:400px; object-fit: cover;">
+                                                    <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->konfigurasi }}" style="width:700px; object-fit: cover;">
                                                 </td>
                                             </tr>
                                         @endif
@@ -1084,7 +1084,7 @@
                                                 <tr>
                                                     <td width="5%"></td>
                                                     <td>
-                                                        <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->topologi }}" style="width:700px; height:400px; object-fit: cover;">
+                                                        <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->topologi }}" style="width:700px; object-fit: cover;">
                                                     </td>
                                                 </tr>
                                             @endif
@@ -1126,7 +1126,7 @@
                                                 <tr>
                                                     <td width="5%"></td>
                                                     <td>
-                                                        <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->trafik }}" style="width:700px; height:400px; object-fit: cover;">
+                                                        <img src="{{ public_path().'/lampirans/'. $data_site[$b-1]->trafik }}" style="width:700px; object-fit: cover;">
                                                     </td>
                                                 </tr>
                                             @endif
