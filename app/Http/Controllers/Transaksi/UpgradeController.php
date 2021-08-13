@@ -740,7 +740,9 @@ class UpgradeController extends Controller
 
     public function downloadBA($id)
     {
-        return response()->file(storage_path().'/app/public/pdf/'.$id.'.pdf');
+        // return response()->file(storage_path().'/app/public/pdf/'.$id.'.pdf');
+        return response()->download(storage_path().'/app/public/pdf/'.$id.'.pdf');
+
     }
 
     private function arrayToString($data) 

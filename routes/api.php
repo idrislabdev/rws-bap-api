@@ -115,7 +115,7 @@ Route::prefix('transaksi')->group(function(){
             Route::post('new-link/create-ba-bypass', [NewLinkController::class, 'createBAByPass']);
 
             Route::post('new-link/create-ba/check', [NewLinkController::class, 'checkSiteBA']);
-            Route::get('new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
+            // Route::get('new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
             Route::get('new-link/ba/{id}/refresh', [NewLinkController::class, 'fileBA']);
 
 
@@ -124,14 +124,14 @@ Route::prefix('transaksi')->group(function(){
             Route::post('upgrade/create-ba', [UpgradeController::class, 'createBA']);
             Route::post('upgrade/create-ba-bypass', [NewLinkController::class, 'createBAByPass']);
             Route::post('upgrade/create-ba/check', [UpgradeController::class, 'checkSiteBA']);
-            Route::get('upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
+            // Route::get('upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
             Route::get('upgrade/ba/{id}/refresh', [UpgradeController::class, 'fileBA']);
 
             Route::post('dual-homing', [DualHomingController::class, 'store']);
             Route::patch('dual-homing/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'update']);
             Route::post('dual-homing/create-ba', [DualHomingController::class, 'createBA']);
             Route::post('dual-homing/create-ba/check', [DualHomingController::class, 'checkSiteBA']);
-            Route::get('dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
+            // Route::get('dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
             Route::get('dual-homing/ba/{id}/refresh', [DualHomingController::class, 'fileBA']);
 
             Route::post('work-order/{id}', [WoController::class, 'update']);
@@ -176,3 +176,6 @@ Route::get('upgrade/ba/{id}', [UpgradeController::class, 'fileBA']);
 
 Route::get('file/{file_name}', [BaNewLinkController::class, 'fileLampiran']);
 
+Route::get('transaksi/new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
+Route::get('transaksi/upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
+Route::get('transaksi/dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
