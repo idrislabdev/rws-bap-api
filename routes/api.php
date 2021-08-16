@@ -179,3 +179,5 @@ Route::get('file/{file_name}', [BaNewLinkController::class, 'fileLampiran']);
 Route::get('transaksi/new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
 Route::get('transaksi/upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
 Route::get('transaksi/dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
+
+Route::get('upgrade/ba/{id}/refresh-test', [NewLinkController::class, 'fileBA']);
