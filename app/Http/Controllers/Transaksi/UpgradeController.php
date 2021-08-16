@@ -610,6 +610,8 @@ class UpgradeController extends Controller
 
     public function fileBA($id)
     {
+        set_time_limit(1800);
+        
         $jenis_dokumen = array(
                             "Dokumen uji terima", 
                             "Data Konfigurasi & Topology E2E", 
