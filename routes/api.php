@@ -180,4 +180,4 @@ Route::get('transaksi/new-link/ba/{id}/download', [NewLinkController::class, 'do
 Route::get('transaksi/upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
 Route::get('transaksi/dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
 
-Route::get('upgrade/ba/{id}/refresh-test', [NewLinkController::class, 'fileBA']);
+Route::get('upgrade/ba/{id}/refresh-test', [UpgradeController::class, 'fileBA']);
