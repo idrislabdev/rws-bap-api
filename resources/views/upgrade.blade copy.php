@@ -332,6 +332,102 @@
                 </div>
             </div>
 
+            <!-- halaman ke 2 -->
+            <div class="page_break_after">
+                <div class="margin-header-logo">
+                    <!-- <img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:50px;"> -->
+                    <table style="width:100%;">
+                        <tr>
+                            <!-- <td style="width:50%"><img src="/assets/images/telkomsel.png" style="width:100px;"></td>
+                            <td style="width:50%; text-align: right;"><img src="/assets/images/telkom.png" style="width:100px;"></td> -->
+                            <td style="width:50%"><img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:100px;"></td>
+                            <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="header">
+                    <h3 class="header-margin font-underline"><center>Berita Acara Kelengkapan Dokument BAUT</center></h3>
+                    <h4 class="header-margin"><center><span class="font-italic">Lampiran Baut</span> Nomor : {{$data_ba->no_dokumen}}</center></h4>
+                </div>
+                <div class="margin-body">
+                    <p>TELKOM dan TELKOMSEL Menyatakan bahwa sebagai berikut : :</p>
+                </div>
+                <div class="margin-content margin-body">
+                    <table>
+                        <tr>
+                            <td style="width:288px">Dasar Permintaan</td>
+                            <td style="width:10px">:</td>
+                            <td>Terlampir</td>
+                        </tr>
+                        <tr>
+                            <td style="width:288px">Produk</td>
+                            <td style="width:10px">:</td>
+                            <td>Akses Link</td>
+                        </tr>
+                        <tr>
+                            <td style="width:288px">Jenis Layanan</td>
+                            <td style="width:10px">:</td>
+                            <td>FO & Radio</td>
+                        </tr>
+                        <tr>
+                            <td style="width:288px">Lingkup Pekerjaan</td>
+                            <td style="width:10px">:</td>
+                            <td>Rebalancing</td>
+                        </tr>
+                        <tr>
+                            <td style="width:288px">Jumlah Upgrade (Jumlah BW)</td>
+                            <td style="width:10px">:</td>
+                            <td>{{$total_site}} Upgrade dengan BW {{$total_bw}} Mbps</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="margin-content margin-body">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="width:30px">1.</td>
+                            <td>TELKOM telah menyelesaikan pekerjaan dan melakukan uji terima dengan hasil pengujian terlampir</td>
+                        </tr>
+                        <tr>
+                            <td style="width:30px">2.</td>
+                            <td>TELKOMSEL menyatakan bahwa hasil pekerjaan tersebut “BAIK”</td>
+                        </tr>
+                        <tr>
+                            <td style="width:30px">3.</td>
+                            <td>Telah selesai dilakukan aktivasi/integrasi link milik TELKOM oleh TELKOMSEL dengan data sebagai terlampir</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="margin-body">
+                    <table style="width:100%;">
+                        <tr class="text-center">
+                            <td style="width:35%"></td>
+                            <td style="font-weight:bold;">Surabaya, {{$format_tanggal->tgl_nomor}} {{$format_tanggal->bulan}} {{$format_tanggal->tahun_nomor}}</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="width:35%"></td>
+                            <td>Mengetahui,</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="width:35%"></td>
+                            <td style="padding-bottom: 50px;font-weight:bold;">TELKOM</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="width:35%"></td>
+                            <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->gm_network->nilai}}</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                        <tr class="text-center font-weight-bold">
+                            <td style="width:35%"></td>
+                            <td style="vertical-align: top;">{{$people_ttd->gm_network->detail_nilai}}</td>
+                            <td style="width:35%"></td>
+                        </tr>
+                    </table>            
+                </div>
+            </div>
+
             <!-- halaman 3 (ketiga) -->
             <div class="page_break_after">
                 <div class="margin-header-logo">
