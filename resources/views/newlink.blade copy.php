@@ -239,7 +239,7 @@
                             <td></td>
                             <td>Lokasi Kerja</td>
                             <td>:</td>
-                            <td>PT. Telkomsel - HQ</td>
+                            <td>PT. Telkomsel - Regional</td>
                         </tr>
                         <tr>
                             <td></td>
