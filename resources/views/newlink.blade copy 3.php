@@ -371,6 +371,75 @@
                 </div>
             </div>
 
+            <!-- halaman 2 (kedua) -->
+            <div class="page_break_after">
+                <div class="margin-header-logo">
+                    <!-- <img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:50px;"> -->
+                    <table style="width:100%;">
+                        <tr>
+                            <!-- <td style="width:50%"><img src="/assets/images/telkomsel.png" style="width:100px;"></td>
+                            <td style="width:50%; text-align: right;"><img src="/assets/images/telkom.png" style="width:100px;"></td> -->
+                            <td style="width:50%"><img src="{{ public_path('/assets/images/telkomsel.png') }}" style="width:100px;"></td>
+                            <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="header">
+                    <h3 class="header-margin font-underline"><center>Kelengkapan Dokument BAUT</center></h3>
+                    <h4 class="header-margin"><center><span class="font-italic">Lampiran Baut</span> Nomor : {{$data_ba->no_dokumen}}</center></h4>
+                </div>
+                <div class="margin-content margin-body">
+                    <table class="table-kelengkapan" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="vertical-align: middle; text-align: center; width:5%">NO</th>
+                                <th style="vertical-align: middle; text-align: center; width:30%">JENIS DOKUMEN</th>
+                                <th style="vertical-align: middle; text-align: center; width:45%"">HASIL</th>
+                                <th style="vertical-align: middle; text-align: center; width:20%"">CATATAN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for($a=0; $a<@count($jenis_dokumen) ; $a++)
+                                <tr>
+                                    <td class="text-center">{{$a+1}}</td>
+                                    <td>{{$jenis_dokumen[$a]}}</td>
+                                    <td class="text-center">
+                                        <img src="{{ public_path('/assets/images/check.png') }}"  style="width:15px;"> OK
+                                        <img src="{{ public_path('/assets/images/square.png') }}"  style="width:14px; margin-left: 15px;"> NOT OK
+                                        <img src="{{ public_path('/assets/images/square.png') }}"  style="width:14px; margin-left: 15px;"> <span>N/A</span>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div>
+                <div class="margin-body mb-large">
+                    <p>
+                        Catatan : * hanya untuk new link
+                    </p>
+                </div>
+                <div class="margin-body">
+                    <table style="width:100%;">
+                        <tr class="text-center">
+                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOM</td>
+                            <td style="width:20%;"></td>
+                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOMSEL</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->manager_wholesale->nilai}}</td>
+                            <td style="width:20%;"></td>
+                            <td style="font-weight:bold; text-decoration: underline">{{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->manager_pm_jatim->nilai : $people_ttd->manager_pm_balnus->nilai}}</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="vertical-align: top;">{{$people_ttd->manager_wholesale->detail_nilai}}</td>
+                            <td style="width:20%;"></td>
+                            <td>{{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->manager_pm_jatim->detail_nilai : $people_ttd->manager_pm_balnus->detail_nilai}}</td>
+                        </tr>
+                    </table>            
+                </div>
+            </div>
+
             <!-- halaman 3 (ketiga) -->
             <div class="page_break_after">
                 <div class="margin-header-logo">
