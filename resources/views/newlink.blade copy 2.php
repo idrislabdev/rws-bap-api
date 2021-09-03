@@ -703,13 +703,13 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOM</td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL RTO REGION</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL RTSO REGION</td>
                                     <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL PROJECT</td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">MANAGEMENT REGION</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENY REGION</td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Teguh Cipto E.</td>
@@ -924,13 +924,13 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOM</td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL RTO REGION</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL RTSO REGION</td>
                                     <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL PROJECT</td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">MANAGEMENT REGION</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENY REGION</td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Teguh Cipto E.</td>
