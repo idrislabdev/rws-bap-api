@@ -401,6 +401,7 @@ class UpgradeController extends Controller
                                                 ->whereRaw("tr.wo_id = trw.id")
                                                 ->whereRaw("tr.tipe_ba = 'UPGRADE'")
                                                 ->whereRaw("tr.progress = true")
+                                                ->whereRaw("tr.status = 'OA'")
                                                 ->where('tsel_reg', $request->tsel_reg)
                                                 ->whereNull('ba_id')
                                                 ->get();
@@ -473,6 +474,7 @@ class UpgradeController extends Controller
             foreach ($sites as $site) {
                 TrWoSite::where('tipe_ba', 'UPGRADE')
                 ->where('progress', true)
+                ->where('status', 'OA')
                 ->where('tsel_reg', $request->tsel_reg)
                 ->where('wo_id',$site['wo_id'])
                 ->where('wo_site_id', $site['wo_site_id'])

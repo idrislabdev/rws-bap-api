@@ -526,6 +526,7 @@ class DualHomingController extends Controller
                                                 ->whereRaw("dh.wo_site_id = tr.wo_site_id")
                                                 ->whereRaw("tr.tipe_ba = 'DUAL_HOMING'")
                                                 ->whereRaw("tr.progress = true")
+                                                ->whereRaw("tr.status = 'OA'")
                                                 ->where('tsel_reg', $request->tsel_reg)
                                                 ->where('jenis_node', $request->jenis_node)
                                                 ->whereNull('ba_id')
@@ -599,6 +600,7 @@ class DualHomingController extends Controller
             foreach ($sites as $site) {
                 TrWoSite::where('tipe_ba', 'DUAL_HOMING')
                 ->where('progress', true)
+                ->where('status', 'OA')
                 ->where('tsel_reg', $request->tsel_reg)
                 ->where('wo_id',$site['wo_id'])
                 ->where('wo_site_id', $site['wo_site_id'])
