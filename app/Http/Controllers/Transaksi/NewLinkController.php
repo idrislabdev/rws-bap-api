@@ -839,20 +839,20 @@ class NewLinkController extends Controller
         $people_ttd->telkomsel_rto_region_balnus = MaPengaturan::where('nama', 'TELKOMSEL_RTO_REGION_BALNUS')->first();
         $people_ttd->telkomsel_pm_region_jatim = MaPengaturan::where('nama', 'TELKOMSEL_PM_REGION_JATIM')->first();
         $people_ttd->telkomsel_pm_region_balnus = MaPengaturan::where('nama', 'TELKOMSEL_PM_REGION_BALNUS')->first();
-
-        // return view('newlink',  [
-        //     'jenis_dokumen'     => $jenis_dokumen,
-        //     'data_wo'           => $data_wo,
-        //     'data_site'         => $data_site,
-        //     'data_ba'           => $data_ba,
-        //     'dasar_permintaan'  => $dasar_permintaan,
-        //     'total_bw'          => $total_bw,
-        //     'total_site'        => $total_site,
-        //     'format_tanggal'    => $format_tanggal,
-        //     'people_ttd'        => $people_ttd
-        // ]);
-        
-
+	/*
+         return view('newlink',  [
+             'jenis_dokumen'     => $jenis_dokumen,
+             'data_wo'           => $data_wo,
+             'data_site'         => $data_site,
+             'data_ba'           => $data_ba,
+             'dasar_permintaan'  => $dasar_permintaan,
+             'total_bw'          => $total_bw,
+             'total_site'        => $total_site,
+             'format_tanggal'    => $format_tanggal,
+             'people_ttd'        => $people_ttd
+         ]);
+        */
+	
         $pdf = PDF::loadView('newlink', [
             'jenis_dokumen'     => $jenis_dokumen,
             'data_wo'           => $data_wo,
@@ -870,7 +870,8 @@ class NewLinkController extends Controller
         Storage::put('public/pdf/'.$file_name, $pdf->output());
 
         return $file_name;
-        // return $pdf->download('berita_acara.pdf');
+        
+	// return $pdf->download('berita_acara.pdf');
     }
 
     public function downloadBA($id)
