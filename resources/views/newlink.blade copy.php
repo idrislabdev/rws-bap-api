@@ -670,7 +670,7 @@
                             <tr>
                                 <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                 <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENY REGION</td>
+                                <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENT REGION</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Teguh Cipto E.</td>
@@ -860,7 +860,7 @@
                             <tr>
                                 <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                 <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENY REGION</td>
+                                <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENT REGION</td>
                             </tr>
                             <tr>
                                 <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: Teguh Cipto E.</td>

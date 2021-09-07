@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Berita Acara New Link</title>
+        <title>Katalog Produk Ichiban</title>
 
         <!-- Fonts -->
         <!-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> -->
@@ -617,7 +617,7 @@
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENY REGION</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENT REGION</td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$people_ttd->manager_wholesale->nilai}}</td>
@@ -859,7 +859,7 @@
                                     <tr>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENY REGION</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENT REGION</td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$people_ttd->manager_wholesale->nilai}}</td>
