@@ -223,6 +223,7 @@ class DualHomingController extends Controller
             'site_name' => 'required',
             'site_witel' => 'required',
             'tsel_reg' => 'required',
+            'bandwidth'     => 'required'
         ]);
 
         if($v->fails())
@@ -254,8 +255,8 @@ class DualHomingController extends Controller
                                 'site_name' => $request->site_name,
                                 'tsel_reg' => $request->tsel_reg,
                                 'site_witel' => $request->site_witel,
-                                'jumlah' => $request->jumlah,
-                                'tgl_on_air' => $request->tgl_on_air,
+                                'jumlah' => $request->bandwidth,
+                                'keterangan' => $request->keterangan,
                             ));
 
             return response()->json([
@@ -500,6 +501,43 @@ class DualHomingController extends Controller
         }
     }
 
+    public function backOGP($wo_id, $wo_site_id)
+    {
+        $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('status', 'OA')->first();
+
+        if($data == null)
+        {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => 'Data Tidak Ditemukan'
+            ], 422);
+        }
+
+
+        try {
+
+            $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                            ->update(array(
+                                'status' => 'OGP',
+                            ));
+
+            return response()->json([
+                'data' => $data,
+                'success' => true,
+                'message' => null,
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => $e,
+            ], 400);
+        }
+    }
+
     public function checkSiteBA(Request $request)
     {
         $v = Validator::make($request->all(), [
@@ -627,6 +665,42 @@ class DualHomingController extends Controller
             //     'success' => true,
             //     'message' => 'Berita Acara Berhasil Dibuat'
             // ]);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+    }
+
+    public function deleteBA($id)
+    {
+        DB::beginTransaction();
+        try {
+            
+            TrWoSite::where('ba_id', $id)->where('tipe_ba', 'DUAL_HOMING')
+            ->update(array(
+                'ba_id' => null,
+            )); 
+
+            TrBa::where('id', $id)->where('tipe', 'DUAL_HOMING')->delete();
+        
+            $path = storage_path().'/app/public/pdf/'.$id .'.pdf';
+
+            if(file_exists($path))
+                unlink($path);
+
+
+            DB::commit();
+    
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => null
+            ], 200);
 
         } catch (\Exception $e) {
             DB::rollback();

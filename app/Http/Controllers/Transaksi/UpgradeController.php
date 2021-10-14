@@ -375,6 +375,43 @@ class UpgradeController extends Controller
         }
     }
 
+    public function backOGP($wo_id, $wo_site_id)
+    {
+        $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('status', 'OA')->first();
+
+        if($data == null)
+        {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => 'Data Tidak Ditemukan'
+            ], 422);
+        }
+
+
+        try {
+
+            $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                            ->update(array(
+                                'status' => 'OGP',
+                            ));
+
+            return response()->json([
+                'data' => $data,
+                'success' => true,
+                'message' => null,
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => $e,
+            ], 400);
+        }
+    }
+
     public function checkSiteBA(Request $request)
     {
         $v = Validator::make($request->all(), [
@@ -610,6 +647,41 @@ class UpgradeController extends Controller
         }
     }
 
+    public function deleteBA($id)
+    {
+        DB::beginTransaction();
+        try {
+            
+            TrWoSite::where('ba_id', $id)->where('tipe_ba', 'UPGRADE')
+            ->update(array(
+                'ba_id' => null,
+            )); 
+
+            TrBa::where('id', $id)->where('tipe', 'UPGRADE')->delete();
+        
+            $path = storage_path().'/app/public/pdf/'.$id .'.pdf';
+
+            if(file_exists($path))
+                unlink($path);
+
+            DB::commit();
+    
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => null
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+    }
+
     public function fileBA($id)
     {
         set_time_limit(1800);
@@ -737,7 +809,8 @@ class UpgradeController extends Controller
         $file_name = $id.'.pdf';
 
         $path = storage_path().'/app/public/pdf/'.$file_name;
-        unlink($path);
+        if(file_exists($path))
+            unlink($path);
 
         $this->fileBA($id);
     }

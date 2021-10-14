@@ -413,7 +413,8 @@ class BaNewLinkController extends Controller
         }
 
         $path = public_path().'/lampirans/'.$data->lampiran_url;
-        unlink($path);
+        if(file_exists($path))
+            unlink($path);
 
         $update = TrBaWo::where('ba_id', $ba_id)->where('wo_id', $wo_id)
                             ->update(array(
@@ -1051,7 +1052,8 @@ class BaNewLinkController extends Controller
         
 
         $path = public_path().'/lampirans/'.$data->image_url;
-        unlink($path);
+        if(file_exists($path))
+            unlink($path);
 
         // $whereArray = array('ba_id' => $ba_id,'wo_id' => $wo_id, 'ba_site_id' => $ba_site_id, 'id' => $id);
         // return TrBaSiteLampiran::whereArray($whereArray)->delete();

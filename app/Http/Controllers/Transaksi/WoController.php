@@ -145,7 +145,8 @@ class WoController extends Controller
                 $data = TrWo::findOrFail($id);
             
                 $path = public_path().'/lampirans/'.$data->lampiran_url;
-                unlink($path);
+                if(file_exists($path))
+                    unlink($path);
     
                 $data->lampiran_url = null;
                 $data->save();

@@ -60,6 +60,7 @@ Route::prefix('transaksi')->group(function(){
         Route::get('new-link', [NewLinkController::class, 'index']);
         Route::get('new-link/{wo_id}/site/{wo_site_id}', [NewLinkController::class, 'show']);
         Route::patch('new-link/{wo_id}/site/{wo_site_id}/oa', [NewLinkController::class, 'updateOA']);
+        Route::patch('new-link/{wo_id}/site/{wo_site_id}/ogp', [NewLinkController::class, 'backOGP']);
         Route::patch('new-link/{wo_id}/site/{wo_site_id}/bandwidth', [NewLinkController::class, 'updateBW']);
         Route::patch('new-link/{wo_id}/site/{wo_site_id}/ne-type', [NewLinkController::class, 'updateNeType']);
 
@@ -67,6 +68,7 @@ Route::prefix('transaksi')->group(function(){
         Route::get('upgrade', [UpgradeController::class, 'index']);
         Route::get('upgrade/{wo_id}/site/{wo_site_id}', [UpgradeController::class, 'show']);
         Route::patch('upgrade/{wo_id}/site/{wo_site_id}/oa', [UpgradeController::class, 'updateOA']);
+        Route::patch('upgrade/{wo_id}/site/{wo_site_id}/ogp', [UpgradeController::class, 'backOGP']);
         Route::patch('upgrade/{wo_id}/site/{wo_site_id}/bandwidth', [UpgradeController::class, 'updateBW']);
 
         Route::get('dual-homing', [DualHomingController::class, 'index']);
@@ -75,6 +77,7 @@ Route::prefix('transaksi')->group(function(){
         Route::post('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'storeParameter']);
         Route::patch('dual-homing/parameter/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'updateParameter']);
         Route::patch('dual-homing/{wo_id}/site/{wo_site_id}/oa', [DualHomingController::class, 'updateOA']);
+        Route::patch('dual-homing/{wo_id}/site/{wo_site_id}/ogp', [DualHomingController::class, 'backOGP']);
 
         Route::get('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'index']);
         Route::post('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'store']);
@@ -117,6 +120,7 @@ Route::prefix('transaksi')->group(function(){
             Route::post('new-link/create-ba/check', [NewLinkController::class, 'checkSiteBA']);
             // Route::get('new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
             Route::get('new-link/ba/{id}/refresh', [NewLinkController::class, 'fileBA']);
+            Route::delete('new-link/ba/{id}/delete', [NewLinkController::class, 'deleteBA']);
 
 
             Route::post('upgrade', [UpgradeController::class, 'store']);
@@ -126,6 +130,7 @@ Route::prefix('transaksi')->group(function(){
             Route::post('upgrade/create-ba/check', [UpgradeController::class, 'checkSiteBA']);
             // Route::get('upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
             Route::get('upgrade/ba/{id}/refresh', [UpgradeController::class, 'fileBA']);
+            Route::delete('upgrade/ba/{id}/delete', [UpgradeController::class, 'deleteBA']);
 
             Route::post('dual-homing', [DualHomingController::class, 'store']);
             Route::patch('dual-homing/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'update']);
@@ -133,6 +138,7 @@ Route::prefix('transaksi')->group(function(){
             Route::post('dual-homing/create-ba/check', [DualHomingController::class, 'checkSiteBA']);
             // Route::get('dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
             Route::get('dual-homing/ba/{id}/refresh', [DualHomingController::class, 'fileBA']);
+            Route::delete('dual-homing/ba/{id}/delete', [DualHomingController::class, 'deleteBA']);
 
             Route::post('work-order/{id}', [WoController::class, 'update']);
             Route::delete('work-order/{id}', [WoController::class, 'destroy']);

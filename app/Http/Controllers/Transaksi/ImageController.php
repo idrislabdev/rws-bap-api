@@ -173,7 +173,8 @@ class ImageController extends Controller
         try {
 
             $path = public_path().'/lampirans/'.$data->image_url;
-            unlink($path);
+            if(file_exists($path))
+                unlink($path);
 
             // $whereArray = array('ba_id' => $ba_id,'wo_id' => $wo_id, 'wo_site_id' => $wo_site_id, 'id' => $id);
             // return TrWoSiteImage::whereArray($whereArray)->delete();
