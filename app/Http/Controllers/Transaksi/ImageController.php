@@ -62,15 +62,20 @@ class ImageController extends Controller
                                     ->max("id");
 
             foreach ($url_arr as $image_url) {
-                $counter++;
-                $data = new TrWoSiteImage();
-                $data->wo_id = $wo_id;
-                $data->wo_site_id = $wo_site_id;
-                $data->id = $counter;
-                $data->tipe = $request->tipe;
-                $data->image_url = $image_url;
-                $data->dibuat_oleh = Auth::user()->id;
-                $data->save();
+                $check = TrWoSiteImage::where('wo_id',$wo_id)->where('wo_site_id',$wo_site_id)->where('tipe', $request->tipe)->first();
+
+                if ($check == null) {
+                    $counter++;
+                    $data = new TrWoSiteImage();
+                    $data->wo_id = $wo_id;
+                    $data->wo_site_id = $wo_site_id;
+                    $data->id = $counter;
+                    $data->tipe = $request->tipe;
+                    $data->image_url = $image_url;
+                    $data->dibuat_oleh = Auth::user()->id;
+                    $data->save();
+                }
+                
             }
 
             $check_evident = UtilityHelper::checkEvident($wo_id, $wo_site_id);
