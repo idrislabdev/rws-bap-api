@@ -935,7 +935,7 @@ class NewLinkController extends Controller
             'total_site'        => $total_site,
             'format_tanggal'    => $format_tanggal,
             'people_ttd'        => $people_ttd
-        ])->setPaper('a4')->setTimeout(3600);
+        ])->setPaper('a4');
 
         $file_name = $id.'.pdf';
 
