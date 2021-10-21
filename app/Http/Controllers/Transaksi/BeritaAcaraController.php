@@ -8,6 +8,7 @@ use App\Http\Resources\TrWoSiteResource;
 use App\Models\TrBa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class BeritaAcaraController extends Controller
 {
@@ -120,6 +121,52 @@ class BeritaAcaraController extends Controller
             'success' => true,
             'message' => null,
         ]);
+    }
+
+    public function changeSirkulir(Request $request, $id)
+    {
+        $v = Validator::make($request->all(), [
+            'status_sirkulir' => 'required',
+        ]);
+
+        if ($v->fails())
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'error',
+                'data' => $v->errors()
+            ], 422);
+        }   
+
+        try {
+
+            $data = TrBa::find($id);
+
+            if(!$data)
+            {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Tidak Ditemukan',
+                    'data' => null
+                ], 404);
+            }
+    
+            $data->status_sirkulir = $request->status_sirkulir;
+            $data->update();
+    
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
     }
 
     /**

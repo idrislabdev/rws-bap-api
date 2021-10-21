@@ -78,6 +78,55 @@ class DashboardController extends Controller
 
         $obj = new \stdClass();
         $data = array();
+        for ($i=0; $i<count($witel); $i++) {
+            $obj = new \stdClass(); 
+            $obj->witel = $witel[$i];
+            $obj->total_order =TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->count();
+            $obj->total_ogp = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OGP')->count();
+            $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->count();
+            $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->where('progress', 1)->count();
+            $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel', $witel[$i])->where('status', 'OA')->where('progress', 0)->count();
+            $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel',  $witel[$i])->where('status', 'OA')->where('progress', 1)->whereNotNull('ba_id')->count();
+            $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('site_witel',  $witel[$i])->where('status', 'OA')->where('progress', 1)->whereNull('ba_id')->count();
+
+            $obj->total_oa_ba_sirkulir = DB::table(DB::raw('tr_bas b, tr_wo_sites w')) 
+                ->select(DB::raw("*"))
+                                ->whereRaw("b.id = w.ba_id")
+                                ->where('tipe_ba', $tipe_ba)
+                                ->where('site_witel', $witel[$i])
+                                ->where('status', 'OA')
+                                ->where('progress', 1)
+                                ->where('status_sirkulir', 1)
+                                ->whereNotNull('ba_id')
+                                ->count();
+
+            array_push($data, $obj);
+        }
+
+        $obj = new \stdClass(); 
+
+        $obj->witel = 'Total';
+        $obj->total_order =TrWoSite::where('tipe_ba', $tipe_ba)->count();
+        $obj->total_ogp = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OGP')->count();
+        $obj->total_oa = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->count();
+        $obj->total_oa_complete = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 1)->count();
+        $obj->total_oa_not_yet = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 0)->count();
+        $obj->total_oa_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 1)->whereNotNull('ba_id')->count();
+        $obj->total_oa_not_ba = TrWoSite::where('tipe_ba', $tipe_ba)->where('status', 'OA')->where('progress', 1)->whereNull('ba_id')->count();
+
+        $obj->total_oa_ba_sirkulir = DB::table(DB::raw('tr_bas b, tr_wo_sites w')) 
+                    ->select(DB::raw("*"))
+                                    ->whereRaw("b.id = w.ba_id")
+                                    ->where('tipe_ba', $tipe_ba)
+                                    ->where('status', 'OA')
+                                    ->where('progress', 1)
+                                    ->where('status_sirkulir', 1)
+                                    ->whereNotNull('ba_id')
+                                    ->count();
+
+        array_push($data, $obj);
+
+        /*
         if (isset($_GET['site_witel'])){
             $obj = new \stdClass(); 
             $obj->witel = $_GET['site_witel'];
@@ -131,6 +180,7 @@ class DashboardController extends Controller
             array_push($data, $obj);
 
         }
+        */
 
         
 
@@ -258,6 +308,14 @@ class DashboardController extends Controller
                 $data = $data->where('progress', 1)->whereNotNull('ba_id');
             }
         }
+
+        if (isset($_GET['ba_sirkulir'])){
+            if ($_GET['ba'] == 0) {
+                $data = $data->where('status_sirkulir', 0);
+            } else {
+                $data = $data->where('status_sirkulir', 1);
+            }
+        }
                                     
         $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(10)->onEachSide(5);       
 
@@ -345,6 +403,14 @@ class DashboardController extends Controller
                 $data = $data->where('progress', 1)->whereNull('ba_id');
             } else {
                 $data = $data->where('progress', 1)->whereNotNull('ba_id');
+            }
+        }
+
+        if (isset($_GET['ba_sirkulir'])){
+            if ($_GET['ba'] == 0) {
+                $data = $data->where('status_sirkulir', 0);
+            } else {
+                $data = $data->where('status_sirkulir', 1);
             }
         }
                                     
@@ -444,7 +510,15 @@ class DashboardController extends Controller
             } else {
                 $data = $data->where('progress', 1)->whereNotNull('ba_id');
             }
-        }         
+        }     
+        
+        if (isset($_GET['ba_sirkulir'])){
+            if ($_GET['ba'] == 0) {
+                $data = $data->where('status_sirkulir', 0);
+            } else {
+                $data = $data->where('status_sirkulir', 1);
+            }
+        }
                      
         $data = $data->orderBy('tr.created_at')->orderBy('tr.site_id')->paginate(25)->onEachSide(5);       
 

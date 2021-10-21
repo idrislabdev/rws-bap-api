@@ -111,6 +111,7 @@ Route::prefix('transaksi')->group(function(){
             // Route::resource('berita-acara', BeritaAcaraController::class);
             Route::get('berita-acara', [BeritaAcaraController::class, 'index']);
             Route::get('berita-acara/{id}/sites', [BeritaAcaraController::class, 'indexSites']);
+            Route::patch('berita-acara/{id}/sirkulir', [BeritaAcaraController::class, 'changeSirkulir']);
 
             Route::post('new-link', [NewLinkController::class, 'store']);
             Route::patch('new-link/{wo_id}/site/{wo_site_id}', [NewLinkController::class, 'update']);

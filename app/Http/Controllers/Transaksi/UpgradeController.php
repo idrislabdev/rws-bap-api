@@ -504,6 +504,7 @@ class UpgradeController extends Controller
             $ba->tsel_reg = $request->tsel_reg;
             $ba->tipe = 'UPGRADE';
             $ba->dibuat_oleh = Auth::user()->id;
+            $ba->status_sirkulir = 0;
             $ba->save();
 
             $sites = $request->sites;
