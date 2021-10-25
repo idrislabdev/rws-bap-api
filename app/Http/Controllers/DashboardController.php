@@ -310,9 +310,7 @@ class DashboardController extends Controller
         }
 
         if (isset($_GET['ba_sirkulir'])){
-            if ($_GET['ba'] == 0) {
-                $data = $data->where('status_sirkulir', 0);
-            } else {
+            if ($_GET['ba_sirkulir'] != 0) {
                 $data = $data->where('status_sirkulir', 1);
             }
         }
@@ -407,9 +405,7 @@ class DashboardController extends Controller
         }
 
         if (isset($_GET['ba_sirkulir'])){
-            if ($_GET['ba'] == 0) {
-                $data = $data->where('status_sirkulir', 0);
-            } else {
+            if ($_GET['ba_sirkulir'] != 0) {
                 $data = $data->where('status_sirkulir', 1);
             }
         }
@@ -510,12 +506,10 @@ class DashboardController extends Controller
             } else {
                 $data = $data->where('progress', 1)->whereNotNull('ba_id');
             }
-        }     
-        
+        }
+
         if (isset($_GET['ba_sirkulir'])){
-            if ($_GET['ba'] == 0) {
-                $data = $data->where('status_sirkulir', 0);
-            } else {
+            if ($_GET['ba_sirkulir'] != 0) {
                 $data = $data->where('status_sirkulir', 1);
             }
         }
