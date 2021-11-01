@@ -687,6 +687,7 @@ class NewLinkController extends Controller
             $ba->tsel_reg = $request->tsel_reg;
             $ba->tipe = 'NEW_LINK';
             $ba->dibuat_oleh = Auth::user()->id;
+            $ba->status_sirkulir = 0;
             $ba->save();
 
             $sites = $request->sites;
