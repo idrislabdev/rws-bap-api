@@ -603,7 +603,7 @@ class UpgradeController extends Controller
             foreach ($sites as $site) {
                 $update = TrWoSite::where('tipe_ba', 'UPGRADE')
                         ->where('progress', false)
-                        ->where('tsel_reg', $request->tsel_reg)
+                        ->where('tsel_regs', $request->tsel_reg)
                         ->where('site_id', $site)
                         ->whereNull('ba_id')
                         ->update(array(
