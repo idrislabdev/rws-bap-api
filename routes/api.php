@@ -127,7 +127,7 @@ Route::prefix('transaksi')->group(function(){
             Route::post('upgrade', [UpgradeController::class, 'store']);
             Route::patch('upgrade/{wo_id}/site/{wo_site_id}', [UpgradeController::class, 'update']);
             Route::post('upgrade/create-ba', [UpgradeController::class, 'createBA']);
-            Route::post('upgrade/create-ba-bypass', [NewLinkController::class, 'createBAByPass']);
+            Route::post('upgrade/create-ba-bypass', [UpgradeController::class, 'createBAByPass']);
             Route::post('upgrade/create-ba/check', [UpgradeController::class, 'checkSiteBA']);
             // Route::get('upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
             Route::get('upgrade/ba/{id}/refresh', [UpgradeController::class, 'fileBA']);
