@@ -67,6 +67,27 @@ class BeritaAcaraController extends Controller
                                                                     tr.wo_id = t.wo_id 
                                                                 AND 
                                                                     tr.wo_site_id = t.wo_site_id) as qc,
+                                                        
+
+                                                        (SELECT count(*) 
+                                                                FROM 
+                                                                    tr_wo_site_images ti
+                                                                WHERE 
+                                                                    tr.wo_id = ti.wo_id 
+                                                                AND 
+                                                                    tr.wo_site_id = ti.wo_site_id
+                                                                AND
+                                                                    ti.tipe = 'LV') as lv_image,
+
+                                                        (SELECT count(*) 
+                                                                    FROM 
+                                                                        tr_wo_site_images ti
+                                                                    WHERE 
+                                                                        tr.wo_id = ti.wo_id 
+                                                                    AND 
+                                                                        tr.wo_site_id = ti.wo_site_id
+                                                                    AND
+                                                                        ti.tipe = 'QC') as qc_image,
 
                                                         (SELECT count(*) 
                                                             FROM 
@@ -109,7 +130,7 @@ class BeritaAcaraController extends Controller
         if ($q) {
             $data = $data->whereRaw("(program like '%$q%' or 
                                     site_name like '%$q%' or 
-                                    site_witel like '%$q%' or 
+                                    tr.site_witel like '%$q%' or 
                                     tr.tsel_reg like '%$q%' or 
                                     site_id like '%$q%' or 
                                     dasar_order like '%$q%')");

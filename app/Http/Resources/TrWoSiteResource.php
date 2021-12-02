@@ -36,6 +36,8 @@ class TrWoSiteResource extends JsonResource
             'ba_id' => $this->ba_id,
             'qc' => $this->qc,
             'lv' => $this->lv,
+            'lv_image' => $this->lv_image,
+            'qc_image' => $this->qc_image,
             'konfigurasi' => $this->konfigurasi,
             'topologi' => $this->topologi,
             'capture_trafik' => $this->capture_trafik,
