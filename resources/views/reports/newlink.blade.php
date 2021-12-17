@@ -18,6 +18,7 @@
         <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Order BW</th>
         <th style="border: 1px solid #000000; width: 10px; background-color: aqua; font-size: 13px;">Status</th>
         <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Progress</th>
+        <th style="border: 1px solid #000000; width: 10px; background-color: aqua; font-size: 13px;">Tgl OA</th>
         <th style="border: 1px solid #000000; width: 10px; background-color: aqua; font-size: 13px;">Presentase</th>
         <th style="border: 1px solid #000000; width: 40px; background-color: aqua; font-size: 13px;">Nomor BA</th>
     </tr>
@@ -34,6 +35,7 @@
             <td style="border: 1px solid #000000">{{ $data->jumlah }}</td>
             <td style="border: 1px solid #000000">{{ $data->status }}</td>
             <td style="border: 1px solid #000000">{{ $data->progress == true ? 'Complete' : 'Not Complete'}}</td>
+            <td style="border: 1px solid #000000">{{strtoupper(date('d-M-y', strtotime($data->tgl_on_air)))}}</td>
             <td style="border: 1px solid #000000">
                 {{ 
                     ((($data->konfigurasi > 0 ? 1 : 0) + 
