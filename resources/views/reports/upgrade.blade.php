@@ -17,8 +17,8 @@
             <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Program</th>
             <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Order BW</th>
             <th style="border: 1px solid #000000; width: 10px; background-color: aqua; font-size: 13px;">Status</th>
-            <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Tgl OA</th>
             <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Progress</th>
+            <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Tgl OA</th>
             <th style="border: 1px solid #000000; width: 10px; background-color: aqua; font-size: 13px;">Presentase</th>
             <th style="border: 1px solid #000000; width: 40px; background-color: aqua; font-size: 13px;">Nomor BA</th>
         </tr>
