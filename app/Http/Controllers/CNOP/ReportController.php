@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CNOP;
 
+use App\Http\Controllers\Controller;
 use App\Exports\DualHomingExport;
 use App\Exports\NewLinkExport;
 use App\Exports\UpgradeExport;

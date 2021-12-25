@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Transaksi;
+namespace App\Http\Controllers\CNOP\Transaksi;
 
 use App\Helper\UtilityHelper;
 use App\Http\Controllers\Controller;

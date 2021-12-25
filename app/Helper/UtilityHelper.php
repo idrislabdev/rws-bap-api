@@ -151,4 +151,15 @@ class UtilityHelper
         return $data;
     }
 
+    public static function checkNomorDokumen() {
+        $data_id = DB::table('ma_nomor_dokumens')
+            ->select(DB::raw('max(SUBSTRING(no_dokumen, 6, 4)) as result'))
+            ->first();
+
+        $counter = ($data_id) ? (int)$data_id->result + 1 : 1;
+        $id = 'TEL. ' . sprintf("%04d", $counter);
+        
+        return $id . '/YN.000/DR5-11000000/' . date('Y');
+    }
+
 }
