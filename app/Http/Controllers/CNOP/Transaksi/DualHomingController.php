@@ -6,6 +6,7 @@ use App\Helper\UtilityHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DUAL_HOMINGResource;
 use App\Http\Resources\DualHomingResource;
+use App\Models\MaNomorDokumen;
 use App\Models\MaPengaturan;
 use App\Models\MaPengguna;
 use App\Models\TrBa;
@@ -649,8 +650,12 @@ class DualHomingController extends Controller
                 ));
             }
 
-            
-        
+            $data = new MaNomorDokumen();
+            $data->id = Uuid::uuid4()->toString();
+            $data->no_dokumen = $request->no_dokumen;
+            $data->tipe_dokumen = 'DUAL_HOMING';
+            $data->tgl_dokumen = $request->tgl_dokumen;
+            $data->save();
 
             DB::commit();
     

@@ -15,9 +15,14 @@ use App\Http\Controllers\CNOP\Transaksi\QcController;
 use App\Http\Controllers\CNOP\Transaksi\UpgradeController;
 use App\Http\Controllers\CNOP\Transaksi\WoController;
 use App\Http\Controllers\Master\NomorDokumenController;
+use App\Http\Controllers\Master\OloJenisAddOnController;
+use App\Http\Controllers\Master\OloJenisOrderController;
+use App\Http\Controllers\Master\OloKlienController;
+use App\Http\Controllers\Master\OloProdukController;
 use App\Http\Controllers\Master\PengaturanController;
 use App\Http\Controllers\Master\PenggunaController;
 use App\Http\Controllers\Master\WilayahController;
+use App\Http\Controllers\OLO\Transaksi\BeritaAcaraController as TransaksiBeritaAcaraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,17 +43,24 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-Route::prefix('data')->group(function() {
+Route::prefix('data')->group(function () {
     Route::prefix('nomor-dokumen')->group(function () {
         Route::get('', [NomorDokumenController::class, 'index']);
         Route::post('', [NomorDokumenController::class, 'store']);
         Route::get('{id}', [NomorDokumenController::class, 'show']);
         Route::get('check/available', [NomorDokumenController::class, 'check']);
-    });   
+        Route::get('download/dokumen', [NomorDokumenController::class, 'downloadDokumen']);
+
+    });
     Route::resource('pengaturan', PengaturanController::class);
     Route::resource('pengguna', PenggunaController::class);
     Route::resource('wilayah', WilayahController::class);
-});    
+    Route::resource('olo-jenis-addon', OloJenisAddOnController::class);
+    Route::resource('olo-jenis-order', OloJenisOrderController::class);
+    Route::resource('olo-klien', OloKlienController::class);
+    Route::resource('olo-produk', OloProdukController::class);
+
+});
 
 Route::prefix('cnop')->group(function () {
 
@@ -161,4 +173,22 @@ Route::prefix('cnop')->group(function () {
     Route::get('transaksi/new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
     Route::get('transaksi/upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
     Route::get('transaksi/dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
+    Route::get('test-report', [NewLinkController::class, 'testReport']);
+});
+
+Route::prefix('olo')->group(function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+
+        Route::prefix('transaksi')->group(function () {
+            Route::resource('berita-acara', TransaksiBeritaAcaraController::class);
+        });
+
+        Route::prefix('report')->group(function() {
+            Route::get('view', [TransaksiBeritaAcaraController::class, 'reportView']);
+            Route::get('download', [TransaksiBeritaAcaraController::class, 'reportDownload']);
+
+        });
+    });
+    Route::get('transaksi/berita-acara/download/file/{id}/{tipe}', [TransaksiBeritaAcaraController::class, 'fileBA']);
+
 });

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\NewlinkResource;
 use App\Http\Resources\TrBaResource;
 use App\Http\Resources\TrWoSiteResource;
+use App\Models\MaNomorDokumen;
 use App\Models\MaPengaturan;
 use App\Models\MaPengguna;
 use App\Models\MaWitel;
@@ -615,9 +616,13 @@ class NewLinkController extends Controller
                 ));
             }
 
-            
+            $data = new MaNomorDokumen();
+            $data->id = Uuid::uuid4()->toString();
+            $data->no_dokumen = $request->no_dokumen;
+            $data->tipe_dokumen = 'NEW_LINK';
+            $data->tgl_dokumen = $request->tgl_dokumen;
+            $data->save();
         
-
             DB::commit();
     
             $url = $this->fileBA($id);

@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Master;
 
 use App\Helper\UtilityHelper;
+use App\Http\Controllers\CNOP\Transaksi\DualHomingController;
+use App\Http\Controllers\CNOP\Transaksi\NewLinkController;
+use App\Http\Controllers\CNOP\Transaksi\UpgradeController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\OLO\Transaksi\BeritaAcaraController;
 use App\Http\Resources\MaNomorDokumenResource;
 use App\Models\MaNomorDokumen;
+use App\Models\TrBa;
+use App\Models\TrOloBa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +22,19 @@ class NomorDokumenController extends Controller
 
     public function index()
     {
-        $data = MaNomorDokumen::paginate();
+        $data = new MaNomorDokumen;
+        if (isset($_GET['page'])) {
+
+            if (isset($_GET['q'])) {
+                $q = $_GET['q'];
+                $data = $data->whereRaw("(no_dokumen like '%$q%')");
+            }
+
+            $data = $data->orderBy('no_dokumen')->paginate(25)->onEachSide(5);
+        } else {
+            $data = $data->get();
+        }
+
         return MaNomorDokumenResource::collection($data)->additional([
             'success' => true,
             'message' => null
@@ -90,4 +108,42 @@ class NomorDokumenController extends Controller
             'message' => null,
         ], 200);
     }
+
+    public function downloadDokumen()
+    {
+        $tipe = $_GET['tipe'];
+        $nomor_dokumen = $_GET['nomor_dokumen'];
+        if ($tipe == 'OLO_BAUT') {
+
+            $data = TrOloBa::where('no_dokumen_baut', $nomor_dokumen)->first();
+            $baut = new BeritaAcaraController();
+            return $baut->fileBA($data->id, 'baut');
+
+        } else if ($tipe == 'OLO_BAST') {
+
+            $data = TrOloBa::where('no_dokumen_bast', $nomor_dokumen)->first();
+            $baut = new BeritaAcaraController();
+            return $baut->fileBA($data->id, 'bast');
+            
+        } else if ($tipe == 'NEW_LINK') {
+
+            $data = TrBa::where('no_dokumen', $nomor_dokumen)->first();
+            $ba = new NewLinkController();
+            return $ba->downloadBA($data->id);
+
+        } else if ($tipe == 'DUAL_HOMING') {
+
+            $data = TrBa::where('no_dokumen', $nomor_dokumen)->first();
+            $ba = new DualHomingController();
+            return $ba->downloadBA($data->id);
+
+        } else if ($tipe == 'UPGRADE') {
+
+            $data = TrBa::where('no_dokumen', $nomor_dokumen)->first();
+            $ba = new UpgradeController();
+            return $ba->downloadBA($data->id);
+        }
+    }
+
+    
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\TrBaResource;
 use App\Http\Resources\TrWoSiteResource;
 use App\Http\Resources\UpgradeResource;
+use App\Models\MaNomorDokumen;
 use App\Models\MaPengaturan;
 use App\Models\MaPengguna;
 use App\Models\TrBa;
@@ -522,9 +523,13 @@ class UpgradeController extends Controller
                 ));
             }
 
-            
+            $data = new MaNomorDokumen();
+            $data->id = Uuid::uuid4()->toString();
+            $data->no_dokumen = $request->no_dokumen;
+            $data->tipe_dokumen = 'UPGRADE';
+            $data->tgl_dokumen = $request->tgl_dokumen;
+            $data->save();
         
-
             DB::commit();
     
             $url = $this->fileBA($id);
