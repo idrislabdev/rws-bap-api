@@ -35,8 +35,11 @@ class BeritaAcaraController extends Controller
                 $q = $_GET['q'];
                 $data = $data->whereRaw("(klien_nama_baut like '%$q%' or klien_lokasi_kerja_baut like '%$q%')");
             }
+            $per_page = 50;
+            if (isset($_GET['per_page']))
+                $per_page = $_GET['per_page'];
 
-            $data = $data->orderBy('tgl_dokumen')->paginate(25)->onEachSide(5);
+            $data = $data->orderBy('tgl_dokumen')->paginate($per_page)->onEachSide(5);
         } else {
             $data = $data->get();
         }
@@ -471,8 +474,10 @@ class BeritaAcaraController extends Controller
                 $q = $_GET['q'];
                 $data = $data->whereRaw("(produk like '%$q%' or jenis_order like '%$q%')");
             }
-
-            $data = $data->orderBy('created_at')->paginate(25)->onEachSide(5);
+            $per_page = 50;
+            if (isset($_GET['per_page']))
+                $per_page = $_GET['per_page'];
+            $data = $data->orderBy('created_at')->paginate($per_page)->onEachSide(5);
         } else {
             $data = $data->orderBy('created_at')->get();
         }
