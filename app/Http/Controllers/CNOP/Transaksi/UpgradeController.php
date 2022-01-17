@@ -232,6 +232,7 @@ class UpgradeController extends Controller
             'program' => 'required',
             'jumlah' => 'required',
             'tgl_on_air' => 'required',
+            'alpro_site' => 'required'
         ]);
 
         if($v->fails())
@@ -266,6 +267,7 @@ class UpgradeController extends Controller
                                 'program' => $request->program,
                                 'jumlah' => $request->jumlah,
                                 'tgl_on_air' => $request->tgl_on_air,
+                                'alpro_site' => $request->alpro_site
                             ));
 
             return response()->json([
