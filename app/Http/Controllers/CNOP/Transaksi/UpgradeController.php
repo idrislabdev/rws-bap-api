@@ -157,6 +157,7 @@ class UpgradeController extends Controller
                     $wo_site->data_4g = 0; 
                     $wo_site->jumlah = $site['data_bandwidth'];
                     $wo_site->program = $site['program'];
+                    $wo_site->alpro_site = ($site['alpro_site']) ?: "";
                     $wo_site->dibuat_oleh = Auth::user()->id;
                     $wo_site->status = 'OGP';
                     $wo_site->progress = false;
