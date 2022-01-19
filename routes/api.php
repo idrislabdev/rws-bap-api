@@ -81,6 +81,7 @@ Route::prefix('cnop')->group(function () {
             Route::patch('upgrade/{wo_id}/site/{wo_site_id}/oa', [UpgradeController::class, 'updateOA']);
             Route::patch('upgrade/{wo_id}/site/{wo_site_id}/ogp', [UpgradeController::class, 'backOGP']);
             Route::patch('upgrade/{wo_id}/site/{wo_site_id}/bandwidth', [UpgradeController::class, 'updateBW']);
+            Route::patch('upgrade/{wo_id}/site/{wo_site_id}/alpro-site', [UpgradeController::class, 'updateAlproSite']);
 
             Route::get('dual-homing', [DualHomingController::class, 'index']);
             Route::get('dual-homing/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'show']);

@@ -467,7 +467,7 @@ class BeritaAcaraController extends Controller
 
     public function reportView()
     {
-        $data = TrOloBaDetail::with('addOn');
+        $data = TrOloBaDetail::with('main')->with('addOn');
         if (isset($_GET['page'])) {
 
             if (isset($_GET['q'])) {

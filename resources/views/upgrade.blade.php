@@ -428,6 +428,7 @@
                                 <th style="width:18%" rowspan="2" class="td-center">POSITION</th>
                                 <th style="width:10%" rowspan="2" class="td-center">WITEL</th>
                                 <th style="width:13%" rowspan="2" class="td-center">ON DATE</th>
+                                <th style="width:13%" rowspan="2" class="td-center">ALPRO SITE</th>
                                 <th style="width:20%" rowspan="2 style="text-align:center;">Order BW</th>
                                 <th style="width:15%" rowspan="2" class="td-center">NO. ORDER</th>
                             </tr>
@@ -441,6 +442,7 @@
                                     <td>END SITE</td>
                                     <td>{{$data_site[$a]->site_witel}}</td>
                                     <td>{{strtoupper(date('d-M-y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
+                                    <td>{{$data_site[$a]->alpro_site}}</td>
                                     <td>{{$data_site[$a]->jumlah}}</td>
                                     <td>{{$data_site[$a]->dasar_order}}</td>
                                 </tr>

@@ -341,6 +341,57 @@ class UpgradeController extends Controller
         }
     }
 
+    public function updateAlproSite(Request $request, $wo_id, $wo_site_id)
+    {
+        $v = Validator::make($request->all(), [
+            'alpro_site' => 'required',
+        ]);
+
+        if($v->fails())
+        {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => $v->errors()
+            ], 422);
+        }
+
+        $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->first();
+
+        if($data == null)
+        {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => 'Data Tidak Ditemukan'
+            ], 422);
+        }
+
+
+        try {
+
+            $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                            ->update(array(
+                                'alpro_site' => $request->alpro_site,
+                            ));
+
+            return response()->json([
+                'data' => $data,
+                'success' => true,
+                'message' => null,
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => $e,
+            ], 400);
+        }
+    }
+
+
     public function updateOA(Request $request, $wo_id, $wo_site_id)
     {
         $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('status', 'OGP')->first();
