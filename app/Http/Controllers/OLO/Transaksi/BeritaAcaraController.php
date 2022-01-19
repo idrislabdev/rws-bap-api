@@ -436,7 +436,7 @@ class BeritaAcaraController extends Controller
                 ->setPaper('a4');
 
             // return $pdf->stream('baut.pdf');
-            return $pdf->stream('bast.pdf');
+            return $pdf->download('bast.pdf');
         }
 
         // $file_name = $id.'.pdf';
