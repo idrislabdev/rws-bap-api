@@ -751,26 +751,41 @@ class NewLinkController extends Controller
     {
         DB::beginTransaction();
         try {
+
+            $check = TrBa::where('id', $id)->first();
             
-            TrWoSite::where('ba_id', $id)->where('tipe_ba', 'NEW_LINK')
-            ->update(array(
-                'ba_id' => null,
-            )); 
+            if ($check) {
+                $no_dokumen = $check->no_dokumen;
 
-            TrBa::where('id', $id)->where('tipe', 'NEW_LINK')->delete();
-
-            $path = storage_path().'/app/public/pdf/'.$id .'.pdf';
-
-            if(file_exists($path))
-                unlink($path);
-
-            DB::commit();
+                TrWoSite::where('ba_id', $id)->where('tipe_ba', 'NEW_LINK')
+                ->update(array(
+                    'ba_id' => null,
+                )); 
     
-            return response()->json([
-                'status' => true,
-                'message' => 'success',
-                'data' => null
-            ], 200);
+                TrBa::where('id', $id)->where('tipe', 'NEW_LINK')->delete();
+    
+                $path = storage_path().'/app/public/pdf/'.$id .'.pdf';
+    
+                if(file_exists($path))
+                    unlink($path);
+    
+                MaNomorDokumen::where('no_dokumen', $no_dokumen)->delete();
+
+                DB::commit();
+        
+                return response()->json([
+                    'status' => true,
+                    'message' => 'success',
+                    'data' => null
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Tidak Ditemukan',
+                    'data' => null
+                ], 400);
+            }
+           
 
         } catch (\Exception $e) {
             DB::rollback();

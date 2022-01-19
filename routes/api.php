@@ -182,6 +182,8 @@ Route::prefix('olo')->group(function () {
 
         Route::prefix('transaksi')->group(function () {
             Route::resource('berita-acara', TransaksiBeritaAcaraController::class);
+            Route::get('berita-acara/{olo_ba_id}/detail/{id}/add-on', [TransaksiBeritaAcaraController::class, 'addOnlist']);
+
         });
 
         Route::prefix('report')->group(function() {

@@ -190,132 +190,138 @@
     <body>
         <!-- halaman pertama -->
         <main>
-            <div class="">
-                <div class="header">
-                    <h3 class="header-margin font-weight-bold"><center>BERITA ACARA {{$data->jenis_order}}</center></h3>
-                    <h4 class="header-margin font-weight-bold"><center>Nomor : {{$data->no_dokumen_baut}}</center></h4>
-                </div>
-                <hr style="border : 1px solid #000">
-                <div class="margin-body">
-                    <p>
-                        Pada hari ini <stron>{{$format_tanggal->hari}}</stron> tanggal <strong>{{$format_tanggal->tgl}}</strong> Bulan <strong>{{strtoupper($format_tanggal->bulan)}}</strong> Tahun <strong>{{$format_tanggal->tahun}} ({{strtoupper(date('d/m/Y', strtotime($data->tgl_dokumen)))}})</strong>, 
-                        kami yang bertempat di <span class="font-weight-bold">Regional Wholesale Service V Jatim Balnus, Gedung Telkom Landmark Tower Surabaya Lt. 9,</span>
-                        kami yang bertanda tangan di bawah ini :
-                    </p>
-                </div>
-                <div class="content-ttd margin-body">
-                    <table>
-                        <tr>
-                            <td style="width:50px">I. </td>
-                            <td style="width:200px">Nama/NIK</td>
-                            <td style="width:10px">:</td>
-                            <td style="width:600px">{{$people_ttd->manager_wholesale->nilai}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Jabatan</td>
-                            <td>:</td>
-                            <td>{{$people_ttd->manager_wholesale->detail_nilai}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Lokasi Kerja</td>
-                            <td>:</td>
-                            <td>REGIONAL WHOLESALE SERVICE JATIM BALNUS</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">TELKOM</span></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="content-ttd margin-body">
-                    <table>
-                        <tr>
-                            <td style="width:50px">II. </td>
-                            <td style="width:200px">Nama/NIK</td>
-                            <td style="width:10px">:</td>
-                            <td style="width:600px">WIDODO</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Jabatan</td>
-                            <td>:</td>
-                            <td>HEAD OF DC AREA TIMUR</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Lokasi Kerja</td>
-                            <td>:</td>
-                            <td>SIGMA CIPTA CARAKA</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">SIGMA</span></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="margin-body">
-                    <p class="mt-3">
-                        Dengan ini menyatakan bahwa pekerjaan <span class="font-weight-bold">penyediaan layanan Colocation Data Center Neucentrix Gubeng 
-                            untuk pelanggan {{$data->klien_nama_baut}} telah selesai dilakukan {{$data->jenis_order}} dan sudah beroperasi sesuai 
-                            dengan order</span>, terhitung sejak tanggal berikut : 
-                    </p>
-                </div>
-                <div class="margin-content margin-body">
-                    <table class="table-site" cellpadding="0" cellspacing="0">
-                        <thead>
+            @for($i=1;$i<=2;$i++)
+                @if ($i == 1)
+                    <div class="page_break_after">
+                @else 
+                    <div class="">
+                @endif
+                    <div class="header">
+                        <h3 class="header-margin font-weight-bold"><center>BERITA ACARA {{$data->jenis_order}}</center></h3>
+                        <h4 class="header-margin font-weight-bold"><center>Nomor : {{$data->no_dokumen_baut}}</center></h4>
+                    </div>
+                    <hr style="border : 1px solid #000">
+                    <div class="margin-body">
+                        <p>
+                            Pada hari ini <stron>{{$format_tanggal->hari}}</stron> tanggal <strong>{{$format_tanggal->tgl}}</strong> Bulan <strong>{{strtoupper($format_tanggal->bulan)}}</strong> Tahun <strong>{{$format_tanggal->tahun}} ({{strtoupper(date('d/m/Y', strtotime($data->tgl_dokumen)))}})</strong>, 
+                            kami yang bertempat di <span class="font-weight-bold">Regional Wholesale Service V Jatim Balnus, Gedung Telkom Landmark Tower Surabaya Lt. 9,</span>
+                            kami yang bertanda tangan di bawah ini :
+                        </p>
+                    </div>
+                    <div class="content-ttd margin-body">
+                        <table>
                             <tr>
-                                <th style="width:5%"  class="td-center">No. </th>
-                                <th style="width:12%"  class="td-center">AO/SC/ORDER</th>
-                                <th style="width:10%"  class="td-center">SID</th>
-                                <th style="width:11%"  class="td-center">PRODUK</th>
-                                <th style="width:15%"  class="td-center">ADD ON</th>
-                                <th style="width:10%"  class="td-center">JENIS</th>
-                                <th style="width:15%"  class="td-center">ALAMAT INSTALASI</th>
-                                <th style="width:12%"  class="td-center">TANGGAL {{$data->jenis_order}}}}</th>
+                                <td style="width:50px">I. </td>
+                                <td style="width:200px">Nama/NIK</td>
+                                <td style="width:10px">:</td>
+                                <td style="width:600px">{{$people_ttd->manager_wholesale->nilai}}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @for ($a=0; $a<@count($detail); $a++)
+                            <tr>
+                                <td></td>
+                                <td>Jabatan</td>
+                                <td>:</td>
+                                <td>{{$people_ttd->manager_wholesale->detail_nilai}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Lokasi Kerja</td>
+                                <td>:</td>
+                                <td>REGIONAL WHOLESALE SERVICE JATIM BALNUS</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">TELKOM</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="content-ttd margin-body">
+                        <table>
+                            <tr>
+                                <td style="width:50px">II. </td>
+                                <td style="width:200px">Nama/NIK</td>
+                                <td style="width:10px">:</td>
+                                <td style="width:600px">WIDODO</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Jabatan</td>
+                                <td>:</td>
+                                <td>HEAD OF DC AREA TIMUR</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Lokasi Kerja</td>
+                                <td>:</td>
+                                <td>SIGMA CIPTA CARAKA</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">SIGMA</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="margin-body">
+                        <p class="mt-3">
+                            Dengan ini menyatakan bahwa pekerjaan <span class="font-weight-bold">penyediaan layanan Colocation Data Center Neucentrix Gubeng 
+                                untuk pelanggan {{$data->klien_nama_baut}} telah selesai dilakukan {{$data->jenis_order}} dan sudah beroperasi sesuai 
+                                dengan order</span>, terhitung sejak tanggal berikut : 
+                        </p>
+                    </div>
+                    <div class="margin-content margin-body">
+                        <table class="table-site" cellpadding="0" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td>{{$a+1}}</td>
-                                    <td>{{$detail[$a]->ao_sc_order}}</td>
-                                    <td>{{$detail[$a]->sid}}</td>
-                                    <td>{{$detail[$a]->produk}}</td>
-                                    <td>
-                                        {{BeritaAcaraController::formatAddOn($detail[$a]->id, $detail[$a]->olo_ba_id)}}    
-                                    </td>
-                                    <td>{{$detail[$a]->jenis_order}}</td>
-                                    <td class="wrapword">{{$detail[$a]->alamat_instalasi}}</td>
-                                    <td>{{strtoupper(date('d-M-y', strtotime($detail[$a]->tgl_order)))}}</td>
+                                    <th style="width:5%"  class="td-center">No. </th>
+                                    <th style="width:12%"  class="td-center">AO/SC/ORDER</th>
+                                    <th style="width:10%"  class="td-center">SID</th>
+                                    <th style="width:11%"  class="td-center">PRODUK</th>
+                                    <th style="width:15%"  class="td-center">ADD ON</th>
+                                    <th style="width:10%"  class="td-center">JENIS</th>
+                                    <th style="width:15%"  class="td-center">ALAMAT INSTALASI</th>
+                                    <th style="width:12%"  class="td-center">TANGGAL {{$data->jenis_order}}}}</th>
                                 </tr>
-                            @endfor 
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @for ($a=0; $a<@count($detail); $a++)
+                                    <tr>
+                                        <td>{{$a+1}}</td>
+                                        <td>{{$detail[$a]->ao_sc_order}}</td>
+                                        <td>{{$detail[$a]->sid}}</td>
+                                        <td>{{$detail[$a]->produk}}</td>
+                                        <td>
+                                            {{BeritaAcaraController::formatAddOn($detail[$a]->id, $detail[$a]->olo_ba_id)}}    
+                                        </td>
+                                        <td>{{$detail[$a]->jenis_order}}</td>
+                                        <td class="wrapword">{{$detail[$a]->alamat_instalasi}}</td>
+                                        <td>{{strtoupper(date('d-M-y', strtotime($detail[$a]->tgl_order)))}}</td>
+                                    </tr>
+                                @endfor 
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="margin-body mt-xl">
+                        <p>
+                            Tanggal aktivasi diatas menjadi tanggal acuan untuk penerbitan invoice billing pada bulan berikutnya.<br>
+                            Demikian Berita Acara ini dibuat dengan <span class="font-weight-bold">BENAR</span> rangkap 2 (dua) 
+                            asli yang sama bunyinya dan mempunyai kekuatan hukum yang sama setelah ditandatangani oleh kedua  belah pihak.
+                        </p>
+                    </div>
+                    <div class="margin-body mt-xl">
+                        <table style="width:100%;">
+                            <tr class="text-center">
+                                <td style="padding-bottom: 70px; width:40%; font-weight:bold;">{{$data->klien_nama_baut}}</td>
+                                <td style="width:20%;"></td>
+                                <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOM</td>
+                            </tr>
+                            <tr class="text-center">
+                                <td style="font-weight:bold; text-decoration: underline">{{$data->klien_penanggung_jawab_baut}}</td>
+                                <td style="width:20%;"></td>
+                                <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->manager_wholesale->nilai}}</td>
+                            </tr>
+                        </table>            
+                    </div>
                 </div>
-                <div class="margin-body mt-xl">
-                    <p>
-                        Tanggal aktivasi diatas menjadi tanggal acuan untuk penerbitan invoice billing pada bulan berikutnya.<br>
-                        Demikian Berita Acara ini dibuat dengan <span class="font-weight-bold">BENAR</span> rangkap 2 (dua) 
-                        asli yang sama bunyinya dan mempunyai kekuatan hukum yang sama setelah ditandatangani oleh kedua  belah pihak.
-                    </p>
-                </div>
-                <div class="margin-body mt-xl">
-                    <table style="width:100%;">
-                        <tr class="text-center">
-                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">{{$data->klien_nama_baut}}</td>
-                            <td style="width:20%;"></td>
-                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOM</td>
-                        </tr>
-                        <tr class="text-center">
-                            <td style="font-weight:bold; text-decoration: underline">{{$data->klien_penanggung_jawab_baut}}</td>
-                            <td style="width:20%;"></td>
-                            <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->manager_wholesale->nilai}}</td>
-                        </tr>
-                    </table>            
-                </div>
-            </div>
+            @endfor
         </main>
     </body>
 </html>

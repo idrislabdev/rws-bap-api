@@ -5,6 +5,7 @@ namespace App\Http\Controllers\OLO\Transaksi;
 use App\Exports\OloExport;
 use App\Helper\UtilityHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OloViewResource;
 use App\Http\Resources\TrOloBaDetailResource;
 use App\Http\Resources\TrOloBaResource;
 use App\Models\MaNomorDokumen;
@@ -200,21 +201,31 @@ class BeritaAcaraController extends Controller
         DB::beginTransaction();
         try {
 
-            // TrOloBa::where('id', $id)->where('tipe', $tipe)->delete();
-            TrOloBa::where('id', $id)->delete();
+            $check = TrOloBa::where('id', $id)->first();
+            if ($check) {
+                TrOloBa::where('id', $id)->delete();
 
-            $path = storage_path() . '/app/public/pdf/' . $id . '.pdf';
 
-            if (file_exists($path))
-                unlink($path);
+                if ($check->no_dokumen_baut != null)
+                    MaNomorDokumen::where('no_dokumen', $check->no_dokumen_baut)->delete();
 
-            DB::commit();
+                if ($check->no_dokumen_bast != null)
+                    MaNomorDokumen::where('no_dokumen', $check->no_dokumen_bast)->delete();
 
-            return response()->json([
-                'status' => true,
-                'message' => 'success',
-                'data' => null
-            ], 200);
+                DB::commit();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'success',
+                    'data' => null
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Tidak Ditemukan',
+                    'data' => null
+                ], 400);
+            }
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -425,7 +436,7 @@ class BeritaAcaraController extends Controller
                 ->setPaper('a4');
 
             // return $pdf->stream('baut.pdf');
-            return $pdf->download('baut.pdf');
+            return $pdf->stream('bast.pdf');
         }
 
         // $file_name = $id.'.pdf';
@@ -467,22 +478,44 @@ class BeritaAcaraController extends Controller
 
     public function reportView()
     {
-        $data = TrOloBaDetail::with('main')->with('addOn');
+        $data = DB::table(DB::raw('tr_olo_bas b, tr_olo_ba_details d'))
+            ->select(
+                DB::raw("*, (SELECT 
+                                GROUP_CONCAT(CONCAT(nama_add_on, ' ', jumlah, ' ', satuan) SEPARATOR ', ')
+                                FROM tr_olo_ba_detail_add_ons tr
+                                    WHERE 
+                                        tr.olo_ba_id = d.olo_ba_id 
+                                    AND 
+                                        tr.id = d.id) as add_ons")
+            )
+            ->whereRaw('b.id = d.olo_ba_id');
+
         if (isset($_GET['page'])) {
 
             if (isset($_GET['q'])) {
                 $q = $_GET['q'];
-                $data = $data->whereRaw("(produk like '%$q%' or jenis_order like '%$q%')");
+                $data = $data->whereRaw(
+                    "(
+                        produk like '%$q%' or 
+                        ao_sc_order like '%$q%' or
+                        sid like '%$q%' or
+                        b.klien_nama_baut like '%$q%' or 
+                        b.jenis_order like '%$q%' or 
+                        b.no_dokumen_baut like '%$q%' or 
+                        b.no_dokumen_bast like '%$q%'
+                    )"
+                );
             }
             $per_page = 50;
             if (isset($_GET['per_page']))
                 $per_page = $_GET['per_page'];
-            $data = $data->orderBy('created_at')->paginate($per_page)->onEachSide(5);
+
+            $data = $data->orderBy('d.created_at')->paginate($per_page)->onEachSide(5);
         } else {
-            $data = $data->orderBy('created_at')->get();
+            $data = $data->orderBy('d.created_at')->get();
         }
 
-        return TrOloBaDetailResource::collection(($data))->additional([
+        return OloViewResource::collection(($data))->additional([
             'success' => true,
             'message' => null,
         ]);
@@ -498,5 +531,16 @@ class BeritaAcaraController extends Controller
         }
 
         return Excel::download(new OloExport($filter), 'olo.xlsx');
+    }
+
+    public function addOnlist($olo_ba_id, $id)
+    {
+        $data = TrOloBaDetailAddOn::where('olo_ba_id', $olo_ba_id)->where('id', $id)->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => $data,
+            'data' => null
+        ], 200);
     }
 }
