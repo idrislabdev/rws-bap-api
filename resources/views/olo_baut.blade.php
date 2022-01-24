@@ -314,6 +314,36 @@
                     </table>            
                 </div>
             </div>
+            @for($a=1; $a<=@count($lampiran); $a+=2)
+                @if ($a <= @count($lampiran))
+                    <div class="page_break_before">
+                        <div class="margin-content margin-body mb-small">
+                            <table class="table-kelengkapan cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    @for ($b=$a; $b<=$a+1; $b++)
+                                        @if ($b <= @count($lampiran))
+                                            @php($image = getimagesize(public_path().'/lampirans/'.  $lampiran[$b-1]->url ))
+                                            @if($image[1] < 400)
+                                                <tr style="height:400px;">
+                                                    <td style="text-align: center">
+                                                        <img src="{{ public_path().'/lampirans/'.  $lampiran[$b-1]->url }}" style="width:700px; object-fit: cover;">
+                                                    </td>
+                                                </tr>
+                                            @else
+                                                <tr>
+                                                    <td style="text-align: center">
+                                                        <img src="{{ public_path().'/lampirans/'.  $lampiran[$b-1]->url }}" style="width:700px; height:400px; object-fit: cover;">
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endif
+                                    @endfor
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                @endif
+            @endfor
         </main>
     </body>
 </html>

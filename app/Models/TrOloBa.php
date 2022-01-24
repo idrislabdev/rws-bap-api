@@ -21,4 +21,8 @@ class TrOloBa extends Model
         return $this->hasMany('App\Models\TrOloBaDetail', 'olo_ba_id');
     }
 
+    public function lampiran()
+    {
+        return $this->hasMany('App\Models\TrOloBaLampiran', 'olo_ba_id');
+    }
 }

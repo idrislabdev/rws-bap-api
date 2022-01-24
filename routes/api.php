@@ -182,7 +182,10 @@ Route::prefix('olo')->group(function () {
 
         Route::prefix('transaksi')->group(function () {
             Route::resource('berita-acara', TransaksiBeritaAcaraController::class);
+            Route::post('berita-acara/check/no-dokumen', [TransaksiBeritaAcaraController::class, 'checkNomor']);
             Route::get('berita-acara/{olo_ba_id}/detail/{id}/add-on', [TransaksiBeritaAcaraController::class, 'addOnlist']);
+            Route::delete('berita-acara/{olo_ba_id}/lampiran/{id}', [TransaksiBeritaAcaraController::class, 'removeLampiran']);
+            Route::post('berita-acara/{olo_ba_id}/lampiran', [TransaksiBeritaAcaraController::class, 'updateLampiran']);
 
         });
 
@@ -191,7 +194,9 @@ Route::prefix('olo')->group(function () {
             Route::get('download', [TransaksiBeritaAcaraController::class, 'reportDownload']);
 
         });
+
     });
     Route::get('transaksi/berita-acara/download/file/{id}/{tipe}', [TransaksiBeritaAcaraController::class, 'fileBA']);
+    Route::get('file/{file_name}', [TransaksiBeritaAcaraController::class, 'fileLampiran']);
 
 });

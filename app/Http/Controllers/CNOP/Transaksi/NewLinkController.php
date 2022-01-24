@@ -538,8 +538,9 @@ class NewLinkController extends Controller
                                                 ->get();
 
         $check_dokumen = TrBa::where('no_dokumen', $request->no_dokumen)->first();
+        $check_no_dokumen = MaNomorDokumen::where('no_dokumen', $request->no_dokumen)->first();
 
-        if ($check_dokumen)
+        if ($check_dokumen || $check_no_dokumen)
         {
             return response()->json([
                 'data' => [],
