@@ -299,9 +299,11 @@ class BeritaAcaraController extends Controller
 
             $url_arr = array();;
 
-            foreach ($request->file('lampirans') as $lampiran) {
-                $url = $this->prosesUpload($lampiran);
-                array_push($url_arr, $url);
+            if ($request->file('lampirans')) {
+                foreach ($request->file('lampirans') as $lampiran) {
+                    $url = $this->prosesUpload($lampiran);
+                    array_push($url_arr, $url);
+                }    
             }
 
             $counter = 0;
