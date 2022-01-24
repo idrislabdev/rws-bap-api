@@ -167,7 +167,6 @@ class BeritaAcaraController extends Controller
                 'success' => true,
                 'message' => null,
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -299,7 +298,7 @@ class BeritaAcaraController extends Controller
             }
 
             $url_arr = array();;
-            
+
             foreach ($request->file('lampirans') as $lampiran) {
                 $url = $this->prosesUpload($lampiran);
                 array_push($url_arr, $url);
@@ -587,8 +586,7 @@ class BeritaAcaraController extends Controller
                 ->setOption('header-html', $header_html)
                 ->setPaper('a4');
 
-            return $pdf->stream('baut.pdf');
-            // return $pdf->download('baut.pdf');
+            return $pdf->download('baut.pdf');
         } else if ($tipe == 'bast') {
             $pdf = PDF::loadView('olo_bast', [
                 'data'          => $data,
@@ -600,8 +598,7 @@ class BeritaAcaraController extends Controller
                 ->setOption('header-html', $header_html)
                 ->setPaper('a4');
 
-            // return $pdf->stream('baut.pdf');
-            return $pdf->stream('bast.pdf');
+            return $pdf->download('bast.pdf');
         }
 
         // $file_name = $id.'.pdf';
@@ -726,20 +723,18 @@ class BeritaAcaraController extends Controller
             'lampiran' => 'required'
         ]);
 
-        if ($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'error',
                 'data' => $v->errors()
             ], 422);
-        }   
+        }
 
 
         $data = TrOloBa::where('id', $olo_ba_id)->first();
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -750,11 +745,11 @@ class BeritaAcaraController extends Controller
         DB::beginTransaction();
         try {
 
-            $counter = TrOloBaLampiran::where('olo_ba_id',$olo_ba_id)
-                                    ->max("id");
+            $counter = TrOloBaLampiran::where('olo_ba_id', $olo_ba_id)
+                ->max("id");
 
             $url = $this->prosesUpload($request->file('lampiran'));
-            
+
             $counter++;
             $data = new TrOloBaLampiran();
             $data->olo_ba_id = $olo_ba_id;
@@ -771,7 +766,6 @@ class BeritaAcaraController extends Controller
                 'message' => 'Data Lampiran Berhasil Diupdate',
                 'data' => $data
             ]);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -780,15 +774,13 @@ class BeritaAcaraController extends Controller
                 'message' => 'error',
             ], 400);
         }
-
     }
 
     public function removeLampiran($olo_ba_id, $id)
     {
         $data = TrOloBaLampiran::where('olo_ba_id', $olo_ba_id)->where('id', $id)->first();
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -799,8 +791,8 @@ class BeritaAcaraController extends Controller
         DB::beginTransaction();
         try {
 
-            $path = public_path().'/lampirans/'.$data->url;
-            if(file_exists($path))
+            $path = public_path() . '/lampirans/' . $data->url;
+            if (file_exists($path))
                 unlink($path);
 
             $data = TrOloBaLampiran::where('olo_ba_id', $olo_ba_id)->where('id', $id)->delete();
@@ -812,7 +804,6 @@ class BeritaAcaraController extends Controller
                 'message' => 'success',
                 'data' => $data
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -821,15 +812,13 @@ class BeritaAcaraController extends Controller
                 'message' => 'error',
             ], 400);
         }
-
     }
-    
+
 
     public function fileLampiran($name)
     {
-        $storagePath = public_path().'/lampirans/'.$name;
+        $storagePath = public_path() . '/lampirans/' . $name;
 
         return response()->file($storagePath);
     }
-
 }
