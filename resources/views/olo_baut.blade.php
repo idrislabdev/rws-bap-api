@@ -199,7 +199,7 @@
                 <div class="margin-body">
                     <p>
                         Pada hari ini <stron>{{$format_tanggal->hari}}</stron> tanggal <strong>{{$format_tanggal->tgl}}</strong> Bulan <strong>{{strtoupper($format_tanggal->bulan)}}</strong> Tahun <strong>{{$format_tanggal->tahun}} ({{strtoupper(date('d/m/Y', strtotime($data->tgl_dokumen)))}})</strong>, 
-                        kami yang bertempat di <span class="font-weight-bold">
+                        bertempat di <span class="font-weight-bold">
                         Regional Wholesale Service V Jatim Balnus, Gedung Telkom Landmark Tower Surabaya Lt. 9, </span>  kami yang bertanda tangan di bawah ini :
                     </p>
                 </div>
@@ -314,30 +314,24 @@
                     </table>            
                 </div>
             </div>
-            @for($a=1; $a<=@count($lampiran); $a+=2)
-                @if ($a <= @count($lampiran))
+            @for($a=0; $a<@count($lampiran); $a++)
+                @if ($a < @count($lampiran))
                     <div class="page_break_before">
                         <div class="margin-content margin-body mb-small">
                             <table class="table-kelengkapan cellpadding="0" cellspacing="0">
                                 <tbody>
-                                    @for ($b=$a; $b<=$a+1; $b++)
-                                        @if ($b <= @count($lampiran))
-                                            @php($image = getimagesize(public_path().'/lampirans/'.  $lampiran[$b-1]->url ))
-                                            @if($image[1] < 400)
-                                                <tr style="height:400px;">
-                                                    <td style="text-align: center">
-                                                        <img src="{{ public_path().'/lampirans/'.  $lampiran[$b-1]->url }}" style="width:700px; object-fit: cover;">
-                                                    </td>
-                                                </tr>
-                                            @else
-                                                <tr>
-                                                    <td style="text-align: center">
-                                                        <img src="{{ public_path().'/lampirans/'.  $lampiran[$b-1]->url }}" style="width:700px; height:400px; object-fit: cover;">
-                                                    </td>
-                                                </tr>
-                                            @endif
+                                    <tr>
+                                        @php($image = getimagesize(public_path().'/lampirans/'. $lampiran[$a]->url ))
+                                        @if($image[0] < $image[1])
+                                            <td style="text-align: center">
+                                                <img src="{{ public_path().'/lampirans/'.  $lampiran[$a]->url }}" style="height:90%;">
+                                            </td>
+                                        @else
+                                            <td style="text-align: center">
+                                                <img src="{{ public_path().'/lampirans/'.  $lampiran[$a]->url }}" style="width:100%;">
+                                            </td>
                                         @endif
-                                    @endfor
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

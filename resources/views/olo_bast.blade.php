@@ -204,7 +204,7 @@
                     <div class="margin-body">
                         <p>
                             Pada hari ini <stron>{{$format_tanggal->hari}}</stron> tanggal <strong>{{$format_tanggal->tgl}}</strong> Bulan <strong>{{strtoupper($format_tanggal->bulan)}}</strong> Tahun <strong>{{$format_tanggal->tahun}} ({{strtoupper(date('d/m/Y', strtotime($data->tgl_dokumen)))}})</strong>, 
-                            kami yang bertempat di <span class="font-weight-bold">Regional Wholesale Service V Jatim Balnus, Gedung Telkom Landmark Tower Surabaya Lt. 9,</span>
+                            bertempat di <span class="font-weight-bold">Regional Wholesale Service V Jatim Balnus, Gedung Telkom Landmark Tower Surabaya Lt. 9,</span>
                             kami yang bertanda tangan di bawah ini :
                         </p>
                     </div>
