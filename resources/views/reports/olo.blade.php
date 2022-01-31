@@ -13,6 +13,9 @@
     </tr>
     <tr>
         <th style="border: 1px solid #000000; width: 5px; background-color: aqua; font-size: 13px;">No</th>
+        <th style="border: 1px solid #000000; width: 35px; background-color: aqua; font-size: 13px;">No. BAUT</th>
+        <th style="border: 1px solid #000000; width: 35px; background-color: aqua; font-size: 13px;">No. BAST</th>
+        <th style="border: 1px solid #000000; width: 25px; background-color: aqua; font-size: 13px;">Klien</th>
         <th style="border: 1px solid #000000; width: 25px; background-color: aqua; font-size: 13px;">AO SC Order</th>
         <th style="border: 1px solid #000000; width: 25px; background-color: aqua; font-size: 13px;">SID</th>
         <th style="border: 1px solid #000000; width: 25px; background-color: aqua; font-size: 13px;">Produk</th>
@@ -20,24 +23,25 @@
         <th style="border: 1px solid #000000; width: 40px; background-color: aqua; font-size: 13px;">Add On</th>
         <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Jenis Order</th>
         <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Alamat Instalasi</th>
-        <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Tanggal Aktivasi</th>
+        <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Tanggal</th>
     </tr>
     </thead>
     <tbody>
     
     @for($a=0; $a<@count($data) ; $a++)
         <tr>
-            <td style="border: 1px solid #000000">{{ $a+1 }}</td>
-            <td style="border: 1px solid #000000">{{ $data[$a]->ao_sc_order }}</td>
-            <td style="border: 1px solid #000000">{{ $data[$a]->sid }}</td>
-            <td style="border: 1px solid #000000">{{ $data[$a]->produk }}</td>
-            <td style="border: 1px solid #000000">{{ $data[$a]->bandwidth_mbps }}</td>
-            <td style="border: 1px solid #000000">
-                {{BeritaAcaraController::formatAddOn($data[$a]->id, $data[$a]->olo_ba_id)}}    
-            </td>
-            <td style="border: 1px solid #000000">{{ $data[$a]->jenis_order }}</td>
-            <td style="border: 1px solid #000000">{{ $data[$a]->alamat_instalasi }}</td>
-            <td style="border: 1px solid #000000">{{strtoupper(date('d-M-y', strtotime($data[$a]->tgl_aktivasi)))}}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $a+1 }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->no_dokumen_baut }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->no_dokumen_bast }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->klien_nama_baut }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->ao_sc_order }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->sid }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->produk }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->bandwidth_mbps }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->add_ons }} </td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->jenis_order }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{ $data[$a]->alamat_instalasi }}</td>
+            <td style="border: 1px solid #000000; text-align:left;">{{strtoupper(date('d-M-y', strtotime($data[$a]->tgl_order)))}}</td>
         </tr>
     @endfor
     </tbody>
