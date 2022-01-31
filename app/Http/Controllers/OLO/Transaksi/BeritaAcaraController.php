@@ -57,12 +57,7 @@ class BeritaAcaraController extends Controller
     public function checkNomor(Request $request)
     {
         $v = Validator::make($request->all(), [
-            'tgl_dokumen' => 'required',
-            'klien_id'  => 'required',
-            'klien_penanggung_jawab_baut' => 'required',
-            'klien_jabatan_penanggung_jawab_baut' => 'required',
-            'klien_lokasi_kerja_baut' => 'required',
-            'klien_nama_baut' => 'required',
+            'jenis_ba' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -73,27 +68,18 @@ class BeritaAcaraController extends Controller
             ], 422);
         }
 
-        $check_klien = MaOloKlien::find($request->klien_id);
-        if (!$check_klien) {
-            return response()->json([
-                'data' => null,
-                'success' => false,
-                'message' => 'Data Tidak Ditemukan',
-            ], 404);
-        }
-
         DB::beginTransaction();
         try {
             $no_dokumen_bast = null;
             $no_dokumen_baut = null;
 
-            if ($check_klien->sigma) {
+            if ($request->jenis_ba === 'BAST') {
                 $no_dokumen_bast = UtilityHelper::checkNomorDokumen();
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
                 $data->no_dokumen = $no_dokumen_bast;
                 $data->tipe_dokumen = 'OLO_BAST';
-                $data->tgl_dokumen = $request->tgl_dokumen;
+                $data->tgl_dokumen = date('Y-m-d');
                 $data->save();
 
                 DB::rollBack();
@@ -107,36 +93,42 @@ class BeritaAcaraController extends Controller
                     'success' => true,
                     'message' => null,
                 ], 200);
-            } else {
+            } else if ($request->jenis_ba === 'BAUT') {
                 $no_dokumen_baut = UtilityHelper::checkNomorDokumen();
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
                 $data->no_dokumen = $no_dokumen_baut;
                 $data->tipe_dokumen = 'OLO_BAUT';
-                $data->tgl_dokumen = $request->tgl_dokumen;
+                $data->tgl_dokumen = date('Y-m-d');
                 $data->save();
 
+                DB::rollBack();
 
-                $details = json_decode($request->detail);
+                $dokumen = new \stdClass();
+                $dokumen->no_dokumen_baut = $no_dokumen_baut;
+                $dokumen->no_dokumen_bast = null;
 
-                $counter = 0;
-                $sigma = 0;
-                foreach ($details as $detail) {
+                return response()->json([
+                    'data' => $dokumen,
+                    'success' => true,
+                    'message' => null,
+                ], 200);
+            } else if ($request->jenis_ba === 'BAST DAN BAUT') {
+                $no_dokumen_baut = UtilityHelper::checkNomorDokumen();
+                $data = new MaNomorDokumen();
+                $data->id = Uuid::uuid4()->toString();
+                $data->no_dokumen = $no_dokumen_baut;
+                $data->tipe_dokumen = 'OLO_BAUT';
+                $data->tgl_dokumen = date('Y-m-d');
+                $data->save();
 
-                    $check_produk = MaOloProduk::find($detail->produk_id);
-                    if ($check_produk->sigma)
-                        $sigma++;
-                }
-
-                if ($sigma > 0) {
-                    $no_dokumen_bast = UtilityHelper::checkNomorDokumen();
-                    $data = new MaNomorDokumen();
-                    $data->id = Uuid::uuid4()->toString();
-                    $data->no_dokumen = $no_dokumen_bast;
-                    $data->tipe_dokumen = 'OLO_BAST';
-                    $data->tgl_dokumen = $request->tgl_dokumen;
-                    $data->save();
-                }
+                $no_dokumen_bast = UtilityHelper::checkNomorDokumen();
+                $data = new MaNomorDokumen();
+                $data->id = Uuid::uuid4()->toString();
+                $data->no_dokumen = $no_dokumen_bast;
+                $data->tipe_dokumen = 'OLO_BAST';
+                $data->tgl_dokumen = date('Y-m-d');
+                $data->save();
 
                 DB::rollBack();
 
@@ -169,7 +161,7 @@ class BeritaAcaraController extends Controller
             'klien_jabatan_penanggung_jawab_baut' => 'required',
             'klien_lokasi_kerja_baut' => 'required',
             'klien_nama_baut' => 'required',
-            'no_dokumen_baut' => 'required'
+            'jenis_ba' => 'required'
         ]);
 
         if ($v->fails()) {
@@ -180,8 +172,17 @@ class BeritaAcaraController extends Controller
             ], 422);
         }
 
-        $check_baut = MaNomorDokumen::where('no_dokumen', $request->no_dokumen_baut)->first();
-        $check_bast = MaNomorDokumen::where('no_dokumen', $request->no_dokumen_bast)->first();
+        $check_bast = null;
+        $check_baut = null;
+
+        if ($request->jenis_ba === 'BAUT') {
+            $check_baut = MaNomorDokumen::where('no_dokumen', $request->no_dokumen_baut)->first();
+        } else if ($request->jenis_ba === 'BAST') {
+            $check_bast = MaNomorDokumen::where('no_dokumen', $request->no_dokumen_bast)->first();
+        } else if ($request->jenis_ba === 'BAST DAN BAUT') {
+            $check_baut = MaNomorDokumen::where('no_dokumen', $request->no_dokumen_baut)->first();
+            $check_bast = MaNomorDokumen::where('no_dokumen', $request->no_dokumen_bast)->first();
+        }
 
         if ($check_baut || $check_bast) {
 
@@ -210,7 +211,7 @@ class BeritaAcaraController extends Controller
             $no_dokumen_bast = null;
             $no_dokumen_baut = null;
 
-            if ($check_klien->sigma) {
+            if ($request->jenis_ba == 'BAST') {
                 $no_dokumen_bast = $request->no_dokumen_bast;
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
@@ -233,6 +234,8 @@ class BeritaAcaraController extends Controller
                 $ba->jenis_order_id                      = $request->jenis_order_id;
                 $ba->dibuat_oleh                         = Auth::user()->id;
                 $ba->status_approval                     = false;
+                $ba->jenis_ba                            = $request->jenis_ba;
+                $ba->alamat_bast                         = $request->alamat_bast;
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -278,7 +281,7 @@ class BeritaAcaraController extends Controller
                     'success' => true,
                     'message' => 'Data Berhasil Dibuat',
                 ]);
-            } else {
+            } if ($request->jenis_ba == 'BAUT') {
                 $no_dokumen_baut = $request->no_dokumen_baut;
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
@@ -301,6 +304,64 @@ class BeritaAcaraController extends Controller
                 $ba->jenis_order_id                      = $request->jenis_order_id;
                 $ba->dibuat_oleh                         = Auth::user()->id;
                 $ba->status_approval                     = false;
+                $ba->jenis_ba                            = $request->jenis_ba;
+                $ba->save();
+
+                $details = json_decode($request->detail);
+
+                $counter = 0;
+                $sigma = 0;
+                foreach ($details as $detail) {
+                    $counter++;
+
+                    $ba_site                    = new TrOloBaDetail();
+                    $ba_site->olo_ba_id         = $id;
+                    $ba_site->id                = $counter;
+                    $ba_site->ao_sc_order       = $detail->ao_sc_order;
+                    $ba_site->sid               = $detail->sid;
+                    $ba_site->produk_id         = $detail->produk_id;
+                    $ba_site->produk            = $detail->produk;
+                    $ba_site->bandwidth_mbps    = $detail->bandwidth_mbps ?: null;
+                    $ba_site->jenis_order       = $detail->jenis_order;
+                    $ba_site->jenis_order_id    = $detail->jenis_order_id;
+                    $ba_site->alamat_instalasi  = $detail->alamat_instalasi;
+                    $ba_site->tgl_order         = $detail->tgl_order;
+                    $ba_site->dibuat_oleh       = Auth::user()->id;
+                    $ba_site->save();
+
+                }
+
+                DB::commit();
+
+                return (new TrOloBaResource($ba))->additional([
+                    'success' => true,
+                    'message' => 'Data Berhasil Dibuat',
+                ]);
+            } else if ($request->jenis_ba == 'BAST DAN BAUT') {
+                $no_dokumen_baut = $request->no_dokumen_baut;
+                $data = new MaNomorDokumen();
+                $data->id = Uuid::uuid4()->toString();
+                $data->no_dokumen = $no_dokumen_baut;
+                $data->tipe_dokumen = 'OLO_BAUT';
+                $data->tgl_dokumen = $request->tgl_dokumen;
+                $data->save();
+
+                $ba = new TrOloBa();
+                $id = Uuid::uuid4()->toString();
+                $ba->id                                  = $id;
+                $ba->no_dokumen_baut                     = $no_dokumen_baut;
+                $ba->tgl_dokumen                         = $request->tgl_dokumen;
+                $ba->klien_id                            = $request->klien_id;
+                $ba->klien_penanggung_jawab_baut         = $request->klien_penanggung_jawab_baut;
+                $ba->klien_jabatan_penanggung_jawab_baut = $request->klien_jabatan_penanggung_jawab_baut;
+                $ba->klien_lokasi_kerja_baut             = $request->klien_lokasi_kerja_baut;
+                $ba->klien_nama_baut                     = $request->klien_nama_baut;
+                $ba->jenis_order                         = $request->jenis_order;
+                $ba->jenis_order_id                      = $request->jenis_order_id;
+                $ba->dibuat_oleh                         = Auth::user()->id;
+                $ba->status_approval                     = false;
+                $ba->jenis_ba                            = $request->jenis_ba;
+                $ba->alamat_bast                         = $request->alamat_bast;
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -471,6 +532,7 @@ class BeritaAcaraController extends Controller
             'klien_jabatan_penanggung_jawab_baut' => 'required',
             'klien_lokasi_kerja_baut' => 'required',
             'klien_nama_baut' => 'required',
+            'jenis_ba' => 'required'
         ]);
 
         if ($v->fails()) {
@@ -494,6 +556,7 @@ class BeritaAcaraController extends Controller
                     $data->klien_jabatan_penanggung_jawab_baut = $request->klien_jabatan_penanggung_jawab_baut;
                     $data->klien_lokasi_kerja_baut             = $request->klien_lokasi_kerja_baut;
                     $data->klien_nama_baut                     = $request->klien_nama_baut;
+                    $data->alamat_bast                         = $request->alamat_bast;
 
                     $detail = TrOloBaDetail::where('olo_ba_id', $data->id);
                     $addon_detail = TrOloBaDetailAddOn::where('olo_ba_id', $data->id);
@@ -518,7 +581,7 @@ class BeritaAcaraController extends Controller
                         $ba_site->jenis_order       = $detail['jenis_order'];
                         $ba_site->jenis_order_id    = $detail['jenis_order_id'];
                         $ba_site->alamat_instalasi  = $detail['alamat_instalasi'];
-                        $ba_site->tgl_order      = $detail['tgl_order'];
+                        $ba_site->tgl_order         = $detail['tgl_order'];
                         $ba_site->dibuat_oleh       = Auth::user()->id;
                         $ba_site->save();
 
@@ -536,28 +599,6 @@ class BeritaAcaraController extends Controller
                             }
                         }
 
-                        $check_produk = MaOloProduk::find($detail['produk_id']);
-                        if ($check_produk->sigma)
-                            $sigma++;
-                    }
-
-                    if ($sigma > 0 && $data->no_dokumen_bast == null) {
-                        $no_dokumen_bast = UtilityHelper::checkNomorDokumen();
-                        $dokumen = new MaNomorDokumen();
-                        $dokumen->id = Uuid::uuid4()->toString();
-                        $dokumen->no_dokumen = $no_dokumen_bast;
-                        $dokumen->tipe_dokumen = 'OLO_BAST';
-                        $dokumen->tgl_dokumen = date('Y-m-d');
-                        $dokumen->save();
-
-                        $data->no_dokumen_bast = $no_dokumen_bast;
-                    }
-
-                    if ($sigma == 0 && $data->no_dokumen_bast != null) {
-                        $dokumen = MaNomorDokumen::where('no_dokumen', $data->no_dokumen_bast)->first();
-                        $dokumen->delete();
-
-                        $data->no_dokumen_bast = null;
                     }
 
                     $data->update();

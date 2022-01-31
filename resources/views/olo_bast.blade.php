@@ -262,7 +262,7 @@
                     </div>
                     <div class="margin-body">
                         <p class="mt-3">
-                            Dengan ini menyatakan bahwa pekerjaan <span class="font-weight-bold">penyediaan layanan Colocation Data Center Neucentrix Gubeng 
+                            Dengan ini menyatakan bahwa pekerjaan <span class="font-weight-bold">penyediaan layanan Colocation Data Center Neucentrix {{$data->alamat_bast}} 
                                 untuk pelanggan {{$data->klien_nama_baut}} telah selesai dilakukan {{$data->jenis_order}} dan sudah beroperasi sesuai 
                                 dengan order</span>, terhitung sejak tanggal berikut : 
                         </p>
