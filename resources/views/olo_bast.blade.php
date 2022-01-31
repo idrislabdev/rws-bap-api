@@ -198,7 +198,7 @@
                 @endif
                     <div class="header">
                         <h3 class="header-margin font-weight-bold"><center>BERITA ACARA {{$data->jenis_order}}</center></h3>
-                        <h4 class="header-margin font-weight-bold"><center>Nomor : {{$data->no_dokumen_baut}}</center></h4>
+                        <h4 class="header-margin font-weight-bold"><center>Nomor : {{$data->no_dokumen_bast}}</center></h4>
                     </div>
                     <hr style="border : 1px solid #000">
                     <div class="margin-body">
@@ -278,7 +278,7 @@
                                     <th style="width:15%"  class="td-center">ADD ON</th>
                                     <th style="width:10%"  class="td-center">JENIS</th>
                                     <th style="width:15%"  class="td-center">ALAMAT INSTALASI</th>
-                                    <th style="width:12%"  class="td-center">TANGGAL {{$data->jenis_order}}}}</th>
+                                    <th style="width:12%"  class="td-center">TANGGAL {{$data->jenis_order}}</th>
                                 </tr>
                             </thead>
                             <tbody>
