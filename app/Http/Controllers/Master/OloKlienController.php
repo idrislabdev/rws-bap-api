@@ -60,6 +60,7 @@ class OloKlienController extends Controller
             'alamat_perusahaan' => 'required',
             'nama_penanggung_jawab' => 'required',
             'jabatan_penanggung_jawab' => 'required',
+            'sigma' => 'required',
 
         ]);
 
@@ -78,7 +79,7 @@ class OloKlienController extends Controller
             $data->alamat_perusahaan = $request->alamat_perusahaan;
             $data->nama_penanggung_jawab = $request->nama_penanggung_jawab;
             $data->jabatan_penanggung_jawab = $request->jabatan_penanggung_jawab;
-
+            $data->sigma = $request->sigma;
             $data->save();
 
             return (new MaOloKlienResource($data))->additional([
@@ -153,6 +154,9 @@ class OloKlienController extends Controller
             if ($request->jabatan_penaggung_jawab != null || $request->jabatan_penaggung_jawab != "")
                 $data->jabatan_penaggung_jawab = $request->jabatan_penaggung_jawab;
 
+            if ($request->sigma != null || $request->sigma != "")
+                $data->sigma = $request->sigma;
+
 
             $data->save();
             return (new MaOloKlienResource($data))->additional([
@@ -179,8 +183,7 @@ class OloKlienController extends Controller
         // abort(404);
         $data = MaOloKlien::find($id);
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',

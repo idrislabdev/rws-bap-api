@@ -16,6 +16,11 @@ class TrOloBa extends Model
         return $this->hasOne('App\Models\MaPengguna', 'id', 'dibuat_oleh');
     }
 
+    public function klien()
+    {
+        return $this->hasOne('App\Models\MaOloKlien', 'id', 'klien_id');
+    }
+
     public function detail()
     {
         return $this->hasMany('App\Models\TrOloBaDetail', 'olo_ba_id');

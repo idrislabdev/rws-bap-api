@@ -10,6 +10,7 @@ use App\Http\Resources\TrOloBaDetailResource;
 use App\Http\Resources\TrOloBaLampiranResource;
 use App\Http\Resources\TrOloBaResource;
 use App\Models\MaNomorDokumen;
+use App\Models\MaOloKlien;
 use App\Models\MaOloProduk;
 use App\Models\MaPengaturan;
 use App\Models\TrOloBa;
@@ -72,77 +73,21 @@ class BeritaAcaraController extends Controller
             ], 422);
         }
 
+        $check_klien = MaOloKlien::find($request->klien_id);
+        if (!$check_klien) {
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan',
+            ], 404);
+        }
+
         DB::beginTransaction();
         try {
             $no_dokumen_bast = null;
             $no_dokumen_baut = null;
 
-            $no_dokumen_baut = UtilityHelper::checkNomorDokumen();
-            $data = new MaNomorDokumen();
-            $data->id = Uuid::uuid4()->toString();
-            $data->no_dokumen = $no_dokumen_baut;
-            $data->tipe_dokumen = 'OLO_BAUT';
-            $data->tgl_dokumen = $request->tgl_dokumen;
-            $data->save();
-
-            $ba = new TrOloBa();
-            $id = Uuid::uuid4()->toString();
-            $ba->id                                  = $id;
-            $ba->no_dokumen_baut                     = $no_dokumen_baut;
-            $ba->tgl_dokumen                         = $request->tgl_dokumen;
-            $ba->klien_id                            = $request->klien_id;
-            $ba->klien_penanggung_jawab_baut         = $request->klien_penanggung_jawab_baut;
-            $ba->klien_jabatan_penanggung_jawab_baut = $request->klien_jabatan_penanggung_jawab_baut;
-            $ba->klien_lokasi_kerja_baut             = $request->klien_lokasi_kerja_baut;
-            $ba->klien_nama_baut                     = $request->klien_nama_baut;
-            $ba->jenis_order                         = $request->jenis_order;
-            $ba->jenis_order_id                      = $request->jenis_order_id;
-            $ba->dibuat_oleh                         = Auth::user()->id;
-            $ba->status_approval                     = false;
-            $ba->save();
-
-            $details = json_decode($request->detail);
-
-            $counter = 0;
-            $sigma = 0;
-            foreach ($details as $detail) {
-                $counter++;
-
-                $ba_site                    = new TrOloBaDetail();
-                $ba_site->olo_ba_id         = $id;
-                $ba_site->id                = $counter;
-                $ba_site->ao_sc_order       = $detail->ao_sc_order;
-                $ba_site->sid               = $detail->sid;
-                $ba_site->produk_id         = $detail->produk_id;
-                $ba_site->produk            = $detail->produk;
-                $ba_site->bandwidth_mbps    = $detail->bandwidth_mbps ?: null;
-                $ba_site->jenis_order       = $detail->jenis_order;
-                $ba_site->jenis_order_id    = $detail->jenis_order_id;
-                $ba_site->alamat_instalasi  = $detail->alamat_instalasi;
-                $ba_site->tgl_order         = $detail->tgl_order;
-                $ba_site->dibuat_oleh       = Auth::user()->id;
-                $ba_site->save();
-
-                if (count($detail->add_on) > 0) {
-                    $add_ons = $detail->add_on;
-                    foreach ($add_ons as $add_on) {
-                        $ba_add_on = new TrOloBaDetailAddOn();
-                        $ba_add_on->olo_ba_id       = $id;
-                        $ba_add_on->id              = $counter;
-                        $ba_add_on->add_on_id       = $add_on->add_on_id;
-                        $ba_add_on->nama_add_on     = $add_on->nama_add_on;
-                        $ba_add_on->satuan          = $add_on->satuan;
-                        $ba_add_on->jumlah          = $add_on->jumlah;
-                        $ba_add_on->save();
-                    }
-                }
-
-                $check_produk = MaOloProduk::find($detail->produk_id);
-                if ($check_produk->sigma)
-                    $sigma++;
-            }
-
-            if ($sigma > 0) {
+            if ($check_klien->sigma) {
                 $no_dokumen_bast = UtilityHelper::checkNomorDokumen();
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
@@ -151,22 +96,60 @@ class BeritaAcaraController extends Controller
                 $data->tgl_dokumen = $request->tgl_dokumen;
                 $data->save();
 
-                $ba = TrOloBa::find($id);
-                $ba->no_dokumen_bast = $no_dokumen_bast;
-                $ba->update();
+                DB::rollBack();
+
+                $dokumen = new \stdClass();
+                $dokumen->no_dokumen_baut = null;
+                $dokumen->no_dokumen_bast = $no_dokumen_bast;
+
+                return response()->json([
+                    'data' => $dokumen,
+                    'success' => true,
+                    'message' => null,
+                ], 200);
+            } else {
+                $no_dokumen_baut = UtilityHelper::checkNomorDokumen();
+                $data = new MaNomorDokumen();
+                $data->id = Uuid::uuid4()->toString();
+                $data->no_dokumen = $no_dokumen_baut;
+                $data->tipe_dokumen = 'OLO_BAUT';
+                $data->tgl_dokumen = $request->tgl_dokumen;
+                $data->save();
+
+
+                $details = json_decode($request->detail);
+
+                $counter = 0;
+                $sigma = 0;
+                foreach ($details as $detail) {
+
+                    $check_produk = MaOloProduk::find($detail->produk_id);
+                    if ($check_produk->sigma)
+                        $sigma++;
+                }
+
+                if ($sigma > 0) {
+                    $no_dokumen_bast = UtilityHelper::checkNomorDokumen();
+                    $data = new MaNomorDokumen();
+                    $data->id = Uuid::uuid4()->toString();
+                    $data->no_dokumen = $no_dokumen_bast;
+                    $data->tipe_dokumen = 'OLO_BAST';
+                    $data->tgl_dokumen = $request->tgl_dokumen;
+                    $data->save();
+                }
+
+                DB::rollBack();
+
+                $dokumen = new \stdClass();
+                $dokumen->no_dokumen_baut = $no_dokumen_baut;
+                $dokumen->no_dokumen_bast = $no_dokumen_bast;
+
+                return response()->json([
+                    'data' => $dokumen,
+                    'success' => true,
+                    'message' => null,
+                ], 200);
             }
-
-            DB::rollBack();
-
-            $dokumen = new \stdClass();
-            $dokumen->no_dokumen_baut = $no_dokumen_baut;
-            $dokumen->no_dokumen_bast = $no_dokumen_bast;
-
-            return response()->json([
-                'data' => $dokumen,
-                'success' => true,
-                'message' => null,
-            ], 200);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -213,77 +196,21 @@ class BeritaAcaraController extends Controller
             ], 422);
         }
 
+        $check_klien = MaOloKlien::find($request->klien_id);
+        if (!$check_klien) {
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan',
+            ], 404);
+        }
+
         DB::beginTransaction();
         try {
             $no_dokumen_bast = null;
             $no_dokumen_baut = null;
 
-            $no_dokumen_baut = $request->no_dokumen_baut;
-            $data = new MaNomorDokumen();
-            $data->id = Uuid::uuid4()->toString();
-            $data->no_dokumen = $no_dokumen_baut;
-            $data->tipe_dokumen = 'OLO_BAUT';
-            $data->tgl_dokumen = $request->tgl_dokumen;
-            $data->save();
-
-            $ba = new TrOloBa();
-            $id = Uuid::uuid4()->toString();
-            $ba->id                                  = $id;
-            $ba->no_dokumen_baut                     = $no_dokumen_baut;
-            $ba->tgl_dokumen                         = $request->tgl_dokumen;
-            $ba->klien_id                            = $request->klien_id;
-            $ba->klien_penanggung_jawab_baut         = $request->klien_penanggung_jawab_baut;
-            $ba->klien_jabatan_penanggung_jawab_baut = $request->klien_jabatan_penanggung_jawab_baut;
-            $ba->klien_lokasi_kerja_baut             = $request->klien_lokasi_kerja_baut;
-            $ba->klien_nama_baut                     = $request->klien_nama_baut;
-            $ba->jenis_order                         = $request->jenis_order;
-            $ba->jenis_order_id                      = $request->jenis_order_id;
-            $ba->dibuat_oleh                         = Auth::user()->id;
-            $ba->status_approval                     = false;
-            $ba->save();
-
-            $details = json_decode($request->detail);
-
-            $counter = 0;
-            $sigma = 0;
-            foreach ($details as $detail) {
-                $counter++;
-
-                $ba_site                    = new TrOloBaDetail();
-                $ba_site->olo_ba_id         = $id;
-                $ba_site->id                = $counter;
-                $ba_site->ao_sc_order       = $detail->ao_sc_order;
-                $ba_site->sid               = $detail->sid;
-                $ba_site->produk_id         = $detail->produk_id;
-                $ba_site->produk            = $detail->produk;
-                $ba_site->bandwidth_mbps    = $detail->bandwidth_mbps ?: null;
-                $ba_site->jenis_order       = $detail->jenis_order;
-                $ba_site->jenis_order_id    = $detail->jenis_order_id;
-                $ba_site->alamat_instalasi  = $detail->alamat_instalasi;
-                $ba_site->tgl_order         = $detail->tgl_order;
-                $ba_site->dibuat_oleh       = Auth::user()->id;
-                $ba_site->save();
-
-                if (count($detail->add_on) > 0) {
-                    $add_ons = $detail->add_on;
-                    foreach ($add_ons as $add_on) {
-                        $ba_add_on = new TrOloBaDetailAddOn();
-                        $ba_add_on->olo_ba_id       = $id;
-                        $ba_add_on->id              = $counter;
-                        $ba_add_on->add_on_id       = $add_on->add_on_id;
-                        $ba_add_on->nama_add_on     = $add_on->nama_add_on;
-                        $ba_add_on->satuan          = $add_on->satuan;
-                        $ba_add_on->jumlah          = $add_on->jumlah;
-                        $ba_add_on->save();
-                    }
-                }
-
-                $check_produk = MaOloProduk::find($detail->produk_id);
-                if ($check_produk->sigma)
-                    $sigma++;
-            }
-
-            if ($sigma > 0) {
+            if ($check_klien->sigma) {
                 $no_dokumen_bast = $request->no_dokumen_bast;
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
@@ -292,38 +219,173 @@ class BeritaAcaraController extends Controller
                 $data->tgl_dokumen = $request->tgl_dokumen;
                 $data->save();
 
-                $ba = TrOloBa::find($id);
-                $ba->no_dokumen_bast = $no_dokumen_bast;
-                $ba->update();
-            }
+                $ba = new TrOloBa();
+                $id = Uuid::uuid4()->toString();
+                $ba->id                                  = $id;
+                $ba->no_dokumen_bast                     = $no_dokumen_bast;
+                $ba->tgl_dokumen                         = $request->tgl_dokumen;
+                $ba->klien_id                            = $request->klien_id;
+                $ba->klien_penanggung_jawab_baut         = $request->klien_penanggung_jawab_baut;
+                $ba->klien_jabatan_penanggung_jawab_baut = $request->klien_jabatan_penanggung_jawab_baut;
+                $ba->klien_lokasi_kerja_baut             = $request->klien_lokasi_kerja_baut;
+                $ba->klien_nama_baut                     = $request->klien_nama_baut;
+                $ba->jenis_order                         = $request->jenis_order;
+                $ba->jenis_order_id                      = $request->jenis_order_id;
+                $ba->dibuat_oleh                         = Auth::user()->id;
+                $ba->status_approval                     = false;
+                $ba->save();
 
-            $url_arr = array();;
+                $details = json_decode($request->detail);
 
-            if ($request->file('lampirans')) {
-                foreach ($request->file('lampirans') as $lampiran) {
-                    $url = $this->prosesUpload($lampiran);
-                    array_push($url_arr, $url);
-                }    
-            }
+                $counter = 0;
+                $sigma = 0;
+                foreach ($details as $detail) {
+                    $counter++;
 
-            $counter = 0;
-            foreach ($url_arr as $lampiran_url) {
-                $counter++;
-                $data = new TrOloBaLampiran();
-                $data->olo_ba_id = $id;
-                $data->id = $counter;
-                $data->url = $request->tipe;
-                $data->url = $lampiran_url;
-                $data->dibuat_oleh = Auth::user()->id;
+                    $ba_site                    = new TrOloBaDetail();
+                    $ba_site->olo_ba_id         = $id;
+                    $ba_site->id                = $counter;
+                    $ba_site->ao_sc_order       = $detail->ao_sc_order;
+                    $ba_site->sid               = $detail->sid;
+                    $ba_site->produk_id         = $detail->produk_id;
+                    $ba_site->produk            = $detail->produk;
+                    $ba_site->bandwidth_mbps    = $detail->bandwidth_mbps ?: null;
+                    $ba_site->jenis_order       = $detail->jenis_order;
+                    $ba_site->jenis_order_id    = $detail->jenis_order_id;
+                    $ba_site->alamat_instalasi  = $detail->alamat_instalasi;
+                    $ba_site->tgl_order         = $detail->tgl_order;
+                    $ba_site->dibuat_oleh       = Auth::user()->id;
+                    $ba_site->save();
+
+                    if (count($detail->add_on) > 0) {
+                        $add_ons = $detail->add_on;
+                        foreach ($add_ons as $add_on) {
+                            $ba_add_on = new TrOloBaDetailAddOn();
+                            $ba_add_on->olo_ba_id       = $id;
+                            $ba_add_on->id              = $counter;
+                            $ba_add_on->add_on_id       = $add_on->add_on_id;
+                            $ba_add_on->nama_add_on     = $add_on->nama_add_on;
+                            $ba_add_on->satuan          = $add_on->satuan;
+                            $ba_add_on->jumlah          = $add_on->jumlah;
+                            $ba_add_on->save();
+                        }
+                    }
+                }
+
+                DB::commit();
+
+                return (new TrOloBaResource($ba))->additional([
+                    'success' => true,
+                    'message' => 'Data Berhasil Dibuat',
+                ]);
+            } else {
+                $no_dokumen_baut = $request->no_dokumen_baut;
+                $data = new MaNomorDokumen();
+                $data->id = Uuid::uuid4()->toString();
+                $data->no_dokumen = $no_dokumen_baut;
+                $data->tipe_dokumen = 'OLO_BAUT';
+                $data->tgl_dokumen = $request->tgl_dokumen;
                 $data->save();
+
+                $ba = new TrOloBa();
+                $id = Uuid::uuid4()->toString();
+                $ba->id                                  = $id;
+                $ba->no_dokumen_baut                     = $no_dokumen_baut;
+                $ba->tgl_dokumen                         = $request->tgl_dokumen;
+                $ba->klien_id                            = $request->klien_id;
+                $ba->klien_penanggung_jawab_baut         = $request->klien_penanggung_jawab_baut;
+                $ba->klien_jabatan_penanggung_jawab_baut = $request->klien_jabatan_penanggung_jawab_baut;
+                $ba->klien_lokasi_kerja_baut             = $request->klien_lokasi_kerja_baut;
+                $ba->klien_nama_baut                     = $request->klien_nama_baut;
+                $ba->jenis_order                         = $request->jenis_order;
+                $ba->jenis_order_id                      = $request->jenis_order_id;
+                $ba->dibuat_oleh                         = Auth::user()->id;
+                $ba->status_approval                     = false;
+                $ba->save();
+
+                $details = json_decode($request->detail);
+
+                $counter = 0;
+                $sigma = 0;
+                foreach ($details as $detail) {
+                    $counter++;
+
+                    $ba_site                    = new TrOloBaDetail();
+                    $ba_site->olo_ba_id         = $id;
+                    $ba_site->id                = $counter;
+                    $ba_site->ao_sc_order       = $detail->ao_sc_order;
+                    $ba_site->sid               = $detail->sid;
+                    $ba_site->produk_id         = $detail->produk_id;
+                    $ba_site->produk            = $detail->produk;
+                    $ba_site->bandwidth_mbps    = $detail->bandwidth_mbps ?: null;
+                    $ba_site->jenis_order       = $detail->jenis_order;
+                    $ba_site->jenis_order_id    = $detail->jenis_order_id;
+                    $ba_site->alamat_instalasi  = $detail->alamat_instalasi;
+                    $ba_site->tgl_order         = $detail->tgl_order;
+                    $ba_site->dibuat_oleh       = Auth::user()->id;
+                    $ba_site->save();
+
+                    if (count($detail->add_on) > 0) {
+                        $add_ons = $detail->add_on;
+                        foreach ($add_ons as $add_on) {
+                            $ba_add_on = new TrOloBaDetailAddOn();
+                            $ba_add_on->olo_ba_id       = $id;
+                            $ba_add_on->id              = $counter;
+                            $ba_add_on->add_on_id       = $add_on->add_on_id;
+                            $ba_add_on->nama_add_on     = $add_on->nama_add_on;
+                            $ba_add_on->satuan          = $add_on->satuan;
+                            $ba_add_on->jumlah          = $add_on->jumlah;
+                            $ba_add_on->save();
+                        }
+                    }
+
+                    $check_produk = MaOloProduk::find($detail->produk_id);
+                    if ($check_produk->sigma)
+                        $sigma++;
+                }
+
+                if ($sigma > 0) {
+                    $no_dokumen_bast = $request->no_dokumen_bast;
+                    $data = new MaNomorDokumen();
+                    $data->id = Uuid::uuid4()->toString();
+                    $data->no_dokumen = $no_dokumen_bast;
+                    $data->tipe_dokumen = 'OLO_BAST';
+                    $data->tgl_dokumen = $request->tgl_dokumen;
+                    $data->save();
+
+                    $ba = TrOloBa::find($id);
+                    $ba->no_dokumen_bast = $no_dokumen_bast;
+                    $ba->update();
+                }
+
+                $url_arr = array();;
+
+                if ($request->file('lampirans')) {
+                    foreach ($request->file('lampirans') as $lampiran) {
+                        $url = $this->prosesUpload($lampiran);
+                        array_push($url_arr, $url);
+                    }
+                }
+
+                $counter = 0;
+                foreach ($url_arr as $lampiran_url) {
+                    $counter++;
+                    $data = new TrOloBaLampiran();
+                    $data->olo_ba_id = $id;
+                    $data->id = $counter;
+                    $data->url = $request->tipe;
+                    $data->url = $lampiran_url;
+                    $data->dibuat_oleh = Auth::user()->id;
+                    $data->save();
+                }
+
+                DB::commit();
+
+                return (new TrOloBaResource($ba))->additional([
+                    'success' => true,
+                    'message' => 'Data Berhasil Dibuat',
+                ]);
             }
-
-            DB::commit();
-
-            return (new TrOloBaResource($ba))->additional([
-                'success' => true,
-                'message' => 'Data Berhasil Dibuat',
-            ]);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -337,7 +399,7 @@ class BeritaAcaraController extends Controller
     public function show($id)
     {
         try {
-            $data = TrOloBa::with('lampiran')->with('detail.addOn')->findOrFail($id);
+            $data = TrOloBa::with('lampiran')->with('klien')->with('detail.addOn')->findOrFail($id);
             if ($data) {
                 return (new TrOloBaResource($data))->additional([
                     'success' => true,

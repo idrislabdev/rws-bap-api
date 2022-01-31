@@ -14,6 +14,13 @@ class OloProdukController extends Controller
     public function index()
     {
         $data = new MaOloProduk();
+
+        if (isset($_GET['sigma'])) {
+            $sigma = $_GET['sigma'];
+            $data = $data->whereRaw("(sigma = true)");
+        }
+
+
         if (isset($_GET['page'])) {
 
             if (isset($_GET['q'])) {
