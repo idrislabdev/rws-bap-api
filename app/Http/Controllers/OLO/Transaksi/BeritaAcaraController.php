@@ -281,7 +281,8 @@ class BeritaAcaraController extends Controller
                     'success' => true,
                     'message' => 'Data Berhasil Dibuat',
                 ]);
-            } if ($request->jenis_ba == 'BAUT') {
+            }
+            if ($request->jenis_ba == 'BAUT') {
                 $no_dokumen_baut = $request->no_dokumen_baut;
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
@@ -328,7 +329,6 @@ class BeritaAcaraController extends Controller
                     $ba_site->tgl_order         = $detail->tgl_order;
                     $ba_site->dibuat_oleh       = Auth::user()->id;
                     $ba_site->save();
-
                 }
 
                 DB::commit();
@@ -598,7 +598,6 @@ class BeritaAcaraController extends Controller
                                 $ba_add_on->save();
                             }
                         }
-
                     }
 
                     $data->update();
@@ -691,7 +690,8 @@ class BeritaAcaraController extends Controller
                 ->setOption('header-html', $header_html)
                 ->setPaper('a4');
 
-            return $pdf->download('baut.pdf');
+            $name = "BAUT_".$data->no_dokumen_baut . ".pdf";
+            return $pdf->download($name);
         } else if ($tipe == 'bast') {
             $pdf = PDF::loadView('olo_bast', [
                 'data'          => $data,
@@ -703,7 +703,9 @@ class BeritaAcaraController extends Controller
                 ->setOption('header-html', $header_html)
                 ->setPaper('a4');
 
-            return $pdf->download('bast.pdf');
+
+            $name = "BAST_".$data->no_dokumen_bast . ".pdf";
+            return $pdf->download($name);
         }
 
         // $file_name = $id.'.pdf';
