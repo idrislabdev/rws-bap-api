@@ -264,4 +264,37 @@ class DraftBeritaAcaraController extends Controller
             ], 500);
         }
     }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try {
+
+            $check = DraftOloBa::where('id', $id)->first();
+            if ($check) {
+                DraftOloBa::where('id', $id)->delete();
+
+                DB::commit();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'success',
+                    'data' => null
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data Tidak Ditemukan',
+                    'data' => null
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+    }
 }
