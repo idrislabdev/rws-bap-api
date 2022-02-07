@@ -9,6 +9,7 @@ use App\Http\Resources\OloViewResource;
 use App\Http\Resources\TrOloBaDetailResource;
 use App\Http\Resources\TrOloBaLampiranResource;
 use App\Http\Resources\TrOloBaResource;
+use App\Models\DraftOloBa;
 use App\Models\MaNomorDokumen;
 use App\Models\MaOloKlien;
 use App\Models\MaOloProduk;
@@ -161,7 +162,8 @@ class BeritaAcaraController extends Controller
             'klien_jabatan_penanggung_jawab_baut' => 'required',
             'klien_lokasi_kerja_baut' => 'required',
             'klien_nama_baut' => 'required',
-            'jenis_ba' => 'required'
+            'jenis_ba' => 'required',
+            'draft_id' => 'required'
         ]);
 
         if ($v->fails()) {
@@ -275,6 +277,8 @@ class BeritaAcaraController extends Controller
                     }
                 }
 
+                DraftOloBa::where('id', $request->draft_id)->delete();
+
                 DB::commit();
 
                 return (new TrOloBaResource($ba))->additional([
@@ -330,6 +334,8 @@ class BeritaAcaraController extends Controller
                     $ba_site->dibuat_oleh       = Auth::user()->id;
                     $ba_site->save();
                 }
+
+                DraftOloBa::where('id', $request->draft_id)->delete();
 
                 DB::commit();
 
@@ -439,6 +445,8 @@ class BeritaAcaraController extends Controller
                     $data->dibuat_oleh = Auth::user()->id;
                     $data->save();
                 }
+
+                DraftOloBa::where('id', $request->draft_id)->delete();
 
                 DB::commit();
 

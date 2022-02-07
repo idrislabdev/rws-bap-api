@@ -28,7 +28,7 @@ class OloKlienController extends Controller
 
             $data = $data->orderBy('nama_perusahaan')->paginate(25)->onEachSide(5);
         } else {
-            $data = $data->get();
+            $data = $data->orderBy('nama_perusahaan')->get();
         }
 
         return MaOloKlienResource::collection($data)->additional([

@@ -23,6 +23,7 @@ use App\Http\Controllers\Master\PengaturanController;
 use App\Http\Controllers\Master\PenggunaController;
 use App\Http\Controllers\Master\WilayahController;
 use App\Http\Controllers\OLO\Transaksi\BeritaAcaraController as TransaksiBeritaAcaraController;
+use App\Http\Controllers\OLO\Transaksi\DraftBeritaAcaraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -181,13 +182,14 @@ Route::prefix('olo')->group(function () {
     Route::group(['middleware' => 'auth:api'], function () {
 
         Route::prefix('transaksi')->group(function () {
+            Route::resource('draft-berita-acara', DraftBeritaAcaraController::class);
             Route::resource('berita-acara', TransaksiBeritaAcaraController::class);
             Route::post('berita-acara/check/no-dokumen', [TransaksiBeritaAcaraController::class, 'checkNomor']);
             Route::get('berita-acara/{olo_ba_id}/detail/{id}/add-on', [TransaksiBeritaAcaraController::class, 'addOnlist']);
             Route::delete('berita-acara/{olo_ba_id}/lampiran/{id}', [TransaksiBeritaAcaraController::class, 'removeLampiran']);
             Route::post('berita-acara/{olo_ba_id}/lampiran', [TransaksiBeritaAcaraController::class, 'updateLampiran']);
-
         });
+        
 
         Route::prefix('report')->group(function() {
             Route::get('view', [TransaksiBeritaAcaraController::class, 'reportView']);
