@@ -309,9 +309,9 @@
                     <div class="margin-body mt-xl">
                         <table style="width:100%;">
                             <tr class="text-center">
-                                <td style="padding-bottom: 70px; width:40%; font-weight:bold;">SIGMA</td>
+                                <td style="padding-bottom: 120px; width:40%; font-weight:bold;">SIGMA</td>
                                 <td style="width:20%;"></td>
-                                <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOM</td>
+                                <td style="padding-bottom: 120px; width:40%; font-weight:bold;">TELKOM</td>
                             </tr>
                             <tr class="text-center">
                                 <td style="font-weight:bold; text-decoration: underline">WIDODO</td>
