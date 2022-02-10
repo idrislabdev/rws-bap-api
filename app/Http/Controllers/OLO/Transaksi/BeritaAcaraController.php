@@ -335,6 +335,27 @@ class BeritaAcaraController extends Controller
                     $ba_site->save();
                 }
 
+                $url_arr = array();;
+
+                if ($request->file('lampirans')) {
+                    foreach ($request->file('lampirans') as $lampiran) {
+                        $url = $this->prosesUpload($lampiran);
+                        array_push($url_arr, $url);
+                    }
+                }
+
+                $counter = 0;
+                foreach ($url_arr as $lampiran_url) {
+                    $counter++;
+                    $data = new TrOloBaLampiran();
+                    $data->olo_ba_id = $id;
+                    $data->id = $counter;
+                    $data->url = $request->tipe;
+                    $data->url = $lampiran_url;
+                    $data->dibuat_oleh = Auth::user()->id;
+                    $data->save();
+                }
+
                 DraftOloBa::where('id', $request->draft_id)->delete();
 
                 DB::commit();
