@@ -294,7 +294,7 @@
                 </div>
                 <div class="margin-body mt-xl">
                     <p>
-                        Tanggal aktivasi diatas menjadi tanggal acuan untuk penerbitan invoice billing pada bulan berikutnya.<br>
+                        Tanggal {{$data->jenis_order}} diatas menjadi tanggal acuan untuk penerbitan invoice billing pada bulan berikutnya.<br>
                         Demikian Berita Acara ini dibuat dengan <span class="font-weight-bold">BENAR</span> rangkap 2 (dua) 
                         asli yang sama bunyinya dan mempunyai kekuatan hukum yang sama setelah ditandatangani oleh kedua  belah pihak.
                     </p>
