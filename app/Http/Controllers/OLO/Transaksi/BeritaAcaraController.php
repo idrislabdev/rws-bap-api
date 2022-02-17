@@ -333,6 +333,20 @@ class BeritaAcaraController extends Controller
                     $ba_site->tgl_order         = $detail->tgl_order;
                     $ba_site->dibuat_oleh       = Auth::user()->id;
                     $ba_site->save();
+
+                    if (count($detail->add_on) > 0) {
+                        $add_ons = $detail->add_on;
+                        foreach ($add_ons as $add_on) {
+                            $ba_add_on = new TrOloBaDetailAddOn();
+                            $ba_add_on->olo_ba_id       = $id;
+                            $ba_add_on->id              = $counter;
+                            $ba_add_on->add_on_id       = $add_on->add_on_id;
+                            $ba_add_on->nama_add_on     = $add_on->nama_add_on;
+                            $ba_add_on->satuan          = $add_on->satuan;
+                            $ba_add_on->jumlah          = $add_on->jumlah;
+                            $ba_add_on->save();
+                        }
+                    }
                 }
 
                 $url_arr = array();;
