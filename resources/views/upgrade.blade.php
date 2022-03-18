@@ -431,6 +431,7 @@
                                 <th style="width:13%" rowspan="2" class="td-center">ALPRO SITE</th>
                                 <th style="width:20%" rowspan="2 style="text-align:center;">Order BW</th>
                                 <th style="width:15%" rowspan="2" class="td-center">NO. ORDER</th>
+                                <th style="width:15%" rowspan="2" class="td-center">KETERANGAN</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -445,6 +446,7 @@
                                     <td>{{$data_site[$a]->alpro_site}}</td>
                                     <td>{{$data_site[$a]->jumlah}}</td>
                                     <td>{{$data_site[$a]->dasar_order}}</td>
+                                    <td>{{$data_site[$a]->keterangan}}</td>
                                 </tr>
                             @endfor 
                         </tbody>

@@ -237,7 +237,8 @@ class UpgradeController extends Controller
             'program' => 'required',
             'jumlah' => 'required',
             'tgl_on_air' => 'required',
-            'alpro_site' => 'required'
+            'alpro_site' => 'required',
+            'keterangan' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -270,7 +271,8 @@ class UpgradeController extends Controller
                     'program' => $request->program,
                     'jumlah' => $request->jumlah,
                     'tgl_on_air' => $request->tgl_on_air,
-                    'alpro_site' => $request->alpro_site
+                    'alpro_site' => $request->alpro_site,
+                    'keterangan' => $request->keterangan
                 ));
 
             return response()->json([
@@ -386,6 +388,52 @@ class UpgradeController extends Controller
         }
     }
 
+    public function updateKeterangan(Request $request, $wo_id, $wo_site_id)
+    {
+        $v = Validator::make($request->all(), [
+            'keterangan' => 'required',
+        ]);
+
+        if ($v->fails()) {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => $v->errors()
+            ], 422);
+        }
+
+        $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->first();
+
+        if ($data == null) {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => 'Data Tidak Ditemukan'
+            ], 422);
+        }
+
+
+        try {
+
+            $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                ->update(array(
+                    'keterangan' => $request->keterangan,
+                ));
+
+            return response()->json([
+                'data' => $data,
+                'success' => true,
+                'message' => null,
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => $e,
+            ], 400);
+        }
+    }
 
     public function updateOA(Request $request, $wo_id, $wo_site_id)
     {

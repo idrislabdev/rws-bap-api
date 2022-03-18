@@ -32,7 +32,7 @@ class BeritaAcaraController extends Controller
                 $data = $data->whereRaw("(tsel_reg like '%$q%' or no_dokumen like '%$q%')");
             }
 
-            $data = $data->orderBy('no_dokumen')->paginate(25)->onEachSide(5);
+            $data = $data->orderBy('tgl_dokumen', 'desc')->paginate(25)->onEachSide(5);
         } else {
             $data = $data->get();
         }
