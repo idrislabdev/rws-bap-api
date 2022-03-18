@@ -25,15 +25,16 @@ use PDF;
 
 class UpgradeController extends Controller
 {
-    private $_hari = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU','MINGGU'];
+    private $_hari = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU', 'MINGGU'];
     private $_month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
     public function index()
     {
         $pengguna = MaPengguna::find(Auth::user()->id);
 
-        $data = DB::table(DB::raw('tr_wo_sites tr')) 
-                                    ->select(DB::raw("tr.*, 
+        $data = DB::table(DB::raw('tr_wo_sites tr'))
+            ->select(
+                DB::raw("tr.*, 
                                                       trw.dasar_order, 
                                                       trw.lampiran_url,  
                                                       p.id pengguna_id, 
@@ -69,28 +70,29 @@ class UpgradeController extends Controller
                                                                     tr.wo_site_id = ti.wo_site_id
                                                                 AND
                                                                     ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"),
-                                                        )
-                                    ->leftJoin('tr_wos as trw','tr.wo_id', '=', 'trw.id')
-                                    ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
-                                    ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
-                                    ->whereRaw("tr.tipe_ba = 'UPGRADE'");
+            )
+            ->leftJoin('tr_wos as trw', 'tr.wo_id', '=', 'trw.id')
+            ->leftJoin('ma_penggunas as p', 'tr.dibuat_oleh', '=', 'p.id')
+            ->leftJoin('tr_bas as b', 'tr.ba_id', '=', 'b.id')
+            ->whereRaw("tr.tipe_ba = 'UPGRADE'");
 
         if ($pengguna->site_witel) {
             $data = $data->whereRaw("tr.site_witel = '$pengguna->site_witel'");
-        }                            
-        
+        }
+
         $q = $_GET['q'];
-        
+
         if ($q) {
             $data = $data->whereRaw("(program like '%$q%' or 
                                     site_name like '%$q%' or 
                                     tr.site_witel like '%$q%' or 
                                     tr.tsel_reg like '%$q%' or 
                                     site_id like '%$q%' or 
+                                    tahun_order like '%$q%' or 
                                     dasar_order like '%$q%')");
         }
-                                    
-        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(25)->onEachSide(5);       
+
+        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(25)->onEachSide(5);
 
         return UpgradeResource::collection(($data))->additional([
             'success' => true,
@@ -104,19 +106,18 @@ class UpgradeController extends Controller
             'sites' => 'required',
         ]);
 
-        if ($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'error',
                 'data' => $v->errors()
             ], 422);
-        }   
-        
+        }
+
         DB::beginTransaction();
         try {
             $sites = $request->sites;
-        
+
             $counter = 0;
             $dasar_order = "";
             $wo_id = "";
@@ -126,7 +127,7 @@ class UpgradeController extends Controller
                     $check = TrWo::where('dasar_order', $site['dasar_order'])->first();
                     if (!$check) {
                         $wo_id =  Uuid::uuid4()->toString();
-                        $dasar_order = $site['dasar_order'];    
+                        $dasar_order = $site['dasar_order'];
                         $wo = new TrWo();
                         $wo->id = $wo_id;
                         $wo->dasar_order = $site['dasar_order'];
@@ -136,13 +137,15 @@ class UpgradeController extends Controller
                         $wo_id = $check->id;
                         $counter = TrWoSite::where('wo_id', $wo_id)->max('wo_site_id') + 1;
                     }
-                    
-                }
-                else {
+                } else {
                     $counter++;
                 }
 
-                $check_site = TrWoSite::where('wo_id', $wo_id)->where('site_id', $site['site_id'])->where('tipe_ba', 'UPGRADE')->first();
+                $check_site = TrWoSite::where('wo_id', $wo_id)
+                    ->where('site_id', $site['site_id'])
+                    ->where('tipe_ba', 'UPGRADE')
+                    ->where('tahun_order', $site['tahun_order'])
+                    ->first();
                 if (!$check_site) {
                     $wo_site = new TrWoSite();
                     $wo_site->wo_id = $wo_id;
@@ -152,9 +155,9 @@ class UpgradeController extends Controller
                     $wo_site->site_witel = $site['site_witel'];
                     $wo_site->tsel_reg = $site['tsel_reg'];
                     $wo_site->tgl_on_air = $site['tgl_on_air'];
-                    $wo_site->data_2g = 0; 
-                    $wo_site->data_3g = 0; 
-                    $wo_site->data_4g = 0; 
+                    $wo_site->data_2g = 0;
+                    $wo_site->data_3g = 0;
+                    $wo_site->data_4g = 0;
                     $wo_site->jumlah = $site['data_bandwidth'];
                     $wo_site->program = $site['program'];
                     $wo_site->alpro_site = (isset($site['alpro_site'])) ? $site['alpro_site'] : "";
@@ -162,25 +165,27 @@ class UpgradeController extends Controller
                     $wo_site->status = 'OGP';
                     $wo_site->progress = false;
                     $wo_site->tipe_ba = 'UPGRADE';
+                    $wo_site->tahun_order = $site['tahun_order'];
                     $wo_site->save();
                 } else {
-                    TrWoSite::where('wo_id', $wo_id)->where('site_id', $site['site_id'])->where('tipe_ba', 'UPGRADE')
-                                ->update(array(
-                                    'program' => $site['program']
-                                ));
+                    TrWoSite::where('wo_id', $wo_id)
+                        ->where('site_id', $site['site_id'])
+                        ->where('tipe_ba', 'UPGRADE')
+                        ->where('tahun_order', $site['tahun_order'])
+                        ->update(array(
+                            'program' => $site['program']
+                        ));
                 }
-                
             }
-        
+
 
             DB::commit();
-    
+
             return response()->json([
                 'status' => true,
                 'message' => 'success',
                 'data' => null
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -194,14 +199,14 @@ class UpgradeController extends Controller
     public function show($wo_id, $wo_site_id)
     {
         try {
-            $data = DB::table(DB::raw('tr_wo_sites tr, tr_wos trw, ma_penggunas p')) 
-                                    ->select(DB::raw("tr.*, trw.dasar_order, trw.lampiran_url,  p.id pengguna_id, p.nama_lengkap"))
-                                    ->whereRaw("p.id = tr.dibuat_oleh")
-                                    ->whereRaw("tr.wo_id = trw.id")
-                                    ->whereRaw("tr.tipe_ba = 'UPGRADE'")
-                                    ->where('tr.wo_id', $wo_id)
-                                    ->where('tr.wo_site_id', $wo_site_id)
-                                    ->first();
+            $data = DB::table(DB::raw('tr_wo_sites tr, tr_wos trw, ma_penggunas p'))
+                ->select(DB::raw("tr.*, trw.dasar_order, trw.lampiran_url,  p.id pengguna_id, p.nama_lengkap"))
+                ->whereRaw("p.id = tr.dibuat_oleh")
+                ->whereRaw("tr.wo_id = trw.id")
+                ->whereRaw("tr.tipe_ba = 'UPGRADE'")
+                ->where('tr.wo_id', $wo_id)
+                ->where('tr.wo_site_id', $wo_site_id)
+                ->first();
 
             // return (new TrWoSiteResource($data))->additional([
             //     'success' => true,
@@ -213,10 +218,9 @@ class UpgradeController extends Controller
                 'success' => true,
                 'message' => null,
             ], 200);
-
         } catch (\Throwable $th) {
             return response()->json([
-               'data' => null,
+                'data' => null,
                 'success' => false,
                 'message' => 'Data Tidak Ditemukan',
             ], 404);
@@ -236,8 +240,7 @@ class UpgradeController extends Controller
             'alpro_site' => 'required'
         ]);
 
-        if($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -247,8 +250,7 @@ class UpgradeController extends Controller
 
         $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->first();
 
-        if($data == null)
-        {
+        if ($data == null) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -260,23 +262,22 @@ class UpgradeController extends Controller
         try {
 
             $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                            ->update(array(
-                                'site_id' => $request->site_id,
-                                'site_name' => $request->site_name,
-                                'tsel_reg' => $request->tsel_reg,
-                                'site_witel' => $request->site_witel,
-                                'program' => $request->program,
-                                'jumlah' => $request->jumlah,
-                                'tgl_on_air' => $request->tgl_on_air,
-                                'alpro_site' => $request->alpro_site
-                            ));
+                ->update(array(
+                    'site_id' => $request->site_id,
+                    'site_name' => $request->site_name,
+                    'tsel_reg' => $request->tsel_reg,
+                    'site_witel' => $request->site_witel,
+                    'program' => $request->program,
+                    'jumlah' => $request->jumlah,
+                    'tgl_on_air' => $request->tgl_on_air,
+                    'alpro_site' => $request->alpro_site
+                ));
 
             return response()->json([
                 'data' => $data,
                 'success' => true,
                 'message' => null,
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -295,8 +296,7 @@ class UpgradeController extends Controller
             'data_4g' => 'required',
         ]);
 
-        if($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -306,8 +306,7 @@ class UpgradeController extends Controller
 
         $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->first();
 
-        if($data == null)
-        {
+        if ($data == null) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -319,18 +318,17 @@ class UpgradeController extends Controller
         try {
 
             $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                            ->update(array(
-                                'data_2g' => $request->data_2g,
-                                'data_3g' => $request->data_3g,
-                                'data_4g' => $request->data_4g,
-                            ));
+                ->update(array(
+                    'data_2g' => $request->data_2g,
+                    'data_3g' => $request->data_3g,
+                    'data_4g' => $request->data_4g,
+                ));
 
             return response()->json([
                 'data' => $data,
                 'success' => true,
                 'message' => null,
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -347,8 +345,7 @@ class UpgradeController extends Controller
             'alpro_site' => 'required',
         ]);
 
-        if($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -358,8 +355,7 @@ class UpgradeController extends Controller
 
         $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->first();
 
-        if($data == null)
-        {
+        if ($data == null) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -371,16 +367,15 @@ class UpgradeController extends Controller
         try {
 
             $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                            ->update(array(
-                                'alpro_site' => $request->alpro_site,
-                            ));
+                ->update(array(
+                    'alpro_site' => $request->alpro_site,
+                ));
 
             return response()->json([
                 'data' => $data,
                 'success' => true,
                 'message' => null,
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -396,8 +391,7 @@ class UpgradeController extends Controller
     {
         $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('status', 'OGP')->first();
 
-        if($data == null)
-        {
+        if ($data == null) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -409,17 +403,16 @@ class UpgradeController extends Controller
         try {
 
             $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                            ->update(array(
-                                'status' => 'OA',
-                                'tgl_on_air' => $request->tgl_on_air
-                            ));
+                ->update(array(
+                    'status' => 'OA',
+                    'tgl_on_air' => $request->tgl_on_air
+                ));
 
             return response()->json([
                 'data' => $data,
                 'success' => true,
                 'message' => null,
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -434,8 +427,7 @@ class UpgradeController extends Controller
     {
         $data = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('status', 'OA')->first();
 
-        if($data == null)
-        {
+        if ($data == null) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -447,16 +439,15 @@ class UpgradeController extends Controller
         try {
 
             $update = TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                            ->update(array(
-                                'status' => 'OGP',
-                            ));
+                ->update(array(
+                    'status' => 'OGP',
+                ));
 
             return response()->json([
                 'data' => $data,
                 'success' => true,
                 'message' => null,
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -472,10 +463,10 @@ class UpgradeController extends Controller
         $v = Validator::make($request->all(), [
             'tsel_reg' => 'required',
             'no_dokumen' => 'required',
+            'tahun_order' => 'required'
         ]);
 
-        if($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -483,31 +474,31 @@ class UpgradeController extends Controller
             ], 422);
         }
 
-        $sites = DB::table(DB::raw('tr_wo_sites tr, tr_wos trw, ma_penggunas p')) 
-                                ->select(DB::raw("tr.*, 
+        $sites = DB::table(DB::raw('tr_wo_sites tr, tr_wos trw, ma_penggunas p'))
+            ->select(DB::raw("tr.*, 
                                                 trw.dasar_order, 
                                                 trw.lampiran_url,  
                                                 p.id pengguna_id, 
                                                 p.nama_lengkap"))
-                                                ->whereRaw("p.id = tr.dibuat_oleh")
-                                                ->whereRaw("tr.wo_id = trw.id")
-                                                ->whereRaw("tr.tipe_ba = 'UPGRADE'")
-                                                ->whereRaw("tr.progress = true")
-                                                ->whereRaw("tr.status = 'OA'")
-                                                ->where('tsel_reg', $request->tsel_reg)
-                                                ->whereNull('ba_id')
-                                                ->get();
+            ->whereRaw("p.id = tr.dibuat_oleh")
+            ->whereRaw("tr.wo_id = trw.id")
+            ->whereRaw("tr.tipe_ba = 'UPGRADE'")
+            ->whereRaw("tr.progress = true")
+            ->whereRaw("tr.status = 'OA'")
+            ->where('tsel_reg', $request->tsel_reg)
+            ->where('tahun_order', $request->tahun_order)
+            ->whereNull('ba_id')
+            ->get();
 
         $check_dokumen = TrBa::where('no_dokumen', $request->no_dokumen)->first();
         $check_no_dokumen = MaNomorDokumen::where('no_dokumen', $request->no_dokumen)->first();
 
-        if ($check_dokumen || $check_no_dokumen)
-        {
+        if ($check_dokumen || $check_no_dokumen) {
             return response()->json([
                 'data' => [],
                 'success' => true,
                 'message' => 'Maaf, No dokumen sudah pernah digunakan sebelumnya.',
-             ], 200);
+            ], 200);
         }
 
         return response()->json([
@@ -526,8 +517,7 @@ class UpgradeController extends Controller
             'sites' => 'required',
         ]);
 
-        if($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -537,19 +527,18 @@ class UpgradeController extends Controller
 
         $check_dokumen = TrBa::where('no_dokumen', $request->no_dokumen)->first();
 
-        if ($check_dokumen)
-        {
+        if ($check_dokumen) {
             return response()->json([
                 'data' => null,
                 'success' => true,
                 'message' => 'Maaf, No dokumen sudah pernah digunakan sebelumnya.',
-             ], 200);
+            ], 200);
         }
 
 
         DB::beginTransaction();
         try {
-            
+
             // $pengguna = MaPengguna::findOrFail(Auth::user()->id);
 
             $ba = new TrBa();
@@ -567,15 +556,15 @@ class UpgradeController extends Controller
 
             foreach ($sites as $site) {
                 TrWoSite::where('tipe_ba', 'UPGRADE')
-                ->where('progress', true)
-                ->where('status', 'OA')
-                ->where('tsel_reg', $request->tsel_reg)
-                ->where('wo_id',$site['wo_id'])
-                ->where('wo_site_id', $site['wo_site_id'])
-                ->whereNull('ba_id')
-                ->update(array(
-                    'ba_id' => $id,
-                ));
+                    ->where('progress', true)
+                    ->where('status', 'OA')
+                    ->where('tsel_reg', $request->tsel_reg)
+                    ->where('wo_id', $site['wo_id'])
+                    ->where('wo_site_id', $site['wo_site_id'])
+                    ->whereNull('ba_id')
+                    ->update(array(
+                        'ba_id' => $id,
+                    ));
             }
 
             $data = new MaNomorDokumen();
@@ -584,9 +573,9 @@ class UpgradeController extends Controller
             $data->tipe_dokumen = 'UPGRADE';
             $data->tgl_dokumen = $request->tgl_dokumen;
             $data->save();
-        
+
             DB::commit();
-    
+
             $url = $this->fileBA($id);
 
             return response()->json([
@@ -620,8 +609,7 @@ class UpgradeController extends Controller
             // 'file_ba' => 'required'
         ]);
 
-        if($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json([
                 'data' => null,
                 'succes' => false,
@@ -631,19 +619,18 @@ class UpgradeController extends Controller
 
         $check_dokumen = TrBa::where('no_dokumen', $request->no_dokumen)->first();
 
-        if ($check_dokumen)
-        {
+        if ($check_dokumen) {
             return response()->json([
                 'data' => null,
                 'success' => true,
                 'message' => 'Maaf, No dokumen sudah pernah digunakan sebelumnya.',
-             ], 200);
+            ], 200);
         }
 
 
         DB::beginTransaction();
         try {
-            
+
             // $pengguna = MaPengguna::findOrFail(Auth::user()->id);
 
             $ba = new TrBa();
@@ -658,30 +645,30 @@ class UpgradeController extends Controller
             $ba->save();
 
             $sites = $request->sites;
-        
+
             $count = 0;
             foreach ($sites as $site) {
                 $update = TrWoSite::where('tipe_ba', 'UPGRADE')
-                        ->where('progress', false)
-                        ->where('tsel_reg', $request->tsel_reg)
-                        ->where('site_id', $site)
-                        ->whereNull('ba_id')
-                        ->update(array(
-                            'ba_id' => $id,
-                            'progress' => true,
-                            'status' => 'OA'
-                        ));
+                    ->where('progress', false)
+                    ->where('tsel_reg', $request->tsel_reg)
+                    ->where('site_id', $site)
+                    ->whereNull('ba_id')
+                    ->update(array(
+                        'ba_id' => $id,
+                        'progress' => true,
+                        'status' => 'OA'
+                    ));
                 if ($update > 0)
                     $count++;
             }
 
             if ($count > 0) {
 
-                Storage::putFileAs('public/pdf',$request->file('file_ba'), $id.'.'.$request->file('file_ba')->getClientOriginalExtension());
-                
+                Storage::putFileAs('public/pdf', $request->file('file_ba'), $id . '.' . $request->file('file_ba')->getClientOriginalExtension());
+
                 DB::commit();
-        
-    
+
+
                 return response()->json([
                     'data' => $ba,
                     'success' => true,
@@ -695,10 +682,6 @@ class UpgradeController extends Controller
                     'message' => null,
                 ], 400);
             }
-
-
-
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -713,28 +696,28 @@ class UpgradeController extends Controller
     {
         DB::beginTransaction();
         try {
-            
+
             $check = TrBa::where('id', $id)->first();
-            
+
             if ($check) {
                 $no_dokumen = $check->no_dokumen;
 
                 TrWoSite::where('ba_id', $id)->where('tipe_ba', 'UPGRADE')
-                ->update(array(
-                    'ba_id' => null,
-                )); 
-    
+                    ->update(array(
+                        'ba_id' => null,
+                    ));
+
                 TrBa::where('id', $id)->where('tipe', 'UPGRADE')->delete();
-    
-                $path = storage_path().'/app/public/pdf/'.$id .'.pdf';
-    
-                if(file_exists($path))
+
+                $path = storage_path() . '/app/public/pdf/' . $id . '.pdf';
+
+                if (file_exists($path))
                     unlink($path);
-    
+
                 MaNomorDokumen::where('no_dokumen', $no_dokumen)->delete();
 
                 DB::commit();
-        
+
                 return response()->json([
                     'status' => true,
                     'message' => 'success',
@@ -747,7 +730,6 @@ class UpgradeController extends Controller
                     'data' => null
                 ], 400);
             }
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -761,13 +743,13 @@ class UpgradeController extends Controller
     public function fileBA($id)
     {
         set_time_limit(1800);
-        
+
         $jenis_dokumen = array(
-                            "Dokumen uji terima", 
-                            "Data Konfigurasi & Topology E2E", 
-                            "Capture Trafik oleh Telkom",
-                            "Referensi Work Order"
-                        );
+            "Dokumen uji terima",
+            "Data Konfigurasi & Topology E2E",
+            "Capture Trafik oleh Telkom",
+            "Referensi Work Order"
+        );
 
         $data_ba = TrBa::where('id', $id)->first();
         $dasar_permintaan = '';
@@ -778,7 +760,7 @@ class UpgradeController extends Controller
         $count++;
 
         $wo = TrWoSite::where('ba_id', $id)->distinct()->get('wo_id');
-        
+
         $arr_wo = array();
         foreach ($wo as $w) {
             $arr_wo[] = $w->id;
@@ -788,65 +770,65 @@ class UpgradeController extends Controller
         $count = 0;
         foreach ($data_wo as $w) {
             $count++;
-            $dasar_permintaan = $dasar_permintaan.$w->dasar_order;
+            $dasar_permintaan = $dasar_permintaan . $w->dasar_order;
             if ($count < count($data_wo)) {
-                $dasar_permintaan = $dasar_permintaan.', ';
+                $dasar_permintaan = $dasar_permintaan . ', ';
             }
 
             $data_sites = TrWoSite::where('wo_id', $w->id)->where('ba_id', $id)->get();
-            $count_site=0;
-            $text_site='';
+            $count_site = 0;
+            $text_site = '';
             foreach ($data_sites as $site) {
 
                 $site->dasar_order = $w->dasar_order;
 
-    
+
                 $konfigurasi = TrWoSiteImage::where('wo_id', $site->wo_id)
-                                                        ->where('wo_site_id', $site->wo_site_id)
-                                                        ->where('tipe', 'KONFIGURASI')
-                                                        ->first();
-    
+                    ->where('wo_site_id', $site->wo_site_id)
+                    ->where('tipe', 'KONFIGURASI')
+                    ->first();
+
                 $site->konfigurasi = $konfigurasi->image_url;
-                
+
                 $trafik = TrWoSiteImage::where('wo_id', $site->wo_id)
-                                                ->where('wo_site_id', $site->wo_site_id)
-                                                ->where('tipe', 'CAPTURE_TRAFIK')
-                                                ->first();
-    
+                    ->where('wo_site_id', $site->wo_site_id)
+                    ->where('tipe', 'CAPTURE_TRAFIK')
+                    ->first();
+
                 $site->trafik = $trafik->image_url;
-                
+
                 $topologi = TrWoSiteImage::where('wo_id', $site->wo_id)
-                                                ->where('wo_site_id', $site->wo_site_id)
-                                                ->where('tipe', 'TOPOLOGI')
-                                                ->first();
-                
+                    ->where('wo_site_id', $site->wo_site_id)
+                    ->where('tipe', 'TOPOLOGI')
+                    ->first();
+
                 $site->topologi = $topologi->image_url;
-    
+
                 $total_site++;
                 $total_bw = $total_bw + $site->jumlah;
-    
+
                 array_push($data_site, $site);
 
                 $count_site++;
-                $text_site = $text_site.$site->site_id;
+                $text_site = $text_site . $site->site_id;
                 if ($count_site < count($data_sites)) {
-                    $text_site = $text_site.', ';
-                }                
+                    $text_site = $text_site . ', ';
+                }
             }
             $w->daftar_site = $text_site;
         }
 
-        
+
         $hari = date('N', strtotime($data_ba->tgl_dokumen));
         $tgl = date('j', strtotime($data_ba->tgl_dokumen));
         $bulan = date('n', strtotime($data_ba->tgl_dokumen));
         $tahun = date('Y', strtotime($data_ba->tgl_dokumen));
 
         $format_tanggal = new \stdClass();
-        $format_tanggal->hari = $this->_hari[$hari-1];
+        $format_tanggal->hari = $this->_hari[$hari - 1];
         $format_tanggal->tgl = strtoupper(UtilityHelper::terbilang($tgl));
         $format_tanggal->tgl_nomor = $tgl;
-        $format_tanggal->bulan = $this->_month[$bulan-1];
+        $format_tanggal->bulan = $this->_month[$bulan - 1];
         $format_tanggal->tahun_nomor = $tahun;
         $format_tanggal->tahun = strtoupper(UtilityHelper::terbilang($tahun));
 
@@ -857,7 +839,7 @@ class UpgradeController extends Controller
         $people_ttd->manager_pm_jatim = MaPengaturan::where('nama', 'PM_JATIM')->first();
         $people_ttd->manager_pm_balnus = MaPengaturan::where('nama', 'PM_BALNUS')->first();
         $people_ttd->gm_network = MaPengaturan::where('nama', 'GM_NETWORK_ENGINEERING_PROJECT')->first();
-        
+
 
         $pdf = PDF::loadView('upgrade', [
             'jenis_dokumen'     => $jenis_dokumen,
@@ -871,21 +853,20 @@ class UpgradeController extends Controller
             'people_ttd'        => $people_ttd
         ])->setPaper('a4');
 
-        $file_name = $id.'.pdf';
-        
+        $file_name = $id . '.pdf';
 
-        Storage::put('public/pdf/'.$file_name, $pdf->output());
+
+        Storage::put('public/pdf/' . $file_name, $pdf->output());
 
         return $file_name;
-
     }
 
     public function refresh($id)
     {
-        $file_name = $id.'.pdf';
+        $file_name = $id . '.pdf';
 
-        $path = storage_path().'/app/public/pdf/'.$file_name;
-        if(file_exists($path))
+        $path = storage_path() . '/app/public/pdf/' . $file_name;
+        if (file_exists($path))
             unlink($path);
 
         $this->fileBA($id);
@@ -894,21 +875,20 @@ class UpgradeController extends Controller
     public function downloadBA($id)
     {
         // return response()->file(storage_path().'/app/public/pdf/'.$id.'.pdf');
-        return response()->download(storage_path().'/app/public/pdf/'.$id.'.pdf');
-
+        return response()->download(storage_path() . '/app/public/pdf/' . $id . '.pdf');
     }
 
-    private function arrayToString($data) 
+    private function arrayToString($data)
     {
-        $string='';
-        $i=0;
-        foreach ($data as $value){
-            if ($i==0) {
-                $string .= "'".$value."'";
+        $string = '';
+        $i = 0;
+        foreach ($data as $value) {
+            if ($i == 0) {
+                $string .= "'" . $value . "'";
             } else {
-                $string .= ",'".$value."'";
+                $string .= ",'" . $value . "'";
             }
-            $i++;      
+            $i++;
         }
 
         return $string;

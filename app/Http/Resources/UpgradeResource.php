@@ -20,6 +20,7 @@ class UpgradeResource extends JsonResource
             'wo_id' => $this->wo_id,
             'wo_site_id' => $this->wo_site_id,
             'dasar_order' => $this->dasar_order,
+            'tahun_order' => $this->tahun_order,
             'lampiran_url' => $this->lampiran_url,
             'site_id' => $this->site_id,
             'site_name' => $this->site_name,

@@ -130,6 +130,7 @@ class NewLinkController extends Controller
                                     tr.site_witel like '%$q%' or 
                                     tr.tsel_reg like '%$q%' or 
                                     site_id like '%$q%' or 
+                                    tahun_order like '%$q%' or 
                                     dasar_order like '%$q%')");
         }
                                     
@@ -185,7 +186,11 @@ class NewLinkController extends Controller
                     $counter++;
                 }
 
-                $check_site = TrWoSite::where('wo_id', $wo_id)->where('site_id', $site['site_id'])->where('tipe_ba', 'NEW_LINK')->first();
+                $check_site = TrWoSite::where('wo_id', $wo_id)
+                                      ->where('site_id', $site['site_id'])
+                                      ->where('tipe_ba', 'NEW_LINK')
+                                      ->where('tahun_order', $site['tahun_order'])
+                                      ->first();
                 if (!$check_site) {
                     $wo_site = new TrWoSite();
                     $wo_site->wo_id = $wo_id;
@@ -204,9 +209,13 @@ class NewLinkController extends Controller
                     $wo_site->status = 'OGP';
                     $wo_site->progress = false;
                     $wo_site->tipe_ba = 'NEW_LINK';
+                    $wo_site->tahun_order = $site['tahun_order'];
                     $wo_site->save();
                 } else {
-                    TrWoSite::where('wo_id', $wo_id)->where('site_id', $site['site_id'])->where('tipe_ba', 'NEW_LINK')
+                    TrWoSite::where('wo_id', $wo_id)
+                            ->where('site_id', $site['site_id'])
+                            ->where('tipe_ba', 'NEW_LINK')
+                            ->where('tahun_order', $site['tahun_order'])
                     ->update(array(
                         'program' => $site['program']
                     ));
@@ -511,6 +520,7 @@ class NewLinkController extends Controller
         $v = Validator::make($request->all(), [
             'tsel_reg' => 'required',
             'no_dokumen' => 'required',
+            'tahun_order' => 'required'
         ]);
 
         if($v->fails())
@@ -534,6 +544,7 @@ class NewLinkController extends Controller
                                                 ->whereRaw("tr.progress = true")
                                                 ->whereRaw("tr.status = 'OA'")
                                                 ->where('tsel_reg', $request->tsel_reg)
+                                                ->where('tahun_order', $request->tahun_order)
                                                 ->whereNull('ba_id')
                                                 ->get();
 
