@@ -7,6 +7,7 @@ use App\Http\Controllers\CNOP\DashboardController;
 use App\Http\Controllers\CNOP\ReportController;
 use App\Http\Controllers\CNOP\Transaksi\BaNewLinkController;
 use App\Http\Controllers\CNOP\Transaksi\BeritaAcaraController;
+use App\Http\Controllers\CNOP\Transaksi\DismantleController;
 use App\Http\Controllers\CNOP\Transaksi\DualHomingController;
 use App\Http\Controllers\CNOP\Transaksi\ImageController;
 use App\Http\Controllers\CNOP\Transaksi\LvController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\CNOP\Transaksi\QcController;
 use App\Http\Controllers\CNOP\Transaksi\RelokasiController;
 use App\Http\Controllers\CNOP\Transaksi\UpgradeController;
 use App\Http\Controllers\CNOP\Transaksi\WoController;
+use App\Http\Controllers\CNOP\Transaksi\DraftOtherTransactionController;
+use App\Http\Controllers\CNOP\Transaksi\OtherTransactionController;
 use App\Http\Controllers\Master\NomorDokumenController;
 use App\Http\Controllers\Master\OloJenisAddOnController;
 use App\Http\Controllers\Master\OloJenisOrderController;
@@ -60,6 +63,7 @@ Route::prefix('data')->group(function () {
     Route::resource('olo-jenis-order', OloJenisOrderController::class);
     Route::resource('olo-klien', OloKlienController::class);
     Route::resource('olo-produk', OloProdukController::class);
+    Route::get('telkomsel', [OloKlienController::class, 'telkomselClient']);
 });
 
 Route::prefix('cnop')->group(function () {
@@ -91,6 +95,10 @@ Route::prefix('cnop')->group(function () {
             Route::patch('relokasi/{wo_id}/site/{wo_site_id}/bandwidth', [RelokasiController::class, 'updateBW']);
             Route::patch('relokasi/{wo_id}/site/{wo_site_id}/alpro-site', [RelokasiController::class, 'updateAlproSite']);
             Route::patch('relokasi/{wo_id}/site/{wo_site_id}/keterangan', [RelokasiController::class, 'updateKeterangan']);
+
+            Route::get('dismantle', [DismantleController::class, 'index']);
+            Route::get('dismantle/{wo_id}/site/{wo_site_id}', [DismantleController::class, 'show']);
+            Route::patch('dismantle/{wo_id}/site/{wo_site_id}/deactivate', [DismantleController::class, 'deactivate']);
 
             Route::get('dual-homing', [DualHomingController::class, 'index']);
             Route::get('dual-homing/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'show']);
@@ -150,6 +158,14 @@ Route::prefix('cnop')->group(function () {
                 Route::get('relokasi/ba/{id}/refresh', [RelokasiController::class, 'fileBA']);
                 Route::delete('relokasi/ba/{id}/delete', [RelokasiController::class, 'deleteBA']);
 
+                Route::post('dismantle', [DismantleController::class, 'store']);
+                Route::patch('dismantle/{wo_id}/site/{wo_site_id}', [DismantleController::class, 'update']);
+                Route::post('dismantle/create-ba', [DismantleController::class, 'createBA']);
+                Route::post('dismantle/create-ba-bypass', [DismantleController::class, 'createBAByPass']);
+                Route::post('dismantle/create-ba/check', [DismantleController::class, 'checkSiteBA']);
+                Route::get('dismantle/ba/{id}/refresh', [DismantleController::class, 'fileBA']);
+                Route::delete('dismantle/ba/{id}/delete', [DismantleController::class, 'deleteBA']);
+
                 Route::post('dual-homing', [DualHomingController::class, 'store']);
                 Route::patch('dual-homing/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'update']);
                 Route::post('dual-homing/create-ba', [DualHomingController::class, 'createBA']);
@@ -157,6 +173,13 @@ Route::prefix('cnop')->group(function () {
                 // Route::get('dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
                 Route::get('dual-homing/ba/{id}/refresh', [DualHomingController::class, 'fileBA']);
                 Route::delete('dual-homing/ba/{id}/delete', [DualHomingController::class, 'deleteBA']);
+
+                Route::resource('other-draft', DraftOtherTransactionController::class);
+                Route::resource('other', OtherTransactionController::class);
+                Route::post('other/check/no-dokumen', [OtherTransactionController::class, 'checkNomor']);
+                Route::get('other/{olo_ba_id}/detail/{id}/add-on', [OtherTransactionController::class, 'addOnlist']);
+                Route::delete('other/{olo_ba_id}/lampiran/{id}', [OtherTransactionController::class, 'removeLampiran']);
+                Route::post('other/{olo_ba_id}/lampiran', [OtherTransactionController::class, 'updateLampiran']);
 
                 Route::post('work-order/{id}', [WoController::class, 'update']);
                 Route::delete('work-order/{id}', [WoController::class, 'destroy']);
@@ -181,8 +204,11 @@ Route::prefix('cnop')->group(function () {
             Route::get('upgrade', [ReportController::class, 'upgrade']);
             Route::get('dualhoming', [ReportController::class, 'dualhoming']);
             Route::get('relokasi', [ReportController::class, 'relokasi']);
+            Route::get('other/view', [OtherTransactionController::class, 'reportView']);
+            Route::get('other/download', [OtherTransactionController::class, 'reportDownload']);
         });
     });
+    
 
     // Route::get('new-link/ba', [BaNewLinkController::class, 'fileBA']);
     Route::get('new-link/ba/{id}', [NewLinkController::class, 'fileBA']);
@@ -194,6 +220,9 @@ Route::prefix('cnop')->group(function () {
     Route::get('transaksi/upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
     Route::get('transaksi/relokasi/ba/{id}/download', [RelokasiController::class, 'downloadBA']);
     Route::get('transaksi/dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
+    Route::get('transaksi/dismantle/ba/{id}/download', [RelokasiController::class, 'downloadBA']);
+    Route::get('transaksi/other/download/file/{id}/{tipe}', [OtherTransactionController::class, 'fileBA']);
+
     Route::get('test-report', [NewLinkController::class, 'testReport']);
 });
 

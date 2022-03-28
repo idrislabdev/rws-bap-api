@@ -481,8 +481,8 @@
                                                 <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Konfigurasi Site {{$data_site[$b-1]->site_id}}</td>
                                             </tr>
                                             @php($image = getimagesize(public_path().'/lampirans/'.  $data_site[$b-1]->konfigurasi ))
-                                            @if($image[1] < 400)
-                                                <tr style="height:400px;">
+                                            @if($image[1] < 300)
+                                                <tr style="height:300px;">
                                                     <td width="5%"></td>
                                                     <td>
                                                         <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->konfigurasi }}" style="width:700px; object-fit: cover;">
@@ -492,7 +492,7 @@
                                                 <tr>
                                                     <td width="5%"></td>
                                                     <td>
-                                                        <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->konfigurasi }}" style="width:700px; height:400px; object-fit: cover;">
+                                                        <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->konfigurasi }}" style="width:700px; height:300px; object-fit: cover;">
                                                     </td>
                                                 </tr>
                                             @endif
@@ -532,8 +532,8 @@
                                                     <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Topologi Site {{$data_site[$b-1]->site_id}}</td>
                                                 </tr>
                                                 @php($image = getimagesize(public_path().'/lampirans/'.  $data_site[$b-1]->topologi ))
-                                                @if($image[1] < 400)
-                                                    <tr style="height:400px;">
+                                                @if($image[1] < 300)
+                                                    <tr style="height:300px;">
                                                         <td width="5%"></td>
                                                         <td>
                                                             <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->topologi }}" style="width:700px; object-fit: cover;">
@@ -543,7 +543,7 @@
                                                     <tr>
                                                         <td width="5%"></td>
                                                         <td>
-                                                            <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->topologi }}" style="width:700px; height:400px; object-fit: cover;">
+                                                            <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->topologi }}" style="width:700px; height:300px; object-fit: cover;">
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -584,8 +584,8 @@
                                                     <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Trafik Site {{$data_site[$b-1]->site_id}}</td>
                                                 </tr>
                                                 @php($image = getimagesize(public_path().'/lampirans/'.  $data_site[$b-1]->trafik ))
-                                                @if($image[1] < 400)
-                                                    <tr style="height:400px;">
+                                                @if($image[1] < 300)
+                                                    <tr style="height:300px;">
                                                         <td width="5%"></td>
                                                         <td>
                                                             <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->trafik }}" style="width:700px; object-fit: cover;">
@@ -595,7 +595,7 @@
                                                     <tr>
                                                         <td width="5%"></td>
                                                         <td>
-                                                            <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->trafik }}" style="width:700px; height:400px; object-fit: cover;">
+                                                            <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->trafik }}" style="width:700px; height:300px; object-fit: cover;">
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -643,7 +643,7 @@
                                     <tr>
                                         <td width="5%"></td>
                                         <td>
-                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; height:400px; object-fit: cover;">
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; height:300px; object-fit: cover;">
                                         </td>
                                     </tr>
                                 @endif

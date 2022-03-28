@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\OLO\Transaksi;
+namespace App\Http\Controllers\CNOP\Transaksi;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DraftOloBaResource;
@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
-class DraftBeritaAcaraController extends Controller
+class DraftOtherTransactionController extends Controller
 {
     public function index()
     {
-        $data = DraftOloBa::with('dibuat')->where('tipe_ba', 'OLO')->where('dibuat_oleh', Auth::user()->id);
+        $data = DraftOloBa::with('dibuat')->where('tipe_ba', 'CNOP')->where('dibuat_oleh', Auth::user()->id);
         if (isset($_GET['page'])) {
 
             if (isset($_GET['q'])) {
@@ -75,6 +75,7 @@ class DraftBeritaAcaraController extends Controller
             $ba->dibuat_oleh                         = Auth::user()->id;
             $ba->jenis_ba                            = $request->jenis_ba;
             $ba->alamat_bast                         = $request->alamat_bast;
+            $ba->tipe_ba                             = 'CNOP';
             $ba->save();
 
             $details = $request->detail;

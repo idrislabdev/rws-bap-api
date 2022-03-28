@@ -60,8 +60,6 @@ class OloKlienController extends Controller
             'alamat_perusahaan' => 'required',
             'nama_penanggung_jawab' => 'required',
             'jabatan_penanggung_jawab' => 'required',
-            'sigma' => 'required',
-
         ]);
 
         if ($v->fails()) {
@@ -79,7 +77,7 @@ class OloKlienController extends Controller
             $data->alamat_perusahaan = $request->alamat_perusahaan;
             $data->nama_penanggung_jawab = $request->nama_penanggung_jawab;
             $data->jabatan_penanggung_jawab = $request->jabatan_penanggung_jawab;
-            $data->sigma = $request->sigma;
+            $data->sigma = $request->sigma ?: false;
             $data->save();
 
             return (new MaOloKlienResource($data))->additional([
@@ -198,5 +196,22 @@ class OloKlienController extends Controller
             'message' => 'success',
             'data' => $data
         ], 200);
+    }
+
+    public function telkomselClient()
+    {
+        try {
+            $data = MaOloKlien::where('nama_perusahaan', 'TELKOMSEL')->first();
+            return (new MaOloKlienResource($data))->additional([
+                'success' => true,
+                'message' => 'suksess'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan',
+            ], 404);
+        }
     }
 }

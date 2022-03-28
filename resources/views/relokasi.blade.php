@@ -265,7 +265,7 @@
                         <tr>
                             <td style="width:288px">Dasar Permintaan</td>
                             <td style="width:10px">:</td>
-                            <td>Terlampir</td>
+                            <td>{{$dasar_permintaan}}</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Produk</td>
@@ -275,17 +275,17 @@
                         <tr>
                             <td style="width:288px">Jenis Layanan</td>
                             <td style="width:10px">:</td>
-                            <td>FO & Radio</td>
+                            <td>FO</td>
                         </tr>
                         <tr>
                             <td style="width:288px">Lingkup Pekerjaan</td>
                             <td style="width:10px">:</td>
-                            <td>Rebalancing</td>
+                            <td>Relokasi Akses Link</td>
                         </tr>
                         <tr>
-                            <td style="width:288px">Jumlah Upgrade (Jumlah BW)</td>
+                            <td style="width:288px">Jumlah Akses Link (Jumlah BW)</td>
                             <td style="width:10px">:</td>
-                            <td>{{$total_site}} Upgrade dengan BW {{$total_bw}} Mbps</td>
+                            <td>{{$total_site}} Akses Link dengan BW {{$total_bw}} Mbps</td>
                         </tr>
                     </table>
                 </div>
@@ -305,6 +305,45 @@
                         </tr>
                     </table>
                 </div>
+                <div class="margin-content margin-body">
+                    <table class="table-site" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="width:4%" rowspan="2" class="td-center">No. </th>
+                                <th style="width:10%" rowspan="2" class="td-center">SITE ID</th>
+                                <th style="width:18%" rowspan="2" class="td-center">SITE NAME</th>
+                                <th style="width:10%" rowspan="2" class="td-center">WITEL</th>
+                                <th style="width:13%" rowspan="2" class="td-center">TANGGAL ON AIR</th>
+                                <th style="width:20%" colspan="4" style="text-align:center;">BANDWIDTH (Mbps)</th>
+                                <th style="width:10%" rowspan="2" class="td-center">PROGRAM</th>
+                                <th style="width:15%" rowspan="2" class="td-center">NO. ORDER</th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center;">2G</th>
+                                <th style="text-align: center;">3G</th>
+                                <th style="text-align: center;">4G</th>
+                                <th style="text-align: center;">JML</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for ($a=0; $a<@count($data_site); $a++)
+                                <tr>
+                                    <td>{{$a+1}}</td>
+                                    <td>{{$data_site[$a]->site_id}}</td>
+                                    <td class="wrapword">{{$data_site[$a]->site_name}}</td>
+                                    <td>{{$data_site[$a]->site_witel}}</td>
+                                    <td>{{strtoupper(date('d-M-y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
+                                    <td>{{$data_site[$a]->data_2g}}</td>
+                                    <td>{{$data_site[$a]->data_3g}}</td>
+                                    <td>{{$data_site[$a]->data_4g}}</td>
+                                    <td>{{$data_site[$a]->jumlah}}</td>
+                                    <td>{{$data_site[$a]->program}}</td>
+                                    <td>{{$data_site[$a]->dasar_order}}</td>
+                                </tr>
+                            @endfor 
+                        </tbody>
+                    </table>
+                </div>
                 <div class="margin-body">
                     <p>
                         Demikian Berita Acara ini dibuat dengan sebenarnya dalam rangkap 2 (dua) yang sama bunyinya dan mempunyai
@@ -314,18 +353,18 @@
                 <div class="margin-body">
                     <table style="width:100%;">
                         <tr class="text-center">
-                            <td style="padding-bottom: 50px; width:40%; font-weight:bold;">TELKOM</td>
+                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOM</td>
                             <td style="width:20%;"></td>
-                            <td style="padding-bottom: 50px; width:40%; font-weight:bold;">TELKOMSEL</td>
+                            <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOMSEL</td>
                         </tr>
                         <tr class="text-center">
                             <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->osm_regional->nilai}}</td>
-                            <td style="width:20%"></td>
+                            <td style="width:20%;"></td>
                             <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->gm_core_transport->nilai}}</td>
                         </tr>
                         <tr class="text-center">
                             <td style="vertical-align: top;">{{$people_ttd->osm_regional->detail_nilai}}</td>
-                            <td style="width:20%"></td>
+                            <td style="width:20%;"></td>
                             <td>{{$people_ttd->gm_core_transport->detail_nilai}}</td>
                         </tr>
                     </table>            
@@ -428,8 +467,8 @@
                                                 <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Konfigurasi Site {{$data_site[$b-1]->site_id}}</td>
                                             </tr>
                                             @php($image = getimagesize(public_path().'/lampirans/'.  $data_site[$b-1]->konfigurasi ))
-                                            @if($image[1] < 400)
-                                                <tr style="height:400px;">
+                                            @if($image[1] < 300)
+                                                <tr style="height:300px;">
                                                     <td width="5%"></td>
                                                     <td>
                                                         <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->konfigurasi }}" style="width:700px; object-fit: cover;">
@@ -439,7 +478,7 @@
                                                 <tr>
                                                     <td width="5%"></td>
                                                     <td>
-                                                        <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->konfigurasi }}" style="width:700px; height:400px; object-fit: cover;">
+                                                        <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->konfigurasi }}" style="width:700px; height:300px; object-fit: cover;">
                                                     </td>
                                                 </tr>
                                             @endif
@@ -479,8 +518,8 @@
                                                     <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Topologi Site {{$data_site[$b-1]->site_id}}</td>
                                                 </tr>
                                                 @php($image = getimagesize(public_path().'/lampirans/'.  $data_site[$b-1]->topologi ))
-                                                @if($image[1] < 400)
-                                                    <tr style="height:400px;">
+                                                @if($image[1] < 300)
+                                                    <tr style="height:300px;">
                                                         <td width="5%"></td>
                                                         <td>
                                                             <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->topologi }}" style="width:700px; object-fit: cover;">
@@ -490,7 +529,7 @@
                                                     <tr>
                                                         <td width="5%"></td>
                                                         <td>
-                                                            <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->topologi }}" style="width:700px; height:400px; object-fit: cover;">
+                                                            <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->topologi }}" style="width:700px; height:300px; object-fit: cover;">
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -531,8 +570,8 @@
                                                     <td colspan="2" style="text-align: left !important; font-weight:bold;">Data Trafik Site {{$data_site[$b-1]->site_id}}</td>
                                                 </tr>
                                                 @php($image = getimagesize(public_path().'/lampirans/'.  $data_site[$b-1]->trafik ))
-                                                @if($image[1] < 400)
-                                                    <tr style="height:400px;">
+                                                @if($image[1] < 300)
+                                                    <tr style="height:300px;">
                                                         <td width="5%"></td>
                                                         <td>
                                                             <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->trafik }}" style="width:700px; object-fit: cover;">
@@ -542,7 +581,7 @@
                                                     <tr>
                                                         <td width="5%"></td>
                                                         <td>
-                                                            <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->trafik }}" style="width:700px; height:400px; object-fit: cover;">
+                                                            <img src="{{ public_path().'/lampirans/'.  $data_site[$b-1]->trafik }}" style="width:700px; height:300px; object-fit: cover;">
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -590,7 +629,7 @@
                                     <tr>
                                         <td width="5%"></td>
                                         <td>
-                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; height:400px; object-fit: cover;">
+                                            <img src="{{ public_path().'/lampirans/'. $data_site[0]->konfigurasi }}" style="width:700px; height:300px; object-fit: cover;">
                                         </td>
                                     </tr>
                                 @endif

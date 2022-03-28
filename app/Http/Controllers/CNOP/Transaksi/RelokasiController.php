@@ -145,7 +145,9 @@ class RelokasiController extends Controller
                     ->where('site_id', $site['site_id'])
                     ->where('tipe_ba', 'RELOKASI')
                     ->where('tahun_order', $site['tahun_order'])
+                    ->where('jumlah', $site['data_bandwidth'])
                     ->first();
+
                 if (!$check_site) {
                     $wo_site = new TrWoSite();
                     $wo_site->wo_id = $wo_id;
@@ -160,7 +162,6 @@ class RelokasiController extends Controller
                     $wo_site->data_4g = 0;
                     $wo_site->jumlah = $site['data_bandwidth'];
                     $wo_site->program = $site['program'];
-                    $wo_site->alpro_site = (isset($site['alpro_site'])) ? $site['alpro_site'] : "";
                     $wo_site->dibuat_oleh = Auth::user()->id;
                     $wo_site->status = 'OGP';
                     $wo_site->progress = false;
@@ -172,6 +173,7 @@ class RelokasiController extends Controller
                         ->where('site_id', $site['site_id'])
                         ->where('tipe_ba', 'RELOKASI')
                         ->where('tahun_order', $site['tahun_order'])
+                        ->where('jumlah', $site['data_bandwidth'])
                         ->update(array(
                             'program' => $site['program']
                         ));
@@ -237,7 +239,6 @@ class RelokasiController extends Controller
             'program' => 'required',
             'jumlah' => 'required',
             'tgl_on_air' => 'required',
-            'alpro_site' => 'required',
             'keterangan' => 'required',
         ]);
 
@@ -271,7 +272,6 @@ class RelokasiController extends Controller
                     'program' => $request->program,
                     'jumlah' => $request->jumlah,
                     'tgl_on_air' => $request->tgl_on_air,
-                    'alpro_site' => $request->alpro_site,
                     'keterangan' => $request->keterangan
                 ));
 

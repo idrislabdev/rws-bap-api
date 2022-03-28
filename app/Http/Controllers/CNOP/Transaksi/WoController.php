@@ -97,7 +97,19 @@ class WoController extends Controller
                             ));
 
                     }
-                }
+                } else if ($check_evident->tipe_ba == 'RELOKASI') {
+                    if ( $check_evident->lampiran_url != null
+                    && $check_evident->topologi > 0 
+                    && $check_evident->konfigurasi > 0 
+                    && $check_evident->capture_trafik > 0)
+                    {
+                        TrWoSite::where('wo_id',  $site['wo_id'])->where('wo_site_id', $site['wo_site_id'])
+                            ->update(array(
+                                'progress' => true,
+                            ));
+
+                    }
+                } 
             }
 
             

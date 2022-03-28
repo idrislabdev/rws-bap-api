@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+
 use App\Models\TrOloBaDetail;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +10,7 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class OloExport implements FromView
+class OtherExport implements FromView
 {
     protected $filter;
     protected $status;
@@ -33,7 +34,7 @@ class OloExport implements FromView
                                     AND 
                                         tr.id = d.id) as add_ons")
             )
-            ->where('tipe_ba', 'OLO')
+            ->where('tipe_ba', 'CNOP')
             ->whereRaw('b.id = d.olo_ba_id');
 
         if (isset($_GET['filter'])) {
@@ -53,7 +54,7 @@ class OloExport implements FromView
 
         $data = $data->orderBy('d.created_at')->get();
 
-        return view('reports.olo', [
+        return view('reports.other', [
             'data' => $data
         ]);
     }

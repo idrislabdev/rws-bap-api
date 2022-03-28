@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RelokasiResource extends JsonResource
+class DismantleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -32,11 +32,9 @@ class RelokasiResource extends JsonResource
             'data_4g' => $this->data_4g,
             'jumlah' => $this->jumlah,
             'program' => $this->program,
+            'progress' => $this->progress,
             'status' => $this->status,
             'ba_id' => $this->ba_id,
-            'konfigurasi' => $this->konfigurasi,
-            'topologi' => $this->topologi,
-            'capture_trafik' => $this->capture_trafik,
             'dibuat_oleh' => $this->dibuat_oleh,
             'tipe_ba' => $this->tipe_ba,
             'created_at' => $this->created_at,
@@ -44,6 +42,7 @@ class RelokasiResource extends JsonResource
             'pengguna_id' => $this->pengguna_id,
             'nama_lengkap' => $this->nama_lengkap,
             'no_dokumen' => $this->no_dokumen,
+            'bts_position' => $this->bts_position,
         ];
     }
 }

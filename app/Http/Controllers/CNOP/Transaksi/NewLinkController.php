@@ -194,6 +194,7 @@ class NewLinkController extends Controller
                                       ->where('site_id', $site['site_id'])
                                       ->where('tipe_ba', 'NEW_LINK')
                                       ->where('tahun_order', $site['tahun_order'])
+                                      ->where('jumlah', $site['data_bandwidth'])
                                       ->first();
                 if (!$check_site) {
                     $wo_site = new TrWoSite();
@@ -219,6 +220,7 @@ class NewLinkController extends Controller
                     TrWoSite::where('wo_id', $wo_id)
                             ->where('site_id', $site['site_id'])
                             ->where('tipe_ba', 'NEW_LINK')
+                            ->where('jumlah', $site['data_bandwidth'])
                             ->where('tahun_order', $site['tahun_order'])
                     ->update(array(
                         'program' => $site['program']

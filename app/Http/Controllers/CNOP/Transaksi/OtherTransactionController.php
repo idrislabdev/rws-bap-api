@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\OLO\Transaksi;
+namespace App\Http\Controllers\CNOP\Transaksi;
 
-use App\Exports\OloExport;
+use App\Exports\OtherExport;
 use App\Helper\UtilityHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OloViewResource;
@@ -26,14 +26,14 @@ use Illuminate\Support\Facades\Validator;
 use PDF;
 use Excel;
 
-class BeritaAcaraController extends Controller
+class OtherTransactionController extends Controller
 {
     private $_hari = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU', 'MINGGU'];
     private $_month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
     public function index()
     {
-        $data = TrOloBa::with('dibuatOleh')->where('tipe_ba', 'OLO');
+        $data = TrOloBa::with('dibuatOleh')->where('tipe_ba', 'CNOP');
         if (isset($_GET['page'])) {
 
             if (isset($_GET['q'])) {
@@ -79,7 +79,7 @@ class BeritaAcaraController extends Controller
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
                 $data->no_dokumen = $no_dokumen_bast;
-                $data->tipe_dokumen = 'OLO_BAST';
+                $data->tipe_dokumen = 'CNOP_OTHER_BAST';
                 $data->tgl_dokumen = date('Y-m-d');
                 $data->save();
 
@@ -99,7 +99,7 @@ class BeritaAcaraController extends Controller
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
                 $data->no_dokumen = $no_dokumen_baut;
-                $data->tipe_dokumen = 'OLO_BAUT';
+                $data->tipe_dokumen = 'CNOP_OTHER_BAUT';
                 $data->tgl_dokumen = date('Y-m-d');
                 $data->save();
 
@@ -119,7 +119,7 @@ class BeritaAcaraController extends Controller
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
                 $data->no_dokumen = $no_dokumen_baut;
-                $data->tipe_dokumen = 'OLO_BAUT';
+                $data->tipe_dokumen = 'CNOP_OTHER_BAUT';
                 $data->tgl_dokumen = date('Y-m-d');
                 $data->save();
 
@@ -127,7 +127,7 @@ class BeritaAcaraController extends Controller
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
                 $data->no_dokumen = $no_dokumen_bast;
-                $data->tipe_dokumen = 'OLO_BAST';
+                $data->tipe_dokumen = 'CNOP_OTHER_BAST';
                 $data->tgl_dokumen = date('Y-m-d');
                 $data->save();
 
@@ -218,7 +218,7 @@ class BeritaAcaraController extends Controller
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
                 $data->no_dokumen = $no_dokumen_bast;
-                $data->tipe_dokumen = 'OLO_BAST';
+                $data->tipe_dokumen = 'CNOP_OTHER_BAST';
                 $data->tgl_dokumen = $request->tgl_dokumen;
                 $data->save();
 
@@ -238,6 +238,7 @@ class BeritaAcaraController extends Controller
                 $ba->status_approval                     = false;
                 $ba->jenis_ba                            = $request->jenis_ba;
                 $ba->alamat_bast                         = $request->alamat_bast;
+                $ba->tipe_ba                             = 'CNOP';
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -291,7 +292,7 @@ class BeritaAcaraController extends Controller
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
                 $data->no_dokumen = $no_dokumen_baut;
-                $data->tipe_dokumen = 'OLO_BAUT';
+                $data->tipe_dokumen = 'CNOP_OTHER_BAUT';
                 $data->tgl_dokumen = $request->tgl_dokumen;
                 $data->save();
 
@@ -310,6 +311,7 @@ class BeritaAcaraController extends Controller
                 $ba->dibuat_oleh                         = Auth::user()->id;
                 $ba->status_approval                     = false;
                 $ba->jenis_ba                            = $request->jenis_ba;
+                $ba->tipe_ba                             = 'CNOP';
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -383,7 +385,7 @@ class BeritaAcaraController extends Controller
                 $data = new MaNomorDokumen();
                 $data->id = Uuid::uuid4()->toString();
                 $data->no_dokumen = $no_dokumen_baut;
-                $data->tipe_dokumen = 'OLO_BAUT';
+                $data->tipe_dokumen = 'CNOP_OTHER_BAUT';
                 $data->tgl_dokumen = $request->tgl_dokumen;
                 $data->save();
 
@@ -403,6 +405,7 @@ class BeritaAcaraController extends Controller
                 $ba->status_approval                     = false;
                 $ba->jenis_ba                            = $request->jenis_ba;
                 $ba->alamat_bast                         = $request->alamat_bast;
+                $ba->tipe_ba                             = 'CNOP';
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -451,7 +454,7 @@ class BeritaAcaraController extends Controller
                     $data = new MaNomorDokumen();
                     $data->id = Uuid::uuid4()->toString();
                     $data->no_dokumen = $no_dokumen_bast;
-                    $data->tipe_dokumen = 'OLO_BAST';
+                    $data->tipe_dokumen = 'CNOP_OTHER_BAST';
                     $data->tgl_dokumen = $request->tgl_dokumen;
                     $data->save();
 
@@ -722,7 +725,7 @@ class BeritaAcaraController extends Controller
 
 
         if ($tipe == 'baut') {
-            $pdf = PDF::loadView('olo_baut', [
+            $pdf = PDF::loadView('other_baut', [
                 'data'          => $data,
                 'detail'        => $detail,
                 'lampiran'      => $lampiran,
@@ -736,7 +739,7 @@ class BeritaAcaraController extends Controller
             $name = "BAUT_".$data->no_dokumen_baut . ".pdf";
             return $pdf->download($name);
         } else if ($tipe == 'bast') {
-            $pdf = PDF::loadView('olo_bast', [
+            $pdf = PDF::loadView('other_bast', [
                 'data'          => $data,
                 'detail'        => $detail,
                 'format_tanggal' => $format_tanggal,
@@ -800,7 +803,7 @@ class BeritaAcaraController extends Controller
                                     AND 
                                         tr.id = d.id) as add_ons")
             )
-            ->where('tipe_ba', 'OLO')
+            ->where('tipe_ba', 'CNOP')
             ->whereRaw('b.id = d.olo_ba_id');
 
         if (isset($_GET['page'])) {
@@ -844,7 +847,7 @@ class BeritaAcaraController extends Controller
             $filter = $_GET['filter'];
         }
 
-        return Excel::download(new OloExport($filter), 'olo.xlsx');
+        return Excel::download(new OtherExport($filter), 'olo.xlsx');
     }
 
     public function addOnlist($olo_ba_id, $id)

@@ -38,18 +38,16 @@ class ImageController extends Controller
             'images' => 'required'
         ]);
 
-        if ($v->fails())
-        {
+        if ($v->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'error',
                 'data' => $v->errors()
             ], 422);
-        }   
+        }
 
         $url_arr = array();;
-        foreach ($request->file('images') as $image)
-        {
+        foreach ($request->file('images') as $image) {
             $url = $this->prosesUpload($image);
             array_push($url_arr, $url);
         }
@@ -57,12 +55,12 @@ class ImageController extends Controller
         DB::beginTransaction();
         try {
 
-            $counter = TrWoSiteImage::where('wo_id',$wo_id)
-                                    ->where('wo_site_id',$wo_site_id)
-                                    ->max("id");
+            $counter = TrWoSiteImage::where('wo_id', $wo_id)
+                ->where('wo_site_id', $wo_site_id)
+                ->max("id");
 
             foreach ($url_arr as $image_url) {
-                $check = TrWoSiteImage::where('wo_id',$wo_id)->where('wo_site_id',$wo_site_id)->where('tipe', $request->tipe)->first();
+                $check = TrWoSiteImage::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('tipe', $request->tipe)->first();
 
                 if ($check == null) {
                     $counter++;
@@ -75,63 +73,73 @@ class ImageController extends Controller
                     $data->dibuat_oleh = Auth::user()->id;
                     $data->save();
                 }
-                
             }
 
             $check_evident = UtilityHelper::checkEvident($wo_id, $wo_site_id);
 
             if ($check_evident->tipe_ba == 'NEW_LINK') {
-                if ( $check_evident->lampiran_url != null
-                && $check_evident->lv == 2 
-                && $check_evident->qc == 2 
-                && $check_evident->lv_image > 0 
-                && $check_evident->qc_image > 0 
-                && $check_evident->topologi > 0 
-                && $check_evident->konfigurasi > 0 
-                && $check_evident->capture_trafik > 0)
-                {
+                if (
+                    $check_evident->lampiran_url != null
+                    && $check_evident->lv == 2
+                    && $check_evident->qc == 2
+                    && $check_evident->lv_image > 0
+                    && $check_evident->qc_image > 0
+                    && $check_evident->topologi > 0
+                    && $check_evident->konfigurasi > 0
+                    && $check_evident->capture_trafik > 0
+                ) {
                     TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                                ->update(array(
-                                    'progress' => true,
-                                ));
-
+                        ->update(array(
+                            'progress' => true,
+                        ));
                 }
             } else if ($check_evident->tipe_ba == 'UPGRADE') {
-                if ( $check_evident->lampiran_url != null
-                && $check_evident->topologi > 0 
-                && $check_evident->konfigurasi > 0 
-                && $check_evident->capture_trafik > 0)
-                {
+                if (
+                    $check_evident->lampiran_url != null
+                    && $check_evident->topologi > 0
+                    && $check_evident->konfigurasi > 0
+                    && $check_evident->capture_trafik > 0
+                ) {
                     TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                                ->update(array(
-                                    'progress' => true,
-                                ));
-
+                        ->update(array(
+                            'progress' => true,
+                        ));
+                }
+            } else if ($check_evident->tipe_ba == 'RELOKASI') {
+                if (
+                    $check_evident->lampiran_url != null
+                    && $check_evident->topologi > 0
+                    && $check_evident->konfigurasi > 0
+                    && $check_evident->capture_trafik > 0
+                ) {
+                    TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                        ->update(array(
+                            'progress' => true,
+                        ));
                 }
             } else if ($check_evident->tipe_ba == 'DUAL_HOMING') {
-                if ($check_evident->topologi == 1 
-                && $check_evident->node_1 == 1 
-                && $check_evident->node_2 == 1 
-                && $check_evident->pr_dual_homing == 1) 
-                {
+                if (
+                    $check_evident->topologi == 1
+                    && $check_evident->node_1 == 1
+                    && $check_evident->node_2 == 1
+                    && $check_evident->pr_dual_homing == 1
+                ) {
                     TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
-                                ->update(array(
-                                    'progress' => true,
-                                ));
-
+                        ->update(array(
+                            'progress' => true,
+                        ));
                 }
             }
 
             DB::commit();
 
             $image = TrWoSiteImage::where('wo_site_id', $wo_site_id)->where('tipe', $request->tipe)->get();
-    
+
             return (new TrWoSiteImageResource($image))->additional([
                 'success' => true,
                 'message' => 'Data image Berhasil Diupdate',
                 'data' => $check_evident
             ]);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -144,7 +152,7 @@ class ImageController extends Controller
 
     public function show($wo_id, $wo_site_id, $id)
     {
-        
+
 
         try {
             $data = TrWoSiteImage::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('id', $id)->first();
@@ -154,7 +162,7 @@ class ImageController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-               'data' => null,
+                'data' => null,
                 'success' => false,
                 'message' => 'Data Tidak Ditemukan',
             ], 404);
@@ -165,8 +173,7 @@ class ImageController extends Controller
     {
         $data = TrWoSiteImage::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('id', $id)->first();
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -177,8 +184,8 @@ class ImageController extends Controller
         DB::beginTransaction();
         try {
 
-            $path = public_path().'/lampirans/'.$data->image_url;
-            if(file_exists($path))
+            $path = public_path() . '/lampirans/' . $data->image_url;
+            if (file_exists($path))
                 unlink($path);
 
             // $whereArray = array('ba_id' => $ba_id,'wo_id' => $wo_id, 'wo_site_id' => $wo_site_id, 'id' => $id);
@@ -187,9 +194,9 @@ class ImageController extends Controller
             $data = TrWoSiteImage::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->where('id', $id)->delete();
 
             TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)->whereNull('ba_id')
-            ->update(array(
-                'progress' => false,
-            )); 
+                ->update(array(
+                    'progress' => false,
+                ));
 
             DB::commit();
 
@@ -198,7 +205,6 @@ class ImageController extends Controller
                 'message' => 'success',
                 'data' => $data
             ], 200);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
@@ -207,22 +213,21 @@ class ImageController extends Controller
                 'message' => 'error',
             ], 400);
         }
-
     }
 
     private function prosesUpload($file)
     {
         $nama_file = Uuid::uuid4()->toString();
-        
-        // $url =  Storage::putFileAs('public/image', $file, $nama_file.'.'.$file->getClientOriginalExtension());
-        $file->move('lampirans/',$nama_file.'.'.$file->getClientOriginalExtension());
 
-        return $nama_file.'.'.$file->getClientOriginalExtension();
+        // $url =  Storage::putFileAs('public/image', $file, $nama_file.'.'.$file->getClientOriginalExtension());
+        $file->move('lampirans/', $nama_file . '.' . $file->getClientOriginalExtension());
+
+        return $nama_file . '.' . $file->getClientOriginalExtension();
     }
 
     public function fileLampiran($name)
     {
-        $storagePath = public_path().'/lampirans/'.$name;
+        $storagePath = public_path() . '/lampirans/' . $name;
 
         return response()->file($storagePath);
     }
