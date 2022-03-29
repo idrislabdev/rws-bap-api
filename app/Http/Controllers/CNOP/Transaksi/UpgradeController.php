@@ -149,7 +149,7 @@ class UpgradeController extends Controller
                     ->where('site_id', $site['site_id'])
                     ->where('tipe_ba', 'UPGRADE')
                     ->where('tahun_order', $site['tahun_order'])
-                    ->where('jumlah', $site['data_bandwidth'])
+                    ->where('siborder_id', $site['siborder_id'])
                     ->first();
 
                 if (!$check_site) {
@@ -172,13 +172,14 @@ class UpgradeController extends Controller
                     $wo_site->progress = false;
                     $wo_site->tipe_ba = 'UPGRADE';
                     $wo_site->tahun_order = $site['tahun_order'];
+                    $wo_site->siborder_id = $site['siborder_id'];
                     $wo_site->save();
                 } else {
                     TrWoSite::where('wo_id', $wo_id)
                         ->where('site_id', $site['site_id'])
                         ->where('tipe_ba', 'UPGRADE')
                         ->where('tahun_order', $site['tahun_order'])
-                        ->where('jumlah', $site['data_bandwidth'])
+                        ->where('siborder_id', $site['siborder_id'])
                         ->update(array(
                             'program' => $site['program']
                         ));

@@ -43,6 +43,7 @@ class DismantleResource extends JsonResource
             'nama_lengkap' => $this->nama_lengkap,
             'no_dokumen' => $this->no_dokumen,
             'bts_position' => $this->bts_position,
+            'siborder_id' => $this->siborder_id
         ];
     }
 }

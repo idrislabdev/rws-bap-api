@@ -44,6 +44,7 @@ class RelokasiResource extends JsonResource
             'pengguna_id' => $this->pengguna_id,
             'nama_lengkap' => $this->nama_lengkap,
             'no_dokumen' => $this->no_dokumen,
+            'siborder_id' => $this->siborder_id
         ];
     }
 }
