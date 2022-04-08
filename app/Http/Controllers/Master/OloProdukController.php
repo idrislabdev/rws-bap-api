@@ -142,10 +142,11 @@ class OloProdukController extends Controller
                 $data->nama_produk = $request->nama_produk;
 
             if ($request->addon != null || $request->addon != "")
-                $data->addon = $request->addon;
+                $data->addon = $request->addon ?: false;
+
 
             if ($request->sigma != null || $request->sigma != "")
-                $data->sigma = $request->sigma;
+                $data->sigma = $request->sigma ?: false;
 
             $data->save();
             return (new MaOloProdukResource($data))->additional([
