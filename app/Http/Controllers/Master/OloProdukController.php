@@ -141,12 +141,8 @@ class OloProdukController extends Controller
             if ($request->nama_produk != null || $request->nama_produk != "")
                 $data->nama_produk = $request->nama_produk;
 
-            if ($request->addon != null || $request->addon != "")
-                $data->addon = $request->addon ?: false;
-
-
-            if ($request->sigma != null || $request->sigma != "")
-                $data->sigma = $request->sigma ?: false;
+            $data->addon = $request->addon;
+            $data->sigma = $request->sigma;
 
             $data->save();
             return (new MaOloProdukResource($data))->additional([
@@ -173,8 +169,7 @@ class OloProdukController extends Controller
         // abort(404);
         $data = MaOloProduk::find($id);
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
