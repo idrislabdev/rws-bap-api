@@ -17,6 +17,7 @@ class ReportController extends Controller
         $site_witel = "";
         $status = "";
         $ba = "";
+        $tahun_order = "";
 
         if (isset($_GET['site_witel'])){
             $site_witel = $_GET['site_witel'];
@@ -35,8 +36,12 @@ class ReportController extends Controller
         if (isset($_GET['ba'])){
             $ba=$_GET['ba'];
         }
+
+        if (isset($_GET['tahun'])){
+            $tahun_order=$_GET['tahun'];
+        }
         
-        return Excel::download(new NewLinkExport($site_witel, $status, $ba), 'newlink.xlsx');
+        return Excel::download(new NewLinkExport($site_witel, $status, $ba, $tahun_order), 'newlink.xlsx');
     }
 
     public function upgrade()
@@ -44,6 +49,7 @@ class ReportController extends Controller
         $site_witel = "";
         $status = "";
         $ba = "";
+        $tahun_order = "";
         
         if (isset($_GET['site_witel'])){
             $site_witel = $_GET['site_witel'];
@@ -62,8 +68,12 @@ class ReportController extends Controller
         if (isset($_GET['ba'])){
             $ba=$_GET['ba'];
         }
+
+        if (isset($_GET['tahun'])){
+            $tahun_order=$_GET['tahun'];
+        }
         
-        return Excel::download(new UpgradeExport($site_witel, $status, $ba), 'upgrade.xlsx');
+        return Excel::download(new UpgradeExport($site_witel, $status, $ba, $tahun_order), 'upgrade.xlsx');
     }
 
     public function relokasi()
@@ -71,6 +81,7 @@ class ReportController extends Controller
         $site_witel = "";
         $status = "";
         $ba = "";
+        $tahun_order = "";
         
         if (isset($_GET['site_witel'])){
             $site_witel = $_GET['site_witel'];
@@ -89,8 +100,12 @@ class ReportController extends Controller
         if (isset($_GET['ba'])){
             $ba=$_GET['ba'];
         }
+
+        if (isset($_GET['tahun'])){
+            $tahun_order=$_GET['tahun'];
+        }
         
-        return Excel::download(new RelokasiExport($site_witel, $status, $ba), 'relokasi.xlsx');
+        return Excel::download(new RelokasiExport($site_witel, $status, $ba, $tahun_order), 'relokasi.xlsx');
     }
 
     public function dualhoming()

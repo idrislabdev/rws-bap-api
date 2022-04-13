@@ -14,11 +14,13 @@ class UpgradeExport implements FromView
     protected $site_witel;
     protected $status;
     protected $ba;
+    protected $tahun_order;
 
-    function __construct($site_witel, $status, $ba) {
+    function __construct($site_witel, $status, $ba, $tahun_order) {
         $this->site_witel = $site_witel;
         $this->status = $status;
         $this->ba = $ba;
+        $this->tahun_order = $tahun_order;
     }
 
     public function view(): View
@@ -64,7 +66,8 @@ class UpgradeExport implements FromView
                             ->leftJoin('tr_wos as trw','tr.wo_id', '=', 'trw.id')
                             ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
                             ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
-                            ->whereRaw("tr.tipe_ba = 'UPGRADE'");
+                            ->whereRaw("tr.tipe_ba = 'UPGRADE'")
+                            ->where('tahun_order', $this->tahun_order);
 
         if ($this->site_witel != 'ALL') {
             $data = $data->where('tr.site_witel', $this->site_witel);
