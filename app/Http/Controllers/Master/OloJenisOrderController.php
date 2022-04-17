@@ -178,4 +178,19 @@ class OloJenisOrderController extends Controller
             'data' => $data
         ], 200);
     }
+
+    public function telkomselJenisOrder()
+    {
+        $data = new MaOloJenisOrder;
+        $data = $data->whereRaw("(nama_jenis_order = 'upgrade' or 
+                                  nama_jenis_order = 'deaktivasi' or 
+                                  nama_jenis_order = 'relokasi' or 
+                                  nama_jenis_order = 'aktivasi' or
+                                  nama_jenis_order = 'downgrade')")->get();
+
+        return MaOloJenisOrderResource::collection($data)->additional([
+            'success' => true,
+            'message' => null
+        ]);
+    }
 }

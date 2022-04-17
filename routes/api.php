@@ -64,6 +64,9 @@ Route::prefix('data')->group(function () {
     Route::resource('olo-klien', OloKlienController::class);
     Route::resource('olo-produk', OloProdukController::class);
     Route::get('telkomsel', [OloKlienController::class, 'telkomselClient']);
+    Route::get('telkomsel-jenis-order', [OloJenisOrderController::class, 'telkomselJenisOrder']);
+    Route::get('telkomsel-produk', [OloProdukController::class, 'telkomselProduk']);
+
 });
 
 Route::prefix('cnop')->group(function () {

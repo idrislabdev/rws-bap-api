@@ -185,4 +185,17 @@ class OloProdukController extends Controller
             'data' => $data
         ], 200);
     }
+
+    public function telkomselProduk()
+    {
+        $data = new MaOloProduk();
+
+        $data = $data->whereRaw("(nama_produk = 'metrolite')")->get();
+
+
+        return MaOloProdukResource::collection($data)->additional([
+            'success' => true,
+            'message' => null
+        ]);
+    }
 }

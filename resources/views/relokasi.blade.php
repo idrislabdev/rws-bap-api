@@ -80,6 +80,7 @@
             .table-site th{
                 border: thin solid black;
                 font-size: 12px;
+                text-align: left
             }
             .table-kelengkapan {
                 width: 100%;
@@ -282,11 +283,6 @@
                             <td style="width:10px">:</td>
                             <td>Relokasi Akses Link</td>
                         </tr>
-                        <tr>
-                            <td style="width:288px">Jumlah Akses Link (Jumlah BW)</td>
-                            <td style="width:10px">:</td>
-                            <td>{{$total_site}} Akses Link dengan BW {{$total_bw}} Mbps</td>
-                        </tr>
                     </table>
                 </div>
                 <div class="margin-content margin-body">
@@ -306,43 +302,49 @@
                     </table>
                 </div>
                 <div class="margin-content margin-body">
+                    @for ($a=0; $a<@count($data_site); $a++)
                     <table class="table-site" cellpadding="0" cellspacing="0">
                         <thead>
                             <tr>
-                                <th style="width:4%" rowspan="2" class="td-center">No. </th>
-                                <th style="width:10%" rowspan="2" class="td-center">SITE ID</th>
-                                <th style="width:18%" rowspan="2" class="td-center">SITE NAME</th>
-                                <th style="width:10%" rowspan="2" class="td-center">WITEL</th>
-                                <th style="width:13%" rowspan="2" class="td-center">TANGGAL ON AIR</th>
-                                <th style="width:20%" colspan="4" style="text-align:center;">BANDWIDTH (Mbps)</th>
-                                <th style="width:10%" rowspan="2" class="td-center">PROGRAM</th>
-                                <th style="width:15%" rowspan="2" class="td-center">NO. ORDER</th>
+                                <th colspan="3">
+                                    SITE ID : {{$data_site[$a]->site_id}}
+                                </th>
                             </tr>
                             <tr>
-                                <th style="text-align: center;">2G</th>
-                                <th style="text-align: center;">3G</th>
-                                <th style="text-align: center;">4G</th>
-                                <th style="text-align: center;">JML</th>
+                                <th colspan="3">
+                                    SITE NAME : {{$data_site[$a]->site_name}}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($a=0; $a<@count($data_site); $a++)
-                                <tr>
-                                    <td>{{$a+1}}</td>
-                                    <td>{{$data_site[$a]->site_id}}</td>
-                                    <td class="wrapword">{{$data_site[$a]->site_name}}</td>
-                                    <td>{{$data_site[$a]->site_witel}}</td>
-                                    <td>{{strtoupper(date('d-M-y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
-                                    <td>{{$data_site[$a]->data_2g}}</td>
-                                    <td>{{$data_site[$a]->data_3g}}</td>
-                                    <td>{{$data_site[$a]->data_4g}}</td>
-                                    <td>{{$data_site[$a]->jumlah}}</td>
-                                    <td>{{$data_site[$a]->program}}</td>
-                                    <td>{{$data_site[$a]->dasar_order}}</td>
-                                </tr>
-                            @endfor 
+                            <tr>
+                                <td style="width:20%; font-weight:bold;">KETERANGAN</td>
+                                <td style="width:40%; font-weight:bold;">SITE AWAL</td>
+                                <td style="width:48%; font-weight:bold;">SITE BARU</td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td>{{$data_site[$a]->alamat_awal}}</td>
+                                <td>{{$data_site[$a]->alamat_baru}}</td>
+                            </tr>
+                            <tr>
+                                <td>Latitude</td>
+                                <td>{{$data_site[$a]->latitude_awal}}</td>
+                                <td>{{$data_site[$a]->latitude_baru}}</td>
+                            </tr>
+                            <tr>
+                                <td>Longitude</td>
+                                <td>{{$data_site[$a]->longitude_awal}}</td>
+                                <td>{{$data_site[$a]->longitude_baru}}</td>
+                            </tr>
+                            <tr>
+                                <td>Bandwidth</td>
+                                <td>{{$data_site[$a]->bandwidth_awal}}</td>
+                                <td>{{$data_site[$a]->bandwidth_baru}}</td>
+                            </tr>
                         </tbody>
                     </table>
+                    @endfor
                 </div>
                 <div class="margin-body">
                     <p>

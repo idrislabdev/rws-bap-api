@@ -161,6 +161,7 @@ class RelokasiController extends Controller
                     $wo_site->data_3g = 0;
                     $wo_site->data_4g = 0;
                     $wo_site->jumlah = $site['data_bandwidth'];
+                    $wo_site->bandwidth_awal = $site['data_bandwidth'];
                     $wo_site->program = $site['program'];
                     $wo_site->dibuat_oleh = Auth::user()->id;
                     $wo_site->status = 'OGP';
@@ -240,7 +241,6 @@ class RelokasiController extends Controller
             'program' => 'required',
             'jumlah' => 'required',
             'tgl_on_air' => 'required',
-            'keterangan' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -273,7 +273,15 @@ class RelokasiController extends Controller
                     'program' => $request->program,
                     'jumlah' => $request->jumlah,
                     'tgl_on_air' => $request->tgl_on_air,
-                    'keterangan' => $request->keterangan
+                    'alamat_awal' => $request->alamat_awal,
+                    'alamat_baru' => $request->alamat_baru,
+                    'bandwidth_awal' => $request->bandwidth_awal,
+                    'bandwidth_baru' => $request->bandwidth_baru,
+                    'latitude_awal' => $request->latitude_awal,
+                    'latitude_baru' => $request->latitude_baru,
+                    'longitude_awal' => $request->longitude_awal,
+                    'longitude_baru' => $request->longitude_baru,
+                    
                 ));
 
             return response()->json([
