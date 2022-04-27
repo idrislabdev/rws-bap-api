@@ -267,7 +267,7 @@
                                 <th style="width:12%"  class="td-center">SITE NAME</th>
                                 <th style="width:15%"  class="td-center">ALAMAT INSTALASI {{$data->jenis_order == 'RELOKASI' ? 'ASAL' : ''}}</th>
                                 @if($data->jenis_order == 'RELOKASI')
-                                <th style="width:15%"  class="td-center">ALAMAT INSTALASI (TUJUAN)</th>
+                                <th style="width:15%"  class="td-center">ALAMAT INSTALASI TUJUAN</th>
                                 @endif
                                 @if($data->jenis_order == 'DEAKTIVASI')
                                 <th style="width:10%"  class="td-center">S/N PERANGKAT</th>
