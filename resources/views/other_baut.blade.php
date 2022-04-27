@@ -273,9 +273,9 @@
                                 <th style="width:10%"  class="td-center">S/N PERANGKAT</th>
                                 @endif
                                 <th style="width:10%"  class="td-center">PRODUK</th>
-                                <th style="width:10%"  class="td-center">BW {{$data->jenis_order == 'DOWNGRADE' || $data->jenis_order == 'UPGRADE' ? 'ASAL' : ''}}</th>
+                                <th style="width:10%"  class="td-center">BW {{$data->jenis_order == 'DOWNGRADE' || $data->jenis_order == 'UPGRADE' ? 'ASAL' : ''}} (Mbps)</th>
                                 @if($data->jenis_order == 'DOWNGRADE' || $data->jenis_order == 'UPGRADE')
-                                <th style="width:10%"  class="td-center">BW AKHIR</th>
+                                <th style="width:10%"  class="td-center">BW AKHIR (Mbps)</th>
                                 @endif
                                 <th style="width:10%"  class="td-center">JENIS</th>
                                 <th style="width:12%"  class="td-center">AO/SC/ORDER</th>
