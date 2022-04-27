@@ -262,30 +262,48 @@
                     <table class="table-site" cellpadding="0" cellspacing="0">
                         <thead>
                             <tr>
-                                <th style="width:5%"  class="td-center">No. </th>
-                                <th style="width:12%"  class="td-center">AO/SC/ORDER</th>
-                                <th style="width:10%"  class="td-center">SID</th>
-                                <th style="width:11%"  class="td-center">PRODUK</th>
-                                <th style="width:10%"  class="td-center">BW (Mbps)</th>
-                                <th style="width:15%"  class="td-center">ADD ON</th>
+                                <th style="width:12%"  class="td-center">DASAR ORDER</th>
+                                <th style="width:10%"  class="td-center">SITE ID</th>
+                                <th style="width:12%"  class="td-center">SITE NAME</th>
+                                <th style="width:15%"  class="td-center">ALAMAT INSTALASI {{$data->jenis_order == 'RELOKASI' ? 'ASAL' : ''}}</th>
+                                @if($data->jenis_order == 'RELOKASI')
+                                <th style="width:15%"  class="td-center">ALAMAT INSTALASI (TUJUAN)</th>
+                                @endif
+                                @if($data->jenis_order == 'DEAKTIVASI')
+                                <th style="width:10%"  class="td-center">S/N PERANGKAT</th>
+                                @endif
+                                <th style="width:10%"  class="td-center">PRODUK</th>
+                                <th style="width:10%"  class="td-center">BW {{$data->jenis_order == 'DOWNGRADE' || $data->jenis_order == 'UPGRADE' ? 'ASAL' : ''}}</th>
+                                @if($data->jenis_order == 'DOWNGRADE' || $data->jenis_order == 'UPGRADE')
+                                <th style="width:10%"  class="td-center">BW AKHIR</th>
+                                @endif
                                 <th style="width:10%"  class="td-center">JENIS</th>
-                                <th style="width:15%"  class="td-center">ALAMAT INSTALASI</th>
+                                <th style="width:12%"  class="td-center">AO/SC/ORDER</th>
+                                <th style="width:12%"  class="td-center">SID</th>
                                 <th style="width:12%"  class="td-center">TANGGAL {{$data->jenis_order}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @for ($a=0; $a<@count($detail); $a++)
                                 <tr>
-                                    <td>{{$a+1}}</td>
-                                    <td>{{$detail[$a]->ao_sc_order}}</td>
-                                    <td>{{$detail[$a]->sid}}</td>
+                                    <td>{{$detail[$a]->dasar_order}}</td>
+                                    <td>{{$detail[$a]->site_id}}</td>
+                                    <td>{{$detail[$a]->site_name}}</td>
+                                    <td class="wrapword">{{$detail[$a]->alamat_instalasi}}</td>
+                                    @if($data->jenis_order == 'RELOKASI')
+                                    <td class="wrapword">{{$detail[$a]->alamat_tujuan}}</td>
+                                    @endif
+                                    @if($data->jenis_order == 'DEAKTIVASI')
+                                    <td>{{$detail[$a]->sn_perangkat}}</td>
+                                    @endif
                                     <td>{{$detail[$a]->produk}}</td>
                                     <td>{{$detail[$a]->bandwidth_mbps}}</td>
-                                    <td>
-                                        {{BeritaAcaraController::formatAddOn($detail[$a]->id, $detail[$a]->olo_ba_id)}}
-                                    </td>
+                                    @if($data->jenis_order == 'UPGRADE' || $data->jenis_order == 'DOWNGRADE')
+                                    <td>{{$detail[$a]->bandwidth_mbps_akhir}}</td>
+                                    @endif
                                     <td>{{$detail[$a]->jenis_order}}</td>
-                                    <td class="wrapword">{{$detail[$a]->alamat_instalasi}}</td>
+                                    <td>{{$detail[$a]->ao_sc_order}}</td>
+                                    <td>{{$detail[$a]->sid}}</td>
                                     <td>{{strtoupper(date('d-M-y', strtotime($detail[$a]->tgl_order)))}}</td>
                                 </tr>
                             @endfor 

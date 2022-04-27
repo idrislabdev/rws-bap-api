@@ -85,34 +85,29 @@ class DraftOtherTransactionController extends Controller
             foreach ($details as $detail) {
                 $counter++;
 
-                $ba_site                    = new DraftOloBaDetail();
-                $ba_site->olo_ba_id         = $id;
-                $ba_site->id                = $counter;
-                $ba_site->ao_sc_order       = $detail['ao_sc_order'];
-                $ba_site->sid               = $detail['sid'];
-                $ba_site->produk_id         = $detail['produk_id'];
-                $ba_site->produk            = $detail['produk'];
-                $ba_site->bandwidth_mbps    = $detail['bandwidth_mbps'] ?: null;
-                $ba_site->jenis_order       = $detail['jenis_order'];
-                $ba_site->jenis_order_id    = $detail['jenis_order_id'];
-                $ba_site->alamat_instalasi  = $detail['alamat_instalasi'];
-                $ba_site->tgl_order         = $detail['tgl_order'];
-                $ba_site->dibuat_oleh       = Auth::user()->id;
+                $ba_site                        = new DraftOloBaDetail();
+                $ba_site->olo_ba_id             = $id;
+                $ba_site->id                    = $counter;
+                $ba_site->ao_sc_order           = $detail['ao_sc_order'];
+                $ba_site->sid                   = $detail['sid'];
+                $ba_site->produk_id             = $detail['produk_id'];
+                $ba_site->produk                = $detail['produk'];
+                $ba_site->bandwidth_mbps        = $detail['bandwidth_mbps'] ?: null;
+                $ba_site->jenis_order           = $detail['jenis_order'];
+                $ba_site->jenis_order_id        = $detail['jenis_order_id'];
+                $ba_site->alamat_instalasi      = $detail['alamat_instalasi'];
+
+                $ba_site->dasar_order           = $detail['dasar_order'];
+                $ba_site->site_id               = $detail['site_id'];
+                $ba_site->site_name             = $detail['site_name'];
+                $ba_site->alamat_tujuan         = $detail['alamat_tujuan'];
+                $ba_site->sn_perangkat          = $detail['sn_perangkat'];
+                $ba_site->bandwidth_mbps_akhir  = $detail['bandwidth_mbps_akhir'];
+
+                $ba_site->tgl_order             = $detail['tgl_order'];
+                $ba_site->dibuat_oleh           = Auth::user()->id;
                 $ba_site->save();
 
-                if (count($detail['add_on']) > 0) {
-                    $add_ons = $detail['add_on'];
-                    foreach ($add_ons as $add_on) {
-                        $ba_add_on = new DraftOloBaDetailAddOn();
-                        $ba_add_on->olo_ba_id       = $id;
-                        $ba_add_on->id              = $counter;
-                        $ba_add_on->add_on_id       = $add_on['add_on_id'];
-                        $ba_add_on->nama_add_on     = $add_on['nama_add_on'];
-                        $ba_add_on->satuan          = $add_on['satuan'];
-                        $ba_add_on->jumlah          = $add_on['jumlah'];
-                        $ba_add_on->save();
-                    }
-                }
             }
 
             DB::commit();
@@ -168,8 +163,6 @@ class DraftOtherTransactionController extends Controller
                     $data->alamat_bast                         = $request->alamat_bast;
 
                     $detail = DraftOloBaDetail::where('olo_ba_id', $data->id);
-                    $addon_detail = DraftOloBaDetailAddOn::where('olo_ba_id', $data->id);
-                    $addon_detail->delete();
                     $detail->delete();
 
                     $details = $request->detail;
@@ -179,34 +172,28 @@ class DraftOtherTransactionController extends Controller
                     foreach ($details as $detail) {
                         $counter++;
 
-                        $ba_site                    = new DraftOloBaDetail();
-                        $ba_site->olo_ba_id         = $id;
-                        $ba_site->id                = $counter;
-                        $ba_site->ao_sc_order       = $detail['ao_sc_order'];
-                        $ba_site->sid               = $detail['sid'];
-                        $ba_site->produk_id         = $detail['produk_id'];
-                        $ba_site->produk            = $detail['produk'];
-                        $ba_site->bandwidth_mbps    = $detail['bandwidth_mbps'] ?: null;
-                        $ba_site->jenis_order       = $detail['jenis_order'];
-                        $ba_site->jenis_order_id    = $detail['jenis_order_id'];
-                        $ba_site->alamat_instalasi  = $detail['alamat_instalasi'];
+                        $ba_site                        = new DraftOloBaDetail();
+                        $ba_site->olo_ba_id             = $id;
+                        $ba_site->id                    = $counter;
+                        $ba_site->ao_sc_order           = $detail['ao_sc_order'];
+                        $ba_site->sid                   = $detail['sid'];
+                        $ba_site->produk_id             = $detail['produk_id'];
+                        $ba_site->produk                = $detail['produk'];
+                        $ba_site->bandwidth_mbps        = $detail['bandwidth_mbps'] ?: null;
+                        $ba_site->jenis_order           = $detail['jenis_order'];
+                        $ba_site->jenis_order_id        = $detail['jenis_order_id'];
+                        $ba_site->alamat_instalasi      = $detail['alamat_instalasi'];
+
+                        $ba_site->dasar_order           = $detail['dasar_order'];
+                        $ba_site->site_id               = $detail['site_id'];
+                        $ba_site->site_name             = $detail['site_name'];
+                        $ba_site->alamat_tujuan         = $detail['alamat_tujuan'];
+                        $ba_site->sn_perangkat          = $detail['sn_perangkat'];
+                        $ba_site->bandwidth_mbps_akhir  = $detail['bandwidth_mbps_akhir'];
+
                         $ba_site->tgl_order         = $detail['tgl_order'];
                         $ba_site->dibuat_oleh       = Auth::user()->id;
                         $ba_site->save();
-
-                        if (count($detail['add_on']) > 0) {
-                            $add_ons = $detail['add_on'];
-                            foreach ($add_ons as $add_on) {
-                                $ba_add_on = new DraftOloBaDetailAddOn();
-                                $ba_add_on->olo_ba_id       = $id;
-                                $ba_add_on->id              = $counter;
-                                $ba_add_on->add_on_id       = $add_on['add_on_id'];
-                                $ba_add_on->nama_add_on     = $add_on['nama_add_on'];
-                                $ba_add_on->satuan          = $add_on['satuan'];
-                                $ba_add_on->jumlah          = $add_on['jumlah'];
-                                $ba_add_on->save();
-                            }
-                        }
                     }
 
                     $data->update();
@@ -244,7 +231,7 @@ class DraftOtherTransactionController extends Controller
     public function show($id)
     {
         try {
-            $data = DraftOloBa::with('klien')->with('detail.addOn')->findOrFail($id);
+            $data = DraftOloBa::with('klien')->with('detail')->findOrFail($id);
             if ($data) {
                 return (new DraftOloBaResource($data))->additional([
                     'success' => true,
