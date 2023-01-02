@@ -160,7 +160,7 @@ class UtilityHelper
         $data_id = DB::table('ma_nomor_dokumens')
             ->select(DB::raw('max(SUBSTRING(no_dokumen, 6, 4)) as result'))
             ->whereYear('tgl_dokumen', date('Y'))
-            ->whereRaw('created_at', '>', '2023-01-02 14:49:50')
+            ->where('created_at', '>', '2023-01-02 14:49:50')
             ->first();
 
         $counter = ($data_id) ? (int)$data_id->result + 1 : 1;
