@@ -611,7 +611,7 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOM</td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL RTSO REGION</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">{{ $people_ttd->telkomsel_rto_region_jatim->detail_nilai}}</td>
                                     <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL PROJECT</td>
                                 </tr>
                                 <tr>
@@ -853,7 +853,7 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOM</td>
-                                        <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL RTSO REGION</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom:none;">{{ $people_ttd->telkomsel_rto_region_jatim->detail_nilai}}</td>
                                         <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL PROJECT</td>
                                     </tr>
                                     <tr>
