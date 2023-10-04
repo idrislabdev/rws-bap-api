@@ -25,6 +25,7 @@ use App\Http\Controllers\Master\OloKlienController;
 use App\Http\Controllers\Master\OloProdukController;
 use App\Http\Controllers\Master\PengaturanController;
 use App\Http\Controllers\Master\PenggunaController;
+use App\Http\Controllers\Master\StoController;
 use App\Http\Controllers\Master\WilayahController;
 use App\Http\Controllers\OLO\Transaksi\BeritaAcaraController as TransaksiBeritaAcaraController;
 use App\Http\Controllers\OLO\Transaksi\DraftBeritaAcaraController;
@@ -63,6 +64,7 @@ Route::prefix('data')->group(function () {
     Route::resource('olo-jenis-order', OloJenisOrderController::class);
     Route::resource('olo-klien', OloKlienController::class);
     Route::resource('olo-produk', OloProdukController::class);
+    Route::resource('sto', StoController::class);
     Route::get('telkomsel', [OloKlienController::class, 'telkomselClient']);
     Route::get('telkomsel-jenis-order', [OloJenisOrderController::class, 'telkomselJenisOrder']);
     Route::get('telkomsel-produk', [OloProdukController::class, 'telkomselProduk']);
