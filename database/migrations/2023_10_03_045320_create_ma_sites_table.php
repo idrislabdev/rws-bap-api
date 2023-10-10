@@ -15,6 +15,7 @@ class CreateMaSitesTable extends Migration
     {
         Schema::create('ma_sites', function (Blueprint $table) {
             $table->string('id')->primary();
+            $table->string('site_id')->unique();
             $table->string('nama');
             $table->string('alamat')->nullable();
             $table->double('latitude')->nullable();

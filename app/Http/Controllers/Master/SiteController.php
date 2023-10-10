@@ -23,7 +23,7 @@ class SiteController extends Controller
 
             if (isset($_GET['q'])) {
                 $q = $_GET['q'];
-                $data = $data->whereRaw("(nama like '%$q%' or alamat like '%$q%')");
+                $data = $data->whereRaw("(site_id like '%$q%' or nama like '%$q%' or alamat like '%$q%')");
             }
 
             $data = $data->orderBy('nama')->paginate(25)->onEachSide(5);
@@ -56,6 +56,7 @@ class SiteController extends Controller
     public function store(Request $request)
     {
         $v = Validator::make($request->all(), [
+            'site_id' => 'required',
             'nama' => 'required',
             'alamat' => 'required',
         ]);
@@ -71,6 +72,7 @@ class SiteController extends Controller
         try {
             $data = new MaSite();
             $data->id = Uuid::uuid4()->toString();
+            $data->site_id = $request->site_id;
             $data->nama = $request->nama;
             $data->alamat = $request->alamat;
             $data->latitude = $request->latitude;

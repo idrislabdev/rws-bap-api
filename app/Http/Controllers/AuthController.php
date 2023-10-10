@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use App\Models\MaPengguna;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -83,11 +84,23 @@ class AuthController extends Controller
     public function user (Request $request)
     {
         $user = MaPengguna::find(Auth::user()->id);
-        $token = null; //$this->guard()->refresh();
+        $data_akses = DB::table(DB::raw('ma_hak_akseses mh, ma_peran_details mp'))
+        ->select(DB::raw('mh.nama'))
+        ->whereRaw("mh.id = mp.hak_akses_id")
+        ->where('peran_id', $user->peran)
+        ->get();
+
+        $hak_akses = array();
+        
+        foreach ($data_akses as $key => $data_akses) {
+            array_push($hak_akses, $data_akses->nama);
+        }
+
+        $user->hak_akses = $hak_akses;
         return response()->json([
             'success' => true,
             'message' => 'success',
-            'data' => ['token' => $token, 'user' => $user]
+            'data' => ['user' => $user]
         ]);
     }
 

@@ -21,12 +21,12 @@ class PeranController extends Controller
 
             if (isset($_GET['q'])) {
                 $q = $_GET['q'];
-                $data = $data->whereLike('nama', $q);
+                $data = $data->whereRaw("(nama like '%$q%')");
             }
 
             $data = $data->orderBy('nama')->paginate(25)->onEachSide(5);
         } else {
-            $data = $data->get();
+            $data = $data->orderBy('nama')->get();
         }
 
         return MaPeranResource::collection($data)->additional([
@@ -82,6 +82,31 @@ class PeranController extends Controller
                 'data' => null,
                 'success' => false,
                 'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $data = MaPeran::with('detail.hakAkses')->find($id);
+            if ($data) {
+                return (new MaperanResource($data))->additional([
+                    'success' => true,
+                    'message' => 'suksess'
+                ]);
+            } else {
+                return response()->json([
+                    'data' => null,
+                    'success' => false,
+                    'message' => 'Data Peran Tidak Ditemukan'
+                ], 404);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => $th->getMessage()
             ], 500);
         }
     }
@@ -163,6 +188,17 @@ class PeranController extends Controller
                 'message' => $th->getMessage(),
             ], 500);
         }
+    }
+
+    public function getAll()
+    {
+        $data = new MaPeran();
+        $data = $data->orderBy('nama')->get();
+        
+        return MaPeranResource::collection($data)->additional([
+            'success' => true,
+            'message' => null
+        ]);
     }
 
 }

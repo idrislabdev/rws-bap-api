@@ -38,4 +38,9 @@ class MaPengguna extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function peran()
+    {
+        return $this->hasOne('App\Models\MaPeran', 'id', 'peran');
+    }
 }

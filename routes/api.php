@@ -25,6 +25,9 @@ use App\Http\Controllers\Master\OloKlienController;
 use App\Http\Controllers\Master\OloProdukController;
 use App\Http\Controllers\Master\PengaturanController;
 use App\Http\Controllers\Master\PenggunaController;
+use App\Http\Controllers\Master\PeranController;
+use App\Http\Controllers\Master\SarpenTemplateController;
+use App\Http\Controllers\Master\SiteController;
 use App\Http\Controllers\Master\StoController;
 use App\Http\Controllers\Master\WilayahController;
 use App\Http\Controllers\OLO\Transaksi\BeritaAcaraController as TransaksiBeritaAcaraController;
@@ -57,18 +60,28 @@ Route::prefix('data')->group(function () {
         Route::get('check/available', [NomorDokumenController::class, 'check']);
         Route::get('download/dokumen', [NomorDokumenController::class, 'downloadDokumen']);
     });
-    Route::resource('pengaturan', PengaturanController::class);
-    Route::resource('pengguna', PenggunaController::class);
-    Route::resource('wilayah', WilayahController::class);
-    Route::resource('olo-jenis-addon', OloJenisAddOnController::class);
-    Route::resource('olo-jenis-order', OloJenisOrderController::class);
-    Route::resource('olo-klien', OloKlienController::class);
-    Route::resource('olo-produk', OloProdukController::class);
-    Route::resource('sto', StoController::class);
-    Route::get('telkomsel', [OloKlienController::class, 'telkomselClient']);
-    Route::get('telkomsel-jenis-order', [OloJenisOrderController::class, 'telkomselJenisOrder']);
-    Route::get('telkomsel-produk', [OloProdukController::class, 'telkomselProduk']);
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::resource('pengaturan', PengaturanController::class);
+        Route::resource('peran', PeranController::class);
+        Route::resource('pengguna', PenggunaController::class);
+        Route::resource('wilayah', WilayahController::class);
+        Route::resource('olo-jenis-addon', OloJenisAddOnController::class);
+        Route::resource('olo-jenis-order', OloJenisOrderController::class);
+        Route::resource('olo-klien', OloKlienController::class);
+        Route::resource('olo-produk', OloProdukController::class);
+        Route::resource('sto', StoController::class);
+        Route::resource('site', SiteController::class);
+        Route::resource('sarpen-template', SarpenTemplateController::class);
 
+        Route::get('telkomsel', [OloKlienController::class, 'telkomselClient']);
+        Route::get('telkomsel-jenis-order', [OloJenisOrderController::class, 'telkomselJenisOrder']);
+        Route::get('telkomsel-produk', [OloProdukController::class, 'telkomselProduk']);
+
+        Route::get('perans', [PeranController::class, 'getAll']);
+        Route::get('pengguna/pejabat/sarpen', [PenggunaController::class, 'pejabatSarpen']);
+    });
+    Route::get('pengguna/ttd/{file_name}', [PenggunaController::class, 'fileTTD']);
+    Route::get('sarpen-template/preview/{id}', [SarpenTemplateController::class, 'preview']);
 });
 
 Route::prefix('cnop')->group(function () {

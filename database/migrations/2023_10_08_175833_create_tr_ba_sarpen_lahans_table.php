@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrBaSarpenRacksTable extends Migration
+class CreateTrBaSarpenLahansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTrBaSarpenRacksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tr_ba_sarpen_racks', function (Blueprint $table) {
+        Schema::create('tr_ba_sarpen_lahans', function (Blueprint $table) {
             $table->foreign('sarpen_id')->references('id')->on('tr_ba_sarpens');
             $table->string('sarpen_id');
             $table->integer('no');
             $table->primary(['sarpen_id', 'no']);
-            $table->string('nomor_rack');
-            $table->string('type_rack');
-            $table->string('jumlah_perangkat');
-            $table->string('type_perangkat');
+            $table->string('nama_lahan');
+            $table->string('peruntukan_lahan');
+            $table->double('panjang_meter')->nullable();
+            $table->double('lebar_meter')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateTrBaSarpenRacksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tr_ba_sarpen_racks');
+        Schema::dropIfExists('tr_ba_sarpen_lahans');
     }
 }

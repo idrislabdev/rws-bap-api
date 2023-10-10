@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\MaSiteResource;
-use App\Models\MaSite;
+use App\Http\Resources\MaSarpenTemplateResource;
+use App\Models\MaSarpenTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
+use App\Helper\UtilityHelper;
+use App\Models\MaPengguna;
+use PDF2;
+
 
 class SarpenTemplateController extends Controller
 {
@@ -16,9 +20,13 @@ class SarpenTemplateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    private $_hari = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
+    private $_month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
     public function index()
     {
-        $data = new MaSite;
+        $data = new MaSarpenTemplate;
         if (isset($_GET['page'])) {
 
             if (isset($_GET['q'])) {
@@ -31,7 +39,7 @@ class SarpenTemplateController extends Controller
             $data = $data->orderBy('nama')->get();
         }
 
-        return MaSiteResource::collection($data)->additional([
+        return MaSarpenTemplateResource::collection($data)->additional([
             'success' => true,
             'message' => null
         ]);
@@ -58,8 +66,17 @@ class SarpenTemplateController extends Controller
         $v = Validator::make($request->all(), [
             'nama' => 'required',
             'group' => 'in:TELKOM,OTHER',
-            'sto_site' => 'STO,SITE,NO_ORDER',
-            'is_no_dokumen_klien' => 'required',
+            'sto_site' => 'in:STO,SITE,NO_ORDER',
+            'tower' => 'required',
+            'rack' => 'required',
+            'ruangan' => 'required',
+            'catu_daya_mcb' => 'required',
+            'catu_daya_genset' => 'required',
+            'service' => 'required',
+            'akses' => 'required',
+            'catatan' => 'required',
+            'paraf' => 'required',
+            'pejabat' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -71,40 +88,26 @@ class SarpenTemplateController extends Controller
         }
 
         try {
-            $data = new MaSite();
+            $data = new MaSarpenTemplate();
             $data->id = Uuid::uuid4()->toString();
             $data->nama = $request->nama;
             $data->group = $request->group;
             $data->sto_site = $request->sto_site;
-            $data->is_no_dokumen_klien = $request->is_no_dokumen_klien;
-            if ($request->has('tower')) {
-                $data->tower = json_encode($request->tower, JSON_PRETTY_PRINT);
-            }
-            if ($request->has('rack')) {
-                $data->rack = json_encode($request->rack, JSON_PRETTY_PRINT);
-            }
-            if ($request->has('tower')) {
-                $data->tower = json_encode($request->tower, JSON_PRETTY_PRINT);
-            }
-            if ($request->has('ruangan')) {
-                $data->ruangan = json_encode($request->ruangan, JSON_PRETTY_PRINT);
-            }
-            if ($request->has('catu_daya_mcb')) {
-                $data->catu_daya_mcb = json_encode($request->catu_daya_mcb, JSON_PRETTY_PRINT);
-            }
-            if ($request->has('catu_daya_genset')) {
-                $data->catu_daya_genset = json_encode($request->catu_daya_genset, JSON_PRETTY_PRINT);
-            }
-            if ($request->has('service')) {
-                $data->service = json_encode($request->service, JSON_PRETTY_PRINT);
-            }
-            if ($request->has('akses')) {
-                $data->akses = json_encode($request->akses, JSON_PRETTY_PRINT);
-            }
-           
+            $data->tower = $request->tower;
+            $data->rack = $request->rack;
+            $data->ruangan = $request->ruangan;
+            $data->lahan = $request->lahan;
+            $data->catu_daya_mcb = $request->catu_daya_mcb;
+            $data->catu_daya_genset = $request->catu_daya_genset;
+            $data->service = $request->service;
+            $data->akses = $request->akses;
+            $data->catatan = $request->catatan;
+            $data->paraf = $request->paraf;
+            $data->pejabat = $request->pejabat;
+          
             $data->save();
 
-            return (new MaSiteResource($data))->additional([
+            return (new MaSarpenTemplateResource($data))->additional([
                 'success' => true,
                 'message' => 'Data Baru Telah Dibuat'
             ]);
@@ -126,8 +129,8 @@ class SarpenTemplateController extends Controller
     public function show($id)
     {
         try {
-            $data = MaSite::findOrFail($id);
-            return (new MaSiteResource($data))->additional([
+            $data = MaSarpenTemplate::findOrFail($id);
+            return (new MaSarpenTemplateResource($data))->additional([
                 'success' => true,
                 'message' => 'suksess'
             ]);
@@ -162,36 +165,39 @@ class SarpenTemplateController extends Controller
     {
 
         try {
-            $data = MaSite::findOrFail($id);
+            $data = MaSarpenTemplate::findOrFail($id);
 
             if ($request->has('tower')) {
-                $data->tower = json_encode($request->tower, JSON_PRETTY_PRINT);
+                $data->tower = $request->tower;
             }
             if ($request->has('rack')) {
-                $data->rack = json_encode($request->rack, JSON_PRETTY_PRINT);
+                $data->rack = $request->rack;
             }
             if ($request->has('tower')) {
-                $data->tower = json_encode($request->tower, JSON_PRETTY_PRINT);
+                $data->tower = $request->tower;
             }
             if ($request->has('ruangan')) {
-                $data->ruangan = json_encode($request->ruangan, JSON_PRETTY_PRINT);
+                $data->ruangan = $request->ruangan;
+            }
+            if ($request->has('lahan')) {
+                $data->lahan = $request->lahan;
             }
             if ($request->has('catu_daya_mcb')) {
-                $data->catu_daya_mcb = json_encode($request->catu_daya_mcb, JSON_PRETTY_PRINT);
+                $data->catu_daya_mcb = $request->catu_daya_mcb;
             }
             if ($request->has('catu_daya_genset')) {
-                $data->catu_daya_genset = json_encode($request->catu_daya_genset, JSON_PRETTY_PRINT);
+                $data->catu_daya_genset = $request->catu_daya_genset;
             }
             if ($request->has('service')) {
-                $data->service = json_encode($request->service, JSON_PRETTY_PRINT);
+                $data->service = $request->service;
             }
             if ($request->has('akses')) {
-                $data->akses = json_encode($request->akses, JSON_PRETTY_PRINT);
+                $data->akses = $request->akses;
             }
 
 
             $data->save();
-            return (new MaSiteResource($data))->additional([
+            return (new MaSarpenTemplateResource($data))->additional([
                 'success' => true,
                 'message' => 'Data Berhasil Dirubah'
             ]);
@@ -213,7 +219,7 @@ class SarpenTemplateController extends Controller
     public function destroy($id)
     {
         // abort(404);
-        $data = MaSite::find($id);
+        $data = MaSarpenTemplate::find($id);
 
         if (!$data) {
             return response()->json([
@@ -230,5 +236,40 @@ class SarpenTemplateController extends Controller
             'message' => 'success',
             'data' => $data
         ], 200);
+    }
+
+    public function preview($id)
+    {
+        $setting = MaSarpenTemplate::find($id);
+
+        $tgl_dokumen = date('Y-m-d');
+        $hari = date('N', strtotime($tgl_dokumen));
+        $tgl = date('j', strtotime($tgl_dokumen));
+        $bulan = date('n', strtotime($tgl_dokumen));
+        $tahun = date('Y', strtotime($tgl_dokumen));
+        $hari = date('N', strtotime($tgl_dokumen));
+
+        $format_tanggal = new \stdClass();
+        $format_tanggal->hari = $this->_hari[$hari];
+        $format_tanggal->tgl = strtoupper(UtilityHelper::terbilang($tgl));
+        $format_tanggal->tgl_nomor = $tgl;
+        $format_tanggal->bulan = $this->_month[$bulan-1];
+        $format_tanggal->tahun_nomor = $tahun;
+        $format_tanggal->tahun = strtoupper(UtilityHelper::terbilang($tahun));
+
+        // return view('sarpen',  [
+        //     'format_tanggal'    => $format_tanggal,
+        //     'tgl_dokumen'       => $tgl_dokumen
+        // ]);
+
+        $pejabat = MaPengguna::find($setting->pejabat);
+
+        $pdf = PDF2::loadView('sarpen', [
+            'setting'           => $setting,
+            'format_tanggal'    => $format_tanggal,
+            'tgl_dokumen'       => $tgl_dokumen,
+            'pejabat'           => $pejabat
+        ])->setPaper('a4');
+        return $pdf->stream('berita_acara_sar[em.pdf');
     }
 }

@@ -31,15 +31,17 @@ class CreateTrBaSarpensTable extends Migration
             $table->string('klien')->nullable();
             $table->json('klien_data')->nullable();
             $table->foreign('klien')->references('id')->on('ma_olo_kliens');
-            $table->string('paraf')->nullable();
-            $table->foreign('paraf')->references('id')->on('ma_pejabats');
+            $table->string('paraf');
+            $table->foreign('paraf')->references('id')->on('ma_penggunas');
             $table->json('paraf_data')->nullable();
-            $table->string('pejabat')->nullable();
-            $table->foreign('pejabat')->references('id')->on('ma_pejabats');
+            $table->string('pejabat');
+            $table->foreign('pejabat')->references('id')->on('ma_penggunas');
             $table->json('pejabat_data')->nullable();
             $table->text('catatan')->nullable();
             $table->enum('status', ['DRAFT', 'PROPOSED', 'REJECTED', 'APPROVED']);
             $table->json('setting');
+            $table->string('pembuat');
+            $table->foreign('pembuat')->references('id')->on('ma_penggunas');
             $table->timestamps();
         });
     }

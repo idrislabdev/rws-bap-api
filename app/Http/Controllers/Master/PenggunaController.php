@@ -8,6 +8,7 @@ use App\Models\MaPengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
 class PenggunaController extends Controller
@@ -49,9 +50,10 @@ class PenggunaController extends Controller
     public function store(Request $request)
     {
         $v = Validator::make($request->all(), [
-            'nama_lengkap' => 'required',
-            'username' => 'required|unique:ma_penggunas',
-            'role' => 'in:ADMIN,RWS,MSO,WITEL',
+            'nama_lengkap'  => 'required',
+            'username'      => 'required|unique:ma_penggunas',
+            'peran'      => 'required|exists:ma_perans,id',
+            // 'role' => 'in:ADMIN,RWS,MSO,WITEL',
         ]);
 
         if ($v->fails())
@@ -62,23 +64,44 @@ class PenggunaController extends Controller
                 'data' => $v->errors()
             ], 422);
         }   
+        DB::beginTransaction();
+        try {
 
-        $data = new MaPengguna;
-        $data->id =  Uuid::uuid1()->toString();
-        $data->nama_lengkap = $request->nama_lengkap;
-        $data->username = $request->username;
-        $data->password = bcrypt($request->password);
-        $data->role = $request->role;
-        $data->witel_id = ($request->witel_id) ? $request->witel_id : null;
-        $data->site_witel = ($request->site_witel) ? $request->site_witel : null;
-        $data->status = $request->status;
-        $data->save();
+            $url = null;
+            if ($request->file('ttd_image')) 
+                $url = $this->prosesUpload($request->file('ttd_image'));
 
-        return response()->json([
-            'status' => true,
-            'message' => 'success',
-            'data' => $data
-        ], 200);
+            $data = new MaPengguna;
+            $data->id =  Uuid::uuid1()->toString();
+            $data->nama_lengkap = $request->nama_lengkap;
+            $data->username = $request->username;
+            $data->password = bcrypt('12345');
+            $data->peran = $request->peran;
+            $data->jabatan = $request->jabatan;
+            $data->lokasi_kerja = $request->lokasi_kerja;
+            $data->nik = $request->nik;
+            // $data->role = ($request->witel_id) ? $request->witel_id : null;
+            $data->witel_id = ($request->witel_id) ? $request->witel_id : null;
+            $data->site_witel = ($request->site_witel) ? $request->site_witel : null;
+            $data->ttd_image = $url;
+            $data->status = 'AKTIF';
+            $data->save();
+            DB::commit();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 500);
+        }
     }
 
     public function show($id)
@@ -120,12 +143,37 @@ class PenggunaController extends Controller
             ], 404);
         }
 
-        $data->nama_lengkap = $request->nama_lengkap;
-        $data->role = $request->role;
-        $data->status = $request->status;
-        $data->username = $request->username;
-        $data->password = bcrypt($request->password);
-        $data->site_witel = ($request->site_witel) ? $request->site_witel : null;
+        $path = public_path().'/ttd/'.$data->ttd_image;
+        if(file_exists($path))
+            unlink($path);
+
+        if ($request->nama_lengkap != null || $request->nama_lengkap != "")
+            $data->nama_lengkap = $request->nama_lengkap;
+
+        if ($request->role != null || $request->role != "")
+            $data->role = $request->role;
+
+        if ($request->lokasi_kerja != null || $request->lokasi_kerja != "")
+            $data->lokasi_kerja = $request->lokasi_kerja;
+
+        if ($request->nik != null || $request->nik != "")
+            $data->nik = $request->nik;
+
+        if ($request->jabatan != null || $request->jabatan != "")
+            $data->jabatan = $request->jabatan;
+
+        if ($request->password != null || $request->password != "")
+            $data->password = $request->password;
+
+        if ($request->site_witel != null || $request->site_witel != "")
+            $data->site_witel = $request->site_witel;
+
+        $url = '';
+        if ($request->file('ttd_image')) {
+            $url = $this->prosesUpload($request->file('ttd_image'));
+            $data->ttd_image = $url;
+        }
+
         $data->update();
 
         return response()->json([
@@ -155,5 +203,34 @@ class PenggunaController extends Controller
             'message' => 'success',
             'data' => $data
         ], 200);
+    }
+    
+    private function prosesUpload($file)
+    {
+        $nama_file = Uuid::uuid4()->toString();
+
+
+        $file->move('ttd/', $nama_file . '.' . $file->getClientOriginalExtension());
+
+        return $nama_file . '.' . $file->getClientOriginalExtension();
+    }
+
+    public function fileTTD($name)
+    {
+        $storagePath = public_path().'/ttd/'.$name;
+        return response()->file($storagePath);
+    }
+
+    public function pejabatSarpen()
+    {
+        $query = isset($_GET['q']);
+        $data = MaPengguna::whereHas('peran.detail.hakAkses', function ($q) use ($query) {
+            $q->where('nama', $query);
+        })->get();
+        
+        return MaPenggunaResource::collection(($data))->additional([
+            'success' => true,
+            'message' => null,
+        ]);
     }
 }

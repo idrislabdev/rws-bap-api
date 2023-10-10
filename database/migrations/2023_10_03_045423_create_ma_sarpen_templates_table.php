@@ -18,14 +18,20 @@ class CreateMaSarpenTemplatesTable extends Migration
             $table->string('nama')->unique();
             $table->enum('group', ['TELKOM', 'OTHER']);
             $table->enum('sto_site', ['STO', 'SITE', 'NO_ORDER']);
-            $table->boolean('is_no_dokumen_klien');
-            $table->json('tower')->nullable();
-            $table->json('rack')->nullable();
-            $table->json('ruangan')->nullable();
-            $table->json('catu_daya_mcb')->nullable();
-            $table->json('catu_daya_genset')->nullable();
-            $table->json('service')->nullable();
-            $table->json('akses')->nullable();
+            // $table->boolean('no_dokumen_client');
+            $table->boolean('tower');
+            $table->boolean('rack');
+            $table->boolean('ruangan');
+            $table->boolean('lahan');
+            $table->boolean('catu_daya_mcb');
+            $table->boolean('catu_daya_genset');
+            $table->boolean('service');
+            $table->boolean('akses');
+            $table->boolean('catatan');
+            $table->string('paraf');
+            $table->foreign('paraf')->references('id')->on('ma_penggunas');
+            $table->string('pejabat');
+            $table->foreign('pejabat')->references('id')->on('ma_penggunas');
             $table->timestamps();
         });
     }
