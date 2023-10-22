@@ -28,10 +28,10 @@ class CreateMaSarpenTemplatesTable extends Migration
             $table->boolean('service');
             $table->boolean('akses');
             $table->boolean('catatan');
-            $table->string('paraf');
-            $table->foreign('paraf')->references('id')->on('ma_penggunas');
-            $table->string('pejabat');
-            $table->foreign('pejabat')->references('id')->on('ma_penggunas');
+            $table->string('paraf_wholesale');
+            $table->foreign('paraf_wholesale')->references('id')->on('ma_penggunas');
+            $table->string('manager_wholesale');
+            $table->foreign('manager_wholesale')->references('id')->on('ma_penggunas');
             $table->timestamps();
         });
     }

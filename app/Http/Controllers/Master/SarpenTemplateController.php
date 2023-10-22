@@ -21,8 +21,8 @@ class SarpenTemplateController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    private $_hari = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
-    private $_month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+     private $_hari = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU', 'MINGGU'];
+     private $_month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
     public function index()
     {
@@ -34,9 +34,9 @@ class SarpenTemplateController extends Controller
                 $data = $data->whereRaw("(nama like '%$q%' or group like '%$q%')");
             }
 
-            $data = $data->orderBy('nama')->paginate(25)->onEachSide(5);
+            $data = $data->orderBy('created_at')->paginate(25)->onEachSide(5);
         } else {
-            $data = $data->orderBy('nama')->get();
+            $data = $data->orderBy('created_at')->get();
         }
 
         return MaSarpenTemplateResource::collection($data)->additional([
@@ -75,8 +75,8 @@ class SarpenTemplateController extends Controller
             'service' => 'required',
             'akses' => 'required',
             'catatan' => 'required',
-            'paraf' => 'required',
-            'pejabat' => 'required',
+            'paraf_wholesale' => 'required',
+            'manager_wholesale' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -102,8 +102,8 @@ class SarpenTemplateController extends Controller
             $data->service = $request->service;
             $data->akses = $request->akses;
             $data->catatan = $request->catatan;
-            $data->paraf = $request->paraf;
-            $data->pejabat = $request->pejabat;
+            $data->paraf_wholesale = $request->paraf_wholesale;
+            $data->manager_wholesale = $request->manager_wholesale;
           
             $data->save();
 
@@ -194,6 +194,12 @@ class SarpenTemplateController extends Controller
             if ($request->has('akses')) {
                 $data->akses = $request->akses;
             }
+            if ($request->has('paraf_wholesale')) {
+                $data->paraf_wholesale = $request->paraf_wholesale;
+            }
+            if ($request->has('manager_wholesale')) {
+                $data->manager_wholesale = $request->manager_wholesale;
+            }
 
 
             $data->save();
@@ -250,7 +256,7 @@ class SarpenTemplateController extends Controller
         $hari = date('N', strtotime($tgl_dokumen));
 
         $format_tanggal = new \stdClass();
-        $format_tanggal->hari = $this->_hari[$hari];
+        $format_tanggal->hari = $this->_hari[$hari-1];
         $format_tanggal->tgl = strtoupper(UtilityHelper::terbilang($tgl));
         $format_tanggal->tgl_nomor = $tgl;
         $format_tanggal->bulan = $this->_month[$bulan-1];
@@ -262,14 +268,40 @@ class SarpenTemplateController extends Controller
         //     'tgl_dokumen'       => $tgl_dokumen
         // ]);
 
-        $pejabat = MaPengguna::find($setting->pejabat);
+        $manager_wholesale = MaPengguna::find($setting->manager_wholesale);
 
         $pdf = PDF2::loadView('sarpen', [
             'setting'           => $setting,
             'format_tanggal'    => $format_tanggal,
             'tgl_dokumen'       => $tgl_dokumen,
-            'pejabat'           => $pejabat
+            'manager_wholesale' => $manager_wholesale,
+            'status'            => 'TEMPLATE',
+            'klien'             => null,
+            'site_survey'       => null,
+            'towers'            => null,
+            'ruangans'          => null,
+            'lahans'            => null,
+            'services'          => null,
+            'racks'             => null,
+            'akseses'           => null,
+            'catu_daya_mcbs'    => null,
+            'catu_daya_gensets' => null,
+            'catatan'           => null,
+            'paraf_wholesale_data' => null,
+            'no_dokumen'        => null,
+            'no_dokumen_klien'  => null,
         ])->setPaper('a4');
         return $pdf->stream('berita_acara_sar[em.pdf');
+    }
+
+    public function dataTemplate($group)
+    {
+        $data = MaSarpenTemplate::where('group', $group);
+        $data = $data->orderBy('created_at')->get();
+
+        return MaSarpenTemplateResource::collection($data)->additional([
+            'success' => true,
+            'message' => null
+        ]);
     }
 }

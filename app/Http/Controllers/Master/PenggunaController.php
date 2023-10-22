@@ -80,6 +80,7 @@ class PenggunaController extends Controller
             $data->jabatan = $request->jabatan;
             $data->lokasi_kerja = $request->lokasi_kerja;
             $data->nik = $request->nik;
+            $data->role = $request->role;
             // $data->role = ($request->witel_id) ? $request->witel_id : null;
             $data->witel_id = ($request->witel_id) ? $request->witel_id : null;
             $data->site_witel = ($request->site_witel) ? $request->site_witel : null;
@@ -143,15 +144,15 @@ class PenggunaController extends Controller
             ], 404);
         }
 
-        $path = public_path().'/ttd/'.$data->ttd_image;
-        if(file_exists($path))
-            unlink($path);
 
         if ($request->nama_lengkap != null || $request->nama_lengkap != "")
             $data->nama_lengkap = $request->nama_lengkap;
 
         if ($request->role != null || $request->role != "")
             $data->role = $request->role;
+
+        if ($request->peran != null || $request->peran != "")
+            $data->peran = $request->peran;
 
         if ($request->lokasi_kerja != null || $request->lokasi_kerja != "")
             $data->lokasi_kerja = $request->lokasi_kerja;
@@ -170,6 +171,10 @@ class PenggunaController extends Controller
 
         $url = '';
         if ($request->file('ttd_image')) {
+            $path = public_path().'/ttd/'.$data->ttd_image;
+            if($data->ttd_image && file_exists($path))
+                unlink($path);
+            
             $url = $this->prosesUpload($request->file('ttd_image'));
             $data->ttd_image = $url;
         }
@@ -223,11 +228,16 @@ class PenggunaController extends Controller
 
     public function pejabatSarpen()
     {
-        $query = isset($_GET['q']);
+        $query = $_GET['query'];
         $data = MaPengguna::whereHas('peran.detail.hakAkses', function ($q) use ($query) {
             $q->where('nama', $query);
-        })->get();
+        });
+
+        if (Auth::user()->role == 'WITEL')
+            $data = $data = $data->where('site_witel', Auth::user()->site_witel);
         
+        $data = $data->get();
+
         return MaPenggunaResource::collection(($data))->additional([
             'success' => true,
             'message' => null,

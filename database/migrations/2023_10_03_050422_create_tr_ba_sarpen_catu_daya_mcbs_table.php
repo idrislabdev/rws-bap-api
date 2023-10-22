@@ -18,10 +18,10 @@ class CreateTrBaSarpenCatuDayaMcbsTable extends Migration
             $table->string('sarpen_id');
             $table->integer('no');
             $table->primary(['sarpen_id', 'no']);
-            $table->string('peruntunkan');
-            $table->double('mcb_amp')->nullable();
-            $table->double('jumlah_phase')->nullable();
-            $table->double('voltage')->nullable();
+            $table->string('peruntukan');
+            $table->string('mcb_amp')->nullable();
+            $table->string('jumlah_phase')->nullable();
+            $table->string('voltage')->nullable();
             $table->string('catatan')->nullable();
             $table->timestamps();
         });

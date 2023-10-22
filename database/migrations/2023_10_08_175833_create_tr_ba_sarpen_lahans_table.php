@@ -20,8 +20,8 @@ class CreateTrBaSarpenLahansTable extends Migration
             $table->primary(['sarpen_id', 'no']);
             $table->string('nama_lahan');
             $table->string('peruntukan_lahan');
-            $table->double('panjang_meter')->nullable();
-            $table->double('lebar_meter')->nullable();
+            $table->string('panjang_meter')->nullable();
+            $table->string('lebar_meter')->nullable();
             $table->timestamps();
         });
     }

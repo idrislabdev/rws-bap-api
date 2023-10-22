@@ -19,7 +19,7 @@ class CreateTrBaSarpenServicesTable extends Migration
             $table->integer('no');
             $table->primary(['sarpen_id', 'no']);
             $table->string('nama_service');
-            $table->double('port_pe')->nullable();
+            $table->string('port_pe')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });

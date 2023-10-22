@@ -19,8 +19,8 @@ class CreateTrBaSarpenCatuDayaGensetsTable extends Migration
             $table->integer('no');
             $table->primary(['sarpen_id', 'no']);
             $table->string('merk_type_genset');
-            $table->double('kapasitas_kva')->nullable();
-            $table->double('utilisasi_beban')->nullable();
+            $table->string('kapasitas_kva')->nullable();
+            $table->string('utilisasi_beban')->nullable();
             $table->string('pemilik_genset')->nullable();
             $table->string('koneksi_ke_telkomsel')->nullable();
             $table->timestamps();

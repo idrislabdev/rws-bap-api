@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MaSto extends Model
+class TrBaSarpenAkses extends Model
 {
     use HasFactory;
-    public $incrementing = false;
-    protected $keyType = 'string';
+    protected $table = 'tr_ba_sarpen_akseses';
 
-    protected $fillable = ['nama'];
 }

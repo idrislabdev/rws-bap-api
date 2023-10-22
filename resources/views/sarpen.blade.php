@@ -154,6 +154,9 @@
             .mb-xl {
                 margin-bottom :30px;
             }
+            .mb-50 {
+                margin-bottom: 50px;
+            }
             .text-telkom {
                 color : #ff0000;
             }
@@ -183,19 +186,23 @@
         <main>
             <div class="">
                 <div class="header">
-                    <h3 class="header-margin font-weight-bold"><center>BERITA ACARA SEWA SARANA PENUNJANG</center></h3>
+                    <h3 class="header-margin font-weight-bold mb-50"><center>BERITA ACARA SEWA SARANA PENUNJANG</center></h3>
                     <div style="margin-left: 200px">
                         <table>
                             <tr>
                                 <td style="width:100px">No. Telkom</td>
                                 <td style="width:10px">:</td>
-                                <td style="width:250px; border-bottom:1px solid #000"></td>
+                                <td style="width:250px; border-bottom:1px solid #000">
+                                    {{ $no_dokumen }}
+                                </td>
                             </tr>
                             @if($setting->group == 'TELKOM')
                                 <tr>
                                     <td style="width:100px">No. Telkomsel</td>
                                     <td style="width:10px">:</td>
-                                    <td style="width:250px; border-bottom:1px solid #000"> </td>
+                                    <td style="width:250px; border-bottom:1px solid #000">
+                                        {{ $no_dokumen_klien }}
+                                    </td>
                                 </tr>
                             @endif
                         </table>
@@ -214,19 +221,19 @@
                             <td></td>
                             <td style="width:200px">Nama</td>
                             <td style="width:10px">:</td>
-                            <td style="width:600px">{{ $pejabat->nama_lengkap }}</td>
+                            <td style="width:600px">{{ $manager_witel->nama_lengkap }}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Jabatan</td>
                             <td>:</td>
-                            <td style="width:600px">{{ $pejabat->jabatan }}</td>
+                            <td style="width:600px">{{ $manager_witel->jabatan }}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Lokasi Kerja</td>
                             <td>:</td>
-                            <td style="width:600px">{{ $pejabat->lokasi_kerja }}</td>
+                            <td style="width:600px">{{ $manager_witel->lokasi_kerja }}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -239,24 +246,27 @@
                         <tr>
                             <td></td>
                             <td style="width:200px">Nama</td>
-                            <td style="width:10px">:</td>
-                            <td style="width:600px"></td>
+                            <td style="width:10px">: {{ $klien != null ? $klien->nama : '' }} </td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Jabatan</td>
-                            <td>:</td>
-                            <td></td>
+                            <td>: {{ $klien != null ? $klien->jabatan : '' }}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Lokasi Kerja</td>
-                            <td>:</td>
-                            <td></td>
+                            <td>: {{ $klien != null ? $klien->lokasi_kerja : '' }}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td colspan="3">Selanjutnya disebut </td>
+                            <td colspan="3">
+                                @if($setting->group == 'TELKOM')
+                                    Selanjutnya disebut Telkomsel
+                                @else
+                                    Selanjutnya disebut {{ $klien->nama_perusahaan }}
+                                @endif
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -267,42 +277,38 @@
                     <table>
                         <tr>
                             @if($setting->sto_site === 'SITE')
-                                <td style="width:200px">Nama Site / ID Telkomsel</td>
-                                <td style="width:10px">:</td>
-                                <td style="width:600px"></td>
+                                <td style="width:35%">Nama Site / ID Telkomsel</td>
+                                <td style="width:65%">: {{ $site_survey ? $site_survey->nama_site : '' }}</td>
                             @elseif ($setting->sto_site === 'STO')
-                                <td style="width:200px">Nama STO</td>
-                                <td style="width:10px">:</td>
-                                <td style="width:600px"></td>
+                                <td style="width:35%">Nama STO</td>
+                                <td style="width:65%">: {{ $site_survey ? $site_survey->nama_sto : '' }}</td>
                             @elseif ($setting->sto_site === 'NO_ORDER')
-                                <td style="width:200px">Nomor Order</td>
-                                <td style="width:10px">:</td>
-                                <td style="width:600px"></td>
+                                <td style="width:35%">Nomor Order</td>
+                                <td style="width:65%">: {{ $site_survey ? $site_survey->nomor_order : '' }}</td>
                             @endif
                         </tr>
                         <tr>
-                            <td>Longitude / Latitude</td>
-                            <td>:</td>
-                            <td></td>
+                            <td style="width:35%">Longitude / Latitude</td>
+                            <td style="width:65%">: 
+                                @if($site_survey)
+                                    {{ $site_survey->longitude }},
+                                    {{ $site_survey->latitude }}
+                                @endif                       
+                            </td>
                         </tr>
                         <tr>
-                            <td>Alamat</td>
-                            <td>:</td>
-                            <td></td>
+                            <td style="width:35%">Alamat</td>
+                            <td style="width:65%">: {{ $site_survey ? $site_survey->alamat : '' }}</td>
                         </tr>
-                    </table>
-                </div>
-                <div class="margin-content margin-body">
-                    <table>
+                        @if($setting->group == 'TELKOM')
                         <tr>
-                            <td style="width:200px">Regional Telkomsel</td>
-                            <td style="width:10px">:</td>
-                            <td style="width:600px"></td>
+                            <td style="padding-top:20px;width:35%">Regional Telkomsel</td>
+                            <td style="padding-top:20px;width:65%">: {{ $site_survey ? $site_survey->regional : '' }}</td>
                         </tr>
+                        @endif
                         <tr>
-                            <td style="width:200px">Dengan data terlampir.</td>
-                            <td style="width:10px"></td>
-                            <td style="width:600px"></td>
+                            <td style="width:35%">Dengan data terlampir.</td>
+                            <td style="width:65%"></td>
                         </tr>
                     </table>
                 </div>
@@ -315,7 +321,13 @@
                 <div class="margin-body mt-xl">
                     <table style="width:100%;">
                         <tr class="text-center">
-                            <td style="width:40%;">PT. Telekomunikasi Selular</td>
+                            <td style="width:40%;">
+                                @if($setting->group == 'TELKOM')
+                                    PT. Telekomunikasi Selular
+                                @else
+                                    PT. {{ $klien->nama_perusahaan}}
+                                @endif
+                            </td>
                             <td style="width:20%;"></td>
                             <td style="width:40%;">TELKOM</td>
                         </tr>
@@ -323,14 +335,20 @@
                             <td style="width:40%;"></td>
                             <td style="width:20%;"></td>
                             <td style="width:40%;">
-                                <img src="{{ public_path().'/ttd/'.  $pejabat->ttd_image }}" style="height:100px;">
+                                @if($manager_witel->status_dokumen !== null)
+                                    <img src="{{ public_path().'/ttd/'.  $manager_witel->ttd_image }}" style="height:120px;width:50%">
+                                @else
+                                    <div style="height:100px;"></div>
+                                @endif
                             </td>
                         </tr>
                         <tr class="text-center">
-                            <td style="font-weight:bold; text-decoration: underline"></td>
+                            <td style="text-transform:uppercase; border-bottom:1px solid #000">
+                                {{ $klien != null ? $klien->nama : '' }}
+                            </td>
                             <td style="width:20%;"></td>
-                            <td style="text-transform:uppercase; text-decoration: underline">
-                                {{ $pejabat->nama_lengkap }}
+                            <td style="text-transform:uppercase; border-bottom:1px solid #000">
+                                {{ $manager_witel->nama_lengkap }}
                             </td>
                         </tr>
                     </table>            
@@ -338,19 +356,23 @@
             </div>
             <div class="page_break_before">
                 <div class="header">
-                    <h3 class="header-margin font-weight-bold"><center>LAMPIRAN BERITA ACARA SURVEY</center></h3>
+                    <h3 class="header-margin font-weight-bold mb-50"><center>LAMPIRAN BERITA ACARA SURVEY</center></h3>
                     <div style="margin-left: 200px">
                         <table>
                             <tr>
                                 <td style="width:100px">No. Telkom</td>
                                 <td style="width:10px">:</td>
-                                <td style="width:250px; border-bottom:1px solid #000"> </td>
+                                <td style="width:250px; border-bottom:1px solid #000">
+                                    {{ $no_dokumen }}
+                                </td>
                             </tr>
                             @if($setting->group == 'TELKOM')
                                 <tr>
                                     <td style="width:100px">No. Telkomsel</td>
                                     <td style="width:10px">:</td>
-                                    <td style="width:250px; border-bottom:1px solid #000"> </td>
+                                    <td style="width:250px; border-bottom:1px solid #000">
+                                        {{ $no_dokumen_klien }}
+                                    </td>
                                 </tr>
                             @endif
                         </table>
@@ -360,35 +382,36 @@
                     <table>
                         <tr>
                             @if($setting->sto_site === 'SITE')
-                                <td style="width:200px">Nama Site / Site ID Telkomsel</td>
-                                <td style="width:10px">:</td>
-                                <td style="width:600px"></td>
+                                <td style="width:30%">Nama Site / Site ID Telkomsel</td>
+                                <td style="width:70%">: {{ $site_survey ? $site_survey->nama_site : '' }}</td>
                             @elseif ($setting->sto_site === 'STO')
-                                <td style="width:200px">Nama STO</td>
-                                <td style="width:10px">:</td>
-                                <td style="width:600px"></td>
+                                <td style="width:30%">Nama STO</td>
+                                <td style="width:70%">: {{ $site_survey ? $site_survey->nama_sto : '' }}</td>
                             @elseif ($setting->sto_site === 'NO_ORDER')
-                                <td style="width:200px">Nomor Order</td>
-                                <td style="width:10px">:</td>
-                                <td style="width:600px"></td>
+                                <td style="width:30%">Nomor Order</td>
+                                <td style="width:70%">: {{ $site_survey ? $site_survey->nomor_order : '' }}</td>
                             @endif
 
                         </tr>
                         <tr>
-                            <td>Longitude / Latitude</td>
-                            <td>:</td>
-                            <td></td>
+                            <td style="width:30%">Longitude / Latitude</td>
+                            <td style="width:70%">:
+                                @if($site_survey)
+                                    {{ $site_survey->longitude }},
+                                    {{ $site_survey->latitude }}
+                                @endif  
+                            </td>
                         </tr>
                         <tr>
-                            <td>Alamat</td>
-                            <td>:</td>
-                            <td></td>
+                            <td style="width:30%">Alamat</td>
+                            <td style="width:70%">: {{ $site_survey ? $site_survey->alamat : '' }}</td>
                         </tr>
+                        @if($setting->group == 'TELKOM')
                         <tr>
-                            <td>Regional Telkomsel</td>
-                            <td>:</td>
-                            <td></td>
+                            <td style="width:30%">Regional Telkomsel</td>
+                            <td style="width:70%">: {{ $site_survey ? $site_survey->regional : '' }}</td>
                         </tr>
+                        @endif
                     </table>
                 </div>
                 @if($setting->tower)
@@ -408,6 +431,7 @@
                                 <th>Tower Leg mounting Position</th>
                             </tr>
                         </thead>
+                        @if($towers == null)
                         <tbody>
                             @for($a=1; $a<=10; $a++)
                             <tr>
@@ -421,6 +445,21 @@
                             </tr>
                             @endfor
                         </tbody>
+                        @else
+                        <tbody>
+                             @foreach($towers as $item)
+                            <tr>
+                                <td style="height:15px; text-align:center">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->type_jenis_antena }}</td>
+                                <td style="height:15px;">{{ $item->status_antena }}</td>
+                                <td style="height:15px;">{{ $item->ketinggian_meter }}</td>
+                                <td style="height:15px;">{{ $item->diameter_meter }}</td>
+                                <td style="height:15px;">{{ $item->jumlah_antena }}</td>
+                                <td style="height:15px;">{{ $item->tower_leg_mounting_position }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
                     </table>
                 </div>
                 @endif
@@ -440,6 +479,7 @@
                                 <th>Tipe Perangkat</th>
                             </tr>
                         </thead>
+                        @if($racks == null)
                         <tbody>
                             @for($a=1; $a<=10; $a++)
                             <tr>
@@ -451,6 +491,19 @@
                             </tr>
                             @endfor
                         </tbody>
+                        @else
+                        <tbody>
+                            @foreach($racks as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->nomor_rack }}</td>
+                                <td style="height:15px;">{{ $item->type_rack }}</td>
+                                <td style="height:15px;">{{ $item->jumlah_perangkat }}</td>
+                                <td style="height:15px;">{{ $item->type_perangkat }} </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
                     </table>
                 </div>
                 @endif
@@ -473,6 +526,7 @@
                                 <th>Lebar (meter)</th>
                             </tr>
                         </thead>
+                        @if($ruangans == null)
                         <tbody>
                             @for($a=1; $a<=6; $a++)
                             <tr>
@@ -487,6 +541,22 @@
                             </tr>
                             @endfor
                         </tbody>
+                        @else
+                        <tbody>
+                            @foreach($ruangans as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->nama_ruangan }}</td>
+                                <td style="height:15px;">{{ $item->peruntukan_ruangan }}</td>
+                                <td style="height:15px;">{{ $item->bersama_tersendiri }}</td>
+                                <td style="height:15px;">{{ $item->terkondisi }}</td>
+                                <td style="height:15px;">{{ $item->status_kepemilikan_ac }}</td>
+                                <td style="height:15px;">{{ $item->panjang_meter }}</td>
+                                <td style="height:15px;">{{ $item->lebar_meter }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
                     </table>
                 </div>
                 @endif
@@ -506,6 +576,7 @@
                                 <th>Lebar (meter)</th>
                             </tr>
                         </thead>
+                        @if($lahans == null)
                         <tbody>
                             @for($a=1; $a<=4; $a++)
                             <tr>
@@ -517,6 +588,19 @@
                             </tr>
                             @endfor
                         </tbody>
+                        @else
+                        <tbody>
+                            @foreach($lahans as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->nama_lahan }} </td>
+                                <td style="height:15px;">{{ $item->peruntukan_lahan }}</td>
+                                <td style="height:15px;">{{ $item->panjang_meter }}</td>
+                                <td style="height:15px;">{{ $item->lebar_meter }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
                     </table>
                 </div>
                 @endif
@@ -537,6 +621,7 @@
                                 <th>Catatan</th>
                             </tr>
                         </thead>
+                        @if($catu_daya_mcbs == null)
                         <tbody>
                             @for($a=1; $a<=10; $a++)
                             <tr>
@@ -549,6 +634,20 @@
                             </tr>
                             @endfor
                         </tbody>
+                        @else
+                        <tbody>
+                            @foreach($catu_daya_mcbs as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->peruntukan }}</td>
+                                <td style="height:15px;">{{ $item->mcb_amp }}</td>
+                                <td style="height:15px;">{{ $item->jumlah_phase }}</td>
+                                <td style="height:15px;">{{ $item->voltage }}</td>
+                                <td style="height:15px;">{{ $item->catatan }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
                     </table>
                 </div>
                 @endif
@@ -569,6 +668,7 @@
                                 <th>Koneksi Ke Telkomsel</th>
                             </tr>
                         </thead>
+                        @if($catu_daya_gensets == null)
                         <tbody>
                             @for($a=1; $a<=10; $a++)
                             <tr>
@@ -581,6 +681,20 @@
                             </tr>
                             @endfor
                         </tbody>
+                        @else
+                        <tbody>
+                            @foreach($catu_daya_gensets as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->merk_type_genset }}</td>
+                                <td style="height:15px;">{{ $item->kapasitas_kva }}</td>
+                                <td style="height:15px;">{{ $item->utilisasi_beban }}</td>
+                                <td style="height:15px;">{{ $item->pemilik_genset }}</td>
+                                <td style="height:15px;">{{ $item->koneksi_ke_telkomsel }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
                     </table>
                 </div>
                 @endif
@@ -599,6 +713,7 @@
                                 <th>Arah Akses</th>
                             </tr>
                         </thead>
+                        @if($akseses == null)
                         <tbody>
                             @for($a=1; $a<=10; $a++)
                             <tr>
@@ -609,6 +724,18 @@
                             </tr>
                             @endfor
                         </tbody>
+                        @else
+                        <tbody>
+                            @foreach($akseses as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->peruntukan_akses }}</td>
+                                <td style="height:15px;">{{ $item->panjang_meter }}</td>
+                                <td style="height:15px;">{{ $item->arah_akses }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
                     </table>
                 </div>
                 @endif
@@ -627,6 +754,7 @@
                                 <th>Keterangan</th>
                             </tr>
                         </thead>
+                        @if($services == null)
                         <tbody>
                             @for($a=1; $a<=10; $a++)
                             <tr>
@@ -637,6 +765,18 @@
                             </tr>
                             @endfor
                         </tbody>
+                        @else
+                        <tbody>
+                            @foreach($services as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->nama_service }}</td>
+                                <td style="height:15px;">{{ $item->port_pe }}</td>
+                                <td style="height:15px;">{{ $item->keterangan }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @endif
                     </table>
                 </div>
                 @endif
@@ -646,18 +786,52 @@
                     <table class="table-lampiran cellpadding="0" cellspacing="0">
                         <tbody>
                             <tr>
-                                <td style="height:150px;vertical-align:top">Catatan / Keterangan Tambahan :</td>
+                                <td style="height:150px;vertical-align:top">Catatan / Keterangan Tambahan :
+                                @if($catatan)
+                                    {{ $catatan }}
+                                @endif
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 @endif
+                <div class="margin-body mt-lg">
+                    <p>
+                        Dengan ini kami menyatakan data tersebut di atas adalah <strong>Valid</strong>
+                    </p>
+                </div>
                 <div class="margin-content margin-body mb-small mt-xl">
                     <table class="table-lampiran cellpadding="0" cellspacing="0">
                         <tbody>
-                            <tr>
-                                <td style="width:50%;height:150px;vertical-align:top;text-align:center; font-size:17px;font-weight:bold">TELKOM</td>
-                                <td style="width:50%;height:150px;vertical-align:top;text-align:center; font-size:17px;font-weight:bold">PT</td>
+                            <tr style="border-bottom:none">
+                                <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
+                                    TELKOM
+                                </td>
+                                <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
+                                    @if($setting->group == 'TELKOM')
+                                        TELKOMSEL
+                                    @else
+                                        PT. {{ $klien->nama_perusahaan }}
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr style="border-top:none;border-bottom:none">
+                                @if($paraf_wholesale && $paraf_wholesale->status_dokumen !== null)
+                                    <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;position:absolute;left:10px">
+                                @endif
+                                <td style="text-transform:uppercase;text-align:center;border-top:none;border-bottom:none">
+                                    @if($manager_wholesale->status_dokumen != null)
+                                        <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:120px;width:50%">
+                                    @else
+                                        <div style="height:100px;"></div>
+                                    @endif
+                                </td>
+                                <td style="border-top:none;border-bottom:none"></td>
+                            </tr>
+                            <tr style="border-top:none">
+                                <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $manager_wholesale->nama_lengkap }}</td>
+                                <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $klien->nama }}</td>
                             </tr>
                         </tbody>
                     </table>

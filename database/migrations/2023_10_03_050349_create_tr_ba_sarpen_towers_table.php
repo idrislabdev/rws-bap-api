@@ -19,10 +19,10 @@ class CreateTrBaSarpenTowersTable extends Migration
             $table->integer('no');
             $table->string('type_jenis_antena');
             $table->string('status_antena')->nullable();
-            $table->double('ketinggian_meter')->nullable();
-            $table->double('diameter_meter')->nullable();
+            $table->string('ketinggian_meter')->nullable();
+            $table->string('diameter_meter')->nullable();
             $table->integer('jumlah_antena')->nullable();
-            $table->double('tower_leg_mounting_position')->nullable();
+            $table->string('tower_leg_mounting_position')->nullable();
             $table->timestamps();
         });
     }
