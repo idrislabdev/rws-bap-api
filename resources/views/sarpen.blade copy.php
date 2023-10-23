@@ -69,7 +69,6 @@
             .table-lampiran {
                 width: 100%;
                 border-collapse: collapse;
-                position: relative;
                 /* border: 1px solid black; */
             }
             .table-lampiran td{
@@ -447,21 +446,19 @@
                             @endfor
                         </tbody>
                         @else
-                            @if (count($towers) > 0)
-                            <tbody>
-                                @foreach($towers as $item)
-                                <tr>
-                                    <td style="height:15px; text-align:center">{{ $item->no }}</td>
-                                    <td style="height:15px;">{{ $item->type_jenis_antena }}</td>
-                                    <td style="height:15px;">{{ $item->status_antena }}</td>
-                                    <td style="height:15px;">{{ $item->ketinggian_meter }}</td>
-                                    <td style="height:15px;">{{ $item->diameter_meter }}</td>
-                                    <td style="height:15px;">{{ $item->jumlah_antena }}</td>
-                                    <td style="height:15px;">{{ $item->tower_leg_mounting_position }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            @endif
+                        <tbody>
+                             @foreach($towers as $item)
+                            <tr>
+                                <td style="height:15px; text-align:center">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->type_jenis_antena }}</td>
+                                <td style="height:15px;">{{ $item->status_antena }}</td>
+                                <td style="height:15px;">{{ $item->ketinggian_meter }}</td>
+                                <td style="height:15px;">{{ $item->diameter_meter }}</td>
+                                <td style="height:15px;">{{ $item->jumlah_antena }}</td>
+                                <td style="height:15px;">{{ $item->tower_leg_mounting_position }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                         @endif
                     </table>
                 </div>
@@ -495,19 +492,17 @@
                             @endfor
                         </tbody>
                         @else
-                            @if (count($racks) > 0)
-                            <tbody>
-                                @foreach($racks as $item)
-                                <tr>
-                                    <td style="height:15px;">{{ $item->no }}</td>
-                                    <td style="height:15px;">{{ $item->nomor_rack }}</td>
-                                    <td style="height:15px;">{{ $item->type_rack }}</td>
-                                    <td style="height:15px;">{{ $item->jumlah_perangkat }}</td>
-                                    <td style="height:15px;">{{ $item->type_perangkat }} </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            @endif
+                        <tbody>
+                            @foreach($racks as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->nomor_rack }}</td>
+                                <td style="height:15px;">{{ $item->type_rack }}</td>
+                                <td style="height:15px;">{{ $item->jumlah_perangkat }}</td>
+                                <td style="height:15px;">{{ $item->type_perangkat }} </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                         @endif
                     </table>
                 </div>
@@ -547,22 +542,20 @@
                             @endfor
                         </tbody>
                         @else
-                            @if (count($ruangans) > 0)
-                            <tbody>
-                                @foreach($ruangans as $item)
-                                <tr>
-                                    <td style="height:15px;">{{ $item->no }}</td>
-                                    <td style="height:15px;">{{ $item->nama_ruangan }}</td>
-                                    <td style="height:15px;">{{ $item->peruntukan_ruangan }}</td>
-                                    <td style="height:15px;">{{ $item->bersama_tersendiri }}</td>
-                                    <td style="height:15px;">{{ $item->terkondisi }}</td>
-                                    <td style="height:15px;">{{ $item->status_kepemilikan_ac }}</td>
-                                    <td style="height:15px;">{{ $item->panjang_meter }}</td>
-                                    <td style="height:15px;">{{ $item->lebar_meter }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            @endif
+                        <tbody>
+                            @foreach($ruangans as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->nama_ruangan }}</td>
+                                <td style="height:15px;">{{ $item->peruntukan_ruangan }}</td>
+                                <td style="height:15px;">{{ $item->bersama_tersendiri }}</td>
+                                <td style="height:15px;">{{ $item->terkondisi }}</td>
+                                <td style="height:15px;">{{ $item->status_kepemilikan_ac }}</td>
+                                <td style="height:15px;">{{ $item->panjang_meter }}</td>
+                                <td style="height:15px;">{{ $item->lebar_meter }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                         @endif
                     </table>
                 </div>
@@ -596,19 +589,17 @@
                             @endfor
                         </tbody>
                         @else
-                            @if (count($lahans) > 0)
-                                <tbody>
-                                    @foreach($lahans as $item)
-                                    <tr>
-                                        <td style="height:15px;">{{ $item->no }}</td>
-                                        <td style="height:15px;">{{ $item->nama_lahan }} </td>
-                                        <td style="height:15px;">{{ $item->peruntukan_lahan }}</td>
-                                        <td style="height:15px;">{{ $item->panjang_meter }}</td>
-                                        <td style="height:15px;">{{ $item->lebar_meter }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            @endif
+                        <tbody>
+                            @foreach($lahans as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->nama_lahan }} </td>
+                                <td style="height:15px;">{{ $item->peruntukan_lahan }}</td>
+                                <td style="height:15px;">{{ $item->panjang_meter }}</td>
+                                <td style="height:15px;">{{ $item->lebar_meter }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                         @endif
                     </table>
                 </div>
@@ -644,20 +635,18 @@
                             @endfor
                         </tbody>
                         @else
-                            @if (count($catu_daya_mcbs) > 0)
-                            <tbody>
-                                @foreach($catu_daya_mcbs as $item)
-                                <tr>
-                                    <td style="height:15px;">{{ $item->no }}</td>
-                                    <td style="height:15px;">{{ $item->peruntukan }}</td>
-                                    <td style="height:15px;">{{ $item->mcb_amp }}</td>
-                                    <td style="height:15px;">{{ $item->jumlah_phase }}</td>
-                                    <td style="height:15px;">{{ $item->voltage }}</td>
-                                    <td style="height:15px;">{{ $item->catatan }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            @endif
+                        <tbody>
+                            @foreach($catu_daya_mcbs as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->peruntukan }}</td>
+                                <td style="height:15px;">{{ $item->mcb_amp }}</td>
+                                <td style="height:15px;">{{ $item->jumlah_phase }}</td>
+                                <td style="height:15px;">{{ $item->voltage }}</td>
+                                <td style="height:15px;">{{ $item->catatan }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                         @endif
                     </table>
                 </div>
@@ -693,20 +682,18 @@
                             @endfor
                         </tbody>
                         @else
-                            @if (count($catu_daya_gensets) > 0)
-                            <tbody>
-                                @foreach($catu_daya_gensets as $item)
-                                <tr>
-                                    <td style="height:15px;">{{ $item->no }}</td>
-                                    <td style="height:15px;">{{ $item->merk_type_genset }}</td>
-                                    <td style="height:15px;">{{ $item->kapasitas_kva }}</td>
-                                    <td style="height:15px;">{{ $item->utilisasi_beban }}</td>
-                                    <td style="height:15px;">{{ $item->pemilik_genset }}</td>
-                                    <td style="height:15px;">{{ $item->koneksi_ke_telkomsel }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            @endif
+                        <tbody>
+                            @foreach($catu_daya_gensets as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->merk_type_genset }}</td>
+                                <td style="height:15px;">{{ $item->kapasitas_kva }}</td>
+                                <td style="height:15px;">{{ $item->utilisasi_beban }}</td>
+                                <td style="height:15px;">{{ $item->pemilik_genset }}</td>
+                                <td style="height:15px;">{{ $item->koneksi_ke_telkomsel }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                         @endif
                     </table>
                 </div>
@@ -738,18 +725,16 @@
                             @endfor
                         </tbody>
                         @else
-                            @if (count($akseses) > 0)
-                            <tbody>
-                                @foreach($akseses as $item)
-                                <tr>
-                                    <td style="height:15px;">{{ $item->no }}</td>
-                                    <td style="height:15px;">{{ $item->peruntukan_akses }}</td>
-                                    <td style="height:15px;">{{ $item->panjang_meter }}</td>
-                                    <td style="height:15px;">{{ $item->arah_akses }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            @endif
+                        <tbody>
+                            @foreach($akseses as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->peruntukan_akses }}</td>
+                                <td style="height:15px;">{{ $item->panjang_meter }}</td>
+                                <td style="height:15px;">{{ $item->arah_akses }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                         @endif
                     </table>
                 </div>
@@ -781,18 +766,16 @@
                             @endfor
                         </tbody>
                         @else
-                            @if (count($services) > 0)
-                            <tbody>
-                                @foreach($services as $item)
-                                <tr>
-                                    <td style="height:15px;">{{ $item->no }}</td>
-                                    <td style="height:15px;">{{ $item->nama_service }}</td>
-                                    <td style="height:15px;">{{ $item->port_pe }}</td>
-                                    <td style="height:15px;">{{ $item->keterangan }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            @endif
+                        <tbody>
+                            @foreach($services as $item)
+                            <tr>
+                                <td style="height:15px;">{{ $item->no }}</td>
+                                <td style="height:15px;">{{ $item->nama_service }}</td>
+                                <td style="height:15px;">{{ $item->port_pe }}</td>
+                                <td style="height:15px;">{{ $item->keterangan }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                         @endif
                     </table>
                 </div>
@@ -833,11 +816,11 @@
                                     @endif
                                 </td>
                             </tr>
-                            <tr style="border-top:none;border-bottom:none"> 
+                            <tr style="border-top:none;border-bottom:none">
+                                @if($paraf_wholesale && $paraf_wholesale->status_dokumen !== null)
+                                    <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;position:absolute;left:10px">
+                                @endif
                                 <td style="text-transform:uppercase;text-align:center;border-top:none;border-bottom:none">
-                                    @if($paraf_wholesale && $paraf_wholesale->status_dokumen !== null)
-                                        <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;position:absolute;left:10px;top:120px">
-                                    @endif
                                     @if($manager_wholesale->status_dokumen != null)
                                         <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:120px;width:50%">
                                     @else
