@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use App\Models\MaPengguna;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -163,6 +164,13 @@ class AuthController extends Controller
             $url = $this->prosesUpload($request->file('ttd_image'));
             $user->ttd_image = $url;
         }
+
+        if ($request->ttd_image) {
+            $url  = $this->prosesUploadBase64($request->ttd_image);
+            $user->ttd_image = $url;
+           
+        }
+
         $user->update();
 
         return response()->json([
@@ -170,12 +178,6 @@ class AuthController extends Controller
             'message' => 'success',
             'data' => $user
         ], 200);
-    }
-
-    public function fileTTD($name)
-    {
-        $storagePath = public_path().'/ttd/'.$name;
-        return response()->file($storagePath);
     }
 
     private function prosesUpload($file)
@@ -187,6 +189,28 @@ class AuthController extends Controller
 
         return $nama_file . '.' . $file->getClientOriginalExtension();
     }
+
+    private function prosesUploadBase64($image)
+    {
+        $nama_file = Uuid::uuid4()->toString();
+
+
+        // $image = str_replace('data:image/png;base64,', '', $image);
+        // $image = str_replace(' ', '+', $image);
+
+        $folderPath = "ttd/"; //path location
+            
+        $image_parts = explode(";base64,", $image);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+        $file = $folderPath . $nama_file . '.'.$image_type;
+        file_put_contents($file, $image_base64);
+    
+        // $file->move('ttd/' . $nama_file.'.png', base64_decode($image));
+        return $nama_file . '.'.$image_type;
+    }
+
 
     private function guard()
     {
