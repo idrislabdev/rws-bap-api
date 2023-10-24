@@ -50,6 +50,9 @@ Route::prefix('auth')->group(function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user',  [AuthController::class, 'user']);
         Route::post('change-password',  [AuthController::class, 'changePassword']);
+        Route::patch('update-profile',  [AuthController::class, 'updateProfile']);
+        Route::get('ttd/{file_name}', [AuthController::class, 'fileTTD']);
+
     });
 });
 

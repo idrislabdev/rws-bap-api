@@ -147,6 +147,47 @@ class AuthController extends Controller
         ], 200);
     }
 
+    public function updateProfile(Request $request)
+    {
+
+        $user = MaPengguna::find(Auth::user()->id);
+        if ($request->nama_lengkap != null || $request->nama_lengkap != "")
+            $user->nama_lengkap = $request->nama_lengkap;
+
+        $url = '';
+        if ($request->file('ttd_image')) {
+            $path = public_path().'/ttd/'.$user->ttd_image;
+            if($user->ttd_image && file_exists($path))
+                unlink($path);
+            
+            $url = $this->prosesUpload($request->file('ttd_image'));
+            $user->ttd_image = $url;
+        }
+        $user->update();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'success',
+            'data' => $user
+        ], 200);
+    }
+
+    public function fileTTD($name)
+    {
+        $storagePath = public_path().'/ttd/'.$name;
+        return response()->file($storagePath);
+    }
+
+    private function prosesUpload($file)
+    {
+        $nama_file = Uuid::uuid4()->toString();
+
+
+        $file->move('ttd/', $nama_file . '.' . $file->getClientOriginalExtension());
+
+        return $nama_file . '.' . $file->getClientOriginalExtension();
+    }
+
     private function guard()
     {
         return Auth::guard();
