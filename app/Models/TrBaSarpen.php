@@ -70,4 +70,9 @@ class TrBaSarpen extends Model
     {
         return $this->hasMany('App\Models\TrBaSarpenRack', 'sarpen_id');
     }
+
+    public function gambars()
+    {
+        return $this->hasMany('App\Models\TrBaSarpenGambar', 'sarpen_id');
+    }
 }

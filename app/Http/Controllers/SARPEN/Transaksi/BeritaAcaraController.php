@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SARPEN\Transaksi;
 use App\Helper\UtilityHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TrBaSarpenCustomResource;
+use App\Http\Resources\TrBaSarpenGambarResource;
 use App\Http\Resources\TrBaSarpenResource;
 use App\Models\MaBaSarpenTemplate;
 use App\Models\MaNomorDokumen;
@@ -15,6 +16,7 @@ use App\Models\TrBaSarpen;
 use App\Models\TrBaSarpenAkses;
 use App\Models\TrBaSarpenCatuDayaGenset;
 use App\Models\TrBaSarpenCatuDayaMcb;
+use App\Models\TrBaSarpenGambar;
 use App\Models\TrBaSarpenLahan;
 use App\Models\TrBaSarpenRack;
 use App\Models\TrBaSarpenRuangan;
@@ -215,7 +217,8 @@ class BeritaAcaraController extends Controller
                 'akseses',
                 'catuDayaMcbs',
                 'catuDayaGensets',
-                'racks'
+                'racks',
+                'gambars'
             ])->findOrFail($id);
 
             $data->setting = json_decode($data->setting);
@@ -928,10 +931,108 @@ class BeritaAcaraController extends Controller
 
     }
 
+    public function uploadGambar(Request $request, $id)
+    {
+        $v = Validator::make($request->all(), [
+            'gambar' => 'required'
+        ]);
+
+        if ($v->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'error',
+                'data' => $v->errors()
+            ], 422);
+        }
+
+
+        $data = TrBaSarpen::where('id', $id)->first();
+
+        if (!$data) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        DB::beginTransaction();
+        try {
+
+            $counter = TrBaSarpenGambar::where('sarpen_id', $id)->max("no");
+
+            $url = $this->prosesUploadLampiran($request->file('gambar'));
+
+            $counter++;
+            $data = new TrBaSarpenGambar();
+            $data->sarpen_id = $id;
+            $data->no = $counter;
+            $data->gambar_url = $url;
+            $data->save();
+
+            DB::commit();
+
+            return (new TrBaSarpenGambarResource($data))->additional([
+                'success' => true,
+                'message' => 'Data Lampiran Berhasil Diupdate',
+                'data' => $data
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+    }
+
+    public function deleteGambar($id, $no)
+    {
+        $data = TrBaSarpenGambar::where('sarpen_id', $id)->where('no', $no)->first();
+
+        if(!$data)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        $path = public_path().'/sarpen-gambar/'.$data->gambar_url;
+        if(file_exists($path))
+            unlink($path);
+
+        TrBaSarpenGambar::where('sarpen_id', $id)->where('no', $no)->delete();
+        
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $data
+        ], 200);
+    }
+
+    public function gambarSarpen($name)
+    {
+        $storagePath = public_path().'/sarpen-gambar/'.$name;
+        return response()->file($storagePath);
+    }
+
     public function dokumenSirkulir($name)
     {
         $storagePath = public_path().'/sarpen-sirkulir/'.$name;
         return response()->file($storagePath);
+    }
+
+    private function prosesUploadLampiran($file)
+    {
+        $nama_file = Uuid::uuid4()->toString();
+
+
+        $file->move('sarpen-gambar/', $nama_file . '.' . $file->getClientOriginalExtension());
+
+        return $nama_file . '.' . $file->getClientOriginalExtension();
     }
 
 

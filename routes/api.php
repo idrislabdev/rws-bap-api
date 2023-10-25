@@ -284,7 +284,8 @@ Route::prefix('sarpen')->group(function () {
             Route::patch('berita-acara/{id}/rejected', [SARPENTransaksiBeritaAcaraController::class, 'rejected']);
             Route::patch('berita-acara/{id}/upload-dokumen', [SARPENTransaksiBeritaAcaraController::class, 'uploadDokumen']);
             Route::patch('berita-acara/bulk/proses', [SARPENTransaksiBeritaAcaraController::class, 'bulkProses']);
-
+            Route::post('berita-acara/{id}/gambar', [SARPENTransaksiBeritaAcaraController::class, 'uploadGambar']);
+            Route::delete('berita-acara/{id}/gambar/{no}', [SARPENTransaksiBeritaAcaraController::class, 'deleteGambar']);
         });
 
         Route::prefix('data')->group(function () {
@@ -294,11 +295,12 @@ Route::prefix('sarpen')->group(function () {
         Route::prefix('view')->group(function () {
             Route::get('berita-acara/{id}', [SARPENTransaksiBeritaAcaraController::class, 'preview']);
             Route::get('berita-acara-sirkulir/{name}', [SARPENTransaksiBeritaAcaraController::class, 'dokumenSirkulir']);
-
         });
 
         Route::prefix('report')->group(function () {
     
         });
     });
+    Route::get('gambar/{name}', [SARPENTransaksiBeritaAcaraController::class, 'gambarSarpen']);
+
 });
