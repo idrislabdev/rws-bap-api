@@ -222,19 +222,19 @@
                             <td></td>
                             <td style="width:200px">Nama</td>
                             <td style="width:10px">:</td>
-                            <td style="width:600px">{{ $manager_witel->nama_lengkap }}</td>
+                            <td style="width:600px">{{ $manager_witel !== null ? $manager_witel->nama_lengkap : '' }}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Jabatan</td>
                             <td>:</td>
-                            <td style="width:600px">{{ $manager_witel->jabatan }}</td>
+                            <td style="width:600px">{{ $manager_witel !== null ? $manager_witel->jabatan : '' }}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Lokasi Kerja</td>
                             <td>:</td>
-                            <td style="width:600px">{{ $manager_witel->lokasi_kerja }}</td>
+                            <td style="width:600px">{{ $manager_witel !== null ? $manager_witel->lokasi_kerja : '' }}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -336,7 +336,7 @@
                             <td style="width:40%;"></td>
                             <td style="width:20%;"></td>
                             <td style="width:40%;">
-                                @if($manager_witel->status_dokumen !== null)
+                                @if($manager_witel !== null && $manager_witel->status_dokumen !== null)
                                     <img src="{{ public_path().'/ttd/'.  $manager_witel->ttd_image }}" style="height:120px;width:50%">
                                 @else
                                     <div style="height:100px;"></div>
@@ -349,7 +349,7 @@
                             </td>
                             <td style="width:20%;"></td>
                             <td style="text-transform:uppercase; border-bottom:1px solid #000">
-                                {{ $manager_witel->nama_lengkap }}
+                                {{ $manager_witel !== null ? $manager_witel->nama_lengkap : '' }}
                             </td>
                         </tr>
                     </table>            
@@ -835,10 +835,10 @@
                             </tr>
                             <tr style="border-top:none;border-bottom:none"> 
                                 <td style="text-transform:uppercase;text-align:center;border-top:none;border-bottom:none">
-                                    @if($paraf_wholesale && $paraf_wholesale->status_dokumen !== null)
+                                    @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
                                         <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;position:absolute;left:10px;top:120px">
                                     @endif
-                                    @if($manager_wholesale->status_dokumen != null)
+                                    @if($manager_wholesale !== null && $manager_wholesale->status_dokumen != null)
                                         <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:120px;width:50%">
                                     @else
                                         <div style="height:100px;"></div>
@@ -847,8 +847,8 @@
                                 <td style="border-top:none;border-bottom:none"></td>
                             </tr>
                             <tr style="border-top:none">
-                                <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $manager_wholesale->nama_lengkap }}</td>
-                                <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $klien->nama }}</td>
+                                <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $manager_wholesale !== null ? $manager_wholesale->nama_lengkap : ''}}</td>
+                                <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $klien !== null ? $klien->nama : '' }}</td>
                             </tr>
                         </tbody>
                     </table>
