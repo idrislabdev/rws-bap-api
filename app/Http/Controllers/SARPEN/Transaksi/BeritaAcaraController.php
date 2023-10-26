@@ -564,6 +564,15 @@ class BeritaAcaraController extends Controller
             ], 404);
         }
 
+        if ($data->manager_witel === null) 
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Manager Witel Belum Diisi',
+                'data' => null
+            ], 422);
+        }
+
         DB::beginTransaction();
         try {
             $data->status = 'proposed';
@@ -587,7 +596,6 @@ class BeritaAcaraController extends Controller
     public function ttdWitel($id)
     {
         $data = TrBaSarpen::find($id);
-
         if(!$data)
         {
             return response()->json([
@@ -597,11 +605,19 @@ class BeritaAcaraController extends Controller
             ], 404);
         }
 
+        $data_manager_witel = MaPengguna::find($data->manager_witel);
+        if ($data_manager_witel->ttd_image === null) 
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
         DB::beginTransaction();
         try {
             $data->status = 'ttd_witel';
-
-            $data_manager_witel = MaPengguna::find($data->manager_witel);
             $manager_witel = json_decode($data->manager_witel_data);
             $manager_witel->status_dokumen = 'APPROVED';
             $manager_witel->ttd_image = $data_manager_witel->ttd_image;
@@ -627,7 +643,6 @@ class BeritaAcaraController extends Controller
     public function parafWholesale($id)
     {
         $data = TrBaSarpen::find($id);
-
         if(!$data)
         {
             return response()->json([
@@ -637,12 +652,24 @@ class BeritaAcaraController extends Controller
             ], 404);
         }
 
+        $pengguna = MaPengguna::find($data->paraf_wholesale);
+        if ($pengguna->ttd_image === null) 
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
         DB::beginTransaction();
         try {
             $data->status = 'paraf_wholesale';
 
             $paraf_wholesale = json_decode($data->paraf_wholesale_data);
             $paraf_wholesale->status_dokumen = 'APPROVED';
+            $paraf_wholesale->ttd_image = $pengguna->ttd_image;
+
             $data->paraf_wholesale_data  = json_encode($paraf_wholesale, JSON_PRETTY_PRINT);
 
             $no_dokumen = UtilityHelper::checkNomorDokumen();
@@ -684,12 +711,24 @@ class BeritaAcaraController extends Controller
             ], 404);
         }
 
+        $pengguna = MaPengguna::find($data->manager_wholesale);
+        if ($pengguna->ttd_image === null) 
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
         DB::beginTransaction();
         try {
             $data->status = 'ttd_wholesale';
 
             $manager_wholesale = json_decode($data->manager_wholesale_data);
             $manager_wholesale->status_dokumen = 'APPROVED';
+            $manager_wholesale->ttd_image = $pengguna->ttd_image;
+
             $data->manager_wholesale_data  = json_encode($manager_wholesale, JSON_PRETTY_PRINT);
 
             $data->save();
@@ -905,11 +944,106 @@ class BeritaAcaraController extends Controller
                     $data->status = 'ttd_witel';
     
                     $data_manager_witel = MaPengguna::find($data->manager_witel);
+                   
+                    if ($data_manager_witel->ttd_image === null) 
+                    {
+                        DB::rollBack();
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                            'data' => null
+                        ], 422);
+                    }
+                    
                     $manager_witel = json_decode($data->manager_witel_data);
                     $manager_witel->status_dokumen = 'APPROVED';
                     $manager_witel->ttd_image = $data_manager_witel->ttd_image;
                     $data->manager_witel_data  = json_encode($manager_witel, JSON_PRETTY_PRINT);
     
+                    $data->save();
+                    DB::commit();
+                }  catch (\Exception $e) {
+                    DB::rollback();
+                    return response()->json([
+                        'data' => $e->getMessage(),
+                        'success' => true,
+                        'message' => 'error',
+                    ], 500);
+                }
+            }
+        } else if ($request->status == 'paraf_wholesale') {
+            foreach ($request->ids as $id) {
+                try {
+                    DB::beginTransaction();
+                    $data = TrBaSarpen::find($id);
+                    $data->status = 'paraf_wholesale';
+    
+                    $pengguna = MaPengguna::find($data->paraf_wholesale);
+                   
+                    if ($pengguna->ttd_image === null) 
+                    {
+                        DB::rollBack();
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                            'data' => null
+                        ], 422);
+                    }
+                    
+                    $data->status = 'paraf_wholesale';
+
+                    $paraf_wholesale = json_decode($data->paraf_wholesale_data);
+                    $paraf_wholesale->status_dokumen = 'APPROVED';
+                    $paraf_wholesale->ttd_image = $pengguna->ttd_image;
+
+                    $data->paraf_wholesale_data  = json_encode($paraf_wholesale, JSON_PRETTY_PRINT);
+
+                    $no_dokumen = UtilityHelper::checkNomorDokumen();
+                    $dokumen = new MaNomorDokumen();
+                    $dokumen->id = Uuid::uuid4()->toString();
+                    $dokumen->no_dokumen = $no_dokumen;
+                    $dokumen->tipe_dokumen = 'SARPEN';
+                    $dokumen->tgl_dokumen = date('Y-m-d');
+                    $dokumen->save();
+                    
+                    $data->no_dokumen = $no_dokumen;
+                    $data->save();
+                    DB::commit();
+                }  catch (\Exception $e) {
+                    DB::rollback();
+                    return response()->json([
+                        'data' => $e->getMessage(),
+                        'success' => true,
+                        'message' => 'error',
+                    ], 500);
+                }
+            }
+        } else if ($request->status == 'ttd_wholesale') {
+            foreach ($request->ids as $id) {
+                try {
+                    DB::beginTransaction();
+                    $data = TrBaSarpen::find($id);
+                    $data->status = 'ttd_wholesale';
+    
+                    $pengguna = MaPengguna::find($data->manager_wholesale);
+                   
+                    if ($pengguna->ttd_image === null) 
+                    {
+                        DB::rollBack();
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                            'data' => null
+                        ], 422);
+                    }
+                    
+                    $data->status = 'ttd_wholesale';
+
+                    $manager_wholesale = json_decode($data->manager_wholesale_data);
+                    $manager_wholesale->status_dokumen = 'APPROVED';
+                    $manager_wholesale->ttd_image = $pengguna->ttd_image;
+
+                    $data->manager_wholesale_data  = json_encode($manager_wholesale, JSON_PRETTY_PRINT);
                     $data->save();
                     DB::commit();
                 }  catch (\Exception $e) {

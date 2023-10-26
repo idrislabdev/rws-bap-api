@@ -798,60 +798,62 @@
                 </div>
                 @endif
 
-                @if($setting->catatan)
-                <div class="margin-content margin-body mb-small mt-xl">
-                    <table class="table-lampiran cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td style="height:150px;vertical-align:top">Catatan / Keterangan Tambahan :
-                                @if($catatan)
-                                    {{ $catatan }}
-                                @endif
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                @endif
-                <div class="margin-body mt-lg">
-                    <p>
-                        Dengan ini kami menyatakan data tersebut di atas adalah <strong>Valid</strong>
-                    </p>
-                </div>
-                <div class="margin-content margin-body mb-small mt-xl">
-                    <table class="table-lampiran cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr style="border-bottom:none">
-                                <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
-                                    TELKOM
-                                </td>
-                                <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
-                                    @if($setting->group == 'TELKOM')
-                                        TELKOMSEL
-                                    @else
-                                        PT. {{ $klien->nama_perusahaan }}
+                <div class="page_break_before">
+                    @if($setting->catatan)
+                    <div class="margin-content margin-body mb-small mt-xl">
+                        <table class="table-lampiran cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td style="height:150px;vertical-align:top">Catatan / Keterangan Tambahan :
+                                    @if($catatan)
+                                        {{ $catatan }}
                                     @endif
-                                </td>
-                            </tr>
-                            <tr style="border-top:none;border-bottom:none"> 
-                                <td style="text-transform:uppercase;text-align:center;border-top:none;border-bottom:none">
-                                    @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
-                                        <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;position:absolute;left:10px;top:120px">
-                                    @endif
-                                    @if($manager_wholesale !== null && $manager_wholesale->status_dokumen != null)
-                                        <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:120px;width:50%">
-                                    @else
-                                        <div style="height:100px;"></div>
-                                    @endif
-                                </td>
-                                <td style="border-top:none;border-bottom:none"></td>
-                            </tr>
-                            <tr style="border-top:none">
-                                <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $manager_wholesale !== null ? $manager_wholesale->nama_lengkap : ''}}</td>
-                                <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $klien !== null ? $klien->nama : '' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    @endif
+                    <div class="margin-body mt-lg">
+                        <p>
+                            Dengan ini kami menyatakan data tersebut di atas adalah <strong>Valid</strong>
+                        </p>
+                    </div>
+                    <div class="margin-content margin-body mb-small mt-xl">
+                        <table class="table-lampiran cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr style="border-bottom:none">
+                                    <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
+                                        TELKOM
+                                    </td>
+                                    <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
+                                        @if($setting->group == 'TELKOM')
+                                            TELKOMSEL
+                                        @else
+                                            PT. {{ $klien->nama_perusahaan }}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr style="border-top:none;border-bottom:none"> 
+                                    <td style="text-transform:uppercase;text-align:center;border-top:none;border-bottom:none">
+                                        @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
+                                            <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;position:absolute;left:10px;top:120px">
+                                        @endif
+                                        @if($manager_wholesale !== null && $manager_wholesale->status_dokumen != null)
+                                            <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:120px;width:50%">
+                                        @else
+                                            <div style="height:100px;"></div>
+                                        @endif
+                                    </td>
+                                    <td style="border-top:none;border-bottom:none"></td>
+                                </tr>
+                                <tr style="border-top:none">
+                                    <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $manager_wholesale !== null ? $manager_wholesale->nama_lengkap : ''}}</td>
+                                    <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $klien !== null ? $klien->nama : '' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div> 
         </main>
