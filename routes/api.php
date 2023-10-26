@@ -32,6 +32,7 @@ use App\Http\Controllers\Master\StoController;
 use App\Http\Controllers\Master\WilayahController;
 use App\Http\Controllers\OLO\Transaksi\BeritaAcaraController as TransaksiBeritaAcaraController;
 use App\Http\Controllers\OLO\Transaksi\DraftBeritaAcaraController;
+use App\Http\Controllers\SARPEN\DashboardController as SARPENDashboardController;
 use App\Http\Controllers\SARPEN\Transaksi\BeritaAcaraController as SARPENTransaksiBeritaAcaraController;
 
 /*
@@ -286,6 +287,14 @@ Route::prefix('sarpen')->group(function () {
             Route::patch('berita-acara/bulk/proses', [SARPENTransaksiBeritaAcaraController::class, 'bulkProses']);
             Route::post('berita-acara/{id}/gambar', [SARPENTransaksiBeritaAcaraController::class, 'uploadGambar']);
             Route::delete('berita-acara/{id}/gambar/{no}', [SARPENTransaksiBeritaAcaraController::class, 'deleteGambar']);
+        });
+
+        Route::prefix('dashboard')->group(function () {
+            Route::group(['middleware' => 'auth:api'], function () {
+                Route::get('donut', [SARPENDashboardController::class, 'donut']);
+                Route::get('column', [SARPENDashboardController::class, 'column']);
+
+            });
         });
 
         Route::prefix('data')->group(function () {
