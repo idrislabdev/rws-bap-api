@@ -931,11 +931,35 @@ class BeritaAcaraController extends Controller
         if ($request->status == 'delete') {
             TrBaSarpen::whereIn('id', $request->ids)->delete();
         } else if ($request->status == 'proposed') {
-            TrBaSarpen::whereIn('id', $request->ids)
-                            ->update(array('status' => 'proposed'));
+            foreach ($request->ids as $id) {
+                try {
+                    DB::beginTransaction();
+                    $data = TrBaSarpen::find($id);
+                   
+                    if ($data->manager_witel === null) 
+                    {
+                        DB::rollBack();
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Terdapat Berita Sarpen Yang Belum Diisi Manager Witel',
+                            'data' => null
+                        ], 422);
+                    }
+
+                    $data->status = 'proposed';    
+                    $data->save();
+                    DB::commit();
+                }  catch (\Exception $e) {
+                    DB::rollback();
+                    return response()->json([
+                        'data' => $e->getMessage(),
+                        'success' => true,
+                        'message' => 'error',
+                    ], 500);
+                }
+            }
         } else if ($request->status == 'rejected') {
-            TrBaSarpen::whereIn('id', $request->ids)
-                            ->update(array('status' => 'rejected'));
+            TrBaSarpen::whereIn('id', $request->ids)->update(array('status' => 'rejected'));
         } else if ($request->status == 'ttd_witel') {
             foreach ($request->ids as $id) {
                 try {
