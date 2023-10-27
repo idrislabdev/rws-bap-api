@@ -272,7 +272,7 @@
                     </table>
                 </div>
                 <div class="margin-body">
-                    <p class="mt-3">Menyatakan bahwa telah dilaksanakan Site Survey di lokasi:</p>
+                    <p class="mt-3">Menyatakan bahwa telah dilaksanakan Site Sarpen di lokasi:</p>
                 </div>
                 <div class="margin-content margin-body">
                     <table>
