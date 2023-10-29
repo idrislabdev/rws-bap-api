@@ -46,7 +46,7 @@ class DashboardController extends Controller
                         $ba_ttd_wholesale->count(), 
                         $ba_sirkulir->count()
                 );
-        $labels = array ('DIAJUKAN', 'SUDAH TTD WITEL', 'SUDAH PARAF WHOLESALE', 'SUDAH TTD WHOLESALE', 'SELESAI / SIRKULIR');
+        $labels = array ('Proses Manager Witel', 'Proses Officer Wholesale', 'Proses Manager Wholesale', 'TTD. Lengkap', 'Selesai / Sirkulir');
 
         $data->series = $series;
         $data->labels = $labels;
@@ -82,7 +82,7 @@ class DashboardController extends Controller
                 $data_ba = $data_ba->where('site_witel', $site_witel);
             }
 
-            $data_ba =  $data_ba->where('status', '<>', 'draft')
+            $data_ba =  $data_ba->where('status', '=', 'finished')
             ->whereMonth('tanggal_buat', $i)
             ->whereYear('tanggal_buat', $year)
             ->count();
@@ -94,6 +94,53 @@ class DashboardController extends Controller
             'status' => true,
             'message' => 'success',
             'data' => $arr_ba
+        ], 200);
+    }
+
+    public function baSesuaiWitel()
+    {
+        $year = date('Y');
+        if (isset($_GET['year'])){
+            $year = $_GET['year'];
+        }
+
+        $arr_data = array();
+        $arr_witel = array(
+            "Singaraja",
+            "Denpasar",
+            "Mataram",
+            "Malang",
+            "Jember",
+            "Kediri",
+            "Pasuruan",
+            "Sidoarjo",
+            "Madiun",
+            "Madura",
+            "Kupang",
+            "Surabaya Utara",
+            "Surabaya Selatan"
+        );
+
+        $status = array ('proposed', 'ttd_witel', 'paraf_wholesale', 'ttd_wholesale', 'finished');
+
+        for ($i=0; $i<count($arr_witel); $i++)
+        {
+            $data = new \stdClass();
+            $data->witel = $arr_witel[$i];
+
+            for ($j=0; $j<count($status); $j++)
+            {
+                $count = TrBaSarpen::where('status', $status[$j])->whereYear('tanggal_buat', $year)->where('site_witel', $arr_witel[$i])->count();
+                $data->{$status[$j]} = $count;
+            }
+
+            array_push($arr_data,  $data);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $arr_data
         ], 200);
     }
 }

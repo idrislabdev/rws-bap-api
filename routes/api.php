@@ -293,7 +293,7 @@ Route::prefix('sarpen')->group(function () {
             Route::group(['middleware' => 'auth:api'], function () {
                 Route::get('donut', [SARPENDashboardController::class, 'donut']);
                 Route::get('column', [SARPENDashboardController::class, 'column']);
-
+                Route::get('ba-sesuai-witel', [SARPENDashboardController::class, 'baSesuaiWitel']);
             });
         });
 
