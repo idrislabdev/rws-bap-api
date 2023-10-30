@@ -176,7 +176,7 @@ class BeritaAcaraController extends Controller
             $data->id = Uuid::uuid4()->toString();
 
             if ($template->group == 'TELKOM') {
-                $klien = MaOloKlien::whereRaw("(nama_perusahaan like '%TELKOM DWS%')")->first();
+                $klien = MaOloKlien::find('1cd01e5f-9550-474b-b56b-c9529fa3a5e7');
                 $klien_data = new \stdClass(); 
                 $klien_data->id = $klien->id;
                 $klien_data->nama = null;
