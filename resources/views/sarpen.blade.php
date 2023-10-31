@@ -193,7 +193,7 @@
                             <tr>
                                 <td style="width:100px">No. Telkom</td>
                                 <td style="width:10px">:</td>
-                                <td style="width:250px; border-bottom:1px solid #000">
+                                <td style="width:275px; border-bottom:1px solid #000">
                                     {{ $no_dokumen }}
                                 </td>
                             </tr>
@@ -201,7 +201,7 @@
                                 <tr>
                                     <td style="width:100px">No. Telkomsel</td>
                                     <td style="width:10px">:</td>
-                                    <td style="width:250px; border-bottom:1px solid #000">
+                                    <td style="width:275px; border-bottom:1px solid #000">
                                         {{ $no_dokumen_klien }}
                                     </td>
                                 </tr>
@@ -363,7 +363,7 @@
                             <tr>
                                 <td style="width:100px">No. Telkom</td>
                                 <td style="width:10px">:</td>
-                                <td style="width:250px; border-bottom:1px solid #000">
+                                <td style="width:350px; border-bottom:1px solid #000">
                                     {{ $no_dokumen }}
                                 </td>
                             </tr>
@@ -371,7 +371,7 @@
                                 <tr>
                                     <td style="width:100px">No. Telkomsel</td>
                                     <td style="width:10px">:</td>
-                                    <td style="width:250px; border-bottom:1px solid #000">
+                                    <td style="width:350px; border-bottom:1px solid #000">
                                         {{ $no_dokumen_klien }}
                                     </td>
                                 </tr>
