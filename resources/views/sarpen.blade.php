@@ -330,7 +330,7 @@
                                 @endif
                             </td>
                             <td style="width:20%;"></td>
-                            <td style="width:40%;">TELKOM</td>
+                            <td style="width:40%;text-transform:uppercase;">TELKOM WITEL {{ $site_survey->site_witel }}</td>
                         </tr>
                         <tr class="text-center">
                             <td style="width:40%;"></td>
@@ -824,7 +824,7 @@
                             <tbody>
                                 <tr style="border-bottom:none">
                                     <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
-                                        TELKOM
+                                        TELKOM REGIONAL WHOLSALE
                                     </td>
                                     <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
                                         @if($setting->group == 'TELKOM')

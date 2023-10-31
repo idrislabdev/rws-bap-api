@@ -38,7 +38,14 @@ class BeritaAcaraController extends Controller
 
             if (isset($_GET['q'])) {
                 $q = $_GET['q'];
-                $data = $data->whereRaw("(klien_nama_baut like '%$q%' or klien_lokasi_kerja_baut like '%$q%')");
+                $data = $data->whereRaw("(klien_nama_baut like '%$q%' or 
+                                          klien_lokasi_kerja_baut like '%$q%' or
+                                          no_dokumen_baut like '%$q%' or 
+                                          no_dokumen_bast like '%$q%' or 
+                                          jenis_order like '%$q%' or 
+                                          klien_penanggung_jawab_baut like '%$q%'
+
+                )");
             }
             $per_page = 50;
             if (isset($_GET['per_page']))

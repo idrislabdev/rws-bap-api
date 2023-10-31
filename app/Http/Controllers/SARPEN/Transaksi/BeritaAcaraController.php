@@ -836,6 +836,8 @@ class BeritaAcaraController extends Controller
         $site_survey->latitude = $data->latitude;
         $site_survey->longitude = $data->longitude;
         $site_survey->regional = $data->regional;
+        $site_survey->site_witel = $data->site_witel;
+
             
 
 
