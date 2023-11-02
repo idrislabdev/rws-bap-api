@@ -7,6 +7,7 @@
 /public/ttd
 /public/pdf
 /storage/*.key
+/storage/framework/laravel-excel
 /vendor
 .env
 .env.backup

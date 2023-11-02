@@ -95,13 +95,13 @@ class SarpenWitelExport implements FromView, WithTitle, WithColumnWidths, WithEv
         $active_sheet = $event->sheet->getDelegate();
         $active_sheet->getStyle("A1:F1")->applyFromArray(
             [
-                'font' => ['name' => 'Verdana', 'size' => '16', 'bold' => true],
+                'font' => ['name' => 'Verdana', 'size' => '14', 'bold' => true],
                 'alignment' => ['horizontal' => 'center', 'vertical' => 'middle'],
             ]
         );
         $active_sheet->getStyle("A3:F3")->applyFromArray(
             [
-                'font' => ['name' => 'Verdana', 'size' => '13', 'bold' => true],
+                'font' => ['name' => 'Verdana', 'size' => '12', 'bold' => true],
                 'alignment' => ['horizontal' => 'center', 'vertical' => 'middle'],
                 'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]],
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFE4ECFF']]
@@ -109,7 +109,7 @@ class SarpenWitelExport implements FromView, WithTitle, WithColumnWidths, WithEv
         );
         $active_sheet->getStyle("A4:F16")->applyFromArray(
             [
-                'font' => ['name' => 'Verdana', 'size' => '12'],
+                'font' => ['name' => 'Verdana', 'size' => '11'],
                 'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]
             ]
         );
