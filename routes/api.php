@@ -33,6 +33,7 @@ use App\Http\Controllers\Master\WilayahController;
 use App\Http\Controllers\OLO\Transaksi\BeritaAcaraController as TransaksiBeritaAcaraController;
 use App\Http\Controllers\OLO\Transaksi\DraftBeritaAcaraController;
 use App\Http\Controllers\SARPEN\DashboardController as SARPENDashboardController;
+use App\Http\Controllers\SARPEN\ReportController as SARPENReportController;
 use App\Http\Controllers\SARPEN\Transaksi\BeritaAcaraController as SARPENTransaksiBeritaAcaraController;
 
 /*
@@ -260,6 +261,11 @@ Route::prefix('olo')->group(function () {
             Route::get('berita-acara/{olo_ba_id}/detail/{id}/add-on', [TransaksiBeritaAcaraController::class, 'addOnlist']);
             Route::delete('berita-acara/{olo_ba_id}/lampiran/{id}', [TransaksiBeritaAcaraController::class, 'removeLampiran']);
             Route::post('berita-acara/{olo_ba_id}/lampiran', [TransaksiBeritaAcaraController::class, 'updateLampiran']);
+            Route::patch('berita-acara/{olo_ba_id}/paraf', [TransaksiBeritaAcaraController::class, 'parafWholesale']);
+            Route::patch('berita-acara/{olo_ba_id}/ttd', [TransaksiBeritaAcaraController::class, 'ttdWholesale']);
+            Route::patch('berita-acara/{olo_ba_id}/upload', [TransaksiBeritaAcaraController::class, 'uploadDokumen']);
+            Route::get('berita-acara/{name}/dokumen-sirkulir', [TransaksiBeritaAcaraController::class, 'dokumenSirkulir']);
+
         });
 
 
@@ -294,6 +300,11 @@ Route::prefix('sarpen')->group(function () {
                 Route::get('donut', [SARPENDashboardController::class, 'donut']);
                 Route::get('column', [SARPENDashboardController::class, 'column']);
                 Route::get('ba-sesuai-witel', [SARPENDashboardController::class, 'baSesuaiWitel']);
+            });
+        });
+        Route::prefix('report')->group(function () {
+            Route::group(['middleware' => 'auth:api'], function () {
+                Route::get('ba-sesuai-witel', [SARPENReportController::class, 'baSesuaiWitel']);
             });
         });
 

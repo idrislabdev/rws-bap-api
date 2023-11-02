@@ -33,6 +33,17 @@ class HakAksesSeeder extends Seeder
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'cnop.other_ba', 'deskripsi' => '-' ],
 
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo', 'deskripsi' => '-' ],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.view', 'deskripsi' => '-' ],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.create', 'deskripsi' => '-' ],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.update', 'deskripsi' => '-' ],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.delete', 'deskripsi' => '-' ],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.paraf_wholesale', 'deskripsi' => '-' ],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.ttd_wholesale', 'deskripsi' => '-' ],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.report', 'deskripsi' => '-' ],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.report.view', 'deskripsi' => '-' ],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.report.export', 'deskripsi' => '-' ],
+
+
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen', 'deskripsi' => '-' ],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.dashboard', 'deskripsi' => '-' ],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.telkomsel', 'deskripsi' => '-' ],

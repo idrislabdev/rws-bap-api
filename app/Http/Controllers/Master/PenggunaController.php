@@ -171,9 +171,9 @@ class PenggunaController extends Controller
 
         $url = '';
         if ($request->file('ttd_image')) {
-            $path = public_path().'/ttd/'.$data->ttd_image;
-            if($data->ttd_image && file_exists($path))
-                unlink($path);
+            // $path = public_path().'/ttd/'.$data->ttd_image;
+            // if($data->ttd_image && file_exists($path))
+            //     unlink($path);
             
             $url = $this->prosesUpload($request->file('ttd_image'));
             $data->ttd_image = $url;

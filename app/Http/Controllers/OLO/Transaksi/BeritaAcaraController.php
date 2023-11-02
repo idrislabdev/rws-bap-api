@@ -14,6 +14,7 @@ use App\Models\MaNomorDokumen;
 use App\Models\MaOloKlien;
 use App\Models\MaOloProduk;
 use App\Models\MaPengaturan;
+use App\Models\MaPengguna;
 use App\Models\TrOloBa;
 use App\Models\TrOloBaDetail;
 use App\Models\TrOloBaDetailAddOn;
@@ -47,9 +48,26 @@ class BeritaAcaraController extends Controller
 
                 )");
             }
+            if (isset($_GET['filter']))
+            {
+                $filter = $_GET['filter'];
+                if($filter == 'belum_paraf')
+                    $data = $data->whereNull('paraf_wholesale')->whereNull('manager_wholesale')->whereNull('dokumen_sirkulir');
+
+                if($filter == 'belum_ttd')
+                    $data = $data->whereNotNull('paraf_wholesale')->whereNull('manager_wholesale')->whereNull('dokumen_sirkulir');
+
+                if($filter == 'belum_upload')
+                    $data = $data->whereNotNull('paraf_wholesale')->whereNotNull('manager_wholesale')->whereNull('dokumen_sirkulir');
+
+                if($filter == 'selesai')
+                    $data = $data->whereNotNull('paraf_wholesale')->whereNotNull('manager_wholesale')->whereNotNull('dokumen_sirkulir');
+
+            }
             $per_page = 50;
             if (isset($_GET['per_page']))
                 $per_page = $_GET['per_page'];
+
 
             $data = $data->orderByDesc('tgl_dokumen')->paginate($per_page)->onEachSide(5);
         } else {
@@ -727,14 +745,20 @@ class BeritaAcaraController extends Controller
         $header_html = view()->make('olo_header')->render();
         $footer_html = view()->make('olo_footer')->render();
 
+        $paraf_wholesale = json_decode($data->paraf_wholesale_data);
+        $manager_wholesale = json_decode($data->manager_wholesale_data);
+
 
         if ($tipe == 'baut') {
             $pdf = PDF::loadView('olo_baut', [
-                'data'          => $data,
-                'detail'        => $detail,
-                'lampiran'      => $lampiran,
-                'format_tanggal' => $format_tanggal,
-                'people_ttd'    => $people_ttd
+                'data'              => $data,
+                'detail'            => $detail,
+                'lampiran'          => $lampiran,
+                'format_tanggal'    => $format_tanggal,
+                'people_ttd'        => $people_ttd,
+                'paraf_wholesale'   => $paraf_wholesale,
+                'manager_wholesale' => $manager_wholesale,
+
             ])
                 ->setOption('footer-html', $footer_html)
                 ->setOption('header-html', $header_html)
@@ -744,10 +768,12 @@ class BeritaAcaraController extends Controller
             return $pdf->download($name);
         } else if ($tipe == 'bast') {
             $pdf = PDF::loadView('olo_bast', [
-                'data'          => $data,
-                'detail'        => $detail,
-                'format_tanggal' => $format_tanggal,
-                'people_ttd'    => $people_ttd
+                'data'              => $data,
+                'detail'            => $detail,
+                'format_tanggal'    => $format_tanggal,
+                'people_ttd'        => $people_ttd,
+                'paraf_wholesale'   => $paraf_wholesale,
+                'manager_wholesale' => $manager_wholesale,
             ])
                 ->setOption('footer-html', $footer_html)
                 ->setOption('header-html', $header_html)
@@ -875,6 +901,13 @@ class BeritaAcaraController extends Controller
         return $nama_file . '.' . $file->getClientOriginalExtension();
     }
 
+    private function prosesUploadDokumen($file)
+    {
+        $nama_file = Uuid::uuid4()->toString();
+        $file->move('olo-sirkulir/', $nama_file . '.' . $file->getClientOriginalExtension());
+        return $nama_file . '.' . $file->getClientOriginalExtension();
+    }
+
     public function updateLampiran(Request $request, $olo_ba_id)
     {
         $v = Validator::make($request->all(), [
@@ -970,6 +1003,149 @@ class BeritaAcaraController extends Controller
                 'message' => 'error',
             ], 400);
         }
+    }
+
+    public function parafWholesale($id)
+    {
+        $data = TrOloBa::find($id);
+        if(!$data)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        $pengguna = MaPengguna::find(Auth::user()->id);
+        if ($pengguna->ttd_image === null) 
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $data->paraf_wholesale = Auth::user()->id;
+
+            $paraf_wholesale = new \stdClass();
+            $paraf_wholesale->status_dokumen = 'APPROVED';
+            $paraf_wholesale->ttd_image = $pengguna->ttd_image;
+
+            $data->paraf_wholesale_data  = json_encode($paraf_wholesale, JSON_PRETTY_PRINT);
+            $data->save();
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+    }
+
+    public function ttdWholesale($id)
+    {
+        $data = TrOloBa::find($id);
+        if(!$data)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        $user = MaPengguna::find(Auth::user()->id);
+        $pengaturan = MaPengaturan::where('nama', 'MANAGER_WHOLESALE_SUPPORT')->first();
+        $pengguna = MaPengguna::where('nama_lengkap', $pengaturan->nilai)->first();
+
+
+        if ($pengguna->ttd_image === null) 
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Anda / Manager Wholesale Support Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $data->manager_wholesale = Auth::user()->id;
+
+            $manager_wholesale = new \stdClass();
+            $manager_wholesale->status_dokumen = 'APPROVED';
+            $manager_wholesale->ttd_image = $pengguna->ttd_image;
+
+            $data->manager_wholesale_data  = json_encode($manager_wholesale, JSON_PRETTY_PRINT);
+            $data->save();
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+    }
+
+    public function uploadDokumen(Request $request, $olo_ba_id) 
+    {
+        $data = TrOloBa::find($olo_ba_id);
+
+        if(!$data)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        DB::beginTransaction();
+        try {
+            $url = $this->prosesUploadDokumen($request->file('file'));
+
+            $data->dokumen_sirkulir = $url;
+            $data->save();
+
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+
+    }
+
+    public function dokumenSirkulir($name)
+    {
+        $storagePath = public_path().'/olo-sirkulir/'.$name;
+        return response()->file($storagePath);
     }
 
 

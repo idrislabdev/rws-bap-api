@@ -309,9 +309,21 @@
                     <div class="margin-body mt-xl">
                         <table style="width:100%;">
                             <tr class="text-center">
-                                <td style="padding-bottom: 120px; width:40%; font-weight:bold;">SIGMA</td>
+                                <td style="width:40%; font-weight:bold;">SIGMA</td>
                                 <td style="width:20%;"></td>
-                                <td style="padding-bottom: 120px; width:40%; font-weight:bold;">TELKOM</td>
+                                <td style="width:40%; font-weight:bold;">TELKOM</td>
+                            </tr>
+                            <tr class="text-center">
+                                <td style="height:100px;width:40%; font-weight:bold;"></td>
+                                <td style="height:100px;width:20%;"></td>
+                                <td style="height:100px;width:40%; font-weight:bold;">
+                                @if($manager_wholesale !== null)
+                                    <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:150px;">
+                                @endif
+                                @if($paraf_wholesale !== null)
+                                    <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;margin-left:50%;">
+                                @endif
+                                </td>
                             </tr>
                             <tr class="text-center">
                                 <td style="font-weight:bold; text-decoration: underline">WIDODO</td>

@@ -836,13 +836,13 @@
                                 </tr>
                                 <tr style="border-top:none;border-bottom:none"> 
                                     <td style="text-transform:uppercase;text-align:center;border-top:none;border-bottom:none">
-                                        @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
-                                            <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;position:absolute;left:10px;top:120px">
-                                        @endif
                                         @if($manager_wholesale !== null && $manager_wholesale->status_dokumen != null)
                                             <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:120px;width:50%">
                                         @else
                                             <div style="height:100px;"></div>
+                                        @endif
+                                        @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
+                                            <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;margin-right:60%;">
                                         @endif
                                     </td>
                                     <td style="border-top:none;border-bottom:none"></td>
