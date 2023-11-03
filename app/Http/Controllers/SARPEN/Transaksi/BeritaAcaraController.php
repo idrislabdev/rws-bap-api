@@ -951,7 +951,18 @@ class BeritaAcaraController extends Controller
     public function bulkProses(Request $request)
     {
         if ($request->status == 'delete') {
+            DB::beginTransaction();
+            TrBaSarpenTower::where('sarpen_id', $request->ids)->delete();
+            TrBaSarpenRack::where('sarpen_id', $request->ids)->delete();
+            TrBaSarpenRuangan::where('sarpen_id', $request->ids)->delete();
+            TrBaSarpenCatuDayaMcb::where('sarpen_id', $request->ids)->delete();
+            TrBaSarpenCatuDayaGenset::where('sarpen_id', $request->ids)->delete();
+            TrBaSarpenService::where('sarpen_id', $request->ids)->delete();
+            TrBaSarpenAkses::where('sarpen_id', $request->ids)->delete();
+            TrBaSarpenLahan::where('sarpen_id', $request->ids)->delete();
+            TrBaSarpenGambar::where('sarpen_id', $request->ids)->delete();
             TrBaSarpen::whereIn('id', $request->ids)->delete();
+            DB::commit();
         } else if ($request->status == 'proposed') {
             foreach ($request->ids as $id) {
                 try {
