@@ -766,7 +766,15 @@ class BeritaAcaraController extends Controller
 
         DB::beginTransaction();
         try {
-            $data->status = 'rejected';
+            if ($data->status === 'proposed')
+                $data->status = 'rejected';
+            
+            if ($data->status === 'ttd_witel')
+                $data->status = 'proposed';
+
+            if ($data->status === 'paraf_wholesale')
+                $data->status = 'ttd_witel';
+            
             $data->rejected_by = Auth::user()->id;
 
             $data->save();
@@ -920,9 +928,19 @@ class BeritaAcaraController extends Controller
                 'data' => null
             ], 404);
         }
-
+        DB::beginTransaction();
+        TrBaSarpenTower::where('sarpen_id', $id)->delete();
+        TrBaSarpenRack::where('sarpen_id', $id)->delete();
+        TrBaSarpenRuangan::where('sarpen_id', $id)->delete();
+        TrBaSarpenCatuDayaMcb::where('sarpen_id', $id)->delete();
+        TrBaSarpenCatuDayaGenset::where('sarpen_id', $id)->delete();
+        TrBaSarpenService::where('sarpen_id', $id)->delete();
+        TrBaSarpenAkses::where('sarpen_id', $id)->delete();
+        TrBaSarpenLahan::where('sarpen_id', $id)->delete();
+        TrBaSarpenGambar::where('sarpen_id', $id)->delete();
         $data->delete();
-
+        DB::commit();
+        
         return response()->json([
             'status' => true,
             'message' => 'success',

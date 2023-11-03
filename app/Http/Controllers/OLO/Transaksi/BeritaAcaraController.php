@@ -69,7 +69,7 @@ class BeritaAcaraController extends Controller
                 $per_page = $_GET['per_page'];
 
 
-            $data = $data->orderByDesc('tgl_dokumen')->paginate($per_page)->onEachSide(5);
+            $data = $data->orderByDesc('no_dokumen_baut')->orderByDesc('no_dokumen_bast')->paginate($per_page)->onEachSide(5);
         } else {
             $data = $data->get();
         }
