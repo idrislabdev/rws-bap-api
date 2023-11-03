@@ -867,7 +867,7 @@ class BeritaAcaraController extends Controller
             'no_dokumen_klien'  => $data->no_dokumen_klien,
 
         ])->setPaper('a4');
-        return $pdf->stream('berita_acara_sar[em.pdf');
+        return $pdf->stream('berita_acara_sarpen');
     }
 
     public function uploadDokumen(Request $request, $id) 
