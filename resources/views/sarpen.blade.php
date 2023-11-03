@@ -330,7 +330,13 @@
                                 @endif
                             </td>
                             <td style="width:20%;"></td>
-                            <td style="width:40%;text-transform:uppercase;">TELKOM WITEL {{ $site_survey->site_witel }}</td>
+                            <td style="width:40%;text-transform:uppercase;">
+                                @if($site_survey->site_witel !== null)
+                                    TELKOM WITEL {{ $site_survey->site_witel }}
+                                @else
+                                    TELKOM REGIONAL WHOLSALE
+                                @endif
+                            </td>
                         </tr>
                         <tr class="text-center">
                             <td style="width:40%;"></td>
