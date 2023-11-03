@@ -304,7 +304,9 @@
                         <tr class="text-center">
                             <td style="width:40%; font-weight:bold;">{{$data->klien_nama_baut}}</td>
                             <td style="width:20%;"></td>
-                            <td style="width:40%; font-weight:bold;">TELKOM</td>
+                            <td style="width:40%; font-weight:bold;">
+                                TELKOM
+                            </td>
                         </tr>
                         <tr class="text-center">
                             <td style="height:100px;width:40%; font-weight:bold;"></td>
@@ -313,16 +315,24 @@
                             @if($manager_wholesale !== null)
                                 <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:150px;">
                             @endif
-                            @if($paraf_wholesale !== null)
-                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;margin-left:50%;">
-                            @endif
                             </td>
                         </tr>
                         <tr class="text-center">
                             <td style="font-weight:bold; text-decoration: underline">{{$data->klien_penanggung_jawab_baut}}</td>
                             <td style="width:20%;">
                             </td>
-                            <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->manager_wholesale->nilai}}</td>
+                            <td style="font-weight:bold; text-decoration: underline">
+                                <table style="width:100%;position:relative;">
+                                    <tr>
+                                        <td>
+                                            {{$people_ttd->manager_wholesale->nilai}}
+                                            @if($paraf_wholesale !== null)
+                                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
+                                            @endif
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
                         </tr>
                     </table>            
                 </div>

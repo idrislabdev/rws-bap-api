@@ -841,14 +841,22 @@
                                         @else
                                             <div style="height:100px;"></div>
                                         @endif
-                                        @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
-                                            <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:50px;margin-right:60%;">
-                                        @endif
                                     </td>
                                     <td style="border-top:none;border-bottom:none"></td>
                                 </tr>
                                 <tr style="border-top:none">
-                                    <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $manager_wholesale !== null ? $manager_wholesale->nama_lengkap : ''}}</td>
+                                    <td style="text-transform:uppercase;text-align:center;border-top:none">
+                                        <table style="width:100%;position:relative">
+                                            <tr>
+                                                <td style="text-align:center;border:none;">
+                                                    {{ $manager_wholesale !== null ? $manager_wholesale->nama_lengkap : ''}}
+                                                    @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
+                                                        <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:40px;position:absolute;right:20px;top:-10px;">
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
                                     <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $klien !== null ? $klien->nama : '' }}</td>
                                 </tr>
                             </tbody>
