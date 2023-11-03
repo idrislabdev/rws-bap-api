@@ -76,7 +76,7 @@ class BeritaAcaraController extends Controller
                     $data = $data->where('status', $_GET['status']);
                 } else {
                     $user_id = Auth::user()->id;
-                    $data = $data->whereRaw("(manager_witel = '$user_id' and status = 'proposed') or
+                    $data = $data->whereRaw("(manager_witel = '$user_id' or status = 'proposed') or
                                             (paraf_wholesale = '$user_id' and status = 'ttd_witel') or
                                             (manager_wholesale = '$user_id' and status = 'paraf_wholesale')
                                             ");
@@ -575,6 +575,8 @@ class BeritaAcaraController extends Controller
 
         DB::beginTransaction();
         try {
+            $witel = MaPengguna::find($data->manager_witel);
+            $data->site_witel = $witel->site_witel;
             $data->status = 'proposed';
             $data->save();
             DB::commit();
