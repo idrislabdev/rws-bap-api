@@ -64,12 +64,25 @@ class BeritaAcaraController extends Controller
                     $data = $data->whereNotNull('paraf_wholesale')->whereNotNull('manager_wholesale')->whereNotNull('dokumen_sirkulir');
 
             }
+
+            if (isset($_GET['sort_by']))
+            {
+                if ($_GET['sort'] == 'asc') {
+                    $data = $data->orderBy($_GET['sort_by']);
+                } else {
+                    $data = $data->orderByDesc($_GET['sort_by']);
+                }
+            } else {
+                $data = $data->orderByDesc('tgl_dokumen');
+
+            }
+
             $per_page = 50;
             if (isset($_GET['per_page']))
                 $per_page = $_GET['per_page'];
 
 
-            $data = $data->orderByDesc('no_dokumen_baut')->orderByDesc('no_dokumen_bast')->paginate($per_page)->onEachSide(5);
+            $data = $data->paginate($per_page)->onEachSide(5);
         } else {
             $data = $data->get();
         }
