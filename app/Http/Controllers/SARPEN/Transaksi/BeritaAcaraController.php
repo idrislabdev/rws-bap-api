@@ -54,29 +54,29 @@ class BeritaAcaraController extends Controller
             }
 
             if (isset($_GET['type'])) {
-                if($_GET['type'] === 'site')
+                if ($_GET['type'] === 'site')
                     $data = $data->where('type', 'site');
 
-                if($_GET['type'] === 'sto')
+                if ($_GET['type'] === 'sto')
                     $data = $data->where('type', 'sto');
 
-                if($_GET['type'] === 'no_order')
+                if ($_GET['type'] === 'no_order')
                     $data = $data->where('type', 'no_order');
             }
 
             if (Auth::user()->role === 'WITEL') {
                 $data = $data->where('site_witel', Auth::user()->site_witel);
-            } else if (Auth::user()->role === 'RWS' || Auth::user()->role === 'ROOT')  {
+            } else if (Auth::user()->role === 'RWS' || Auth::user()->role === 'ROOT') {
                 if (isset($_GET['site_witel']))
                     $data = $data->where('site_witel', $_GET['site_witel']);
             }
-            
+
             if (isset($_GET['status'])) {
                 if ($_GET['status'] != 'own_action') {
                     $data = $data->where('status', $_GET['status']);
                 } else {
                     $user_id = Auth::user()->id;
-                    $data = $data->whereRaw("(manager_witel = '$user_id' or status = 'proposed') or
+                    $data = $data->whereRaw("(manager_witel = '$user_id' and status = 'proposed') or
                                             (paraf_wholesale = '$user_id' and status = 'ttd_witel') or
                                             (manager_wholesale = '$user_id' and status = 'paraf_wholesale')
                                             ");
@@ -86,7 +86,7 @@ class BeritaAcaraController extends Controller
                     $data = $data->where('created_by', Auth::user()->id);
                 }
             }
-                
+
 
 
 
@@ -127,7 +127,7 @@ class BeritaAcaraController extends Controller
             $template = MaSarpenTemplate::find($request->template_id);
 
             // $manager_witel = MaPengguna::find($template->manager_witel);
-            $manager_witel_data = new \stdClass(); 
+            $manager_witel_data = new \stdClass();
             $manager_witel_data->id = null;
             $manager_witel_data->nama_lengkap = null;
             $manager_witel_data->lokasi_kerja = null;
@@ -138,7 +138,7 @@ class BeritaAcaraController extends Controller
             $manager_witel_data->approved_at = null;
 
             $paraf_wholesale = MaPengguna::find($template->paraf_wholesale);
-            $paraf_wholesale_data = new \stdClass(); 
+            $paraf_wholesale_data = new \stdClass();
             $paraf_wholesale_data->id = $paraf_wholesale->id;
             $paraf_wholesale_data->nama_lengkap = $paraf_wholesale->nama_lengkap;
             $paraf_wholesale_data->lokasi_kerja = $paraf_wholesale->lokasi_kerja;
@@ -149,7 +149,7 @@ class BeritaAcaraController extends Controller
             $paraf_wholesale_data->approved_at = null;
 
             $manager_wholesale = MaPengguna::find($template->manager_wholesale);
-            $manager_wholesale_data = new \stdClass(); 
+            $manager_wholesale_data = new \stdClass();
             $manager_wholesale_data->id = $manager_wholesale->id;
             $manager_wholesale_data->nama_lengkap = $manager_wholesale->nama_lengkap;
             $manager_wholesale_data->lokasi_kerja = $manager_wholesale->lokasi_kerja;
@@ -158,7 +158,7 @@ class BeritaAcaraController extends Controller
             $manager_wholesale_data->status_dokumen = null;
             $manager_wholesale_data->approved_at = null;
 
-            
+
             $data = new TrBaSarpen();
             $data->group = $template->group;
             $data->type = $template->sto_site;
@@ -177,7 +177,7 @@ class BeritaAcaraController extends Controller
 
             if ($template->group == 'TELKOM') {
                 $klien = MaOloKlien::find('1cd01e5f-9550-474b-b56b-c9529fa3a5e7');
-                $klien_data = new \stdClass(); 
+                $klien_data = new \stdClass();
                 $klien_data->id = $klien->id;
                 $klien_data->nama = null;
                 $klien_data->jabatan = null;
@@ -187,7 +187,7 @@ class BeritaAcaraController extends Controller
                 $data->klien = $klien->id;
             }
 
-          
+
             $data->save();
 
             return (new TrBaSarpenResource($data))->additional([
@@ -207,10 +207,10 @@ class BeritaAcaraController extends Controller
     {
         try {
             $data = TrBaSarpen::with([
-                'pembuat', 
-                'managerWholesale', 
-                'parafWholesale', 
-                'towers', 
+                'pembuat',
+                'managerWholesale',
+                'parafWholesale',
+                'towers',
                 'ruangans',
                 'lahans',
                 'services',
@@ -229,7 +229,7 @@ class BeritaAcaraController extends Controller
             if ($data->klien_data !== null) {
                 $data->klien_data = json_decode($data->klien_data);
             } else {
-                $klien = new \stdClass(); 
+                $klien = new \stdClass();
                 $klien->nama = null;
                 $klien->jabatan = null;
                 $klien->lokasi_kerja = null;
@@ -268,11 +268,11 @@ class BeritaAcaraController extends Controller
                 $data->klien_data  = json_encode($request->klien_data, JSON_PRETTY_PRINT);
                 $data->nama_klien = $request->klien_data['nama_perusahaan'];
             }
-                $data->klien_data  = json_encode($request->klien_data, JSON_PRETTY_PRINT);
+            $data->klien_data  = json_encode($request->klien_data, JSON_PRETTY_PRINT);
 
             if ($request->has('klien'))
-                $data->klien  = $request->klien;    
-            
+                $data->klien  = $request->klien;
+
             if ($request->has('nama_site'))
                 $data->nama_site  = $request->nama_site;
 
@@ -287,7 +287,7 @@ class BeritaAcaraController extends Controller
 
             if ($request->has('nomor_order'))
                 $data->nomor_order  = $request->nomor_order;
-            
+
             if ($request->has('alamat'))
                 $data->alamat  = $request->alamat;
 
@@ -329,7 +329,6 @@ class BeritaAcaraController extends Controller
                         $data_tower->save();
                         $no++;
                     }
-                    
                 }
             }
 
@@ -349,7 +348,6 @@ class BeritaAcaraController extends Controller
                         $data_rack->save();
                         $no++;
                     }
-                    
                 }
             }
 
@@ -372,7 +370,6 @@ class BeritaAcaraController extends Controller
                         $data_ruangan->save();
                         $no++;
                     }
-                    
                 }
             }
 
@@ -392,7 +389,6 @@ class BeritaAcaraController extends Controller
                         $data_lahan->save();
                         $no++;
                     }
-                    
                 }
             }
 
@@ -413,7 +409,6 @@ class BeritaAcaraController extends Controller
                         $data_catu->save();
                         $no++;
                     }
-                    
                 }
             }
 
@@ -434,7 +429,6 @@ class BeritaAcaraController extends Controller
                         $data_catu->save();
                         $no++;
                     }
-                    
                 }
             }
 
@@ -452,7 +446,7 @@ class BeritaAcaraController extends Controller
                         $data_service->keterangan = $service['keterangan'];
                         $data_service->save();
                         $no++;
-                    } 
+                    }
                 }
             }
 
@@ -470,7 +464,7 @@ class BeritaAcaraController extends Controller
                         $data_service->arah_akses = $akses['arah_akses'];
                         $data_service->save();
                         $no++;
-                    } 
+                    }
                 }
             }
 
@@ -490,12 +484,12 @@ class BeritaAcaraController extends Controller
         }
     }
 
-    public function totalSarpen($group) 
+    public function totalSarpen($group)
     {
         $role = Auth::user()->role;
 
 
-        $count = new \stdClass(); 
+        $count = new \stdClass();
         $draft = TrBaSarpen::where('status', 'draft')->where('group', $group);
         $count->draft = $draft->where('created_by', Auth::user()->id)->count();
 
@@ -532,12 +526,12 @@ class BeritaAcaraController extends Controller
             $count->paraf_wholesale = $paraf_wholesale->where('site_witel', Auth::user()->site_witel)->count();
         } else {
             $count->paraf_wholesale = $paraf_wholesale->count();
-        }        
+        }
 
         $own_action = TrBaSarpen::where('group', $group);
         if ($role === 'WITEL') {
             $own_action = $own_action->where('site_witel', Auth::user()->site_witel);
-        } 
+        }
         $user_id =  Auth::user()->id;
         $count->own_action  = $own_action->whereRaw("
                                 (manager_witel = '$user_id' and status = 'proposed') or
@@ -555,8 +549,7 @@ class BeritaAcaraController extends Controller
     {
         $data = TrBaSarpen::find($id);
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -564,8 +557,7 @@ class BeritaAcaraController extends Controller
             ], 404);
         }
 
-        if ($data->manager_witel === null) 
-        {
+        if ($data->manager_witel === null) {
             return response()->json([
                 'status' => false,
                 'message' => 'Manager Witel Belum Diisi',
@@ -598,8 +590,7 @@ class BeritaAcaraController extends Controller
     public function ttdWitel($id)
     {
         $data = TrBaSarpen::find($id);
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -608,8 +599,7 @@ class BeritaAcaraController extends Controller
         }
 
         $data_manager_witel = MaPengguna::find($data->manager_witel);
-        if ($data_manager_witel->ttd_image === null) 
-        {
+        if ($data_manager_witel->ttd_image === null) {
             return response()->json([
                 'status' => false,
                 'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
@@ -645,8 +635,7 @@ class BeritaAcaraController extends Controller
     public function parafWholesale($id)
     {
         $data = TrBaSarpen::find($id);
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -655,8 +644,7 @@ class BeritaAcaraController extends Controller
         }
 
         $pengguna = MaPengguna::find($data->paraf_wholesale);
-        if ($pengguna->ttd_image === null) 
-        {
+        if ($pengguna->ttd_image === null) {
             return response()->json([
                 'status' => false,
                 'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
@@ -704,8 +692,7 @@ class BeritaAcaraController extends Controller
     {
         $data = TrBaSarpen::find($id);
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -714,8 +701,7 @@ class BeritaAcaraController extends Controller
         }
 
         $pengguna = MaPengguna::find($data->manager_wholesale);
-        if ($pengguna->ttd_image === null) 
-        {
+        if ($pengguna->ttd_image === null) {
             return response()->json([
                 'status' => false,
                 'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
@@ -755,8 +741,7 @@ class BeritaAcaraController extends Controller
     {
         $data = TrBaSarpen::find($id);
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -768,13 +753,13 @@ class BeritaAcaraController extends Controller
         try {
             if ($data->status === 'proposed')
                 $data->status = 'rejected';
-            
+
             if ($data->status === 'ttd_witel')
                 $data->status = 'proposed';
 
             if ($data->status === 'paraf_wholesale')
                 $data->status = 'ttd_witel';
-            
+
             $data->rejected_by = Auth::user()->id;
 
             $data->save();
@@ -798,11 +783,11 @@ class BeritaAcaraController extends Controller
     {
         $data = TrBaSarpen::with(
             [
-                'pembuat', 
-                'managerWholesale', 
+                'pembuat',
+                'managerWholesale',
                 'managerWitel',
-                'parafWholesale', 
-                'towers', 
+                'parafWholesale',
+                'towers',
                 'ruangans',
                 'lahans',
                 'services',
@@ -812,7 +797,7 @@ class BeritaAcaraController extends Controller
                 'racks'
             ]
         )
-        ->find($id);
+            ->find($id);
         // $setting = MaSarpenTemplate::find($id);
 
         $tgl_dokumen = $data->tanggal_buat;
@@ -828,10 +813,10 @@ class BeritaAcaraController extends Controller
         $manager_wholesale = json_decode($data->manager_wholesale_data);
 
         $format_tanggal = new \stdClass();
-        $format_tanggal->hari = $this->_hari[$hari-1];
+        $format_tanggal->hari = $this->_hari[$hari - 1];
         $format_tanggal->tgl = strtoupper(UtilityHelper::terbilang($tgl));
         $format_tanggal->tgl_nomor = $tgl;
-        $format_tanggal->bulan = $this->_month[$bulan-1];
+        $format_tanggal->bulan = $this->_month[$bulan - 1];
         $format_tanggal->tahun_nomor = $tahun;
         $format_tanggal->tahun = strtoupper(UtilityHelper::terbilang($tahun));
 
@@ -848,7 +833,7 @@ class BeritaAcaraController extends Controller
         $site_survey->regional = $data->regional;
         $site_survey->site_witel = $data->site_witel;
 
-            
+
 
 
         $pdf = PDF2::loadView('sarpen', [
@@ -878,12 +863,11 @@ class BeritaAcaraController extends Controller
         return $pdf->download('berita_acara_sarpen');
     }
 
-    public function uploadDokumen(Request $request, $id) 
+    public function uploadDokumen(Request $request, $id)
     {
         $data = TrBaSarpen::find($id);
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -913,15 +897,13 @@ class BeritaAcaraController extends Controller
                 'message' => 'error',
             ], 400);
         }
-
     }
 
     public function destroy($id)
     {
         $data = TrBaSarpen::find($id);
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -940,7 +922,7 @@ class BeritaAcaraController extends Controller
         TrBaSarpenGambar::where('sarpen_id', $id)->delete();
         $data->delete();
         DB::commit();
-        
+
         return response()->json([
             'status' => true,
             'message' => 'success',
@@ -968,9 +950,8 @@ class BeritaAcaraController extends Controller
                 try {
                     DB::beginTransaction();
                     $data = TrBaSarpen::find($id);
-                   
-                    if ($data->manager_witel === null) 
-                    {
+
+                    if ($data->manager_witel === null) {
                         DB::rollBack();
                         return response()->json([
                             'status' => false,
@@ -979,10 +960,10 @@ class BeritaAcaraController extends Controller
                         ], 422);
                     }
 
-                    $data->status = 'proposed';    
+                    $data->status = 'proposed';
                     $data->save();
                     DB::commit();
-                }  catch (\Exception $e) {
+                } catch (\Exception $e) {
                     DB::rollback();
                     return response()->json([
                         'data' => $e->getMessage(),
@@ -999,11 +980,10 @@ class BeritaAcaraController extends Controller
                     DB::beginTransaction();
                     $data = TrBaSarpen::find($id);
                     $data->status = 'ttd_witel';
-    
+
                     $data_manager_witel = MaPengguna::find($data->manager_witel);
-                   
-                    if ($data_manager_witel->ttd_image === null) 
-                    {
+
+                    if ($data_manager_witel->ttd_image === null) {
                         DB::rollBack();
                         return response()->json([
                             'status' => false,
@@ -1011,15 +991,15 @@ class BeritaAcaraController extends Controller
                             'data' => null
                         ], 422);
                     }
-                    
+
                     $manager_witel = json_decode($data->manager_witel_data);
                     $manager_witel->status_dokumen = 'APPROVED';
                     $manager_witel->ttd_image = $data_manager_witel->ttd_image;
                     $data->manager_witel_data  = json_encode($manager_witel, JSON_PRETTY_PRINT);
-    
+
                     $data->save();
                     DB::commit();
-                }  catch (\Exception $e) {
+                } catch (\Exception $e) {
                     DB::rollback();
                     return response()->json([
                         'data' => $e->getMessage(),
@@ -1034,11 +1014,10 @@ class BeritaAcaraController extends Controller
                     DB::beginTransaction();
                     $data = TrBaSarpen::find($id);
                     $data->status = 'paraf_wholesale';
-    
+
                     $pengguna = MaPengguna::find($data->paraf_wholesale);
-                   
-                    if ($pengguna->ttd_image === null) 
-                    {
+
+                    if ($pengguna->ttd_image === null) {
                         DB::rollBack();
                         return response()->json([
                             'status' => false,
@@ -1046,7 +1025,7 @@ class BeritaAcaraController extends Controller
                             'data' => null
                         ], 422);
                     }
-                    
+
                     $data->status = 'paraf_wholesale';
 
                     $paraf_wholesale = json_decode($data->paraf_wholesale_data);
@@ -1062,11 +1041,11 @@ class BeritaAcaraController extends Controller
                     $dokumen->tipe_dokumen = 'SARPEN';
                     $dokumen->tgl_dokumen = date('Y-m-d');
                     $dokumen->save();
-                    
+
                     $data->no_dokumen = $no_dokumen;
                     $data->save();
                     DB::commit();
-                }  catch (\Exception $e) {
+                } catch (\Exception $e) {
                     DB::rollback();
                     return response()->json([
                         'data' => $e->getMessage(),
@@ -1081,11 +1060,10 @@ class BeritaAcaraController extends Controller
                     DB::beginTransaction();
                     $data = TrBaSarpen::find($id);
                     $data->status = 'ttd_wholesale';
-    
+
                     $pengguna = MaPengguna::find($data->manager_wholesale);
-                   
-                    if ($pengguna->ttd_image === null) 
-                    {
+
+                    if ($pengguna->ttd_image === null) {
                         DB::rollBack();
                         return response()->json([
                             'status' => false,
@@ -1093,7 +1071,7 @@ class BeritaAcaraController extends Controller
                             'data' => null
                         ], 422);
                     }
-                    
+
                     $data->status = 'ttd_wholesale';
 
                     $manager_wholesale = json_decode($data->manager_wholesale_data);
@@ -1103,7 +1081,7 @@ class BeritaAcaraController extends Controller
                     $data->manager_wholesale_data  = json_encode($manager_wholesale, JSON_PRETTY_PRINT);
                     $data->save();
                     DB::commit();
-                }  catch (\Exception $e) {
+                } catch (\Exception $e) {
                     DB::rollback();
                     return response()->json([
                         'data' => $e->getMessage(),
@@ -1119,7 +1097,6 @@ class BeritaAcaraController extends Controller
             'message' => 'success',
             'data' => []
         ], 200);
-
     }
 
     public function uploadGambar(Request $request, $id)
@@ -1182,8 +1159,7 @@ class BeritaAcaraController extends Controller
     {
         $data = TrBaSarpenGambar::where('sarpen_id', $id)->where('no', $no)->first();
 
-        if(!$data)
-        {
+        if (!$data) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data Tidak Ditemukan',
@@ -1191,12 +1167,12 @@ class BeritaAcaraController extends Controller
             ], 404);
         }
 
-        $path = public_path().'/sarpen-gambar/'.$data->gambar_url;
-        if(file_exists($path))
+        $path = public_path() . '/sarpen-gambar/' . $data->gambar_url;
+        if (file_exists($path))
             unlink($path);
 
         TrBaSarpenGambar::where('sarpen_id', $id)->where('no', $no)->delete();
-        
+
         return response()->json([
             'status' => true,
             'message' => 'success',
@@ -1206,13 +1182,13 @@ class BeritaAcaraController extends Controller
 
     public function gambarSarpen($name)
     {
-        $storagePath = public_path().'/sarpen-gambar/'.$name;
+        $storagePath = public_path() . '/sarpen-gambar/' . $name;
         return response()->file($storagePath);
     }
 
     public function dokumenSirkulir($name)
     {
-        $storagePath = public_path().'/sarpen-sirkulir/'.$name;
+        $storagePath = public_path() . '/sarpen-sirkulir/' . $name;
         return response()->file($storagePath);
     }
 
