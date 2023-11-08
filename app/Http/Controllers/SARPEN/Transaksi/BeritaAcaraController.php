@@ -500,46 +500,78 @@ class BeritaAcaraController extends Controller
         if ($role === 'WITEL') {
             $count->proposed = $proposed->where('site_witel', Auth::user()->site_witel)->count();
         } else {
-            $count->proposed = $proposed->count();
+            if (isset($_GET['witel'])) {
+                $count->proposed = $proposed->where('site_witel', $_GET['witel'])->count();
+            } else {
+                $count->proposed = $proposed->count();
+            }
         }
 
         $rejected = TrBaSarpen::where('status', 'rejected')->where('group', $group);
         if ($role === 'WITEL') {
             $count->rejected = $rejected->where('site_witel', Auth::user()->site_witel)->count();
         } else {
-            $count->rejected = $rejected->count();
+            if (isset($_GET['witel'])) {
+                $count->rejected = $rejected->where('site_witel', $_GET['witel'])->count();
+            } else {
+                $count->rejected = $rejected->count();
+            }
         }
 
         $ttd_witel = TrBaSarpen::where('status', 'ttd_witel')->where('group', $group);
         if ($role === 'WITEL') {
             $count->ttd_witel = $ttd_witel->where('site_witel', Auth::user()->site_witel)->count();
         } else {
-            $count->ttd_witel = $ttd_witel->count();
+            if (isset($_GET['witel'])) {
+                $count->ttd_witel = $ttd_witel->where('site_witel', $_GET['witel'])->count();
+            } else {
+                $count->ttd_witel = $ttd_witel->count();
+            }
         }
 
         $ttd_wholesale = TrBaSarpen::where('status', 'ttd_wholesale')->where('group', $group);
         if ($role === 'WITEL') {
             $count->ttd_wholesale = $ttd_wholesale->where('site_witel', Auth::user()->site_witel)->count();
         } else {
-            $count->ttd_wholesale = $ttd_wholesale->count();
+            if (isset($_GET['witel'])) {
+                $count->ttd_wholesale = $ttd_wholesale->where('site_witel', $_GET['witel'])->count();
+            } else {
+                $count->ttd_wholesale = $ttd_wholesale->count();
+            }
         }
 
         $paraf_wholesale = TrBaSarpen::where('status', 'paraf_wholesale')->where('group', $group);
         if ($role === 'WITEL') {
             $count->paraf_wholesale = $paraf_wholesale->where('site_witel', Auth::user()->site_witel)->count();
         } else {
-            $count->paraf_wholesale = $paraf_wholesale->count();
+            if (isset($_GET['witel'])) {
+                $count->paraf_wholesale = $paraf_wholesale->where('site_witel', $_GET['witel'])->count();
+            } else {
+                $count->paraf_wholesale = $paraf_wholesale->count();
+            }
         }
 
         $own_action = TrBaSarpen::where('group', $group);
         if ($role === 'WITEL') {
             $own_action = $own_action->where('site_witel', Auth::user()->site_witel);
         }
+
         $user_id =  Auth::user()->id;
         $count->own_action  = $own_action->whereRaw("
                                 (manager_witel = '$user_id' and status = 'proposed') or
                                 (paraf_wholesale = '$user_id' and status = 'ttd_witel') or
                                 (manager_wholesale = '$user_id' and status = 'paraf_wholesale')")->count();
+
+        $finished = TrBaSarpen::where('status', 'finished')->where('group', $group);
+        if ($role === 'WITEL') {
+            $count->finished = $finished->where('site_witel', Auth::user()->site_witel)->count();
+        } else {
+            if (isset($_GET['witel'])) {
+                $count->finished = $finished->where('site_witel', $_GET['witel'])->count();
+            } else {
+                $count->finished = $finished->count();
+            }
+        }
 
         return response()->json([
             'data' => $count,
