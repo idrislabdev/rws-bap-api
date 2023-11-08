@@ -252,12 +252,12 @@
                         <tr>
                             <td></td>
                             <td>Jabatan</td>
-                            <td>: {{ $klien != null ? $klien->jabatan : '' }}</td>
+                            <td style="width:600px">: {{ $klien != null ? $klien->jabatan : '' }}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Lokasi Kerja</td>
-                            <td>: {{ $klien != null ? $klien->lokasi_kerja : '' }}</td>
+                            <td style="width:600px">: {{ $klien != null ? $klien->lokasi_kerja : '' }}</td>
                         </tr>
                         <tr>
                             <td></td>
