@@ -90,7 +90,7 @@ class SarpenPerWitelExport implements FromView, WithTitle, WithColumnWidths, Wit
 
 
         $active_sheet = $event->sheet->getDelegate();
-        $active_sheet->freezePane('D3');
+        $active_sheet->freezePane('D6');
         $active_sheet->getStyle("A1:J1")->applyFromArray(
             [
                 'font' => ['name' => 'Verdana', 'size' => '14', 'bold' => true],
