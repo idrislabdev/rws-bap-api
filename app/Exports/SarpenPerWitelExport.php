@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
 use App\Models\TrBaSarpen;
+use App\Models\TrBaSarpenTower;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithStyles;
@@ -24,77 +25,141 @@ class SarpenPerWitelExport implements FromView, WithTitle, WithColumnWidths, Wit
     use RegistersEventListeners;
 
     protected $year;
-    protected $site_witel;
+    protected $arr_witel;
 
     private static $count_rows = 0;
 
-    function __construct($year, $site_witel) {
+    function __construct($year, $arr_witel) {
         $this->year = $year;
-        $this->site_witel = $site_witel;
+        $this->arr_witel = $arr_witel;
     }
 
-  
+
     public function view(): View
     {
-        $data = TrBaSarpen::where('status', '<>', 'draft')
+        $data = TrBaSarpen::with(['klienObj', 'towers','ruangans','lahans','services','akseses','catuDayaMcbs','catuDayaGensets','racks'])
+                          ->where('status', '<>', 'draft')
                           ->whereYear('tanggal_buat', $this->year)
-                          ->where('site_witel', $this->site_witel);
-        
-        self::$count_rows = $data->count();; 
+                          ->whereIn('site_witel', $this->arr_witel)
+                          ->orderBy('site_witel');
+
+
+        self::$count_rows = $data->count();
 
         return view('reports.sarpen_per_witel', [
             'data'      => $data->get(),
             'year'      => $this->year,
-            'site_witel'=> $this->site_witel
-        ]);  
+        ]);
     }
 
     public function title(): string
     {
-        return $this->site_witel;
+        return 'Detail';
     }
 
     public function columnWidths(): array
     {
-        return [
-            'A' => 5,
-            'B' => 25,  
-            'C' => 25,
-            'D' => 25,
-            'E' => 25,      
-            'F' => 25,     
-            'G' => 25,             
-            'H' => 25,             
-            'I' => 25,   
-            'J' => 25,             
-        ];
+        // $cols = array("A" => 5,"B" => 25,"C"=> 25);
+        $cols = array();
+        foreach(range('A','Z') as $x) { 
+            if ($x != 'A') {
+                $cols[$x] = 25;
+            } else {
+                $cols[$x] = 5;
+            }
+        } 
+
+        foreach(range('A','I') as $x) { 
+            foreach(range('A','Z') as $y) { 
+                $cols[$x.$y] = 25;
+            } 
+        } 
+
+        foreach(range('J','J') as $x) { 
+            foreach(range('A','J') as $y) { 
+                $cols[$x.$y] = 25;
+            } 
+        } 
+
+        return $cols;
     }
 
     public static function afterSheet(AfterSheet $event)
     {
-        $rows = self::$count_rows+3;
+        $rows = self::$count_rows+5;
 
 
         $active_sheet = $event->sheet->getDelegate();
+        $active_sheet->freezePane('D3');
         $active_sheet->getStyle("A1:J1")->applyFromArray(
             [
                 'font' => ['name' => 'Verdana', 'size' => '14', 'bold' => true],
                 'alignment' => ['horizontal' => 'center', 'vertical' => 'middle'],
             ]
         );
-        $active_sheet->getStyle("A3:J3")->applyFromArray(
+        $active_sheet->getStyle("A3:JJ5")->applyFromArray(
             [
                 'font' => ['name' => 'Verdana', 'size' => '12', 'bold' => true],
                 'alignment' => ['horizontal' => 'center', 'vertical' => 'middle'],
                 'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]],
+            ]
+        );
+        $active_sheet->getStyle("A3:K{$rows}")->applyFromArray(
+            [
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFE4ECFF']]
             ]
         );
-        $active_sheet->getStyle("A4:J{$rows}")->applyFromArray(
+
+        $active_sheet->getStyle("A4:JJ{$rows}")->applyFromArray(
             [
                 'font' => ['name' => 'Verdana', 'size' => '11'],
                 'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]
             ]
         );
+
+        $active_sheet->getStyle("L3:BA{$rows}")->applyFromArray(
+            [
+                'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFA0B8FF']]
+            ]
+        );
+        $active_sheet->getStyle("BB3:CC{$rows}")->applyFromArray(
+            [
+                'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'ff91d2ff']]
+            ]
+        );
+        $active_sheet->getStyle("CD3:DZ{$rows}")->applyFromArray(
+            [
+                'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'ffffcc00']]
+            ]
+        );
+        $active_sheet->getStyle("EA3:FB{$rows}")->applyFromArray(
+            [
+                'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'ffa4ffa4']]
+            ]
+        );
+        $active_sheet->getStyle("FC3:GK{$rows}")->applyFromArray(
+            [
+                'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFE3FFDD']]
+            ]
+        );
+
+        $active_sheet->getStyle("GL3:HT{$rows}")->applyFromArray(
+            [
+                'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FF38FFDD']]
+            ]
+        );
+        $active_sheet->getStyle("HU3:IO{$rows}")->applyFromArray(
+            [
+                'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFDBFFE6']]
+            ]
+        );
+        $active_sheet->getStyle("IP3:JJ{$rows}")->applyFromArray(
+            [
+                'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFDBFFFF']]
+            ]
+        );
+     
+
+        
     }
 }

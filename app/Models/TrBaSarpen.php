@@ -31,6 +31,11 @@ class TrBaSarpen extends Model
         return $this->hasOne('App\Models\MaPengguna', 'id', 'manager_witel');
     }
 
+    public function klienObj()
+    {
+        return $this->hasOne('App\Models\MaOloKlien', 'id', 'klien');
+    }
+
     public function towers()
     {
         return $this->hasMany('App\Models\TrBaSarpenTower', 'sarpen_id');

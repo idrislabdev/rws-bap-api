@@ -24,8 +24,10 @@ class SarpenWitelExport implements FromView, WithTitle, WithColumnWidths, WithEv
     use RegistersEventListeners;
 
     protected $year;
-    function __construct($year) {
+    protected $arr_witel;
+    function __construct($year, $arr_witel) {
         $this->year = $year;
+        $this->arr_witel = $arr_witel;
 
     }
 
@@ -33,21 +35,7 @@ class SarpenWitelExport implements FromView, WithTitle, WithColumnWidths, WithEv
     public function view(): View
     {
         $arr_data = array();
-        $arr_witel = array(
-            "Singaraja",
-            "Denpasar",
-            "Mataram",
-            "Malang",
-            "Jember",
-            "Kediri",
-            "Pasuruan",
-            "Sidoarjo",
-            "Madiun",
-            "Madura",
-            "Kupang",
-            "Surabaya Utara",
-            "Surabaya Selatan"
-        );
+        $arr_witel = $this->arr_witel;
 
         rsort($arr_witel);
 

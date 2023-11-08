@@ -42,9 +42,10 @@ class SarpenAllExport implements WithMultipleSheets
         rsort($arr_witel);
 
         $sheets = [];
-        $sheets[] = new SarpenWitelExport($this->year, $arr_witel);
-        $sheets[] = new SarpenPerWitelExport($this->year, $arr_witel);
-
+        $sheets[] = new SarpenWitelExport($this->year);
+        for ($i = 0; $i < count($arr_witel); $i++) {
+            $sheets[] = new SarpenPerWitelExport($this->year, $arr_witel[$i]);
+        }
 
         return $sheets;
 
