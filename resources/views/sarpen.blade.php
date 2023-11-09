@@ -109,6 +109,22 @@
                 vertical-align: middle; 
                 text-align: center;
             }
+            .table-gambar {
+                width: 100%;
+                border-collapse: collapse;
+                /* border: 1px solid black; */
+            }
+            .table-gambar td{
+                border: thin solid black;
+                font-size: 15px;
+                padding: 4px;
+                vertical-align: middle;
+            }
+            .table-gambar th{
+                border: thin solid black;
+                font-size: 15px;
+                padding : 5px;
+            }
             .header {
                 margin-top: 0px;
                 margin-bottom: 10px;
@@ -870,6 +886,103 @@
                     </div>
                 </div>
             </div> 
+            <div class="page_break_before">
+                <div class="header">
+                    <h3 class="header-margin font-weight-bold mb-50"><center>LAMPIRAN DOKUMENTASI SURVEY</center></h3>
+                    <div style="margin-left: 200px">
+                        <table>
+                            <tr>
+                                <td style="width:100px">No. Telkom</td>
+                                <td style="width:10px">:</td>
+                                <td style="width:350px; border-bottom:1px solid #000">
+                                    {{ $no_dokumen }}
+                                </td>
+                            </tr>
+                            @if($setting->group == 'TELKOM')
+                                <tr>
+                                    <td style="width:100px">No. Telkomsel</td>
+                                    <td style="width:10px">:</td>
+                                    <td style="width:350px; border-bottom:1px solid #000">
+                                        {{ $no_dokumen_klien }}
+                                    </td>
+                                </tr>
+                            @endif
+                        </table>
+                    </div>
+                </div>
+                <div class="margin-content margin-body" style="margin-bottom:20px;">
+                    <table>
+                        <tr>
+                            @if($setting->sto_site === 'SITE')
+                                <td style="width:30%">Nama Site / Site ID Telkomsel</td>
+                                <td style="width:70%">: {{ $site_survey ? $site_survey->nama_site : '' }}</td>
+                            @elseif ($setting->sto_site === 'STO')
+                                <td style="width:30%">Nama STO</td>
+                                <td style="width:70%">: {{ $site_survey ? $site_survey->nama_sto : '' }}</td>
+                            @elseif ($setting->sto_site === 'NO_ORDER')
+                                <td style="width:30%">Nomor Order</td>
+                                <td style="width:70%">: {{ $site_survey ? $site_survey->nomor_order : '' }}</td>
+                            @endif
+
+                        </tr>
+                        <tr>
+                            <td style="width:30%">Longitude / Latitude</td>
+                            <td style="width:70%">:
+                                @if($site_survey)
+                                    {{ $site_survey->longitude }},
+                                    {{ $site_survey->latitude }}
+                                @endif  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:30%">Alamat</td>
+                            <td style="width:70%">: {{ $site_survey ? $site_survey->alamat : '' }}</td>
+                        </tr>
+                        @if($setting->group == 'TELKOM')
+                        <tr>
+                            <td style="width:30%">Regional Telkomsel</td>
+                            <td style="width:70%">: {{ $site_survey ? $site_survey->regional : '' }}</td>
+                        </tr>
+                        @endif
+                    </table>
+                </div>
+                <div class="margin-content margin-body">
+                    <table style="width:100%" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            @php
+                                $rows = ceil(count($gambars) / 3);
+                                $start = 0;
+                            @endphp
+                            @for($a=1; $a<=$rows; $a++)
+                            <tr>
+                                @php
+                                    $end = 3 * $a;
+                                @endphp
+                                @for($b=$start; $b<$end; $b++)
+                                    @if($b < count($gambars))
+                                    <td style="text-align:center;padding-bottom:10px;">
+                                        <table style="width:100%;">
+                                            <tbody>
+                                                <tr><td style="text-align:center; border:1px solid #000; padding: 5px;"><img src="{{ public_path().'/sarpen-gambar/'. $gambars[$b]->gambar_url }}" style="width:200px; height:300px; object-fit: cover;"></td></tr>
+                                                <tr>
+                                                    <td style="text-align:center; border:1px solid #000;"> 
+                                                        Gambar {{ $b + 1 }}. {{ $gambars[$b]->keterangan }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    @endif
+                                @endfor
+                                @php
+                                    $start = $start + 3;
+                                @endphp
+                            </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
     </body>
 </html>

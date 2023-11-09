@@ -829,7 +829,8 @@ class BeritaAcaraController extends Controller
                 'akseses',
                 'catuDayaMcbs',
                 'catuDayaGensets',
-                'racks'
+                'racks',
+                'gambars'
             ]
         )
             ->find($id);
@@ -889,6 +890,7 @@ class BeritaAcaraController extends Controller
             'catu_daya_mcbs'    => $data->catuDayaMcbs,
             'catu_daya_gensets' => $data->catuDayaGensets,
             'racks'             => $data->racks,
+            'gambars'           => $data->gambars,
             'catatan'           => $data->catatan,
             'paraf_data'        => $paraf_data,
             'no_dokumen'        => $data->no_dokumen,
@@ -1171,6 +1173,7 @@ class BeritaAcaraController extends Controller
             $data->sarpen_id = $id;
             $data->no = $counter;
             $data->gambar_url = $url;
+            $data->keterangan = $request->keterangan;
             $data->save();
 
             DB::commit();

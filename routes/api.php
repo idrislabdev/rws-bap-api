@@ -282,17 +282,19 @@ Route::prefix('sarpen')->group(function () {
     Route::group(['middleware' => 'auth:api'], function () {
 
         Route::prefix('transaksi')->group(function () {
-            Route::resource('berita-acara', SARPENTransaksiBeritaAcaraController::class);
-            Route::get('berita-acara/total', [SARPENTransaksiBeritaAcaraController::class, 'totalSarpen']);
-            Route::patch('berita-acara/{id}/proposed', [SARPENTransaksiBeritaAcaraController::class, 'proposed']);
-            Route::patch('berita-acara/{id}/ttd_witel', [SARPENTransaksiBeritaAcaraController::class, 'ttdWitel']);
-            Route::patch('berita-acara/{id}/paraf_wholesale', [SARPENTransaksiBeritaAcaraController::class, 'parafWholesale']);
-            Route::patch('berita-acara/{id}/ttd_wholesale', [SARPENTransaksiBeritaAcaraController::class, 'ttdWholesale']);
-            Route::patch('berita-acara/{id}/rejected', [SARPENTransaksiBeritaAcaraController::class, 'rejected']);
-            Route::patch('berita-acara/{id}/upload-dokumen', [SARPENTransaksiBeritaAcaraController::class, 'uploadDokumen']);
-            Route::patch('berita-acara/bulk/proses', [SARPENTransaksiBeritaAcaraController::class, 'bulkProses']);
-            Route::post('berita-acara/{id}/gambar', [SARPENTransaksiBeritaAcaraController::class, 'uploadGambar']);
-            Route::delete('berita-acara/{id}/gambar/{no}', [SARPENTransaksiBeritaAcaraController::class, 'deleteGambar']);
+            Route::group(['middleware' => ['auth:api', 'optimizeImages']], function () {
+                Route::resource('berita-acara', SARPENTransaksiBeritaAcaraController::class);
+                Route::get('berita-acara/total', [SARPENTransaksiBeritaAcaraController::class, 'totalSarpen']);
+                Route::patch('berita-acara/{id}/proposed', [SARPENTransaksiBeritaAcaraController::class, 'proposed']);
+                Route::patch('berita-acara/{id}/ttd_witel', [SARPENTransaksiBeritaAcaraController::class, 'ttdWitel']);
+                Route::patch('berita-acara/{id}/paraf_wholesale', [SARPENTransaksiBeritaAcaraController::class, 'parafWholesale']);
+                Route::patch('berita-acara/{id}/ttd_wholesale', [SARPENTransaksiBeritaAcaraController::class, 'ttdWholesale']);
+                Route::patch('berita-acara/{id}/rejected', [SARPENTransaksiBeritaAcaraController::class, 'rejected']);
+                Route::patch('berita-acara/{id}/upload-dokumen', [SARPENTransaksiBeritaAcaraController::class, 'uploadDokumen']);
+                Route::patch('berita-acara/bulk/proses', [SARPENTransaksiBeritaAcaraController::class, 'bulkProses']);
+                Route::post('berita-acara/{id}/gambar', [SARPENTransaksiBeritaAcaraController::class, 'uploadGambar']);
+                Route::delete('berita-acara/{id}/gambar/{no}', [SARPENTransaksiBeritaAcaraController::class, 'deleteGambar']);
+            });
         });
 
         Route::prefix('dashboard')->group(function () {

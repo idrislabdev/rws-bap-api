@@ -292,6 +292,7 @@ class SarpenTemplateController extends Controller
             'paraf_wholesale_data' => null,
             'no_dokumen'        => null,
             'no_dokumen_klien'  => null,
+            'gambar'            => null,
         ])->setPaper('a4');
         return $pdf->stream('berita_acara_sar[em.pdf');
     }
