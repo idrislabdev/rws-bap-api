@@ -11,11 +11,11 @@
         </tr>
         <tr>
             <td>Witel</td>
-            <td>Proses Manager Witel</td>
-            <td>Proses Officer Wholesale</td>
-            <td>Proses Manager Wholesale</td>
-            <td>TTD. Lengkap</td>
-            <td>Selesai / Sirkulir</td>
+            <td>Need Approval Manager Witel</td>
+            <td>Need Approval Officer Wholesale</td>
+            <td>Need Approval Manager Wholesale</td>
+            <td>Need T.SEL Sign</td>
+            <td>Completed</td>
         </tr>
         @php
             $proposed = 0;

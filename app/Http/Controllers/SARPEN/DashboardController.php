@@ -46,7 +46,7 @@ class DashboardController extends Controller
                         $ba_ttd_wholesale->count(), 
                         $ba_sirkulir->count()
                 );
-        $labels = array ('Proses Manager Witel', 'Proses Officer Wholesale', 'Proses Manager Wholesale', 'TTD. Lengkap', 'Selesai / Sirkulir');
+        $labels = array ('Need Approval Manager Witel', 'Need Approval Officer Wholesale', 'Need Approval Manager Wholesale', 'Need T.SEL Sign', 'Completed');
 
         $data->series = $series;
         $data->labels = $labels;

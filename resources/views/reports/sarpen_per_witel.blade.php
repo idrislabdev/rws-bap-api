@@ -20,7 +20,7 @@
             <th rowspan="3">Witel Telkom</th>
             <th rowspan="3">Nomor Telkom</th>
             <th rowspan="3">Revenue</th>
-            <th rowspan="3">Posisi</th>
+            <th rowspan="3">Tracking / Posisi</th>
             <th colspan="42">Data Tower</th>
             <th colspan="28">Data Rack</th>
             <th colspan="49">Data Ruangan</th>
@@ -138,15 +138,15 @@
             <td>{{ $data->no_dokumen }}</td>
             <td data-format="0,0">{{ $data->revenue_per_bulan }}</td>
             @if($data->status == 'proposed')
-                <td>Proses Manager Witel</td>
+                <td>Need Approval Manager Witel</td>
             @elseif($data->status == 'ttd_witel')
-                <td>Proses Officer Wholesale</td>
+                <td>Need Approval Officer Wholesale</td>
             @elseif($data->status == 'paraf_wholesale')
-                <td>Proses Manager Wholesale</td>
+                <td>Need Approval Manager Wholesale</td>
             @elseif($data->status == 'ttd_wholesale')
-                <td>TTD. Lengkap</td>
+                <td>Need T.SEL Sign</td>
             @elseif($data->status == 'finished')
-                <td>Selesai / Sirkulir</td>
+                <td>Completed</td>
             @endif
             @for ($a=0; $a<=6 ; $a++)
                 <td>{{ !empty($data->towers[$a]) ? $data->towers[$a]->type_jenis_antena : '' }}</td>
