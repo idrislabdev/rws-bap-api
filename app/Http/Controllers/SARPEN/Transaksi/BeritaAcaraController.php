@@ -270,6 +270,11 @@ class BeritaAcaraController extends Controller
             }
             $data->klien_data  = json_encode($request->klien_data, JSON_PRETTY_PRINT);
 
+
+            if ($request->has('tanggal_buat'))
+                $data->tanggal_buat  = $request->tanggal_buat;
+
+
             if ($request->has('revenue_per_bulan'))
                 $data->revenue_per_bulan  = $request->revenue_per_bulan;
 
