@@ -163,9 +163,7 @@ class AuthController extends Controller
             
             $url = $this->prosesUpload($request->file('ttd_image'));
             $user->ttd_image = $url;
-        }
-
-        if ($request->ttd_image) {
+        } else {
             $url  = $this->prosesUploadBase64($request->ttd_image);
             $user->ttd_image = $url;
            
