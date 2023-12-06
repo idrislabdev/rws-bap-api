@@ -611,13 +611,13 @@
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOM</td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">{{ $people_ttd->telkomsel_rto_region_jatim->detail_nilai}}</td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL PROJECT</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">{{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_rto_region_jatim->detail_nilai : $people_ttd->telkomsel_rto_region_balnus->detail_nilai}}</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom:none;">{{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_pm_region_jatim->detail_nilai : $people_ttd->telkomsel_pm_region_balnus->detail_nilai}}</td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENT REGION</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$people_ttd->manager_wholesale->nilai}}</td>
@@ -853,13 +853,13 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOM</td>
-                                        <td style="text-align:left; font-weight:bold; border-bottom:none;">{{ $people_ttd->telkomsel_rto_region_jatim->detail_nilai}}</td>
-                                        <td style="text-align:left; font-weight:bold; border-bottom:none;">TELKOMSEL PROJECT</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom:none;">{{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_rto_region_jatim->detail_nilai : $people_ttd->telkomsel_rto_region_balnus->detail_nilai}}</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom:none;">{{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_pm_region_jatim->detail_nilai : $people_ttd->telkomsel_pm_region_balnus->detail_nilai}}</td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
-                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">DEPLOYMENT REGION</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$people_ttd->manager_wholesale->nilai}}</td>
