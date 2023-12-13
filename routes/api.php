@@ -224,14 +224,12 @@ Route::prefix('cnop')->group(function () {
     });
 
     Route::prefix('report')->group(function () {
-        Route::group(['middleware' => 'auth:api'], function () {
             Route::get('newlink', [ReportController::class, 'newlink']);
             Route::get('upgrade', [ReportController::class, 'upgrade']);
             Route::get('dualhoming', [ReportController::class, 'dualhoming']);
             Route::get('relokasi', [ReportController::class, 'relokasi']);
             Route::get('other/view', [OtherTransactionController::class, 'reportView']);
             Route::get('other/download', [OtherTransactionController::class, 'reportDownload']);
-        });
     });
     
 
