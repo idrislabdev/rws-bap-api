@@ -36,6 +36,11 @@ class TrBaSarpen extends Model
         return $this->hasOne('App\Models\MaOloKlien', 'id', 'klien');
     }
 
+    public function neIptvs()
+    {
+        return $this->hasMany('App\Models\TrBaSarpenNeIptv', 'sarpen_id');
+    }
+
     public function towers()
     {
         return $this->hasMany('App\Models\TrBaSarpenTower', 'sarpen_id');

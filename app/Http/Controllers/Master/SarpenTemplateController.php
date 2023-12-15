@@ -93,6 +93,7 @@ class SarpenTemplateController extends Controller
             $data->nama = $request->nama;
             $data->group = $request->group;
             $data->sto_site = $request->sto_site;
+            $data->ne_iptv = $request->ne_iptv;
             $data->tower = $request->tower;
             $data->rack = $request->rack;
             $data->ruangan = $request->ruangan;
@@ -167,6 +168,9 @@ class SarpenTemplateController extends Controller
         try {
             $data = MaSarpenTemplate::findOrFail($id);
 
+            if ($request->has('ne_iptv')) {
+                $data->ne_iptv = $request->ne_iptv;
+            }
             if ($request->has('tower')) {
                 $data->tower = $request->tower;
             }

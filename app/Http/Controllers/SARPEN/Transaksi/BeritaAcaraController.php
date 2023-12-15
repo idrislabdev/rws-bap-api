@@ -18,6 +18,7 @@ use App\Models\TrBaSarpenCatuDayaGenset;
 use App\Models\TrBaSarpenCatuDayaMcb;
 use App\Models\TrBaSarpenGambar;
 use App\Models\TrBaSarpenLahan;
+use App\Models\TrBaSarpenNeIptv;
 use App\Models\TrBaSarpenRack;
 use App\Models\TrBaSarpenRuangan;
 use App\Models\TrBaSarpenService;
@@ -28,6 +29,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use PDF2;
+use PDF;
+
 
 class BeritaAcaraController extends Controller
 {
@@ -210,6 +213,7 @@ class BeritaAcaraController extends Controller
                 'pembuat',
                 'managerWholesale',
                 'parafWholesale',
+                'neIptvs',
                 'towers',
                 'ruangans',
                 'lahans',
@@ -274,7 +278,6 @@ class BeritaAcaraController extends Controller
             if ($request->has('tanggal_buat'))
                 $data->tanggal_buat  = $request->tanggal_buat;
 
-
             if ($request->has('revenue_per_bulan'))
                 $data->revenue_per_bulan  = $request->revenue_per_bulan;
 
@@ -318,6 +321,36 @@ class BeritaAcaraController extends Controller
                 $data->sto  = $request->sto;
 
             $data->updated_by = Auth::user()->id;
+
+            if ($request->has('ne_iptvs') && $setting->tower) {
+                TrBaSarpenNeIptv::where('sarpen_id', $data->id)->delete();
+                $ne_iptvs = $request->ne_iptvs;
+                $no = 1;
+                foreach ($ne_iptvs as $ne_iptv) {
+                    if ($ne_iptv['nama_perangkat'] !== null) {
+                        $data_iptv = new TrBaSarpenNeIptv();
+                        $data_iptv->sarpen_id = $data->id;
+                        $data_iptv->no = $no;
+                        $data_iptv->nama_perangkat = $ne_iptv['nama_perangkat'];
+                        $data_iptv->type_perangkat = $ne_iptv['type_perangkat'];
+                        $data_iptv->merk = $ne_iptv['merk'];
+                        $data_iptv->model = $ne_iptv['model'];
+                        $data_iptv->spesifikasi_teknis = $ne_iptv['spesifikasi_teknis'];
+                        $data_iptv->rack = $ne_iptv['rack'];
+                        $data_iptv->ruang_rack = $ne_iptv['ruang_rack'];
+                        $data_iptv->lantai = $ne_iptv['lantai'];
+                        $data_iptv->space_lokasi = $ne_iptv['space_lokasi'];
+                        $data_iptv->power_catu_daya = $ne_iptv['power_catu_daya'];
+                        $data_iptv->catuan_ac_dc = $ne_iptv['catuan_ac_dc'];
+                        $data_iptv->ruangan_share_dedicated = $ne_iptv['ruangan_share_dedicated'];
+                        $data_iptv->iptv_platform = $ne_iptv['iptv_platform'];
+                        $data_iptv->jumlah_perangkat = $ne_iptv['jumlah_perangkat'];
+                        $data_iptv->validasi = $ne_iptv['validasi'];
+                        $data_iptv->save();
+                        $no++;
+                    }
+                }
+            }
 
             if ($request->has('towers') && $setting->tower) {
                 TrBaSarpenTower::where('sarpen_id', $data->id)->delete();
@@ -827,6 +860,7 @@ class BeritaAcaraController extends Controller
                 'managerWholesale',
                 'managerWitel',
                 'parafWholesale',
+                'neIptvs',
                 'towers',
                 'ruangans',
                 'lahans',
@@ -877,7 +911,7 @@ class BeritaAcaraController extends Controller
 
 
 
-        $pdf = PDF2::loadView('sarpen', [
+        $pdf = PDF::loadView('sarpen', [
             'setting'           => $setting,
             'format_tanggal'    => $format_tanggal,
             'tgl_dokumen'       => $tgl_dokumen,
@@ -887,6 +921,7 @@ class BeritaAcaraController extends Controller
             'klien'             => $klien,
             'site_survey'       => $site_survey,
             'status'            => $data->status,
+            'ne_iptvs'          => $data->neIptvs,
             'towers'            => $data->towers,
             'ruangans'          => $data->ruangans,
             'lahans'            => $data->lahans,

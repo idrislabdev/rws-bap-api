@@ -74,16 +74,16 @@
             }
             .table-lampiran td{
                 border: thin solid black;
-                font-size: 11px;
-                line-height: 11px;
+                font-size: 14px;
+                line-height: 14px;
                 padding: 4px;
                 vertical-align: middle;
                 font-weight: 400;
             }
             .table-lampiran th{
                 border: thin solid black;
-                font-size: 11px;
-                line-height: 11px;
+                font-size: 14px;
+                line-height: 14px;
                 padding : 5px;
                 font-weight: 400;
             }
@@ -150,8 +150,8 @@
                 top: 0px;
             }
             .margin-body {
-                margin-left: 0px;
-                margin-right: 0px;
+                margin-left: 30px;
+                margin-right: 30px;
             }
             .mt-small {
                 margin-top : 5px;
@@ -906,7 +906,7 @@
                         <table class="table-lampiran cellpadding="0" cellspacing="0">
                             <tbody>
                                 <tr>
-                                    <td style="height:150px;vertical-align:top; font-size:17px;padding-top:10px;">Catatan / Keterangan Tambahan :
+                                    <td style="height:150px;vertical-align:top">Catatan / Keterangan Tambahan :
                                     @if($catatan)
                                         {{ $catatan }}
                                     @endif
@@ -925,10 +925,10 @@
                         <table class="table-lampiran cellpadding="0" cellspacing="0">
                             <tbody>
                                 <tr style="border-bottom:none">
-                                    <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none; padding-top:10px;">
+                                    <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
                                         TELKOM REGIONAL WHOLSALE
                                     </td>
-                                    <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none; padding-top:10px;">
+                                    <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none">
                                         @if($setting->group == 'TELKOM')
                                             TELKOMSEL
                                         @else
@@ -937,7 +937,7 @@
                                     </td>
                                 </tr>
                                 <tr style="border-top:none;border-bottom:none"> 
-                                    <td style="text-transform:uppercase;text-align:center;border-top:none;border-bottom:none;">
+                                    <td style="text-transform:uppercase;text-align:center;border-top:none;border-bottom:none">
                                         @if($manager_wholesale !== null && $manager_wholesale->status_dokumen != null)
                                             <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:120px;width:50%">
                                         @else
@@ -950,7 +950,7 @@
                                     <td style="text-transform:uppercase;text-align:center;border-top:none">
                                         <table style="width:100%;position:relative">
                                             <tr>
-                                                <td style="text-align:center;border:none;font-size:17px;">
+                                                <td style="text-align:center;border:none;">
                                                     {{ $manager_wholesale !== null ? $manager_wholesale->nama_lengkap : ''}}
                                                     @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
                                                         <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:40px;position:absolute;right:20px;top:-10px;">
@@ -959,7 +959,7 @@
                                             </tr>
                                         </table>
                                     </td>
-                                    <td style="text-transform:uppercase;text-align:center;border-top:none; font-size:17px">{{ $klien !== null ? $klien->nama : '' }}</td>
+                                    <td style="text-transform:uppercase;text-align:center;border-top:none">{{ $klien !== null ? $klien->nama : '' }}</td>
                                 </tr>
                             </tbody>
                         </table>

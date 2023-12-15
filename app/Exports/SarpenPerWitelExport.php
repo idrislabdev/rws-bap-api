@@ -37,7 +37,7 @@ class SarpenPerWitelExport implements FromView, WithTitle, WithColumnWidths, Wit
 
     public function view(): View
     {
-        $data = TrBaSarpen::with(['klienObj', 'towers','ruangans','lahans','services','akseses','catuDayaMcbs','catuDayaGensets','racks'])
+        $data = TrBaSarpen::with(['klienObj', 'neIptvs', 'towers','ruangans','lahans','services','akseses','catuDayaMcbs','catuDayaGensets','racks'])
                           ->where('status', '<>', 'draft')
                           ->whereYear('tanggal_buat', $this->year)
                           ->whereIn('site_witel', $this->arr_witel)
@@ -69,17 +69,18 @@ class SarpenPerWitelExport implements FromView, WithTitle, WithColumnWidths, Wit
             }
         } 
 
-        foreach(range('A','I') as $x) { 
+        foreach(range('A','M') as $x) { 
             foreach(range('A','Z') as $y) { 
                 $cols[$x.$y] = 25;
             } 
         } 
 
-        foreach(range('J','J') as $x) { 
-            foreach(range('A','J') as $y) { 
+        foreach(range('N','N') as $x) { 
+            foreach(range('A','K') as $y) { 
                 $cols[$x.$y] = 25;
             } 
         } 
+
 
         return $cols;
     }
@@ -97,7 +98,7 @@ class SarpenPerWitelExport implements FromView, WithTitle, WithColumnWidths, Wit
                 'alignment' => ['horizontal' => 'center', 'vertical' => 'middle'],
             ]
         );
-        $active_sheet->getStyle("A3:JJ5")->applyFromArray(
+        $active_sheet->getStyle("A3:NK5")->applyFromArray(
             [
                 'font' => ['name' => 'Verdana', 'size' => '12', 'bold' => true],
                 'alignment' => ['horizontal' => 'center', 'vertical' => 'middle'],
@@ -110,55 +111,59 @@ class SarpenPerWitelExport implements FromView, WithTitle, WithColumnWidths, Wit
             ]
         );
 
-        $active_sheet->getStyle("A4:JJ{$rows}")->applyFromArray(
+        $active_sheet->getStyle("A4:NK{$rows}")->applyFromArray(
             [
                 'font' => ['name' => 'Verdana', 'size' => '11'],
                 'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]]
             ]
         );
 
-        $active_sheet->getStyle("L3:BA{$rows}")->applyFromArray(
+        $active_sheet->getStyle("L3:DL{$rows}")->applyFromArray(
             [
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFA0B8FF']]
             ]
         );
-        $active_sheet->getStyle("BB3:CC{$rows}")->applyFromArray(
+        $active_sheet->getStyle("DM3:FB{$rows}")->applyFromArray(
             [
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'ff91d2ff']]
             ]
         );
-        $active_sheet->getStyle("CD3:DZ{$rows}")->applyFromArray(
+        $active_sheet->getStyle("FC3:GD{$rows}")->applyFromArray(
             [
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'ffffcc00']]
             ]
         );
-        $active_sheet->getStyle("EA3:FB{$rows}")->applyFromArray(
+        $active_sheet->getStyle("GE3:IA{$rows}")->applyFromArray(
             [
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'ffa4ffa4']]
             ]
         );
-        $active_sheet->getStyle("FC3:GK{$rows}")->applyFromArray(
+        $active_sheet->getStyle("IB3:JC{$rows}")->applyFromArray(
             [
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFE3FFDD']]
             ]
         );
 
-        $active_sheet->getStyle("GL3:HT{$rows}")->applyFromArray(
+        $active_sheet->getStyle("JD3:KL{$rows}")->applyFromArray(
             [
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FF38FFDD']]
             ]
         );
-        $active_sheet->getStyle("HU3:IO{$rows}")->applyFromArray(
+        $active_sheet->getStyle("KM3:LU{$rows}")->applyFromArray(
             [
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFDBFFE6']]
             ]
         );
-        $active_sheet->getStyle("IP3:JJ{$rows}")->applyFromArray(
+        $active_sheet->getStyle("LV3:MP{$rows}")->applyFromArray(
             [
                 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'FFDBFFFF']]
             ]
         );
-     
+        $active_sheet->getStyle("MQ3:NK{$rows}")->applyFromArray(
+            [
+                'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'fff0facf']]
+            ]
+        );
 
         
     }
