@@ -906,7 +906,7 @@
                         <table class="table-lampiran cellpadding="0" cellspacing="0">
                             <tbody>
                                 <tr>
-                                    <td style="height:150px;vertical-align:top; font-size:17px; lineh-height: 17px; padding-top:10px;">Catatan / Keterangan Tambahan :
+                                    <td style="height:150px;vertical-align:top; font-size:17px; line-height: 17px; padding-top:10px;">Catatan / Keterangan Tambahan :
                                     @if($catatan)
                                         {{ $catatan }}
                                     @endif
@@ -953,7 +953,7 @@
                                                 <td style="text-align:center;border:none;font-size:17px;">
                                                     {{ $manager_wholesale !== null ? $manager_wholesale->nama_lengkap : ''}}
                                                     @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
-                                                        <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:40px;position:absolute;right:20px;top:-10px;">
+                                                        <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:40px;position:absolute;right:20px;top:0px;">
                                                     @endif
                                                 </td>
                                             </tr>
