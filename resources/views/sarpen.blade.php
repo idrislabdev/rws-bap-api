@@ -436,86 +436,7 @@
                         </tr>
                         @endif
                     </table>
-                </div>
-
-                @if(isset($setting->ne_iptv))
-                <div class="margin-content margin-body mb-small">
-                    <div class="title-lampiran">
-                        <h5>NE IPTV</h5>
-                    </div>
-                    <table class="table-lampiran cellpadding="0" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Perangkat</th>
-                                <th>Type Perangkat</th>
-                                <th>Merek</th>
-                                <th>Model</th>
-                                <th>Spesifkasi Teknis</th>
-                                <th>Rack</th>
-                                <th>Ruang Rack</th>
-                                <th>Lantai</th>
-                                <th>Space Lokasi</th>
-                                <th>Power Catu Daya</th>
-                                <th>Catuan (AC / DC)</th>
-                                <th>Ruangan (Shared / Dedicated)</th>
-                                <th>IPTV Platform</th>
-                                <th>Jumlah Perangkat</th>
-                                <th>Validasi</th>
-                            </tr>
-                        </thead>
-                        @if($towers == null)
-                        <tbody>
-                            @for($a=1; $a<=10; $a++)
-                            <tr>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                                <td style="height:15px;"></td>
-                            </tr>
-                            @endfor
-                        </tbody>
-                        @else
-                            @if (count($ne_iptvs) > 0)
-                            <tbody>
-                                @foreach($ne_iptvs as $item)
-                                <tr>
-                                    <td style="height:15px; text-align:center">{{ $item->no }}</td>
-                                    <td style="height:15px;">{{ $item->nama_perangkat }}</td>
-                                    <td style="height:15px;">{{ $item->type_perangkat }}</td>
-                                    <td style="height:15px;">{{ $item->merk }}</td>
-                                    <td style="height:15px;">{{ $item->model }}</td>
-                                    <td style="height:15px;">{{ $item->spesifikasi_teknis }}</td>
-                                    <td style="height:15px;">{{ $item->rack }}</td>
-                                    <td style="height:15px;">{{ $item->ruang_rack }}</td>
-                                    <td style="height:15px;">{{ $item->lantai }}</td>
-                                    <td style="height:15px;">{{ $item->space_lokasi }}</td>
-                                    <td style="height:15px;">{{ $item->power_catu_daya }}</td>
-                                    <td style="height:15px;">{{ $item->catuan_ac_dc }}</td>
-                                    <td style="height:15px;">{{ $item->ruangan_share_dedicated }}</td>
-                                    <td style="height:15px;">{{ $item->iptv_platform }}</td>
-                                    <td style="height:15px;">{{ $item->jumlah_perangkat }}</td>
-                                    <td style="height:15px;">{{ $item->validasi }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            @endif
-                        @endif
-                    </table>
-                </div>
-                @endif
+                </div>                
 
                 @if($setting->tower)
                 <div class="margin-content margin-body mb-small">
@@ -891,6 +812,85 @@
                                     <td style="height:15px;">{{ $item->nama_service }}</td>
                                     <td style="height:15px;">{{ $item->port_pe }}</td>
                                     <td style="height:15px;">{{ $item->keterangan }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            @endif
+                        @endif
+                    </table>
+                </div>
+                @endif
+
+                @if(isset($setting->ne_iptv))
+                <div class="margin-content margin-body mb-small">
+                    <div class="title-lampiran">
+                        <h5>NE IPTV</h5>
+                    </div>
+                    <table class="table-lampiran cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Perangkat</th>
+                                <th>Type Perangkat</th>
+                                <th>Merek</th>
+                                <th>Model</th>
+                                <th>Spesifkasi Teknis</th>
+                                <th>Rack</th>
+                                <th>Ruang Rack</th>
+                                <th>Lantai</th>
+                                <th>Space Lokasi</th>
+                                <th>Power Catu Daya</th>
+                                <th>Catuan (AC / DC)</th>
+                                <th>Ruangan (Shared / Dedicated)</th>
+                                <th>IPTV Platform</th>
+                                <th>Jumlah Perangkat</th>
+                                <th>Validasi</th>
+                            </tr>
+                        </thead>
+                        @if($ne_iptvs == null)
+                        <tbody>
+                            @for($a=1; $a<=10; $a++)
+                            <tr>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                                <td style="height:15px;"></td>
+                            </tr>
+                            @endfor
+                        </tbody>
+                        @else
+                            @if (count($ne_iptvs) > 0)
+                            <tbody>
+                                @foreach($ne_iptvs as $item)
+                                <tr>
+                                    <td style="height:15px; text-align:center">{{ $item->no }}</td>
+                                    <td style="height:15px;">{{ $item->nama_perangkat }}</td>
+                                    <td style="height:15px;">{{ $item->type_perangkat }}</td>
+                                    <td style="height:15px;">{{ $item->merk }}</td>
+                                    <td style="height:15px;">{{ $item->model }}</td>
+                                    <td style="height:15px;">{{ $item->spesifikasi_teknis }}</td>
+                                    <td style="height:15px;">{{ $item->rack }}</td>
+                                    <td style="height:15px;">{{ $item->ruang_rack }}</td>
+                                    <td style="height:15px;">{{ $item->lantai }}</td>
+                                    <td style="height:15px;">{{ $item->space_lokasi }}</td>
+                                    <td style="height:15px;">{{ $item->power_catu_daya }}</td>
+                                    <td style="height:15px;">{{ $item->catuan_ac_dc }}</td>
+                                    <td style="height:15px;">{{ $item->ruangan_share_dedicated }}</td>
+                                    <td style="height:15px;">{{ $item->iptv_platform }}</td>
+                                    <td style="height:15px;">{{ $item->jumlah_perangkat }}</td>
+                                    <td style="height:15px;">{{ $item->validasi }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

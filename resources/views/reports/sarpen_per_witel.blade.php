@@ -21,7 +21,6 @@
             <th rowspan="3">Nomor Telkom</th>
             <th rowspan="3">Revenue</th>
             <th rowspan="3">Tracking / Posisi</th>
-            <th colspan="105">Data NE IPTV</th>
             <th colspan="42">Data Tower</th>
             <th colspan="28">Data Rack</th>
             <th colspan="49">Data Ruangan</th>
@@ -30,11 +29,9 @@
             <th colspan="35">Data Catu Daya (Genset)</th>
             <th colspan="21">Data Service</th>
             <th colspan="21">Data Akses</th>
+            <th colspan="105">Data NE IPTV</th>
         </tr>
         <tr>
-            @for ($a=0; $a<=6 ; $a++)
-                <th colspan="15">NE IPTV {{ $a + 1 }}</th>
-            @endfor
             @for ($a=0; $a<=6 ; $a++)
                 <th colspan="6">Tower {{ $a + 1 }}</th>
             @endfor
@@ -59,25 +56,11 @@
             @for ($a=0; $a<=6 ; $a++)
                 <th colspan="3">Akses {{ $a + 1 }}</th>
             @endfor
+            @for ($a=0; $a<=6 ; $a++)
+                <th colspan="15">NE IPTV {{ $a + 1 }}</th>
+            @endfor
         </tr>
         <tr>
-            @for ($a=0; $a<=6 ; $a++)
-                <th>Nama Perangkat</th>
-                <th>Type Perangkat</th>
-                <th>Merek</th>
-                <th>Model</th>
-                <th>Spesifkasi Teknis</th>
-                <th>Rack</th>
-                <th>Ruang Rack</th>
-                <th>Lantai</th>
-                <th>Space Lokasi</th>
-                <th>Power Catu Daya</th>
-                <th>Catuan (AC / DC)</th>
-                <th>Ruangan (Shared / Dedicated)</th>
-                <th>IPTV Platform</th>
-                <th>Jumlah Perangkat</th>
-                <th>Validasi</th>
-            @endfor
             @for ($a=0; $a<=6 ; $a++)
                 <th>Tipe / Jenis Antena</th>
                 <th>Status Antena</th>
@@ -131,6 +114,23 @@
                 <th>Panjang (Meter)</th>
                 <th>Arah Akses</th>
             @endfor
+            @for ($a=0; $a<=6 ; $a++)
+                <th>Nama Perangkat</th>
+                <th>Type Perangkat</th>
+                <th>Merek</th>
+                <th>Model</th>
+                <th>Spesifkasi Teknis</th>
+                <th>Rack</th>
+                <th>Ruang Rack</th>
+                <th>Lantai</th>
+                <th>Space Lokasi</th>
+                <th>Power Catu Daya</th>
+                <th>Catuan (AC / DC)</th>
+                <th>Ruangan (Shared / Dedicated)</th>
+                <th>IPTV Platform</th>
+                <th>Jumlah Perangkat</th>
+                <th>Validasi</th>
+            @endfor
         </tr>
         @php
             $no = 0;
@@ -169,23 +169,6 @@
             @elseif($data->status == 'finished')
                 <td>Completed</td>
             @endif
-            @for ($a=0; $a<=6 ; $a++)
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->nama_perangkat : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->type_perangkat : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->merk : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->model : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->spesifikasi_teknis : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->rack : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->ruang_rack : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->lantai : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->space_lokasi : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->power_catu_daya : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->catuan_ac_dc : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->ruangan_share_dedicated : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->iptv_platform : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->jumlah_perangkat : '' }}</td>
-                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->validasi : '' }}</td>
-            @endfor
             @for ($a=0; $a<=6 ; $a++)
                 <td>{{ !empty($data->towers[$a]) ? $data->towers[$a]->type_jenis_antena : '' }}</td>
                 <td>{{ !empty($data->towers[$a]) ? $data->towers[$a]->status_antena : '' }}</td>
@@ -238,6 +221,23 @@
                 <td>{{ !empty($data->akseses[$a]) ? $data->akseses[$a]->peruntukan_akses : '' }}</td>
                 <td>{{ !empty($data->akseses[$a]) ? $data->akseses[$a]->panjang_meter : '' }}</td>
                 <td>{{ !empty($data->akseses[$a]) ? $data->akseses[$a]->arah_akses : '' }}</td>
+            @endfor
+            @for ($a=0; $a<=6 ; $a++)
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->nama_perangkat : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->type_perangkat : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->merk : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->model : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->spesifikasi_teknis : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->rack : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->ruang_rack : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->lantai : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->space_lokasi : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->power_catu_daya : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->catuan_ac_dc : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->ruangan_share_dedicated : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->iptv_platform : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->jumlah_perangkat : '' }}</td>
+                <td>{{ !empty($data->neIptvs[$a]) ? $data->neIptvs[$a]->validasi : '' }}</td>
             @endfor
         </tr>
         @endforeach
