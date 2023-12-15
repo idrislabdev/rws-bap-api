@@ -906,7 +906,7 @@
                         <table class="table-lampiran cellpadding="0" cellspacing="0">
                             <tbody>
                                 <tr>
-                                    <td style="height:150px;vertical-align:top; font-size:17px;padding-top:10px;">Catatan / Keterangan Tambahan :
+                                    <td style="height:150px;vertical-align:top; font-size:17px; lineh-height: 17px; padding-top:10px;">Catatan / Keterangan Tambahan :
                                     @if($catatan)
                                         {{ $catatan }}
                                     @endif
