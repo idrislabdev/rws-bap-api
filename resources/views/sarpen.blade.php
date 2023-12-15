@@ -953,7 +953,7 @@
                                                 <td style="text-align:center;border:none;font-size:17px;">
                                                     {{ $manager_wholesale !== null ? $manager_wholesale->nama_lengkap : ''}}
                                                     @if($paraf_wholesale !== null && $paraf_wholesale->status_dokumen !== null)
-                                                        <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:40px;position:absolute;right:20px;top:0px;">
+                                                        <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:40px;position:absolute;right:20px;top:-20px;">
                                                     @endif
                                                 </td>
                                             </tr>
