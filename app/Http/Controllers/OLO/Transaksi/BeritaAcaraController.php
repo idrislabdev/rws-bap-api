@@ -68,9 +68,22 @@ class BeritaAcaraController extends Controller
             if (isset($_GET['sort_by']))
             {
                 if ($_GET['sort'] == 'asc') {
-                    $data = $data->orderBy($_GET['sort_by']);
+                    if ($_GET['sort_by'] == 'no_dokumen_baut') {
+                        $data = $data->orderByRaw('right(no_dokumen_baut, 4), mid(no_dokumen_baut, 6, 4)');
+                    } else if ($_GET['sort_by'] == 'no_dokumen_bast') {
+                        $data = $data->orderByRaw('right(no_dokumen_bast, 4), mid(no_dokumen_bast, 6, 4)');
+                    }  else {
+                        $data = $data->orderBy($_GET['sort_by']);
+                    }
                 } else {
-                    $data = $data->orderByDesc($_GET['sort_by']);
+                    if ($_GET['sort_by'] == 'no_dokumen_baut') {
+                        $data = $data->orderByRaw('right(no_dokumen_baut, 4) desc, mid(no_dokumen_baut, 6, 4) desc');
+                    } else if ($_GET['sort_by'] == 'no_dokumen_bast') {
+                        $data = $data->orderByRaw('right(no_dokumen_bast, 4) desc, mid(no_dokumen_bast, 6, 4) desc');
+
+                    } else {
+                        $data = $data->orderByDesc($_GET['sort_by']);
+                    }
                 }
             } else {
                 $data = $data->orderByDesc('tgl_dokumen');
