@@ -274,6 +274,8 @@ class BeritaAcaraController extends Controller
             }
             $data->klien_data  = json_encode($request->klien_data, JSON_PRETTY_PRINT);
 
+            if ($request->has('no_dokumen') && $request->no_dokumen !== null)
+                $data->no_dokumen = $request->no_dokumen;
 
             if ($request->has('tanggal_buat'))
                 $data->tanggal_buat  = $request->tanggal_buat;
