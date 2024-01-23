@@ -310,6 +310,9 @@ class BeritaAcaraController extends Controller
             if ($request->has('longitude'))
                 $data->longitude  = $request->longitude;
 
+            if ($request->has('site_witel'))
+                $data->site_witel  = $request->site_witel;
+
             if ($request->has('regional'))
                 $data->regional  = $request->regional;
 
