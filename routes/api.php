@@ -34,6 +34,7 @@ use App\Http\Controllers\OLO\Transaksi\BeritaAcaraController as TransaksiBeritaA
 use App\Http\Controllers\OLO\Transaksi\DraftBeritaAcaraController;
 use App\Http\Controllers\SARPEN\DashboardController as SARPENDashboardController;
 use App\Http\Controllers\SARPEN\ReportController as SARPENReportController;
+use App\Http\Controllers\SARPEN\TargetController;
 use App\Http\Controllers\SARPEN\Transaksi\BeritaAcaraController as SARPENTransaksiBeritaAcaraController;
 
 /*
@@ -302,11 +303,15 @@ Route::prefix('sarpen')->group(function () {
                 Route::get('donut', [SARPENDashboardController::class, 'donut']);
                 Route::get('column', [SARPENDashboardController::class, 'column']);
                 Route::get('ba-sesuai-witel', [SARPENDashboardController::class, 'baSesuaiWitel']);
+                Route::get('target-sesuai-witel', [SARPENDashboardController::class, 'targetSesuaiWitel']);
+                Route::get('active-target', [SARPENDashboardController::class, 'activeTarget']);
+
             });
         });
         Route::prefix('report')->group(function () {
             Route::group(['middleware' => 'auth:api'], function () {
                 Route::get('ba-sesuai-witel', [SARPENReportController::class, 'baSesuaiWitel']);
+                Route::get('target-sarpen', [SARPENReportController::class, 'targetSarpen']);
             });
         });
 
@@ -319,9 +324,16 @@ Route::prefix('sarpen')->group(function () {
             Route::get('berita-acara-sirkulir/{name}', [SARPENTransaksiBeritaAcaraController::class, 'dokumenSirkulir']);
         });
 
-        Route::prefix('report')->group(function () {
-    
+        Route::prefix('target')->group(function () {
+            Route::get('', [TargetController::class, 'index']);
+            Route::post('', [TargetController::class, 'store']);
+            Route::get('{id}', [TargetController::class, 'show']);
+            Route::post('{target_id}/no/{no}', [TargetController::class, 'addWitelDetail']);
+            Route::post('{target_id}/bulk', [TargetController::class, 'bulkUpload']);
+            Route::delete('{target_id}/no/{detail_no}/detail/{no}', [TargetController::class, 'deleteWitelDetail']);
+            Route::get('download/template', [TargetController::class, 'downloadTemplate']);
         });
+
     });
     Route::get('gambar/{name}', [SARPENTransaksiBeritaAcaraController::class, 'gambarSarpen']);
 

@@ -16,7 +16,7 @@ class TrOloBaDetail extends Model
     public function addOn()
     {
         
-        return $this->hasMany('App\Models\TrOloBaDetailAddOn', ['olo_ba_id', 'id'], ['olo_ba_id', 'id']);
+        return $this->'App\Models\TrOloBaDetailAddOn', ['olo_ba_id', 'id'], ['olo_ba_id', 'id']);
     }
 
     public function main()

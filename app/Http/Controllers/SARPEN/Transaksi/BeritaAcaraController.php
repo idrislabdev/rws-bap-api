@@ -12,6 +12,8 @@ use App\Models\MaNomorDokumen;
 use App\Models\MaOloKlien;
 use App\Models\MaPengguna;
 use App\Models\MaSarpenTemplate;
+use App\Models\MaSite;
+use App\Models\MaSto;
 use App\Models\TrBaSarpen;
 use App\Models\TrBaSarpenAkses;
 use App\Models\TrBaSarpenCatuDayaGenset;
@@ -22,6 +24,9 @@ use App\Models\TrBaSarpenNeIptv;
 use App\Models\TrBaSarpenRack;
 use App\Models\TrBaSarpenRuangan;
 use App\Models\TrBaSarpenService;
+use App\Models\TrBaSarpenTarget;
+use App\Models\TrBaSarpenTargetWitel;
+use App\Models\TrBaSarpenTargetWitelDetail;
 use App\Models\TrBaSarpenTower;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -748,7 +753,6 @@ class BeritaAcaraController extends Controller
             $dokumen->tgl_dokumen = date('Y-m-d');
             $dokumen->save();
             $data->no_dokumen = $no_dokumen;
-
             $data->save();
             DB::commit();
             return response()->json([
@@ -963,6 +967,8 @@ class BeritaAcaraController extends Controller
 
             $data->status = 'finished';
             $data->dokumen_sirkulir = $url;
+
+            $this->udpateTarget($data);
             $data->save();
 
             DB::commit();
@@ -1123,9 +1129,9 @@ class BeritaAcaraController extends Controller
                     $dokumen->tipe_dokumen = 'SARPEN';
                     $dokumen->tgl_dokumen = date('Y-m-d');
                     $dokumen->save();
-
                     $data->no_dokumen = $no_dokumen;
                     $data->save();
+
                     DB::commit();
                 } catch (\Exception $e) {
                     DB::rollback();
@@ -1273,6 +1279,26 @@ class BeritaAcaraController extends Controller
     {
         $storagePath = public_path() . '/sarpen-sirkulir/' . $name;
         return response()->file($storagePath);
+    }
+
+    private function udpateTarget($data)
+    {
+        $kode = '';
+        if ($data->type == 'STO') {
+            $kode = MaSto::where('id', $data->sto)->first()->nama;
+        } else if ($data->type == 'SITE') {
+            $kode = MaSite::where('id', $data->site)->first()->site_id;
+        }
+        
+        $sarpen_target = TrBaSarpenTarget::where('status', 'active')->first();
+        $target_witel = TrBaSarpenTargetWitel::where('sarpen_target_id', $sarpen_target->id)->where('witel', $data->site_witel)->first();
+        TrBaSarpenTargetWitelDetail::where('tipe', $data->type)
+                        ->where('sarpen_target_detail_id', $target_witel->sarpen_target_id)
+                        ->where('detail_no', $target_witel->no)
+                        ->where('kode', $kode)
+                        ->whereNull('no_dokumen')
+                        ->update(array('no_dokumen' => $data->no_dokumen, 'alamat' => $data->alamat));
+
     }
 
     private function prosesUploadLampiran($file)

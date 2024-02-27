@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\SARPEN;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TrBaSarpenTargetResource;
 use App\Models\TrBaSarpen;
+use App\Models\TrBaSarpenTarget;
+use App\Models\TrBaSarpenTargetWitel;
+use App\Models\TrBaSarpenTargetWitelDetail;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -143,4 +147,65 @@ class DashboardController extends Controller
             'data' => $arr_data
         ], 200);
     }
+
+    public function targetSesuaiWitel()
+    {
+        $target_id = TrBaSarpenTarget::where('status', 'active')->first()->id;
+        if (isset($_GET['target_id'])){
+            $target_id = $_GET['target_id'];
+        }
+
+        $arr_data = array();
+        $arr_witel = array('Denpasar','Jember','Kediri','Kupang','Madiun','Madura','Malang','Mataram','Pasuruan','Sidoarjo','Singaraja','Surabaya Selatan','Surabaya Utara');
+
+
+        for ($i=0; $i<count($arr_witel); $i++)
+        {
+            $target = TrBaSarpenTargetWitel::with('details')->where('witel', $arr_witel[$i])->where('sarpen_target_id', $target_id)->first();
+            $realisasi = TrBaSarpenTargetWitel::with(['details' => function ($q) {
+                $q->whereNotNull('no_dokumen');
+            }])->where('witel', $arr_witel[$i])->where('sarpen_target_id', $target_id)->first();
+
+            $data = new \stdClass();
+            $data->witel = $arr_witel[$i];
+            $data->target = count($target->details);
+            $data->realisasi = count($realisasi->details);
+
+            array_push($arr_data,  $data);
+
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $arr_data
+        ], 200);
+    }
+
+    public function activeTarget() 
+    {
+        try {
+            $data = TrBaSarpenTarget::where('status', 'active')->first();
+            if ($data) {
+                return (new TrBaSarpenTargetResource($data))->additional([
+                    'success' => true,
+                    'message' => 'suksess'
+                ]);
+            } else {
+                return response()->json([
+                    'data' => new \stdClass(),
+                    'success' => false,
+                    'message' => 'Data Not Found',
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    
 }
