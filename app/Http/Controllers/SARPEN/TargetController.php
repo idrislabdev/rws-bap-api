@@ -22,7 +22,14 @@ class TargetController extends Controller
     
     public function index()
     {
-        $data = new TrBaSarpenTarget();
+        $data = TrBaSarpenTarget::with(['witels' => function ($query) {
+            $query->withCount(['details','realisasi']);
+
+            // $query->withCount([
+            //     'details' => function ($q_detail) { $q_detail->whereNull('no_dokumen'); },
+            //     'realisasi' => function ($q_detail) { $q_detail->whereNotNull('no_dokumen'); }
+            // ]);
+        }]);
         if (isset($_GET['page'])) {
 
             if (isset($_GET['q'])) {
@@ -336,6 +343,59 @@ class TargetController extends Controller
                 'success' => true,
                 'message' => 'error',
             ], 500);
+        }
+    }
+
+    public function closeTarget(Request $request, $id)
+    {
+
+        $v = Validator::make($request->all(), [
+            'tanggal_berakhir' => 'required',
+        ]);
+
+        if ($v->fails()) {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => $v->errors()
+            ], 422);
+        }
+
+        $data = TrBaSarpenTarget::where('id', $id)->first();
+
+        if(!$data)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        if ($data->tanggal_mulai > $request->tanggal_berakhir)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Tanggal berakhir harus lebih besar dari tanggal mulai',
+                'data' => null
+            ], 422);
+        }
+        try {
+            $data = TrBaSarpenTarget::findOrFail($id);
+            $data->tanggal_berakhir = $request->tanggal_berakhir;
+            $data->status = 'not_active';
+
+            $data->save();
+            return (new TrBaSarpenTargetResource($data))->additional([
+                'success' => true,
+                'message' => 'Data Berhasil Ditutup'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 404);
         }
     }
 

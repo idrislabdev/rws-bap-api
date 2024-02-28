@@ -15,4 +15,9 @@ class TrBaSarpenTargetWitel extends Model
     {
         return $this->hasMany('App\Models\TrBaSarpenTargetWitelDetail', ['sarpen_target_detail_id', 'detail_no'], ['sarpen_target_id', 'no']);
     }
+
+    public function realisasi()
+    {
+        return $this->hasMany('App\Models\TrBaSarpenTargetWitelDetail', ['sarpen_target_detail_id', 'detail_no'], ['sarpen_target_id', 'no'])->whereNotNull('no_dokumen');
+    }
 }

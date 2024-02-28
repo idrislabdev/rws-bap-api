@@ -328,6 +328,7 @@ Route::prefix('sarpen')->group(function () {
             Route::get('', [TargetController::class, 'index']);
             Route::post('', [TargetController::class, 'store']);
             Route::get('{id}', [TargetController::class, 'show']);
+            Route::patch('{id}/close-target', [TargetController::class, 'closeTarget']);
             Route::post('{target_id}/no/{no}', [TargetController::class, 'addWitelDetail']);
             Route::post('{target_id}/bulk', [TargetController::class, 'bulkUpload']);
             Route::delete('{target_id}/no/{detail_no}/detail/{no}', [TargetController::class, 'deleteWitelDetail']);
