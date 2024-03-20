@@ -227,7 +227,9 @@ class BeritaAcaraController extends Controller
                 'catuDayaMcbs',
                 'catuDayaGensets',
                 'racks',
-                'gambars'
+                'gambars',
+                'dataSto',
+                'dataSite'
             ])->findOrFail($id);
 
             $data->setting = json_decode($data->setting);
@@ -968,7 +970,13 @@ class BeritaAcaraController extends Controller
             $data->status = 'finished';
             $data->dokumen_sirkulir = $url;
 
-            $this->udpateTarget($data);
+            if ($request->sarpen_target_detail_id && $request->detail_no && $request->no) {
+                $sarpen_target_detail_id = $request->sarpen_target_detail_id;
+                $detail_no = $request->detail_no;
+                $no = $request->no;
+                $this->updateTarget($data, $sarpen_target_detail_id, $detail_no, $no);
+            }
+
             $data->save();
 
             DB::commit();
@@ -1281,21 +1289,20 @@ class BeritaAcaraController extends Controller
         return response()->file($storagePath);
     }
 
-    private function udpateTarget($data)
+    private function updateTarget($data, $sarpen_target_detail_id, $detail_no, $no)
     {
-        $kode = '';
-        if ($data->type == 'STO') {
-            $kode = MaSto::where('id', $data->sto)->first()->nama;
-        } else if ($data->type == 'SITE') {
-            $kode = MaSite::where('id', $data->site)->first()->site_id;
-        }
+        // $kode = '';
+        // if ($data->type == 'STO') {
+        //     $kode = MaSto::where('id', $data->sto)->first()->nama;
+        // } else if ($data->type == 'SITE') {
+        //     $kode = MaSite::where('id', $data->site)->first()->site_id;
+        // }
         
-        $sarpen_target = TrBaSarpenTarget::where('status', 'active')->first();
-        $target_witel = TrBaSarpenTargetWitel::where('sarpen_target_id', $sarpen_target->id)->where('witel', $data->site_witel)->first();
-        TrBaSarpenTargetWitelDetail::where('tipe', $data->type)
-                        ->where('sarpen_target_detail_id', $target_witel->sarpen_target_id)
-                        ->where('detail_no', $target_witel->no)
-                        ->where('kode', $kode)
+        // $sarpen_target = TrBaSarpenTarget::where('status', 'active')->first();
+        // $target_witel = TrBaSarpenTargetWitel::where('sarpen_target_id', $sarpen_target->id)->where('witel', $data->site_witel)->first();
+        TrBaSarpenTargetWitelDetail::where('sarpen_target_detail_id', $sarpen_target_detail_id)
+                        ->where('detail_no', $detail_no)
+                        ->where('no', $no)
                         ->whereNull('no_dokumen')
                         ->update(array('no_dokumen' => $data->no_dokumen, 'alamat' => $data->alamat));
 

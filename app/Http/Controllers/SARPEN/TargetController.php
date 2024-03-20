@@ -11,6 +11,7 @@ use App\Models\TrBaSarpenTarget;
 use App\Models\TrBaSarpenTargetWitel;
 use App\Models\TrBaSarpenTargetWitelDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Mockery\Undefined;
@@ -53,6 +54,7 @@ class TargetController extends Controller
         $v = Validator::make($request->all(), [
             'nama_project' => 'required',
             'tanggal_mulai' => 'required',
+            'tanggal_berakhir' => 'required',
             'witels' => 'required'
         ]);
 
@@ -64,14 +66,15 @@ class TargetController extends Controller
             ], 422);
         }
 
-        $check_status = TrBaSarpenTarget::where('status', 'active')->first();
-        if ($check_status) {
+        if ($request->tanggal_mulai > $request->tanggal_berakhir)
+        {
             return response()->json([
                 'status' => false,
-                'message' => 'Silahkan nonaktifkan proyek yang masih aktif terlebih dahulu',
+                'message' => 'Tanggal berakhir harus lebih besar dari tanggal mulai',
                 'data' => null
-            ], 403);
+            ], 422);
         }
+
         DB::beginTransaction();
 
         try {
@@ -80,6 +83,7 @@ class TargetController extends Controller
             $target->id = $id;
             $target->nama_project = $request->nama_project;
             $target->tanggal_mulai = $request->tanggal_mulai;
+            $target->tanggal_berakhir = $request->tanggal_berakhir;
             $target->status = 'active';
             $target->save();
 
@@ -179,7 +183,7 @@ class TargetController extends Controller
     public function destroy($id)
     {
         // abort(404);
-        $data = TrBaSarpenTargetWitel::find($id);
+        $data = TrBaSarpenTarget::find($id);
 
         if(!$data)
         {
@@ -348,19 +352,6 @@ class TargetController extends Controller
 
     public function closeTarget(Request $request, $id)
     {
-
-        $v = Validator::make($request->all(), [
-            'tanggal_berakhir' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return response()->json([
-                'data' => null,
-                'succes' => false,
-                'message' => $v->errors()
-            ], 422);
-        }
-
         $data = TrBaSarpenTarget::where('id', $id)->first();
 
         if(!$data)
@@ -372,17 +363,9 @@ class TargetController extends Controller
             ], 404);
         }
 
-        if ($data->tanggal_mulai > $request->tanggal_berakhir)
-        {
-            return response()->json([
-                'status' => false,
-                'message' => 'Tanggal berakhir harus lebih besar dari tanggal mulai',
-                'data' => null
-            ], 422);
-        }
         try {
             $data = TrBaSarpenTarget::findOrFail($id);
-            $data->tanggal_berakhir = $request->tanggal_berakhir;
+            $data->tanggal_berakhir = date('Y-m-d');
             $data->status = 'not_active';
 
             $data->save();
@@ -397,6 +380,29 @@ class TargetController extends Controller
                 'message' => $th->getMessage(),
             ], 404);
         }
+    }
+
+    public function dataTarget()
+    {
+        $kode = $_GET['kode'];
+        $witel = $_GET['witel'];
+        $data = TrBaSarpenTarget::with(['witels' => function ($query) use ($kode, $witel) {
+            if (Auth::user()->role === 'WITEL') {
+                $query->where('witel', Auth::user()->site_witel);
+            } else if (Auth::user()->role === 'RWS' || Auth::user()->role === 'ROOT') {
+                $query->where('witel', $witel);
+            }
+            $query->with([
+                'details' => function ($q_detail) use ($kode)  { 
+                    $q_detail->where('kode', $kode)->whereNull('no_dokumen'); 
+                },
+            ]);
+        }])->where('status', 'active')->where('tanggal_berakhir', '>=', date('Y-m-d'))->get();
+
+        return TrBaSarpenResource::collection($data)->additional([
+            'success' => true,
+            'message' => null
+        ]);
     }
 
     public function downloadTemplate()

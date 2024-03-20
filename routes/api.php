@@ -317,6 +317,8 @@ Route::prefix('sarpen')->group(function () {
 
         Route::prefix('data')->group(function () {
             Route::get('berita-acara/total/{group}', [SARPENTransaksiBeritaAcaraController::class, 'totalSarpen']);
+            Route::get('target', [TargetController::class, 'dataTarget']);
+
         });
 
         Route::prefix('view')->group(function () {
@@ -327,6 +329,7 @@ Route::prefix('sarpen')->group(function () {
         Route::prefix('target')->group(function () {
             Route::get('', [TargetController::class, 'index']);
             Route::post('', [TargetController::class, 'store']);
+            Route::delete('{id}', [TargetController::class, 'destroy']);
             Route::get('{id}', [TargetController::class, 'show']);
             Route::patch('{id}/close-target', [TargetController::class, 'closeTarget']);
             Route::post('{target_id}/no/{no}', [TargetController::class, 'addWitelDetail']);

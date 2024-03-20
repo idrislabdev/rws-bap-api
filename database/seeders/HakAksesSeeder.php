@@ -77,6 +77,7 @@ class HakAksesSeeder extends Seeder
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.other.bypass', 'deskripsi' => '-'],
 
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.setting', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.target', 'deskripsi' => '-'],
 
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'dokumen', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'pengaturan', 'deskripsi' => '-'],

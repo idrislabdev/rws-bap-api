@@ -150,35 +150,37 @@ class DashboardController extends Controller
 
     public function targetSesuaiWitel()
     {
-        $target_id = TrBaSarpenTarget::where('status', 'active')->first()->id;
-        if (isset($_GET['target_id'])){
-            $target_id = $_GET['target_id'];
-        }
-
-        $arr_data = array();
+        $targets = TrBaSarpenTarget::where('status', 'active')->where('tanggal_berakhir', '>=', date('Y-m-d'))->orderBy('created_at')->get();
         $arr_witel = array('Denpasar','Jember','Kediri','Kupang','Madiun','Madura','Malang','Mataram','Pasuruan','Sidoarjo','Singaraja','Surabaya Selatan','Surabaya Utara');
 
+        $arr_targets = [];
+        foreach ($targets as $key => $item) {
+            $arr_data = array();
+            for ($i=0; $i<count($arr_witel); $i++)
+            {
+                $target_witel = TrBaSarpenTargetWitel::with('details')->where('witel', $arr_witel[$i])->where('sarpen_target_id', $item->id)->first();
+                $realisasi = TrBaSarpenTargetWitel::with(['details' => function ($q) {
+                    $q->whereNotNull('no_dokumen');
+                }])->where('witel', $arr_witel[$i])->where('sarpen_target_id', $item->id)->first();
 
-        for ($i=0; $i<count($arr_witel); $i++)
-        {
-            $target = TrBaSarpenTargetWitel::with('details')->where('witel', $arr_witel[$i])->where('sarpen_target_id', $target_id)->first();
-            $realisasi = TrBaSarpenTargetWitel::with(['details' => function ($q) {
-                $q->whereNotNull('no_dokumen');
-            }])->where('witel', $arr_witel[$i])->where('sarpen_target_id', $target_id)->first();
+                $data = new \stdClass();
+                $data->witel = $arr_witel[$i];
+                $data->target = count($target_witel->details);
+                $data->realisasi = count($realisasi->details);
 
-            $data = new \stdClass();
-            $data->witel = $arr_witel[$i];
-            $data->target = count($target->details);
-            $data->realisasi = count($realisasi->details);
+                array_push($arr_data,  $data);
 
-            array_push($arr_data,  $data);
-
+            }
+            $target = new \stdClass();
+            $target = $item;
+            $target->witels = $arr_data;
+            array_push($arr_targets, $target);
         }
 
         return response()->json([
             'status' => true,
             'message' => 'success',
-            'data' => $arr_data
+            'data' => $arr_targets
         ], 200);
     }
 

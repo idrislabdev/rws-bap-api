@@ -85,4 +85,14 @@ class TrBaSarpen extends Model
     {
         return $this->hasMany('App\Models\TrBaSarpenGambar', 'sarpen_id');
     }
+
+    public function dataSto()
+    {
+        return $this->hasOne('App\Models\MaSto', 'id', 'sto');
+    }
+
+    public function dataSite()
+    {
+        return $this->hasOne('App\Models\MaSite', 'id', 'site');
+    }
 }
