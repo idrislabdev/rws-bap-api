@@ -165,6 +165,8 @@ Route::prefix('cnop')->group(function () {
                 // Route::get('new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
                 Route::get('new-link/ba/{id}/refresh', [NewLinkController::class, 'fileBA']);
                 Route::delete('new-link/ba/{id}/delete', [NewLinkController::class, 'deleteBA']);
+                Route::patch('new-link/ba/{id}/paraf', [NewLinkController::class, 'parafWholesale']);
+                Route::patch('new-link/ba/{id}/ttd', [NewLinkController::class, 'ttdWholesale']);
 
 
                 Route::post('upgrade', [UpgradeController::class, 'store']);
@@ -175,6 +177,8 @@ Route::prefix('cnop')->group(function () {
                 // Route::get('upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
                 Route::get('upgrade/ba/{id}/refresh', [UpgradeController::class, 'fileBA']);
                 Route::delete('upgrade/ba/{id}/delete', [UpgradeController::class, 'deleteBA']);
+                Route::patch('upgrade/ba/{id}/paraf', [UpgradeController::class, 'parafWholesale']);
+                Route::patch('upgrade/ba/{id}/ttd', [UpgradeController::class, 'ttdWholesale']);
 
                 Route::post('relokasi', [RelokasiController::class, 'store']);
                 Route::patch('relokasi/{wo_id}/site/{wo_site_id}', [RelokasiController::class, 'update']);
