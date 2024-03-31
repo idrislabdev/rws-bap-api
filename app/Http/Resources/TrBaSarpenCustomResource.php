@@ -39,6 +39,7 @@ class TrBaSarpenCustomResource extends JsonResource
             "paraf_wholesale_data" => json_decode($this->paraf_wholesale_data),
             "manager_wholesale" => $this->manager_wholesale,
             "manager_wholesale_data" => json_decode($this->manager_wholesale_data),
+            "manager_wholesale_data" => json_decode($this->manager_wholesale_data),
             "catatan" => $this->catatan,
             "status" => $this->status,
             "site_witel" => $this->site_witel,
@@ -46,6 +47,8 @@ class TrBaSarpenCustomResource extends JsonResource
             "setting" => json_decode($this->setting),
             "created_by" => $this->created_by,
             "pembuat" => $this->pembuat,
+            // "ne_iptvs" => $this->neIptvs,
+            "ne_iptvs_count" => $this->ne_iptvs_count,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at
         ];

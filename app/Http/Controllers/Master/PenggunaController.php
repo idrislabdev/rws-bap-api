@@ -179,6 +179,11 @@ class PenggunaController extends Controller
             $data->ttd_image = $url;
         }
 
+        if ($request->file('paraf_image')) {
+            $url = $this->prosesUpload($request->file('paraf_image'));
+            $data->paraf_image = $url;
+        }
+
         $data->update();
 
         return response()->json([

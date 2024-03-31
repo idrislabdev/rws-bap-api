@@ -364,7 +364,7 @@
                                         <td>
                                             {{$people_ttd->osm_regional->nilai}}
                                             @if($manager_wholesale !== null)
-                                                <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
+                                                <img src="{{ public_path().'/ttd/'.  $manager_wholesale->paraf_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
                                             @endif
                                         </td>
                                     </tr>

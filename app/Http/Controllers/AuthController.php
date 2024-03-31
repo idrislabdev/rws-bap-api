@@ -10,6 +10,8 @@ use App\Models\MaPengguna;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
+use function PHPUnit\Framework\isEmpty;
+
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -163,10 +165,25 @@ class AuthController extends Controller
             
             $url = $this->prosesUpload($request->file('ttd_image'));
             $user->ttd_image = $url;
-        } else {
+        }
+
+        if (!$request->file('ttd_image')) {
             $url  = $this->prosesUploadBase64($request->ttd_image);
             $user->ttd_image = $url;
-           
+        }
+
+        if ($request->file('paraf_image')) {
+            $path = public_path().'/ttd/'.$user->paraf_image;
+            if($user->paraf_image && file_exists($path))
+                unlink($path);
+            
+            $url = $this->prosesUpload($request->file('paraf_image'));
+            $user->paraf_image = $url;
+        }
+
+        if (!$request->file('paraf_image')) {
+            $url  = $this->prosesUploadBase64($request->paraf_image);
+            $user->paraf_image = $url;
         }
 
         $user->update();

@@ -477,6 +477,109 @@ class DismantleController extends Controller
         }
     }
 
+    public function parafWholesale($id)
+    {
+        $data = TrBa::find($id);
+        if(!$data)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        $pengguna = MaPengguna::find(Auth::user()->id);
+        if ($pengguna->ttd_image === null) 
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $data->paraf_wholesale = Auth::user()->id;
+
+            $paraf_wholesale = new \stdClass();
+            $paraf_wholesale->status_dokumen = 'APPROVED';
+            $paraf_wholesale->ttd_image = $pengguna->ttd_image;
+
+            $data->paraf_wholesale_data  = json_encode($paraf_wholesale, JSON_PRETTY_PRINT);
+            $data->save();
+            $this->fileBA($id);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+    }
+
+    public function ttdWholesale($id)
+    {
+        $data = TrBa::find($id);
+        if(!$data)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        $user = MaPengguna::find(Auth::user()->id);
+        $pengaturan = MaPengaturan::where('nama', 'MANAGER_WHOLESALE_SUPPORT')->first();
+        $pengguna = MaPengguna::where('nama_lengkap', $pengaturan->nilai)->first();
+
+
+        if ($pengguna->ttd_image === null) 
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Anda / Manager Wholesale Support Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $data->manager_wholesale = Auth::user()->id;
+
+            $manager_wholesale = new \stdClass();
+            $manager_wholesale->status_dokumen = 'APPROVED';
+            $manager_wholesale->ttd_image = $pengguna->ttd_image;
+            $manager_wholesale->paraf_image = $pengguna->paraf_image;
+
+            $data->manager_wholesale_data  = json_encode($manager_wholesale, JSON_PRETTY_PRINT);
+            $data->save();
+            $this->fileBA($id);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+    }
+
     public function fileBA($id)
     {
         set_time_limit(1800);
@@ -555,6 +658,9 @@ class DismantleController extends Controller
         $people_ttd->manager_pm_balnus = MaPengaturan::where('nama', 'PM_BALNUS')->first();
         $people_ttd->gm_network = MaPengaturan::where('nama', 'GM_NETWORK_ENGINEERING_PROJECT')->first();
 
+        // $paraf_wholesale = json_decode($data_ba->paraf_wholesale_data);
+        $manager_wholesale = json_decode($data_ba->manager_wholesale_data);
+
 
         $pdf = PDF::loadView('dismantle', [
             'jenis_dokumen'     => $jenis_dokumen,
@@ -565,7 +671,9 @@ class DismantleController extends Controller
             'total_bw'          => $total_bw,
             'total_site'        => $total_site,
             'format_tanggal'    => $format_tanggal,
-            'people_ttd'        => $people_ttd
+            'people_ttd'        => $people_ttd,
+            // 'paraf_wholesale'   => $paraf_wholesale,
+            'manager_wholesale' => $manager_wholesale,
         ])->setPaper('a4');
 
         $file_name = $id . '.pdf';

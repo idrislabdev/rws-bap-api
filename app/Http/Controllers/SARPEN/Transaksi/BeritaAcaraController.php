@@ -44,17 +44,14 @@ class BeritaAcaraController extends Controller
 
     public function index()
     {
-        $data = TrBaSarpen::with('pembuat')->with('managerWholesale')->with('parafWholesale');
+        $data = TrBaSarpen::with(['pembuat', 'managerWholesale', 'parafWholesale'])->withCount('neIptvs');
         if (isset($_GET['page'])) {
 
             if (isset($_GET['q']) && $_GET['q'] !== '') {
                 $q = $_GET['q'];
                 $data = $data->whereRaw("(no_dokumen like '%$q%' or 
-                                          nama_sto like '%$q%' or 
-                                          nama_site like '%$q%' or
-                                          regional like '%$q%' or
-                                          nama_klien like '%$q%'
-                                          )");
+                    nama_sto like '%$q%' or nama_site like '%$q%' or
+                    regional like '%$q%' or nama_klien like '%$q%')");
             }
 
             if (isset($_GET['group'])) {
@@ -85,9 +82,8 @@ class BeritaAcaraController extends Controller
                 } else {
                     $user_id = Auth::user()->id;
                     $data = $data->whereRaw("(manager_witel = '$user_id' and status = 'proposed') or
-                                            (paraf_wholesale = '$user_id' and status = 'ttd_witel') or
-                                            (manager_wholesale = '$user_id' and status = 'paraf_wholesale')
-                                            ");
+                            (paraf_wholesale = '$user_id' and status = 'ttd_witel') or
+                            (manager_wholesale = '$user_id' and status = 'paraf_wholesale')");
                 }
 
                 if ($_GET['status'] == 'draft') {
@@ -95,7 +91,10 @@ class BeritaAcaraController extends Controller
                 }
             }
 
-
+            // if (isset($_GET['filter'])) {
+            //     if ($_GET['filter'] == 'iptv')
+            //         $data->having('ne_iptvs_count', '>', 0);
+            // }
 
 
             $per_page = 50;
@@ -114,6 +113,7 @@ class BeritaAcaraController extends Controller
             'success' => true,
             'message' => null,
         ]);
+        
     }
 
     public function store(Request $request)
@@ -1288,6 +1288,7 @@ class BeritaAcaraController extends Controller
         $storagePath = public_path() . '/sarpen-sirkulir/' . $name;
         return response()->file($storagePath);
     }
+    
 
     private function updateTarget($data, $sarpen_target_detail_id, $detail_no, $no)
     {

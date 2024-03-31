@@ -195,6 +195,7 @@ Route::prefix('cnop')->group(function () {
                 Route::post('dismantle/create-ba/check', [DismantleController::class, 'checkSiteBA']);
                 Route::get('dismantle/ba/{id}/refresh', [DismantleController::class, 'fileBA']);
                 Route::delete('dismantle/ba/{id}/delete', [DismantleController::class, 'deleteBA']);
+                Route::patch('dismantle/ba/{id}/ttd', [DismantleController::class, 'ttdWholesale']);
 
                 Route::post('dual-homing', [DualHomingController::class, 'store']);
                 Route::patch('dual-homing/{wo_id}/site/{wo_site_id}', [DualHomingController::class, 'update']);
