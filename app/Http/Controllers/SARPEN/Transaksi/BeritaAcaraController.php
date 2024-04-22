@@ -54,6 +54,10 @@ class BeritaAcaraController extends Controller
                     regional like '%$q%' or nama_klien like '%$q%')");
             }
 
+            if (isset($_GET['year'])) {
+                $data = $data->whereYear('tanggal_buat', $_GET['year']);
+            }
+
             if (isset($_GET['group'])) {
                 $data = $data->where('group', $_GET['group']);
             }
@@ -183,7 +187,7 @@ class BeritaAcaraController extends Controller
             // $data->updated_by = Auth::user()->id;
             $data->id = Uuid::uuid4()->toString();
 
-            if ($template->group == 'TELKOM') {
+            if ($template->group == 'TELKOM' || $template->group == 'IPTV') {
                 $klien = MaOloKlien::find('1cd01e5f-9550-474b-b56b-c9529fa3a5e7');
                 $klien_data = new \stdClass();
                 $klien_data->id = $klien->id;

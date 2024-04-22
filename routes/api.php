@@ -305,6 +305,7 @@ Route::prefix('sarpen')->group(function () {
 
         Route::prefix('dashboard')->group(function () {
             Route::group(['middleware' => 'auth:api'], function () {
+                Route::get('all', [SARPENDashboardController::class, 'all']);
                 Route::get('donut', [SARPENDashboardController::class, 'donut']);
                 Route::get('column', [SARPENDashboardController::class, 'column']);
                 Route::get('ba-sesuai-witel', [SARPENDashboardController::class, 'baSesuaiWitel']);
@@ -316,6 +317,7 @@ Route::prefix('sarpen')->group(function () {
         Route::prefix('report')->group(function () {
             Route::group(['middleware' => 'auth:api'], function () {
                 Route::get('ba-sesuai-witel', [SARPENReportController::class, 'baSesuaiWitel']);
+                Route::get('ba-dashboard', [SARPENReportController::class, 'baDashboard']);
                 Route::get('target-sarpen', [SARPENReportController::class, 'targetSarpen']);
             });
         });

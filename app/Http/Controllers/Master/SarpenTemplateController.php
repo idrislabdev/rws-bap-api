@@ -65,7 +65,7 @@ class SarpenTemplateController extends Controller
     {
         $v = Validator::make($request->all(), [
             'nama' => 'required',
-            'group' => 'in:TELKOM,OTHER',
+            'group' => 'in:TELKOM,OTHER,IPTV',
             'sto_site' => 'in:STO,SITE,NO_ORDER',
             'tower' => 'required',
             'rack' => 'required',

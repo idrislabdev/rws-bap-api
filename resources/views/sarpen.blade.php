@@ -130,7 +130,8 @@
                 margin-bottom: 10px;
             }
             .header-margin {
-                margin-bottom: 3px !important;
+                font-size: 17px;
+                margin-bottom: 20px !important;
                 margin-top: 3px !important;
             }
             .content-ttd {
@@ -203,21 +204,23 @@
         <main>
             <div class="">
                 <div class="header">
-                    <h3 class="header-margin font-weight-bold mb-50"><center>BERITA ACARA SEWA SARANA PENUNJANG</center></h3>
                     <div style="margin-left: 200px">
                         <table>
+                            <tr class="text-center">
+                                <td class="header-margin font-weight-bold" colspan="3">BERITA ACARA SEWA SARANA PENUNJANG</td>
+                            </tr>
                             <tr>
-                                <td style="width:100px">No. Telkom</td>
+                                <td style="width:120px">No. Telkom</td>
                                 <td style="width:10px">:</td>
-                                <td style="width:275px; border-bottom:1px solid #000">
+                                <td style="width:325px; border-bottom:1px solid #000">
                                     {{ $no_dokumen }}
                                 </td>
                             </tr>
-                            @if($setting->group == 'TELKOM')
+                            @if($setting->group != 'OTHER')
                                 <tr>
-                                    <td style="width:100px">No. Telkomsel</td>
+                                    <td style="width:120px">No. Telkomsel</td>
                                     <td style="width:10px">:</td>
-                                    <td style="width:275px; border-bottom:1px solid #000">
+                                    <td style="width:325px; border-bottom:1px solid #000">
                                         {{ $no_dokumen_klien }}
                                     </td>
                                 </tr>
@@ -278,7 +281,7 @@
                         <tr>
                             <td></td>
                             <td colspan="3">
-                                @if($setting->group == 'TELKOM')
+                                @if($setting->group != 'OTHER')
                                     Selanjutnya disebut Telkomsel
                                 @else
                                     Selanjutnya disebut {{ $klien->nama_perusahaan }}
@@ -317,7 +320,7 @@
                             <td style="width:35%">Alamat</td>
                             <td style="width:65%">: {{ $site_survey ? $site_survey->alamat : '' }}</td>
                         </tr>
-                        @if($setting->group == 'TELKOM')
+                        @if($setting->group != 'OTHER')
                         <tr>
                             <td style="padding-top:20px;width:35%">Regional Telkomsel</td>
                             <td style="padding-top:20px;width:65%">: {{ $site_survey ? $site_survey->regional : '' }}</td>
@@ -339,7 +342,7 @@
                     <table style="width:100%;">
                         <tr class="text-center">
                             <td style="width:40%;">
-                                @if($setting->group == 'TELKOM')
+                                @if($setting->group != 'OTHER')
                                     PT. Telekomunikasi Selular
                                 @else
                                     PT. {{ $klien->nama_perusahaan}}
@@ -379,19 +382,21 @@
             </div>
             <div class="page_break_before">
                 <div class="header">
-                    <h3 class="header-margin font-weight-bold mb-50"><center>LAMPIRAN BERITA ACARA SURVEY</center></h3>
                     <div style="margin-left: 200px">
                         <table>
+                            <tr class="text-center">
+                                <td class="header-margin font-weight-bold" colspan="3">LAMPIRAN BERITA ACARA SURVEY</td>
+                            </tr>
                             <tr>
-                                <td style="width:100px">No. Telkom</td>
+                                <td style="width:120px">No. Telkom</td>
                                 <td style="width:10px">:</td>
                                 <td style="width:350px; border-bottom:1px solid #000">
                                     {{ $no_dokumen }}
                                 </td>
                             </tr>
-                            @if($setting->group == 'TELKOM')
+                            @if($setting->group != 'OTHER')
                                 <tr>
-                                    <td style="width:100px">No. Telkomsel</td>
+                                    <td style="width:120px">No. Telkomsel</td>
                                     <td style="width:10px">:</td>
                                     <td style="width:350px; border-bottom:1px solid #000">
                                         {{ $no_dokumen_klien }}
@@ -429,7 +434,7 @@
                             <td style="width:30%">Alamat</td>
                             <td style="width:70%">: {{ $site_survey ? $site_survey->alamat : '' }}</td>
                         </tr>
-                        @if($setting->group == 'TELKOM')
+                        @if($setting->group != 'OTHER')
                         <tr>
                             <td style="width:30%">Regional Telkomsel</td>
                             <td style="width:70%">: {{ $site_survey ? $site_survey->regional : '' }}</td>
@@ -929,7 +934,7 @@
                                         TELKOM REGIONAL WHOLSALE
                                     </td>
                                     <td style="width:50%;vertical-align:top;text-align:center; font-size:17px;font-weight:bold;border-bottom:none; padding-top:10px;">
-                                        @if($setting->group == 'TELKOM')
+                                        @if($setting->group != 'OTHER')
                                             TELKOMSEL
                                         @else
                                             PT. {{ $klien->nama_perusahaan }}
@@ -968,19 +973,21 @@
             </div> 
             <div class="page_break_before">
                 <div class="header">
-                    <h3 class="header-margin font-weight-bold mb-50"><center>LAMPIRAN DOKUMENTASI SURVEY</center></h3>
                     <div style="margin-left: 200px">
                         <table>
+                            <tr class="text-center">
+                                <td class="header-margin font-weight-bold" colspan="3">LAMPIRAN DOKUMENTASI SURVEY</td>
+                            </tr>
                             <tr>
-                                <td style="width:100px">No. Telkom</td>
+                                <td style="width:120px">No. Telkom</td>
                                 <td style="width:10px">:</td>
                                 <td style="width:350px; border-bottom:1px solid #000">
                                     {{ $no_dokumen }}
                                 </td>
                             </tr>
-                            @if($setting->group == 'TELKOM')
+                            @if($setting->group != 'OTHER')
                                 <tr>
-                                    <td style="width:100px">No. Telkomsel</td>
+                                    <td style="width:120px">No. Telkomsel</td>
                                     <td style="width:10px">:</td>
                                     <td style="width:350px; border-bottom:1px solid #000">
                                         {{ $no_dokumen_klien }}
@@ -1018,7 +1025,7 @@
                             <td style="width:30%">Alamat</td>
                             <td style="width:70%">: {{ $site_survey ? $site_survey->alamat : '' }}</td>
                         </tr>
-                        @if($setting->group == 'TELKOM')
+                        @if($setting->group != 'OTHER')
                         <tr>
                             <td style="width:30%">Regional Telkomsel</td>
                             <td style="width:70%">: {{ $site_survey ? $site_survey->regional : '' }}</td>

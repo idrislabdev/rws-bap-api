@@ -12,6 +12,32 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function all()
+    {
+        $year = date('Y');
+
+        if (isset($_GET['year'])){
+            $year = $_GET['year'];
+        }
+
+
+        $telkomsel = TrBaSarpen::where('status', 'finished')->where('group', 'TELKOM')->whereYear('tanggal_buat', $year)->count();
+        $other = TrBaSarpen::where('status', 'finished')->where('group', 'OTHER')->whereYear('tanggal_buat', $year)->count();
+        $iptv = TrBaSarpen::where('status', 'finished')->where('group', 'IPTV')->whereYear('tanggal_buat', $year)->count();
+
+        $data = new \stdClass();
+
+        $data->telkomsel = $telkomsel;
+        $data->other = $other;
+        $data->iptv = $iptv;
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $data
+        ], 200);
+    }
+
     public function donut()
     {
         $site_witel = "";
@@ -122,7 +148,8 @@ class DashboardController extends Controller
             "Madura",
             "Kupang",
             "Surabaya Utara",
-            "Surabaya Selatan"
+            "Surabaya Selatan",
+            "Wholesale"
         );
 
         $status = array ('proposed', 'ttd_witel', 'paraf_wholesale', 'ttd_wholesale', 'finished');
@@ -134,7 +161,11 @@ class DashboardController extends Controller
 
             for ($j=0; $j<count($status); $j++)
             {
-                $count = TrBaSarpen::where('status', $status[$j])->whereYear('tanggal_buat', $year)->where('site_witel', $arr_witel[$i])->count();
+                if ($arr_witel[$i] != "Wholesale") {
+                    $count = TrBaSarpen::where('status', $status[$j])->whereYear('tanggal_buat', $year)->where('site_witel', $arr_witel[$i])->count();
+                } else {
+                    $count = TrBaSarpen::where('status', $status[$j])->whereYear('tanggal_buat', $year)->whereNull('site_witel')->count();
+                }
                 $data->{$status[$j]} = $count;
             }
 

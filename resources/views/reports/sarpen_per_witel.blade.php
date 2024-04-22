@@ -4,10 +4,21 @@
 <html>
     <table>
         <tr>
-            <td colspan="10">Laporan B.A Sarpen Tahun {{ $year }}</td>
+            <td colspan="10">
+                Laporan B.A Sarpen Tahun {{ $year }}
+                @if ($group =='telkom')
+                    (TELKOMSEL)
+                @elseif ($group == 'other')
+                    (OTHER)
+                @elseif ($group == 'iptv')
+                    (IPTV)
+                @endif
+            </td>
         </tr>
         <tr>
-           <td colspan="10"></td>
+           <td colspan="10">
+            
+           </td>
         </tr>
         <tr>
             <th rowspan="3">No</th>
@@ -141,7 +152,7 @@
             @endphp    
         <tr>
             <td>{{ $no }}</td>
-            <td>{{ $data->klienObj->nama_perusahaan }}</td>
+            <td>{{ $data->klienObj ? $data->klienObj->nama_perusahaan : '' }}</td>
             @if ($data->group == 'TELKOM')
                 @if($data->type == 'SITE')
                     <td>SITE: {{ $data->nama_site }}</td>
@@ -155,7 +166,7 @@
             <td>{{ $data->longitude }}</td>
             <td>{{ $data->alamat }}</td>
             <td>{{ $data->regional }}</td>
-            <td>{{ $data->site_witel }}</td>
+            <td>{{ $data->site_witel != null ? $data->site_witel : 'Wholesale' }}</td>
             <td>{{ $data->no_dokumen }}</td>
             <td data-format="0,0">{{ $data->revenue_per_bulan }}</td>
             @if($data->status == 'proposed')

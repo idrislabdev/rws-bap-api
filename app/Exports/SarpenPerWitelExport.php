@@ -25,12 +25,16 @@ class SarpenPerWitelExport implements FromView, WithTitle, WithColumnWidths, Wit
     use RegistersEventListeners;
 
     protected $year;
+    protected $group;
+    protected $status;
     protected $arr_witel;
 
     private static $count_rows = 0;
 
-    function __construct($year, $arr_witel) {
+    function __construct($year, $group, $status, $arr_witel) {
         $this->year = $year;
+        $this->group = $group;
+        $this->status = $status;
         $this->arr_witel = $arr_witel;
     }
 
@@ -39,15 +43,23 @@ class SarpenPerWitelExport implements FromView, WithTitle, WithColumnWidths, Wit
     {
         $data = TrBaSarpen::with(['klienObj', 'neIptvs', 'towers','ruangans','lahans','services','akseses','catuDayaMcbs','catuDayaGensets','racks'])
                           ->where('status', '<>', 'draft')
-                          ->whereYear('tanggal_buat', $this->year)
-                          ->whereIn('site_witel', $this->arr_witel)
-                          ->orderBy('site_witel');
+                          ->whereYear('tanggal_buat', $this->year);
+                        //   ->whereIn('site_witel', $this->arr_witel)
+
+        if ($this->group != 'ALL')
+            $data = $data->where('group', $this->group);
+
+        if ($this->status != 'ALL')
+            $data = $data->where('status', $this->status);
+
+        $data = $data->orderBy('site_witel');
 
 
         self::$count_rows = $data->count();
 
         return view('reports.sarpen_per_witel', [
             'data'      => $data->get(),
+            'group'     => $this->group,
             'year'      => $this->year,
         ]);
     }

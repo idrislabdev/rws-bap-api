@@ -79,6 +79,21 @@ class HakAksesSeeder extends Seeder
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.other.upload', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.other.bypass', 'deskripsi' => '-'],
 
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.view', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.create', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.update', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.edit', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.reject', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.delete', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.proposed', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.ttd_witel', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.paraf_wholesale', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.ttd_wholesale', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.download', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.upload', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.iptv.bypass', 'deskripsi' => '-'],
+
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.setting', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen.target', 'deskripsi' => '-'],
 

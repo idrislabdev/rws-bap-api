@@ -2,19 +2,11 @@
 
 namespace App\Exports;
 
-use App\Models\TrProyek;
-use App\Models\TrProyekDokumen;
-use App\Models\TrProyekTagihan;
-use App\Models\TrProyekTagihanRc;
-use App\Models\TrProyekTagihanRcDetail;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class SarpenAllExport implements WithMultipleSheets
+class SarpenDashboardExport implements WithMultipleSheets
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
     protected $year;
     protected $group;
     protected $status;
@@ -47,9 +39,7 @@ class SarpenAllExport implements WithMultipleSheets
         rsort($arr_witel);
 
         $sheets = [];
-        $sheets[] = new SarpenWitelExport($this->year, $this->group, $this->status, $arr_witel);
         $sheets[] = new SarpenPerWitelExport($this->year, $this->group, $this->status, $arr_witel);
-
 
         return $sheets;
 

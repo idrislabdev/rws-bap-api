@@ -24,9 +24,13 @@ class SarpenWitelExport implements FromView, WithTitle, WithColumnWidths, WithEv
     use RegistersEventListeners;
 
     protected $year;
+    protected $group;
+    protected $status;
     protected $arr_witel;
-    function __construct($year, $arr_witel) {
+    function __construct($year, $group, $status, $arr_witel) {
         $this->year = $year;
+        $this->group = $group;
+        $this->status = $status;
         $this->arr_witel = $arr_witel;
 
     }
@@ -48,7 +52,15 @@ class SarpenWitelExport implements FromView, WithTitle, WithColumnWidths, WithEv
 
             for ($j=0; $j<count($status); $j++)
             {
-                $count = TrBaSarpen::where('status', $status[$j])->whereYear('tanggal_buat', $this->year)->where('site_witel', $arr_witel[$i])->count();
+                if ($arr_witel[$i] != 'Wholesale') {
+                    $count = TrBaSarpen::where('status', $status[$j])
+                    ->whereYear('tanggal_buat', $this->year)
+                    ->where('site_witel', $arr_witel[$i])->count();
+                } else {
+                    $count = TrBaSarpen::where('status', $status[$j])
+                    ->whereYear('tanggal_buat', $this->year)
+                    ->whereNull('site_witel')->count();
+                }
                 $data->{$status[$j]} = $count;
             }
 
