@@ -15,12 +15,14 @@ class UpgradeExport implements FromView
     protected $status;
     protected $ba;
     protected $tahun_order;
+    protected $ba_sirkulir;
 
-    function __construct($site_witel, $status, $ba, $tahun_order) {
+    function __construct($site_witel, $status, $ba, $tahun_order, $ba_sirkulir) {
         $this->site_witel = $site_witel;
         $this->status = $status;
         $this->ba = $ba;
         $this->tahun_order = $tahun_order;
+        $this->ba_sirkulir = $ba_sirkulir;
     }
 
     public function view(): View
@@ -93,6 +95,10 @@ class UpgradeExport implements FromView
             } else {
                 $data = $data->where('progress', 1)->whereNotNull('ba_id');
             }
+        }
+
+        if ($this->ba_sirkulir == 1) {
+            $data = $data->whereNotNull('manager_wholesale');
         }
                             
         $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->get();   

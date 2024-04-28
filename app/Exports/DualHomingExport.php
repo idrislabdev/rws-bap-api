@@ -14,11 +14,13 @@ class DualHomingExport implements FromView
     protected $site_witel;
     protected $status;
     protected $ba;
+    protected $ba_sirkulir;
 
-    function __construct($site_witel, $status, $ba) {
+    function __construct($site_witel, $status, $ba, $ba_sirkulir) {
         $this->site_witel = $site_witel;
         $this->status = $status;
         $this->ba = $ba;
+        $this->ba_sirkulir = $ba_sirkulir;
     }
 
     public function view(): View
@@ -100,6 +102,10 @@ class DualHomingExport implements FromView
             } else {
                 $data = $data->where('progress', 1)->whereNotNull('ba_id');
             }
+        }
+
+        if ($this->ba_sirkulir == 1) {
+            $data = $data->whereNotNull('manager_wholesale');
         }
                             
         $data = $data->orderBy('tr.created_at')->orderBy('tr.site_id')->get();   

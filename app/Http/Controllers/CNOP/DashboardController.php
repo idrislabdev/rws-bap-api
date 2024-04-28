@@ -101,7 +101,7 @@ class DashboardController extends Controller
                 ->where('site_witel', $witel[$i])
                 ->where('status', 'OA')
                 ->where('progress', 1)
-                ->where('status_sirkulir', 1)
+                ->whereNotNull('manager_wholesale')
                 ->whereNotNull('ba_id')
                 ->where('tahun_order', $tahun)
                 ->count();
@@ -126,7 +126,7 @@ class DashboardController extends Controller
             ->where('tipe_ba', $tipe_ba)
             ->where('status', 'OA')
             ->where('progress', 1)
-            ->where('status_sirkulir', 1)
+            ->whereNotNull('manager_wholesale')
             ->whereNotNull('ba_id')
             ->where('tahun_order', $tahun)
             ->count();
@@ -266,7 +266,7 @@ class DashboardController extends Controller
 
         if (isset($_GET['ba_sirkulir'])) {
             if ($_GET['ba_sirkulir'] != 0) {
-                $data = $data->where('status_sirkulir', 1);
+                $data = $data->whereNotNull('manager_wholesale');
             }
         }
 
@@ -369,7 +369,7 @@ class DashboardController extends Controller
 
         if (isset($_GET['ba_sirkulir'])) {
             if ($_GET['ba_sirkulir'] != 0) {
-                $data = $data->where('status_sirkulir', 1);
+                $data = $data->whereNotNull('manager_wholesale');
             }
         }
 
@@ -474,7 +474,7 @@ class DashboardController extends Controller
 
         if (isset($_GET['ba_sirkulir'])) {
             if ($_GET['ba_sirkulir'] != 0) {
-                $data = $data->where('status_sirkulir', 1);
+                $data = $data->whereNotNull('manager_wholesale');
             }
         }
 
