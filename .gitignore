@@ -9,6 +9,7 @@
 /storage/*.key
 /storage/framework/laravel-excel
 /vendor
+/config/snappy.php
 .env
 .env.backup
 .phpunit.result.cache
