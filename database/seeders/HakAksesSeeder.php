@@ -99,6 +99,10 @@ class HakAksesSeeder extends Seeder
 
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'dokumen', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'pengaturan', 'deskripsi' => '-'],
+
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.dashboard', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.users', 'deskripsi' => '-'],
         ];
 
         foreach ($items as $item) {
