@@ -34,6 +34,9 @@ class CreateMaUserAccountsTable extends Migration
             $table->string('jabatan_atasan', 100);
             $table->string('file_pakta_url');
             $table->string('image_ktp_url');
+            $table->json('starclick_ncx')->nullable(); //STARCLICK NCX
+            $table->json('ncx_cons')->nullable(); // NCX CONS
+            $table->boolean('is_deleted');
             $table->timestamps();
         });
     }

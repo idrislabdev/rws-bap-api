@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountCenter\JabatanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -348,4 +349,10 @@ Route::prefix('sarpen')->group(function () {
     });
     Route::get('gambar/{name}', [SARPENTransaksiBeritaAcaraController::class, 'gambarSarpen']);
 
+});
+
+Route::prefix('account-center')->group(function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::resource('jabatan', JabatanController::class);
+    });
 });

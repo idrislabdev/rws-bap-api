@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMaProfileStarclickTable extends Migration
+class CreateMaProfileStarclicksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMaProfileStarclickTable extends Migration
      */
     public function up()
     {
-        Schema::create('ma_profile_starclick', function (Blueprint $table) {
+        Schema::create('ma_profile_starclicks', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('nama', 100);
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateMaProfileStarclickTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ma_profile_starclick');
+        Schema::dropIfExists('ma_profile_starclicks');
     }
 }

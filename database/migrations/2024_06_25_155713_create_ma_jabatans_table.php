@@ -16,6 +16,8 @@ class CreateMaJabatansTable extends Migration
         Schema::create('ma_jabatans', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('nama', 100);
+            $table->json('starclick_ncx')->nullable();
+            $table->json('ncx_cons')->nullable();
             $table->timestamps();
         });
     }

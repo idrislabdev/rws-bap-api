@@ -1,0 +1,502 @@
+nama,starclick_profile
+ACCOUNT MANAGER,Approval Order SCBE|Cancel massal|Create and list opportunity|Invalid Survey SCBE|MYWIFI - Inputer|NEWINDISOL - Inputer|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|Tools|UHOS - Inputer
+ACCOUNT MANAGER 1,Approval Order SCBE|Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+ACCOUNT MANAGER 2,Approval Order SCBE|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+ADMIN APC,SCFE Inputer - DCS
+ADMIN ASO,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+ADMIN C4,SC Backend - Inputer|SCFE Inputer - DCS
+ADMIN CC,Approval Order SCBE|cek status massal|Report Plasa non Organik|SC Backend - Inputer|SC Frontend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS
+ADMIN DIGITAL LOD,SC Backend - Inputer|SC Frontend - Management|SCFE Inputer - DCS|Supervisor
+ADMIN DSW,SC Backend - Inputer|SC Frontend - Inputer|SCFE Inputer - DCS
+ADMIN HS,SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|User Revoke
+ADMIN PROVISIONING,SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|User Revoke
+ADMIN QC1,SC Backend - Inputer|SCFE Inputer - DCS
+ADMIN RLO,Approval Order SCBE|Crl Task|Invalid Survey SCBE|open MO|Profile khusu approval scbe|Report Plasa non Organik|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+ADMIN SCB,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|Tools|User Revoke
+ADMIN SUPPORT,Approval Order SCBE|Cancel massal|Create and list opportunity|Crl Task|Dashboard Report Agent|Dashboard user|Helpdesk|Inbox Cancel Telkomsel|Invalid Survey SCBE|Management User|Monitoring Deposit|MYDIGIBIZ - Inputer|MYWIFI - Inputer|NEWINDISOL - Inputer|NEWINDISOL - Viewer|open MO|Profile khusu approval scbe|Report Plasa non Organik|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Admin|SC Frontend - Backroom|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Senior Leader|SC Frontend - Supervisor|SC Frontend - Viewer|SC Frontend -Service Request OPS|SC Frontend -Service Request Tes|SCBE - Mywms|SCFE - HSI dan SCBE FU HSI|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|System Administrator|Tools|Tools untuk monitoring dan terminate session|UHOS - Inputer|update millestone|User Revoke|User Revoke EBIS
+AGEN SSC,cek status massal|MYWIFI - Viewer|NEWINDISOL - Viewer|SC Backend - Viewer|SC Frontend - Viewer|Tools|Tools untuk monitoring dan terminate session|User Revoke
+AGENT,Approval Order SCBE|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+AGENT CARING,SC Backend - Inputer|SCFE Inputer - DCS
+AGENT CTC,NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+AGENT CX,Approval Order SCBE|Cancel massal|cek status massal|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|Report Plasa non Organik|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE Inputer - DCS|Tools
+AGENT DBO,SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|User Revoke
+AGENT DSMO,SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+AGENT FULFILLMENT,SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS
+AGENT HCC,SCFE Inputer - DCS
+AGENT I47,Approval Order SCBE|Cancel massal|Crl Task|Invalid Survey SCBE|open MO|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|User Revoke|User Revoke EBIS
+AGENT OC3,Invalid Survey SCBE|SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+AGENT PLASA,SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+AGENT PREPAID,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+AGENT SOCMED,NEWINDISOL - Inputer|Profil khusus menu refund|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|User Revoke|User Revoke EBIS
+AGENT TAM,Cancel massal|cek status massal|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+AGENT TOS,SC Frontend - Viewer|SCFE Inputer - DCS
+AGENT WOC,Invalid Survey SCBE|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+ASMAN ACCESS OPERATION,Inbox Cancel Telkomsel|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+ASMAN APC 2,Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+ASMAN CRM & CUSTOMER LEVERAGING,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+ASMAN HOME SERVICE,Create and list opportunity|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+ASMAN SALES & CC Datel Batang,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE Inputer - DCS
+ASMAN SALES & CUSTOMER CARE,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Backroom|SCFE Inputer - DCS|Tools
+ASMAN SALES OPERATION 2,SCFE Inputer - DCS
+ASMAN WOC,SC Backend - Viewer
+AUDITOR,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+AUDITOR MADYA,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+AUDITOR PRATAMA II,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+Back Office Customer Care ,SC Backend - Inputer|SCFE Inputer - DCS
+CSR PLASA,Approval Order SCBE|Invalid Survey SCBE|NEWINDISOL - Inputer|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|user Apartclick|User Revoke|User Revoke EBIS
+Customer Care and Postpaid Consumer Management Area Jabotabek Jabar,Approval Order SCBE|Report Plasa non Organik|SC Backend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS
+Customer Care Postpaid Management Jabar,SC Backend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS
+Customer Service,Approval Order SCBE|Report Plasa non Organik|SC Backend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+Customer Service Representative,Approval Order SCBE|Cancel massal|Crl Task|Dashboard user|Invalid Survey SCBE|NEWINDISOL - Inputer|open MO|Profile khusu approval scbe|Report Plasa non Organik|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|user Apartclick
+DEPUTY EGM IT DEVELOPMENT,SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+DESK CONTROLL,Approval Order SCBE|Report Plasa non Organik|SC Backend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+DIGI AGENT,SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+Direct Sales Operation,Approval Order SCBE|Cancel massal|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|Report Plasa non Organik|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE Inputer - DCS|User Revoke
+DRAFTER,SCFE Inputer - DCS
+GM REGIONAL ENTERPRISE & GOVERNMENT SERV,Create and list opportunity|Invalid Survey SCBE|report plasa organik|SC Backend - Inputer|SCFE Inputer - DCS
+GM TA jaktim,SCFE Inputer - DCS
+GM TA Sulbagut,SC Backend - Viewer|SC Frontend - Viewer
+GM WITEL DENPASAR,SCFE Inputer - DCS
+GM WITEL GORONTALO,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+GM WITEL JEMBER,NEWINDISOL - Viewer|SC Backend - Viewer|SCFE Inputer - DCS|User Revoke
+GM WITEL KARAWANG,Agent|Approval Order SCBE|Create and list opportunity|Crl Task|Invalid Survey SCBE|MYWIFI - Inputer|MYWIFI - Viewer|open MO|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Backroom|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE Inputer - DCS|Tools
+GM WITEL LAMPUNG,Cancel massal|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|User Revoke
+GM WITEL MADURA,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+GM WITEL MALANG,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+GM WITEL MALUKU,SCFE Inputer - DCS
+GM WITEL NTB,SCFE Inputer - DCS
+GM WITEL PAPUA BARAT,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+GM WITEL SULSELBAR,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|User Revoke
+GM WITEL SULUT & MALUT,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+GM WITEL SURABAYA SELATAN,SCFE Inputer - DCS
+GM WITEL SURABAYA UTARA,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+HD DATA MANAGEMENT,SC Frontend - Viewer|User Revoke
+HD PROVISIONING WOC,SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+Head of Representation Office Trenggalek,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+HEAD OF REPRESENTATIVE OFFICE KANDANGAN,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+HEAD OF REPRESENTATIVE OFFICE PLERED,SC Backend - Inputer|SCFE Inputer - DCS
+HEAD OF REPRESENTATIVE OFFICE PULOBRAYAN,Inbox Cancel Telkomsel|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+Head of Representative Office Putussibau,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+HEAD OF REPRESENTATIVE OFFICE SERANG,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+HELPDESK,check order massal|Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Viewer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+HELPDESK  DAMAN,NEWINDISOL - Inputer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+HELPDESK ASSURANCE,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+HELPDESK DAMAN,SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke|Viewer
+HELPDESK FALLOUT,SC Frontend - Viewer
+HELPDESK FULFILLMENT,Invalid Survey SCBE|NEWINDISOL - Inputer|NEWINDISOL - Viewer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+HELPDESK HIS,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+HELPDESK IOAN,Invalid Survey SCBE|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|User Revoke
+HELPDESK IOC,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+HELPDESK LOGIC,SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+HELPDESK MAINTENANCE,SC Frontend - Viewer|User Revoke
+HELPDESK NE,SCFE Inputer - DCS
+HELPDESK OC3,SC Frontend - Viewer|User Revoke
+HELPDESK OPLANG,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+HELPDESK PROVISIONING,cek status massal|Create and list opportunity|Inbox Cancel Telkomsel|Invalid Survey SCBE|MYDIGIBIZ - Inputer|NEWINDISOL - Inputer|NEWINDISOL - Viewer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+HELPDESK TA,SC Frontend - Viewer
+HELPDESK WIFI,SC Backend - Viewer|SC Frontend - Viewer
+HELPDESK WOC,Helpdesk|Invalid Survey SCBE|NEWINDISOL - Viewer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+HERO,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+INBOUND CALLCENTER,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|Report Plasa non Organik|report plasa organik|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+INPUTER,SC Frontend - Admin
+IOCW,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+IS SUPPORT,SCFE Inputer - DCS
+JM CUSTOMER CARE,Approval Order SCBE|Crl Task|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+KAKANDATEL,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+LOYALTY OFFICER,SC Backend - Inputer|SCFE Inputer - DCS
+MANAGER,SCFE Inputer - DCS
+MANAGER ASO,NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+Manager Customer Leveraging,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+Manager FBB Access Service Operation,NEWINDISOL - Viewer|SC Backend - Viewer|SC Frontend - Viewer
+Manager Provisioning & Migrasi,Invalid Survey SCBE|NEWINDISOL - Viewer|SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+Manager TA Access Operation Pekalongan,SC Backend - Viewer|SCFE Inputer - DCS|User Revoke
+MGR  CUSTOMER MGT SYSTEM DEVELOPMENT,Create and list opportunity|Crl Task|Invalid Survey SCBE|MYWIFI - Inputer|NEWINDISOL - Inputer|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+MGR ACC DATA VALIDATION & INVENTORY MGMT,SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+MGR ACCESS & SERVICE OPERATION,Create and list opportunity|SC Backend - Inputer|SCFE Inputer - DCS
+MGR ACCESS DATA VALIDAT & INVENTORY MGMT,Reopen Inbox|SCFE Inputer - DCS
+MGR ACCESS DATA VALIDATION & INVENTORY MANAGEMENT,SC Backend - Inputer|SCFE Inputer - DCS
+"MGR ACCESS OPTIMA, MAINTENANCE, QE&DAMAN",Approval Order SCBE|Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|MYDIGIBIZ - Inputer|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+"MGR ACCESS OPTIMA, MAINTENANCE, QE, & DAMAN",SC Frontend - Viewer
+"MGR ACCESS OPTIMA,MAINTENANCE,QE&DAMAN",Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+Mgr Assurance & Maintenance Manado,SC Backend - Viewer|SC Frontend - Viewer
+MGR BGES & MBB SERVICE OPERATION,SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+MGR BGES ASSURANCE SUPERVISION,SCFE Inputer - DCS
+MGR BGES FULFILLMENT SUPERVISION,Invalid Survey SCBE|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+"MGR BGES, MBB, FBB ACC&SERVICE OPERATION",Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+"MGR BGES,MBB,FBB ACCESS & SERVICE OPERAT",Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|Reopen Inbox|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+"MGR BGES,MBB,FBB,ACCESS & SERVICE OPERAT",Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+MGR BIG DATA OPR & DATA ACQUISITION,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+MGR BILLING & PAYMENT COLLECTION,Create and list opportunity|NEWINDISOL - Inputer|SC Backend - Inputer|SC Backend - Viewer|SCFE Inputer - DCS|UHOS - Inputer|User Revoke
+MGR BILLING & REVENUE MGT SYSTEM OPR,Invalid Survey SCBE|MYDIGIBIZ - Inputer|MYWIFI - Inputer|MYWIFI - Viewer|NEWINDISOL - Inputer|NEWINDISOL - Viewer|open MO|Profile untuk judor|SC Backend - Inputer|SC Frontend - Admin|SC Frontend - Backroom|SC Frontend - Management|SC Frontend - Senior Leader|SCFE Inputer - DCS|UHOS - Inputer
+MGR CA & COHERENT IT ENABLEMENT,Invalid Survey SCBE|MYDIGIBIZ - Inputer|MYWIFI - Inputer|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|UHOS - Inputer
+MGR CEM OPERATION,Invalid Survey SCBE|MYWIFI - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+MGR CFU/FU IT SUPPORT,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+MGR CUSTOMER MGT SYSTEM OPERATION,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+"MGR ENTERPRISE, OLO & WIFI DEPLOYMENT",Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SCFE Inputer - DCS|User Revoke
+MGR FBB ACCESS & SERVICE OPERATION,Approval Order SCBE|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Management|SC Frontend - Viewer|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+MGR FBB ASSURANCE SUPERVISION,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+MGR FBB FULFILLLMENT SUPERVISION,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools|User Revoke
+MGR FBB FULFILLMENT SUPERVISION,Cancel massal|Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Supervisor|SCFE Inputer - DCS|Tools|update for resubmit|User Revoke
+MGR FULFILLMENT OPERATION MANAGEMENT,Create and list opportunity|Invalid Survey SCBE|Mass Order|SC Backend - Inputer|SC Frontend - Management|SCFE Inputer - DCS
+MGR FULFILLMENT PERFORMANCE MANAGEMENT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+MGR GENERAL SUPPORT,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Management|SCFE Inputer - DCS|Supervisor
+Mgr Home Service Witel Jakbar,Approval Order SCBE|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Management|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+MGR KONSTRUKSI YOGYAKARTA,SC Frontend - Viewer
+MGR LEGAL & REGULATORY AFFAIR,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+MGR LOGISTIC & PROCUREMENT,Approval Order SCBE|Dashboard Report Agent|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS
+MGR NETWORK AREA & IS OPERATION,Approval Order SCBE|Cancel massal|Create and list opportunity|Invalid Survey SCBE|MYWIFI - Inputer|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+MGR NETWORK DEPLOY & PROJECT SUPERVISION,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+MGR NTE & NE OM,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+MGR ORDER & COMPLEX EVENT PROCESSING,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|User Revoke
+MGR ORDER MANAGEMENT OPERATION,SCFE Inputer - DCS
+MGR OSP & CAPEX QE,report plasa organik|SC Frontend - Backroom|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+MGR PARTNER INVOICING & SDA SUPPORT,Approval Order SCBE|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Supervisor|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+"MGR PERFOR,SERVICE QUALITY&HELPDESK OPER",SC Frontend - Viewer|User Revoke
+"MGR PERFORM,SERV QUALITY&HELPDESK OPERAT",Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+MGR PERFORMANCE & QUALITY MGT OPERATION,SCFE Inputer - DCS
+"MGR PERFORMANCE, RISK & QOS",Approval Order SCBE|Create and list opportunity|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|MYWIFI - Inputer|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Management|SC Frontend - Senior Leader|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Supervisor|Tools|User Revoke|User Revoke EBIS
+"MGR PERFORMANCE, RISK&QOS",Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+"MGR PLANNING,ENGINEERING&CAPEX MGMT",SCFE Inputer - DCS
+MGR PRM & PLM OPERATION,Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|Management User|Mass Order|MYDIGIBIZ - Inputer|MYWIFI - Inputer|NEWINDISOL - Inputer|report plasa organik|SC Backend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SCFE - Input Service Request All|SCFE Inputer - DCS|System Administrator|Tools|Tools untuk monitoring dan terminate session|UHOS - Inputer
+Mgr Program Provisioning & Migration East,SC Backend - Viewer|SC Frontend - Viewer
+MGR PROJECT OPERATION&QUALITY ASSURANCE,Invalid Survey SCBE|MYWIFI - Inputer|SC Backend - Inputer|SC Frontend - Management|SCFE Inputer - DCS|Tools
+MGR PROV & MIG SEMARANG,SC Frontend - Viewer
+"MGR QUALITY,CHANGE,RISK MGMT&REV ASSURAN",Create and list opportunity|Invalid Survey SCBE|MYDIGIBIZ - Inputer|MYWIFI - Inputer|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|Tools|UHOS - Inputer
+MGR REGIONAL BUSINESS SERVICE,Approval Order SCBE|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Management|SCFE Inputer - DCS|Supervisor|UHOS - Inputer
+MGR REGIONAL BUSINESS SUPPORT,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Management|SCFE Inputer - DCS
+MGR REGIONAL GOVERNMENT SERVICE,Approval Order SCBE|MYWIFI - Inputer|SCFE Inputer - DCS
+MGR REGIONAL WHOLESALE SUPPORT,SC Backend - Viewer|SC Frontend - Viewer
+MGR REVENUE ASSURANCE,Invalid Survey SCBE|Monitoring Deposit|SC Backend - Inputer|SC Frontend - Inputer
+MGR SERVICE DESK,Dashboard user|SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+MGR SHARED SERVICE & GENERAL SUPPORT,Approval Order SCBE|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+MGR SPBU & PROJECT SOLUTION YOGYAKARTA,SC Frontend - Viewer
+MGR WIFI & FBB LEGACY,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SCFE Inputer - DCS|UHOS - Inputer
+MGR WITEL BUSINESS SERVICE,Approval Order SCBE|Create and list opportunity|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|MYWIFI - Inputer|NEWINDISOL - Inputer|open MO|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+MGR WORKFORCE MANAGEMENT OPERATION,Create and list opportunity|Invalid Survey SCBE|Profile untuk judor|SC Backend - Inputer|SC Backend - Viewer|SCFE Inputer - DCS
+MITRA 147,Approval Order SCBE|Cancel massal|Crl Task|Invalid Survey SCBE|open MO|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+MITRA ADDON,SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SCFE Inputer - DCS|User Revoke|User Revoke EBIS
+MITRA BACKROOM,SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS
+MITRA C4,SC Frontend - Viewer|User Revoke
+MITRA CAM,Crl Task|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|User Revoke
+MITRA CRL,SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SCFE Inputer - DCS|User Revoke
+MITRA CS,Approval Order SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+MITRA CSO,NEWINDISOL - Inputer|SC Backend - Inputer|SC Frontend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS
+MITRA FCC,SC Backend - Inputer|SCFE Inputer - DCS
+MITRA FOS,Approval Order SCBE|Cancel massal|Crl Task|Invalid Survey SCBE|open MO|Profile khusu approval scbe|Report Plasa non Organik|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+MITRA HCC,Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke|User Revoke EBIS
+MITRA INPUTER,Approval Order SCBE|Cancel massal|check order massal|Create and list opportunity|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|MYDIGIBIZ - Inputer|MYWIFI - Inputer|NEWINDISOL - Inputer|open MO|Profile khusu approval scbe|Report Plasa non Organik|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Supervisor|Tools|UHOS - Inputer|User Revoke|User Revoke EBIS
+MITRA IOC,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Inputer|SCFE Inputer - DCS|User Revoke
+MITRA OC3,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+MITRA OPHAR IOCW,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+MITRA OPLANG,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+MITRA SBC,SCFE Inputer - DCS
+MITRA SUPPORT OPERASIONAL,Approval Order SCBE|Cancel massal|cek status massal|Create and list opportunity|Crl Task|Dashboard Report Agent|Dashboard user|Helpdesk|Hosted PBX|Inbox Cancel Telkomsel|Invalid Survey SCBE|Live ncx|Management User|Mass Order|Monitoring Deposit|MYDIGIBIZ - Inputer|MYWIFI - Inputer|MYWIFI - Viewer|NEWINDISOL - Inputer|NEWINDISOL - Viewer|open MO|profile baru|Profile untuk judor|Reopen Inbox|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Admin|SC Frontend - Backroom|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Senior Leader|SC Frontend - Supervisor|SC Frontend - Viewer|SCBE - Mywms|SCFE - HSI dan SCBE FU HSI|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|System Administrator|Tools|Tools untuk monitoring dan terminate session|UHOS - Inputer|update deposit|update for resubmit|update millestone|User Revoke|User Revoke EBIS|Viewer
+MITRA VAM,SCFE Inputer - DCS
+OC3,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+OFF 1 ACCESS NEW FTTH PROJECT SUPERVISOR,Approval Order SCBE|Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS
+OFF 1 APARTMENT OPERATION,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 ASSET MANAGEMENT&FACILITY SUPPORT,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS
+OFF 1 ASSET MGMT & FACILITY SUPPORT,Approval Order SCBE|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 1 ASSET MGMT&FACILITY SUPPORT,Approval Order SCBE|Create and list opportunity|Crl Task|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Management|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+OFF 1 ASSET MGT & FACILITY SUPPORT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 1 ASSURANCE SOLUTION,SCFE Inputer - DCS|Tools
+OFF 1 BGES & WIFI ASSURANCE,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS
+OFF 1 BGES & WIFI FULFILLMENT,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 1 BGES & WIFI FULFILLMENT & ASSUR,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+OFF 1 BGES & WIFI FULFILLMENT & ASSURANC,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 1 BGES &Ã‚Â WIFI FULFILLMENT,Invalid Survey SCBE|SCFE Inputer - DCS
+OFF 1 BGES ASSURANCE SUPPORT,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 BGES FULFILLMENT OPERATION,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+OFF 1 BGES FULFILLMENT SUPERVISION,Invalid Survey SCBE|SCFE Inputer - DCS
+OFF 1 BGES&WIFI FULFILLMENT&ASSURANCE,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|MYWIFI - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 1 BS SALES EVAL & MARKETING,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 1 CA & COHERENT IT ENABLEMENT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 1 CEM DESIGN,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 CEM OPERATION,Invalid Survey SCBE|Profile untuk judor|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 CFU SUPPORT IT SUPPORT,Invalid Survey SCBE|Profile untuk judor|SC Backend - Inputer|SCFE Inputer - DCS
+"OFF 1 COMM,SECRETARIAT&SECURITY SAFETY",Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Management|SCFE - Input Service Request All|SCFE Inputer - DCS
+"OFF 1 COMMUNICATION, SECRETARIATE & SAS",Invalid Survey SCBE|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS
+OFF 1 CUST ENGAGEMENT & SALES BUSS OPS,Approval Order SCBE|Create and list opportunity|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+OFF 1 CUST ENGAGEMENT&SALES BUSS OPERAT,Approval Order SCBE|Create and list opportunity|Crl Task|Invalid Survey SCBE|MYWIFI - Inputer|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+OFF 1 DATA CENTER & DEFA,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 DATA MANAGEMENT,Create and list opportunity|Invalid Survey SCBE|MYWIFI - Inputer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+OFF 1 DIGITAL CONNECTIVITY REG SUPPORT,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 1 EXPOSURE & API FACTORY MGT DESIGN,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+OFF 1 FBB ACCESS PROVISIONING,cek status massal|Create and list opportunity|Crl Task|Invalid Survey SCBE|NEWINDISOL - Inputer|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+OFF 1 FBB ASSURANCE,Approval Order SCBE|Create and list opportunity|Crl Task|Invalid Survey SCBE|NEWINDISOL - Inputer|open MO|Profile khusu approval scbe|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Management|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+OFF 1 FBB ASSURANCE MANAGEMENT,SCFE Inputer - DCS
+OFF 1 FBB FULFILLMENT,Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Management|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS|Viewer
+OFF 1 FINANCE & COLLECTION,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Viewer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+"OFF 1 FINANCE SERVICE,TAX & HC",SCFE Inputer - DCS
+OFF 1 FINANCE SYSTEM OPERATION,Inbox Cancel Telkomsel|Invalid Survey SCBE|Profile untuk judor|SC Backend - Inputer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 1 GS SALES EVALUATION & MARKETING,Create and list opportunity|Invalid Survey SCBE|Reopen Inbox|SC Backend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SCFE - Input Service Request All|SCFE Inputer - DCS
+OFF 1 HELPDESK OPERATION,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 1 IH3P INTEGRATION,SCFE Inputer - DCS
+OFF 1 INFRA OPERATION & MAINTENANCE,Approval Order SCBE|Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|NEWINDISOL - Viewer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+OFF 1 IP & SERVICE NODE OPERATION,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 1 LOGISTIK & LEGAL,Approval Order SCBE|Create and list opportunity|Crl Task|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Management|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+OFF 1 MAINTENANCE,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+OFF 1 MBB ASSURANCE,SCFE Inputer - DCS
+OFF 1 MBB FULFILLMENT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke|User Revoke EBIS
+OFF 1 MBB FULFILLMENT & ASSURANCE,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Supervisor|SCFE Inputer - DCS
+"OFF 1 NETWORK PERFORM,QUALITY MGMT&ADMIN",Approval Order SCBE|Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Management|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+OFF 1 NTE MANAGEMENT,SCFE Inputer - DCS
+OFF 1 NW QUALITY SURVEILLANCE,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 OLO ASSURANCE,SC Backend - Inputer|SC Frontend - Supervisor|SCFE Inputer - DCS|User Revoke
+"OFF 1 OM IP NETWORK, IS & SWITCHING",Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+"OFF 1 OM IP NW, IS & SWITCHING",Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+"OFF 1 OM TRANSPORT, RADIO & MUX",Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+"OFF 1 OPTIMA, NTE MANAGEMENT & QE",Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+OFF 1 PARTNER INVOICING & SDA SUPPORT,Crl Task|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 PARTNERSHIP & PERFORMANCE,SCFE Inputer - DCS
+OFF 1 PERFORMANCE & RISK MANAGEMENT,Approval Order SCBE|Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 1 PERFORMANCE & SERVICE QUALITY,Create and list opportunity|Invalid Survey SCBE|Reopen Inbox|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 1 PRODUCT SOLUTION & DELIVERY,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 QOS & REVENUE ASSURANCE,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+"OFF 1 QUAL,CHANGE,RISK MGMT&REVENUE ASS",SC Backend - Viewer
+OFF 1 QUALITY OF SALES & REVENUE ASSUR,Approval Order SCBE|Create and list opportunity|Crl Task|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Management|SCFE - Inbox Service Request|SCFE - Input Service Request All
+OFF 1 QUALITY OF SALES&REVENUE ASSURANCE,Approval Order SCBE|Crl Task|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Supervisor|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+"OFF 1 QUALITY,CHANGE,RISK MGMT&REV ASSUR",Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 RUMAH BUMN,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 1 RUMAH KREATIF BUMN,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Supervisor|SCFE Inputer - DCS
+OFF 1 SALES ENGINEER,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Supervisor|User Revoke
+"OFF 1 SECRETARIAT,PUBLIC RELATION&TJSL",Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 1 TANGGUNG JAWAB SOSIAL & LINGKUNGAN,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS
+OFF 1 TANGGUNG JWB SOSIAL&LINGKUNGAN&HC,Approval Order SCBE|Crl Task|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE Inputer - DCS|User Revoke
+OFF 1 TGG JWB SOSIAL & LINGKUNGAN DAN HC,Invalid Survey SCBE|MYDIGIBIZ - Inputer|SC Backend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|User Revoke
+OFF 1 WALK IN CHANNEL OPR & PARTNERSHIP,Dashboard Report Agent|Invalid Survey SCBE|report plasa organik|SC Backend - Inputer|SC Frontend - Supervisor|SCFE Inputer - DCS
+OFF 1 WHOLESALE&INTERNATIONAL MARKETING,SC Backend - Viewer|SC Frontend - Viewer
+OFF 1 WIFI & IH LEGACY SALES & MARKETING,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 WIFI INFRASTRUCTURE INTEGRATION,NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+OFF 1 WOC & QUALITY,Invalid Survey SCBE|NEWINDISOL - Inputer|report plasa organik|SC Backend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 ACCESS DATA VALIDATION,SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 ACCESS FAULT HANDLING,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 ACCESS IT TOOL MANAGEMENT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 API MGT OPERATION,Invalid Survey SCBE|Profile untuk judor|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 ASSET MGMT&FACILITY SUPPORT,Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+OFF 2 BGES & WIFI ASSURANCE,Invalid Survey SCBE|MYDIGIBIZ - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 BGES & WIFI FULFILLMENT,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Management|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 BGES FULFILLMENT SUPERVISION,SC Frontend - Viewer|User Revoke
+OFF 2 BGES&WIFI FULFILLMENT&ASSURANCE,Invalid Survey SCBE|Reopen Inbox|SC Backend - Inputer|SC Frontend - Inputer|SCFE - HSI dan SCBE FU HSI|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+OFF 2 BILLING & PAYMENT COLLECTION,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+OFF 2 BS ACCOUNT PLAN & TEAM MANAGEMENT,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+"OFF 2 COMM,SECRETARIAT&SECURITY SAFETY",Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 CUST ENGAGEMENT & SALES BUSS OPS,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+OFF 2 CUST ENGAGEMENT&SALES BUSS OPERAT,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 CUSTOMER INTERACTION MGT OPERATION,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 CUSTOMER MGT SYSTEM DEVELOPMENT,Invalid Survey SCBE|Mass Order|NEWINDISOL - Inputer|NEWINDISOL - Viewer|Profile untuk judor|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 DATA CENTER & DEFA,Create and list opportunity|Invalid Survey SCBE|open MO|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 DATA MANAGEMENT,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 2 DATA MANAGEMENT SUPPORTING,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 DESIGN & ENGINEERING,SCFE Inputer - DCS
+OFF 2 DIGITAL CONNECTIVITY REG SUPPORT,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+"OFF 2 ENTERPRISE, OLO & WIFI DEPLOYMENT",Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Supervisor|SCFE Inputer - DCS|Tools
+OFF 2 FBB ACCESS PROVISIONING,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 FBB ASSURANCE,cek status massal|Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|Reopen Inbox|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 FBB FULFILLMENT,Approval Order SCBE|cek status massal|Create and list opportunity|Invalid Survey SCBE|MYWIFI - Inputer|NEWINDISOL - Inputer|Profile khusu approval scbe|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 FBB FULFILLMENT OPERATION,cek status massal|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+OFF 2 FBB FULFILLMENT SUPPORT,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|User Revoke
+OFF 2 FBB MS BILLING VALIDATION,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 FINANCE & COLLECTION,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Management|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 FULFILLMENT OPERATION,Cancel massal|Invalid Survey SCBE|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS
+OFF 2 HOME SERVICE,Inbox Cancel Telkomsel|Invalid Survey SCBE|NEWINDISOL - Inputer|open MO|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 INFRA OPERATION & MAINTENANCE,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Management|SC Frontend - Viewer|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+OFF 2 IP MULTIMEDIA SUB SYSTEM 2,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 LOGISTIK & LEGAL,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 MAINTENANCE,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 MAINTENANCE & DATA MANAGEMENT,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 MBB ASSURANCE,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 MBB FULFILLMENT,Create and list opportunity|Invalid Survey SCBE|Reopen Inbox|SC Backend - Inputer|SC Frontend - Supervisor|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 MBB FULFILLMENT & ASSURANCE,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+"OFF 2 NETWORK PERFORM,QUALITY MGMT&ADMIN",SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 2 OLO FULFILLMENT,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+OFF 2 OM DATA CENTER & DEFA,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+"OFF 2 OM IP NW, IS & SWITCHING",Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+"OFF 2 OM TRANSPORT, RADIO & MUX",Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+"OFF 2 OPTIMA, NTE MANAGEMENT & QE",Approval Order SCBE|Cancel massal|Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 ORDER MANAGEMENT ADM,Invalid Survey SCBE|Profile untuk judor|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 2 PARTNER INVOICING & SDA SUPPORT,Dashboard Report Agent|Invalid Survey SCBE|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS
+OFF 2 PARTNERSHIP & AGENCY,Approval Order SCBE|Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Frontend - Management|SCBE - Mywms|SCFE Inputer - DCS|Tools|UHOS - Inputer|User Revoke EBIS
+OFF 2 PARTNERSHIP & PERFORMANCE,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 PERFORMANCE & RISK MANAGEMENT,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 PERFORMANCE & SERVICE QUALITY,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 PERFORMANCE MANAGEMENT,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 PLM OPERATION,Inbox Cancel Telkomsel|Invalid Survey SCBE|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|System Administrator|User Revoke|User Revoke EBIS
+OFF 2 PROMOTION & SALES SUPPORT,Approval Order SCBE|cek status massal|Create and list opportunity|Inbox Cancel Telkomsel|Invalid Survey SCBE|Profile khusu approval scbe|Reopen Inbox|report plasa organik|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 QOS & REVENUE ASSURANCE,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 2 QUALITY OF SALES&REVENUE ASSURANCE,Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+OFF 2 QUALITY OF SERVICE,SCFE - Inbox Service Request|SCFE Inputer - DCS
+OFF 2 RUMAH BUMN,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+OFF 2 RUMAH KREATIF BUMN,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 SALES ENGINEER,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 2 SD WAN,SC Frontend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS
+OFF 2 SERVICE DESK,Dashboard user|SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+OFF 2 SOLUTION & OFFERING,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 TANGGUNG JAWAB SOSIAL & LINGKUNGAN,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 TANGGUNG JWB SOSIAL&LINGKUNGAN&HC,Invalid Survey SCBE|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+OFF 2 TSA 2 ASSURANCE & MONITORING,Dashboard Report Agent|Invalid Survey SCBE|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SCFE - Input Service Request All
+OFF 2 WOC & QUALITY,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 3 ACC DATA VALIDATION&INVENTORY MGMT,NEWINDISOL - Viewer|SCFE Inputer - DCS
+OFF 3 ACCESS FAULT HANDLING,SCFE Inputer - DCS
+OFF 3 APARTMENT & PREMIUM CLUSTER,Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS
+OFF 3 ASSET MGMT & FACILITY SUPPORT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 3 ASSET MGMT&FACILITY SUPPORT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 Assurance,Create and list opportunity|Invalid Survey SCBE|report plasa organik|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE Inputer - DCS|Tools
+OFF 3 BGES & WIFI FULFILLMENT,Invalid Survey SCBE|SC Backend - Inputer|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS
+OFF 3 BGES&WIFI FULFILLMENT&ASSURANCE,Invalid Survey SCBE|report plasa organik|SC Backend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 3 BS ACCOUNT PLAN & TEAM MANAGEMENT,Dashboard Report Agent|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+OFF 3 BS MARKETING,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 BUKA ISOLIR,SC Backend - Inputer|SCFE Inputer - DCS|Tools|User Revoke
+"OFF 3 COMM,SECRETARIAT&SECURITY SAFETY",Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+"OFF 3 COMMUNICATION, SECRETARIATE, & SAS",SCFE Inputer - DCS
+OFF 3 CRM & CUST. LEVERAGING,Dashboard Report Agent|Mass Order|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS
+OFF 3 CUST ENGAGAMENT&SALES BUSS OPERAT,Approval Order SCBE|Dashboard Report Agent|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+OFF 3 CUST ENGAGEMENT&SALES BUSS OPERAT,cek status massal|Dashboard Report Agent|Invalid Survey SCBE|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke EBIS
+OFF 3 Customer Experience,SCFE Inputer - DCS
+OFF 3 Customer Handling,SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 Customer Leveraging,SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 CUSTOMER MGT SYSTEM REVIEW & CTRL,Approval Order SCBE|Invalid Survey SCBE|Monitoring Deposit|MYDIGIBIZ - Inputer|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SCFE - HSI dan SCBE FU HSI|SCFE - Inbox Service Request|SCFE - Input Service Request All
+OFF 3 DATA CENTER & DEFA,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 3 DATA MANAGEMENT,Cancel massal|Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+OFF 3 DESIGN & ENGINEERING,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 DIGITAL SERVICE,Inbox Cancel Telkomsel|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 ES SALES & MARKETING,Approval Order SCBE|Dashboard Report Agent|Invalid Survey SCBE|Profile khusu approval scbe|SC Backend - Inputer|SC Frontend - Inputer|SCFE - Input Service Request All
+OFF 3 FBB ASSURANCE,Inbox Cancel Telkomsel|Invalid Survey SCBE|NEWINDISOL - Inputer|NEWINDISOL - Viewer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Admin|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+OFF 3 FBB FULFILLMENT,Cancel massal|cek status massal|Create and list opportunity|Inbox Cancel Telkomsel|Invalid Survey SCBE|NEWINDISOL - Inputer|Reopen Inbox|SC Backend - Inputer|SC Frontend - Inputer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+OFF 3 FBB FULFILLMENT SUPPORT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 FINANCE & COLLECTION,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 3 FULFILLMENT SUPPORT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 GS ACCOUNT PLAN & TEAM MANAGEMENT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 INBOUND CHANNEL/KAUBIS SORONG,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 INFRA OPERATION & MAINTENANCE,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|NEWINDISOL - Viewer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Admin|SC Frontend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 3 LEGAL & REGULATORY,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 LOGISTIC & PROCUREMENT,Approval Order SCBE|Dashboard Report Agent|report plasa organik|SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+OFF 3 LOGISTIK & LEGAL,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 MAINTENANCE,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|User Revoke
+OFF 3 MAINTENANCE & DATA MANAGEMENT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 MBB ASSURANCE,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+OFF 3 MBB FULFILLMENT,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 3 MBB FULFILLMENT & ASSURANCE,Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|Tools|User Revoke
+"OFF 3 NETWORK PERFORM,QUALITY MGMT&ADMIN",Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 3 OLO ASSURANCE,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+"OFF 3 OM IP NETWORK, IS & SWITCHING",SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+"OFF 3 OM IP NW, IS & SWITCHING",Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+Off 3 OM Lokasi,Inbox Cancel Telkomsel|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+"OFF 3 OM TRANSPORT, RADIO & MUX",Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Inputer|User Revoke EBIS
+"OFF 3 OPTIMA, NTE MANAGEMENT & QE",Cancel massal|Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke|User Revoke EBIS
+OFF 3 PARTNERSHIP & AGENCY,Inbox Cancel Telkomsel|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 3 Payment Collection Witel Bandung Barat,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 PERFORMANCE & RISK MANAGEMENT,cek status massal|Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Viewer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OFF 3 PERFORMANCE MANAGEMENT,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Inputer
+OFF 3 QOS & REVENUE ASSURANCE,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+"OFF 3 QOS, SLG & DATA CUSTOMER	",Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 QUALITY ASSURANCE,NEWINDISOL - Inputer|SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+OFF 3 QUALITY OF SALES&REVENUE ASSURANCE,Dashboard Report Agent|Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE - Input Service Request All|SCFE Inputer - DCS
+OFF 3 RUMAH BUMN,Inbox Cancel Telkomsel|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 3 RUMAH KREATIF BUMN,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 SALES,Cancel massal|Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 SALES ENGINEER,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 3 Sales Promotion,SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 TECHNICAL SALES SUPPORT,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+OFF 3 WITEL OPERATION CENTER & QUALITY,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|Tools|User Revoke
+OFF 3 WOC & QUALITY,cek status massal|Invalid Survey SCBE|MYDIGIBIZ - Inputer|MYWIFI - Inputer|Reopen Inbox|SC Backend - Inputer|SC Frontend - Inputer|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+OFF 3 WORKFORCE MANAGEMENT SYSTEM ADM,NEWINDISOL - Viewer|SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+OFF-3 HOME SERVICE,Inbox Cancel Telkomsel|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+Officer 2 Program Provisioning & Migration West,SC Frontend - Viewer
+Officer 2 Sales & Customer Care,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+Officer 3 Partnership & Agency,SC Backend - Inputer|SCFE Inputer - DCS
+OFFICER 3 SALES,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Inputer|SCFE Inputer - DCS|Tools
+OJT TRAINNER,Approval Order SCBE|Report Plasa non Organik|SC Backend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+OPHAR ISCS,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Inputer|SCFE Inputer - DCS
+OSM BSS & CEM PLATFORM OPERATION,SC Frontend - Admin
+OSM Customer Care Regional 1,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OSM FULFILLMENT & OPERATION SUPPORT,Create and list opportunity|NEWINDISOL - Inputer|SCFE Inputer - DCS|UHOS - Inputer|user Apartclick
+OSM MANAGED SERVICE OPERATION,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OSM REGIONAL ACCESS MANAGEMENT,SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OSM REGIONAL BUSINESS SERVICE,Approval Order SCBE|Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+OSM REGIONAL WHOLESALE SERVICE,Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+OUTBANDCALL AGENT,SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+PLASA SANGGATA,Dashboard Report Agent|Invalid Survey SCBE|report plasa organik|SC Backend - Inputer|SC Frontend - Supervisor|SCFE - Input Service Request All|SCFE Inputer - DCS
+Promotion & sales support officer,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+QC CTP,SC Frontend - Viewer|User Revoke
+QCO,Approval Order SCBE|Report Plasa non Organik|SC Backend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+SENIOR ACCOUNT MANAGER,Crl Task|Invalid Survey SCBE|report plasa organik|SC Backend - Inputer|SC Frontend - Management|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+SENIOR ADVISOR III,Approval Order SCBE|Create and list opportunity|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|Mass Order|NEWINDISOL - Inputer|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+SITE MANAGER,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|Tools|User Revoke
+SITE MANAGER PROVISIONING,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+"SM REGIONAL SOLUTION, DELIVERY&ASSURANCE",SC Frontend - Viewer|User Revoke
+SO APPLICATION TRANSACTION AUDIT REPORT,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+SO INFORMATION SECURITY AUDIT REPORTING,SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+SO MONITORING & RISK ADM PARTNER 2,Invalid Survey SCBE|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS
+SOLVER,SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+SOLVER ISISKA,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+SPP,SC Backend - Inputer|SCFE Inputer - DCS|User Revoke EBIS
+SPV Plasa,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+SPV PLASA JAMBI,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Senior Leader|SC Frontend - Supervisor|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+SSC,SC Backend - Inputer|SC Frontend - Inputer
+STAFF COMMERCE,SC Frontend - Inputer
+STAFF CUSTOMER CARE,NEWINDISOL - Inputer|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+STAFF DATA MANAGEMENT,SC Backend - Inputer|SCFE Inputer - DCS
+STAFF HELPDESK,SC Backend - Inputer|SC Frontend - Inputer|SCFE Inputer - DCS|User Revoke
+STAFF HOME SERVICE,SC Frontend - Viewer
+STAFF PROVISIONING,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|User Revoke
+SUPERVISOR,Approval Order SCBE|Cancel massal|Crl Task|Invalid Survey SCBE|NEWINDISOL - Inputer|open MO|Profile khusu approval scbe|Report Plasa non Organik|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Supervisor|Tools|User Revoke
+SUPPORT,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Admin|SC Frontend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+SURVEYOR,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|User Revoke
+TEAM LEADER,Approval Order SCBE|cek status massal|check order massal|Create and list opportunity|Crl Task|Invalid Survey SCBE|MYDIGIBIZ - Inputer|MYWIFI - Viewer|NEWINDISOL - Inputer|NEWINDISOL - Viewer|Profile khusu approval scbe|Reopen Inbox|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Supervisor|Tools|User Revoke|User Revoke EBIS|Viewer
+TEKNISI LOGIC,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+TEKNISI PROVISIONING,Invalid Survey SCBE|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+TIM CARING,NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+TIM SUPPORT NOSSA,SCFE Inputer - DCS
+TKOS FIM DSO,SC Frontend - Viewer|SCFE Inputer - DCS
+User Test,SC Frontend - Inputer|SCFE Inputer - DCS
+GM WITEL CIREBON,Agent|Approval Order SCBE|Cancel massal|Create and list opportunity|Crl Task|Invalid Survey SCBE|MYWIFI - Inputer|MYWIFI - Viewer|open MO|Profile khusu approval scbe|Profile untuk judor|Report Plasa non Organik|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Backroom|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User hanya PSB
+OFF 1 CUST ENGAGAMENT&SALES BUSS OPERAT,Approval Order SCBE|Dashboard Report Agent|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SC Frontend - Supervisor|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+OFF 2 ASSET MGMT & FACILITY SUPPORT,SCFE Inputer - DCS
+OFF 3 BGES FULFILLMENT OPERATION,SC Frontend - Viewer|User Revoke
+OFF 3 ACCESS NEW FTTH SUPERVISORY,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 CAPEX MANAGEMENT,SC Frontend - Viewer
+MGR ACCESS NEW FTTH&MODERNIZATION DEPLOY,SC Frontend - Viewer
+KAKANDATEL LAMONGAN,Approval Order SCBE|Crl Task|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools
+OFF 2 CAPEX QE,Create and list opportunity|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 1 SOLUTION & OFFERING,Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|Tools|UHOS - Inputer|User Revoke
+OFF 2 TANGGUNG JWB SOSIAL&LINGKUNGAN&HC,Create and list opportunity
+OFF 2 CUST ENGAGEMENT&SALES BUS OP,Approval Order SCBE|Cancel massal|Create and list opportunity|Invalid Survey SCBE|MYWIFI - Inputer|NEWINDISOL - Inputer|report plasa organik|SC Backend - Inputer|SC Frontend - Inputer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|Tools|UHOS - Inputer
+OFF 2 ACC DATA VALIDATION&INVENTORY MGMT,Approval Order SCBE|Create and list opportunity|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Supervisor|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE Inputer - DCS|Tools|User Revoke
+MGR FBB ACCESS & SERVICE OPERATION,Approval Order SCBE|Invalid Survey SCBE|NEWINDISOL - Inputer|Profile khusu approval scbe|Reopen Inbox|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+"MGR SOLUTION, OFFERING & BIDDING MGT",SCFE Inputer - DCS
+OFF 1 QUALITY OF SALES & REVENUE ASSURAN,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS|User Revoke
+OFF 2 CUST ENGAGEMENT&SALES BUSS OPERAT,SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 DATA MANAGEMENT,Approval Order SCBE|cek status massal|Report Plasa non Organik|SC Backend - Inputer|SC Frontend - Inputer|SCFE - Input Service Request Basic|SCFE Inputer - DCS
+OFF 2 FBB ACCESS PROVISIONING,SC Backend - Inputer|SC Frontend - Management|SCFE Inputer - DCS|Supervisor
+OFF 2 MBB ASSURANCE,SC Backend - Inputer|SC Frontend - Inputer|SCFE Inputer - DCS
+OFF 2 QUALITY OF SALES & REVENUE ASSURAN,SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|User Revoke
+"OFF 3 NETWORK PERF, QUALITY MGMT&ADM",SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|User Revoke
+MGR PERFORMANCE MGMT & SLA MONITORING,SC Backend - Inputer|SCFE Inputer - DCS
+OFF 2 PLANNING & CAPEX MANAGEMENT,Approval Order SCBE|Crl Task|Invalid Survey SCBE|open MO|Profile khusu approval scbe|Report Plasa non Organik|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+OFF 2 FULFILLMENT SUPPORT,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|Tools|User Revoke
+TL HELPDESK,Approval Order SCBE|Cancel massal|Create and list opportunity|Crl Task|Dashboard Report Agent|Dashboard user|Helpdesk|Inbox Cancel Telkomsel|Invalid Survey SCBE|Management User|Monitoring Deposit|MYDIGIBIZ - Inputer|MYWIFI - Inputer|NEWINDISOL - Inputer|NEWINDISOL - Viewer|open MO|Profile khusu approval scbe|Report Plasa non Organik|report plasa organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Admin|SC Frontend - Backroom|SC Frontend - Inputer|SC Frontend - Management|SC Frontend - Senior Leader|SC Frontend - Supervisor|SC Frontend - Viewer|SC Frontend -Service Request OPS|SC Frontend -Service Request Tes|SCBE - Mywms|SCFE - HSI dan SCBE FU HSI|SCFE - Inbox Service Request|SCFE - Input Service Request All|SCFE - Input Service Request Basic|SCFE Inputer - DCS|System Administrator|Tools|Tools untuk monitoring dan terminate session|UHOS - Inputer|update millestone|User Revoke|User Revoke EBIS
+SM PROV & MIG,cek status massal|MYWIFI - Viewer|NEWINDISOL - Viewer|SC Backend - Viewer|SC Frontend - Viewer|Tools|Tools untuk monitoring dan terminate session|User Revoke
+SITE MANAGER PROJECT DEPLOYMENT,Approval Order SCBE|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools|User Revoke
+SITE MANAGER ASSR & MAINT,SC Backend - Inputer|SCFE Inputer - DCS
+TL PROV & MIG,NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+SM HELPDESK,Approval Order SCBE|Cancel massal|cek status massal|Crl Task|Dashboard Report Agent|Invalid Survey SCBE|NEWINDISOL - Inputer|Report Plasa non Organik|SC Backend - Inputer|SCFE - Inbox Service Request|SCFE Inputer - DCS|Tools
+MGR WILAYAH MAKASSAR - PARE PARE,SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|User Revoke
+ASST MAN PROV & MIG MANADO,SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+MGR SERVICE DELIVERY CONSUMER,SC Backend - Inputer|SC Frontend - Viewer|SCFE Inputer - DCS
+MGR ADM & SUPPORT SERVICE DELIVERY,SCFE Inputer - DCS
+MGR CONSTRUCTION YOGYAKARTA,Approval Order SCBE|Cancel massal|Crl Task|Invalid Survey SCBE|open MO|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|User Revoke|User Revoke EBIS
+MGR OPERATION JATENG,Invalid Survey SCBE|SC Backend - Viewer|SC Frontend - Viewer|User Revoke
+MGR SHARED SERVICE BEKASI,SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|Tools|User Revoke
+MGR WILAYAH PURWOKERTO - MAGELANG,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|Report Plasa non Organik|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|Tools
+HELPDESK PROV & MIG,NEWINDISOL - Inputer|Profil khusus menu refund|SC Backend - Inputer|SC Backend - Viewer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - Inbox Service Request|SCFE - Input Service Request Basic|SCFE Inputer - DCS|User Revoke|User Revoke EBIS
+SM SDI,Cancel massal|cek status massal|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SC Frontend - Inputer|SC Frontend - Viewer|SCFE - HSI dan SCBE FU HSI|SCFE Inputer - DCS|Tools|User Revoke|User Revoke EBIS
+TL PROV BGES,SC Frontend - Viewer|SCFE Inputer - DCS
+ASST MAN PROV & MIG YOGYAKARTA,Invalid Survey SCBE|SC Backend - Viewer|SC Frontend - Viewer|SCFE Inputer - DCS|User Revoke
+ASST MAN OPERATION PEKALONGAN,Inbox Cancel Telkomsel|Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+TL SEKTOR IOAN TEMANGGUNG,Create and list opportunity|Invalid Survey SCBE|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS
+TL SEKTOR IOAN MUNTILAN,Invalid Survey SCBE|SC Backend - Inputer|SCFE Inputer - DCS
+TL SEKTOR IOAN JIMBARAN 1,Create and list opportunity|NEWINDISOL - Inputer|SC Backend - Inputer|SCFE Inputer - DCS|Tools
+OFF 2 OPERATIONAL AGENCY,Approval Order SCBE|Invalid Survey SCBE|Profile khusu approval scbe|report plasa organik|SC Backend - Inputer|SCFE Inputer - DCS
+OFF 3 TRIBE INNOVATOR,Invalid Survey SCBE|SC Backend - Inputer|SC Frontend - Backroom|SCFE Inputer - DCS|Tools
+SO IT & SERVICE PERFORMANCE ANALYST,SCFE Inputer - DCS
