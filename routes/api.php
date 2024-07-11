@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountCenter\JabatanController;
+use App\Http\Controllers\AccountCenter\Transaksi\PengajuanAplikasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -354,5 +355,12 @@ Route::prefix('sarpen')->group(function () {
 Route::prefix('account-center')->group(function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::resource('jabatan', JabatanController::class);
+    });
+    Route::prefix('transaksi')->group(function () {
+        Route::group(['middleware' => ['auth:api', 'optimizeImages']], function () {
+            Route::get('pengajuan-aplikasi', [PengajuanAplikasiController::class, 'index']);
+            Route::post('pengajuan-aplikasi', [PengajuanAplikasiController::class, 'store']);
+            Route::patch('pengajuan-aplikasi/{id}/update-status', [PengajuanAplikasiController::class, 'updateStatus']);
+        });
     });
 });

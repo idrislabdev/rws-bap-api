@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrPengajuanAplikasiesTable extends Migration
+class CreateTrHistoryPengajuansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateTrPengajuanAplikasiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tr_pengajuan_aplikasies', function (Blueprint $table) {
+        Schema::create('tr_history_pengajuans', function (Blueprint $table) {
             $table->string('id')->primary();
+            $table->string('nama');
+            $table->integer('batch');
             $table->dateTime('tanggal');
             $table->enum('jenis_aplikasi', ['STARCLICK-NCX', 'NCX-CONS']);
             $table->enum('status', ['PROSES', 'SELESAI']);
@@ -31,6 +33,6 @@ class CreateTrPengajuanAplikasiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tr_pengajuan_aplikasies');
+        Schema::dropIfExists('tr_history_pengajuans');
     }
 }

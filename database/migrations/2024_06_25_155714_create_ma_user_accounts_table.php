@@ -16,7 +16,7 @@ class CreateMaUserAccountsTable extends Migration
         Schema::create('ma_user_accounts', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('nama', 100);
-            $table->date('tgl_lahir');
+            $table->date('tanggal_lahir');
             $table->string('nik', 10);
             $table->enum('status_pegawai', ['ORGANIK', 'NON-ORGANIK']);
             $table->string('email', 100);
@@ -34,8 +34,6 @@ class CreateMaUserAccountsTable extends Migration
             $table->string('jabatan_atasan', 100);
             $table->string('file_pakta_url');
             $table->string('image_ktp_url');
-            $table->json('starclick_ncx')->nullable(); //STARCLICK NCX
-            $table->json('ncx_cons')->nullable(); // NCX CONS
             $table->boolean('is_deleted');
             $table->timestamps();
         });
