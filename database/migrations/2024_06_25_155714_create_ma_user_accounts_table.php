@@ -35,6 +35,10 @@ class CreateMaUserAccountsTable extends Migration
             $table->string('file_pakta_url');
             $table->string('image_ktp_url');
             $table->boolean('is_deleted');
+            $table->string('created_by', 100);
+            $table->foreign('created_by')->references('id')->on('ma_penggunas');
+            $table->string('created_by_witel')->nullable();
+            $table->json('created_by_data');
             $table->timestamps();
         });
     }

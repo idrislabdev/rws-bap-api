@@ -130,6 +130,9 @@ class PengajuanAplikasiController extends Controller
                 $user_account->jabatan_atasan = $request->jabatan_atasan;
                 $user_account->image_ktp_url = $url_ktp;
                 $user_account->file_pakta_url = $url_pakta;
+                $user_account->created_by = Auth::user()->id;
+                $user_account->created_by_data = json_encode(MaPengguna::find(Auth::user()->id), JSON_PRETTY_PRINT);
+                $user_account->created_by_witel = Auth::user()->site_witel ? Auth::user()->site_witel : null;
             
                 $user_account->is_deleted = false;
                 $user_account->save();
@@ -145,7 +148,7 @@ class PengajuanAplikasiController extends Controller
                 $data_pengajuan->user_account_pengajuan  = json_encode($user_account, JSON_PRETTY_PRINT);
                 $data_pengajuan->proposed_by = Auth::user()->id;
                 $data_pengajuan->proposed_by_data = json_encode(MaPengguna::find(Auth::user()->id), JSON_PRETTY_PRINT);
-                $data_pengajuan->site_witel = 'Surabaya utara'; //Auth::user()->site_witel;
+                $data_pengajuan->site_witel = Auth::user()->site_witel ? Auth::user()->site_witel : null;
                 $data_pengajuan->proposed_date = date('Y-m-d H:m:s');
                 $data_pengajuan->status_pengajuan = 'proposed';
                 $data_pengajuan->save();
@@ -231,6 +234,46 @@ class PengajuanAplikasiController extends Controller
             ], 400);
         }
     }
+
+    public function bulkProses(Request $request)
+    {
+        if ($request->status == 'delete') {
+            try {
+                DB::beginTransaction();
+                MaUserAccountProfile::whereIn('pengajuan_aplikasi_id', $request->ids)->delete();
+                TrPengajuanAplikasi::whereIn('id', $request->ids)->delete();
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollback();
+                return response()->json([
+                    'data' => $e->getMessage(),
+                    'success' => true,
+                    'message' => 'error',
+                ], 500);
+            }
+        }else if ($request->status == 'reject') {
+            TrPengajuanAplikasi::whereIn('id', $request->ids)
+            ->update(array(
+                'status_pengajuan' => 'rejected',
+                'rejected_by' => Auth::user()->id,
+                'rejected_by_data' => json_encode(MaPengguna::find(Auth::user()->id), JSON_PRETTY_PRINT)
+            ));
+        } else if ($request->status == 'approve') {
+            TrPengajuanAplikasi::whereIn('id', $request->ids)
+            ->update(array(
+                'status_pengajuan' => 'approved',
+                'approved_by' => Auth::user()->id,
+                'approved_by_data' => json_encode(MaPengguna::find(Auth::user()->id), JSON_PRETTY_PRINT)
+            ));
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => []
+        ], 200);
+    }
+
 
     private function prosesUploadKtp($file)
     {

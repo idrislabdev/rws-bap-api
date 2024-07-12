@@ -20,8 +20,8 @@ class CreateTrHistoryPengajuansTable extends Migration
             $table->dateTime('tanggal');
             $table->enum('jenis_aplikasi', ['STARCLICK-NCX', 'NCX-CONS']);
             $table->enum('status', ['PROSES', 'SELESAI']);
-            $table->string('dibuat_oleh', 100)->nullable();
-            $table->foreign('dibuat_oleh')->references('id')->on('ma_penggunas');
+            $table->string('created_by', 100)->nullable();
+            $table->foreign('created_by')->references('id')->on('ma_penggunas');
             $table->timestamps();
         });
     }

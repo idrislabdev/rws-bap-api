@@ -21,7 +21,7 @@ class CreateTrPengajuanAplikasisTable extends Migration
             $table->string('aplikasi'); // starclick_ncx, ncx_cons
             $table->json('profiles');
             $table->json('user_account_pengajuan');
-            $table->enum('jenis_pengajuan', ['baru', 'reaktivasi', 'tanbah_fitur', 'hapus']);
+            $table->enum('jenis_pengajuan', ['baru', 'reaktivasi', 'tambah_fitur', 'hapus']);
             $table->enum('status_pengajuan', ['proposed', 'approved', 'rejected', 'process', 'finished']);
             $table->dateTime('proposed_date');
             $table->string('proposed_by', 100)->nullable();

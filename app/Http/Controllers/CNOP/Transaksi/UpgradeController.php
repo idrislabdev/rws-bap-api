@@ -878,7 +878,7 @@ class UpgradeController extends Controller
             $manager_wholesale = new \stdClass();
             $manager_wholesale->status_dokumen = 'APPROVED';
             $manager_wholesale->ttd_image = $pengguna->ttd_image;
-
+            $manager_wholesale->paraf_image = $pengguna->paraf_image;
             $data->manager_wholesale_data  = json_encode($manager_wholesale, JSON_PRETTY_PRINT);
             $data->save();
             $this->fileBA($id);

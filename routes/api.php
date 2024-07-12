@@ -361,6 +361,8 @@ Route::prefix('account-center')->group(function () {
             Route::get('pengajuan-aplikasi', [PengajuanAplikasiController::class, 'index']);
             Route::post('pengajuan-aplikasi', [PengajuanAplikasiController::class, 'store']);
             Route::patch('pengajuan-aplikasi/{id}/update-status', [PengajuanAplikasiController::class, 'updateStatus']);
+            Route::patch('pengajuan-aplikasi/bulk/proses', [PengajuanAplikasiController::class, 'bulkProses']);
+
         });
     });
 });
