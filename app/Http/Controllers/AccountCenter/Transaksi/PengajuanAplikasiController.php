@@ -164,6 +164,7 @@ class PengajuanAplikasiController extends Controller
                 } else {
                     $user_profile = new MaUserAccountProfile();
                     $user_profile->user_account_id = $user_account_id;
+                    $user_profile->username = $pengajuan->username;
                     $user_profile->aplikasi = $pengajuan->aplikasi;
                     $user_profile->profiles  = json_encode($pengajuan->profiles, JSON_PRETTY_PRINT);
                     $user_profile->pengajuan_aplikasi_id = $data_pengajuan->id;

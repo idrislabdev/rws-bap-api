@@ -103,6 +103,22 @@ class HakAksesSeeder extends Seeder
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.dashboard', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.users', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.starclick', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.starclick.add', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.starclick.approve', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.starclick.reject', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.starclick.process', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.starclick.history', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.ncx', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.ncx.add', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.ncx.approve', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.ncx.reject', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.ncx.process', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.ncx.history', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.master', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.master.jabatan', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.master.starclick_profile', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.master.ncx_profile', 'deskripsi' => '-'],
         ];
 
         foreach ($items as $item) {
