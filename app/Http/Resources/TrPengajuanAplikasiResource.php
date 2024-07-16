@@ -32,6 +32,7 @@ class TrPengajuanAplikasiResource extends JsonResource
             "profiles" => json_decode($this->profiles),
             "jenis_pengajuan" => $this->jenis_pengajuan,
             "status_pengajuan" => $this->status_pengajuan,
+            "account_profile" => $this->accountProfile,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
             

@@ -22,21 +22,21 @@ class PengajuanAplikasiController extends Controller
 
     public function index()
     {
-        $data = TrPengajuanAplikasi::with(['proposedBy', 'rejectedBy', 'approvedBy', 'processBy'])
-        ->with(['userAccount' => function ($q) {
+        $data = TrPengajuanAplikasi::with(['proposedBy', 'rejectedBy', 'approvedBy', 'processBy', 'accountProfile', 'userAccount'])
+        ->whereHas('userAccount', function ($q) {
             if (isset($_GET['q']) && $_GET['q'] !== '') {
                 $query = $_GET['q'];
                 $q->whereRaw("(nama like '%$query%' or email like '%$query%' or nik like '%$query%')");
             }
-        }]);
+        });
         if (isset($_GET['page'])) {
 
-            if (isset($_GET['q']) && $_GET['q'] !== '') {
-                $q = $_GET['q'];
-                $data = $data->whereRaw("(no_dokumen like '%$q%' or 
-                    nama_sto like '%$q%' or nama_site like '%$q%' or
-                    regional like '%$q%' or nama_klien like '%$q%')");
-            }
+            // if (isset($_GET['q']) && $_GET['q'] !== '') {
+            //     $q = $_GET['q'];
+            //     $data = $data->whereRaw("(no_dokumen like '%$q%' or 
+            //         nama_sto like '%$q%' or nama_site like '%$q%' or
+            //         regional like '%$q%' or nama_klien like '%$q%')");
+            // }
 
             if (isset($_GET['jenis_pengajuan'])) {
                 $data = $data->where('jenis_pengajuan', $_GET['jenis_pengajuan']);

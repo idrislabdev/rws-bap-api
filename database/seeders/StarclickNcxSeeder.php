@@ -19,6 +19,7 @@ class StarclickNcxSeeder extends Seeder
             JabatanSeeder::class,
             JabatanStarclickSeeder::class,
             JabatanNcxSeeder::class,
+            HakAksesSeeder::class,
         ]);
     }
 }

@@ -35,4 +35,9 @@ class TrPengajuanAplikasi extends Model
     {
         return $this->hasOne('App\Models\MaPengguna', 'id', 'diproses_oleh');
     }
+
+    public function accountProfile()
+    {
+        return $this->hasOne('App\Models\MaUserAccountProfile', 'pengajuan_aplikasi_id', 'id');
+    }
 }
