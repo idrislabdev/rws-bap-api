@@ -8,6 +8,7 @@ use App\Http\Resources\TrPengajuanAplikasiResource;
 use App\Models\MaPengguna;
 use App\Models\MaUserAccount;
 use App\Models\MaUserAccountProfile;
+use App\Models\TrHistoryPengajuan;
 use App\Models\TrPengajuanAplikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,9 @@ class PengajuanAplikasiController extends Controller
                 $query = $_GET['q'];
                 $q->whereRaw("(nama like '%$query%' or email like '%$query%' or nik like '%$query%')");
             }
+            if (isset($_GET['status_pegawai'])) {
+                $q->where('status_pegawai', $_GET['status_pegawai']);
+            }
         });
         if (isset($_GET['page'])) {
 
@@ -37,6 +41,15 @@ class PengajuanAplikasiController extends Controller
             //         nama_sto like '%$q%' or nama_site like '%$q%' or
             //         regional like '%$q%' or nama_klien like '%$q%')");
             // }
+            
+
+            if (isset($_GET['history_id'])) {
+                $data = $data->where('history_id', $_GET['history_id']);
+            }
+
+            if (isset($_GET['aplikasi'])) {
+                $data = $data->where('aplikasi', $_GET['aplikasi']);
+            }
 
             if (isset($_GET['jenis_pengajuan'])) {
                 $data = $data->where('jenis_pengajuan', $_GET['jenis_pengajuan']);
@@ -71,6 +84,24 @@ class PengajuanAplikasiController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        try {
+            $data = TrPengajuanAplikasi::with(['proposedBy', 'rejectedBy', 'approvedBy', 'processBy', 'accountProfile', 'userAccount'])->findOrFail($id);
+
+            return (new TrPengajuanAplikasiResource($data))->additional([
+                'success' => true,
+                'message' => 'suksess'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 404);
+        }
+    }
+
     public function store(Request $request)
     {
         $v = Validator::make($request->all(), [
@@ -81,16 +112,18 @@ class PengajuanAplikasiController extends Controller
         DB::beginTransaction();
         try {
             $user_account = new MaUserAccount();
-            if ($user_account->id != null) {
-                $check = MaUserAccount::find($user_account->id);
+            if ($request->user_account_id != null) {
+                $check = MaUserAccount::find($request->user_account_id);
                 if ($check) {
-                    MaUserAccount::where('id', $user_account->id)
+                    MaUserAccount::where('id', $request->user_account_id)
                         ->update(array(
                             'nama' => $request->nama,
                             'tanggal_lahir' => $request->tanggal_lahir,
                             'nik' => $request->nik,
                             'status_pegawai' => $request->status_pegawai,
                             'email' => $request->email,
+                            'no_handphone' => $request->no_handphone,
+                            'jabatan_id' => $request->jabatan_id,
                             'jabatan' => $request->jabatan,
                             'unit' => $request->unit,
                             'site_witel' => $request->site_witel,
@@ -104,6 +137,7 @@ class PengajuanAplikasiController extends Controller
                             'jabatan_atasan' => $request->nik_atasan,
                             'is_deleted' => $request->is_deleted,
                     ));
+                    $user_account =  MaUserAccount::find($request->user_account_id);
                 }
             } else {
                 $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'));
@@ -116,6 +150,8 @@ class PengajuanAplikasiController extends Controller
                 $user_account->nik = $request->nik;
                 $user_account->status_pegawai = $request->status_pegawai;
                 $user_account->email = $request->email;
+                $user_account->no_handphone = $request->no_handphone;
+                $user_account->jabatan_id = $request->jabatan_id;
                 $user_account->jabatan = $request->jabatan;
                 $user_account->unit = $request->unit;
                 $user_account->site_witel = $request->site_witel;
@@ -151,6 +187,7 @@ class PengajuanAplikasiController extends Controller
                 $data_pengajuan->site_witel = Auth::user()->site_witel ? Auth::user()->site_witel : null;
                 $data_pengajuan->proposed_date = date('Y-m-d H:m:s');
                 $data_pengajuan->status_pengajuan = 'proposed';
+                $data_pengajuan->keterangan = $pengajuan->keterangan;
                 $data_pengajuan->save();
 
                 $user_profile = MaUserAccountProfile::where('user_account_id', $user_account_id)->where('aplikasi', $pengajuan->aplikasi)->first();
@@ -174,10 +211,11 @@ class PengajuanAplikasiController extends Controller
 
             DB::commit();
 
+            $data = TrPengajuanAplikasi::with(['proposedBy', 'rejectedBy', 'approvedBy', 'processBy', 'accountProfile', 'userAccount'])->findOrFail($data_pengajuan->id);
 
-            return (new MaUserAccountResource($user_account))->additional([
+            return (new TrPengajuanAplikasiResource($data))->additional([
                 'success' => true,
-                'message' => 'Data Baru Telah Dibuat'
+                'message' => 'suksess'
             ]);
         } catch (\Throwable $th) {
             DB::rollback();
@@ -196,6 +234,101 @@ class PengajuanAplikasiController extends Controller
             ], 422);
         }
     }
+
+    public function update($id, Request $request)
+    {
+        $v = Validator::make($request->all(), [
+            'jenis_aplikasi' => 'required',
+            'jenis_pengajuan' => 'required|in:BARU,REAKTIVASI,TAMBAH-FITUR,HAPUS',
+        ]);
+
+        $check = TrPengajuanAplikasi::findOrFail($id);
+        if (!$check) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        DB::beginTransaction();
+        try {
+            // $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'));
+            // $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'));
+            MaUserAccount::where('id', $request->user_account_id)
+                ->update(array(
+                    'nama' => $request->nama,
+                    'tanggal_lahir' => $request->tanggal_lahir,
+                    'nik' => $request->nik,
+                    'status_pegawai' => $request->status_pegawai,
+                    'email' => $request->email,
+                    'jabatan_id' => $request->jabatan_id,
+                    'jabatan' => $request->jabatan,
+                    'unit' => $request->unit,
+                    'site_witel' => $request->site_witel,
+                    'datel' => $request->datel,
+                    'plaza' => $request->plaza,
+                    'divisi' => $request->divisi,
+                    'telegram_id' => $request->telegram_id,
+                    'telegram_user' => $request->telegram_user,
+                    'channel' => $request->channel,
+                    'nama_atasan' => $request->nama_atasan,
+                    'jabatan_atasan' => $request->nik_atasan,
+                    'is_deleted' => false,
+                    // 'image_ktp_url' => $url_ktp,
+                    // 'file_pakta_url' => $url_pakta
+            ));
+
+            $user_account =  MaUserAccount::find($request->user_account_id);
+
+            $pengajuans = json_decode($request->pengajuans);
+            foreach ($pengajuans as $pengajuan) {
+                TrPengajuanAplikasi::where('id', $id)
+                    ->update(array(
+                        'aplikasi' => $pengajuan->aplikasi,
+                        'jenis_pengajuan' => $pengajuan->jenis_pengajuan,
+                        'profiles' => json_encode($pengajuan->profiles, JSON_PRETTY_PRINT),
+                        'user_account_pengajuan' => json_encode($user_account, JSON_PRETTY_PRINT),
+                        'proposed_by' => Auth::user()->id,
+                        'proposed_by_data' => json_encode(MaPengguna::find(Auth::user()->id), JSON_PRETTY_PRINT),
+                        'site_witel' => Auth::user()->site_witel ? Auth::user()->site_witel : null,
+                        'proposed_date' => date('Y-m-d H:m:s'),
+                        'status_pengajuan' => 'proposed',
+                        'keterangan' => $pengajuan->keterangan,
+                ));
+
+                MaUserAccountProfile::where('user_account_id', $request->user_account_id)
+                ->where('pengajuan_aplikasi_id', $id)
+                ->update(array(
+                    'profiles' => json_encode($pengajuan->profiles, JSON_PRETTY_PRINT),
+                ));
+            }
+
+            DB::commit();
+
+            $data = TrPengajuanAplikasi::with(['proposedBy', 'rejectedBy', 'approvedBy', 'processBy', 'accountProfile', 'userAccount'])->findOrFail($id);
+            return (new TrPengajuanAplikasiResource($data))->additional([
+                'success' => true,
+                'message' => 'suksess'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+
+        if ($v->fails()) {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => $v->errors()
+            ], 422);
+        }
+    }
+
 
     public function updateStatus($id, Request $request)
     {
@@ -275,6 +408,12 @@ class PengajuanAplikasiController extends Controller
         ], 200);
     }
 
+    public function imageKtp($name)
+    {
+        $storagePath = public_path() . '/data-ktp/' . $name;
+        return response()->file($storagePath);
+    }
+
 
     private function prosesUploadKtp($file)
     {
@@ -284,6 +423,7 @@ class PengajuanAplikasiController extends Controller
 
         return $nama_file . '.' . $file->getClientOriginalExtension();
     }
+
 
     private function prosesUploadPakta($file)
     {

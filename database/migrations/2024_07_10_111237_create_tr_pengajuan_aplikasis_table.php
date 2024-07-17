@@ -16,7 +16,7 @@ class CreateTrPengajuanAplikasisTable extends Migration
         Schema::create('tr_pengajuan_aplikasis', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('user_account_id');
-            $table->foreign('user_account_id')->references('id')->on('ma_user_accounts');
+            $table->foreign('user_account_id')->references('id')->on('ma_user_accounts')->onDelete('cascade');
             $table->string('site_witel')->nullable();
             $table->string('aplikasi'); // starclick_ncx, ncx_cons
             $table->json('profiles');
@@ -38,7 +38,7 @@ class CreateTrPengajuanAplikasisTable extends Migration
             $table->json('process_by_data')->nullable();
             $table->text('rejected_note')->nullable();
             $table->string('history_id')->nullable();
-            $table->foreign('history_id')->references('id')->on('tr_history_pengajuans');
+            $table->foreign('history_id')->references('id')->on('tr_history_pengajuans')->onDelete('cascade');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

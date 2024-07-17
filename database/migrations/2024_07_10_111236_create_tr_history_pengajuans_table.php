@@ -18,10 +18,11 @@ class CreateTrHistoryPengajuansTable extends Migration
             $table->string('nama');
             $table->integer('batch');
             $table->dateTime('tanggal');
-            $table->enum('jenis_aplikasi', ['STARCLICK-NCX', 'NCX-CONS']);
-            $table->enum('status', ['PROSES', 'SELESAI']);
+            $table->enum('aplikasi', ['starclick_ncx', 'ncx_cons']);
+            $table->enum('status', ['process', 'finished']);
             $table->string('created_by', 100)->nullable();
             $table->foreign('created_by')->references('id')->on('ma_penggunas');
+            $table->json('created_by_data')->nullable();
             $table->timestamps();
         });
     }

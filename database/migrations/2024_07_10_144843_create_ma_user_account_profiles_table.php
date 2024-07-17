@@ -22,7 +22,7 @@ class CreateMaUserAccountProfilesTable extends Migration
             $table->json('profiles');
             $table->enum('status', ['TIDAK-AKTIF', 'AKTIF'])->nullable();
             $table->string('pengajuan_aplikasi_id');
-            $table->foreign('pengajuan_aplikasi_id')->references('id')->on('tr_pengajuan_aplikasis');
+            $table->foreign('pengajuan_aplikasi_id')->references('id')->on('tr_pengajuan_aplikasis')->onDelete('cascade');
             $table->timestamps();
         });
     }

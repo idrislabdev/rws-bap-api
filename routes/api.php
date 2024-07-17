@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountCenter\JabatanController;
+use App\Http\Controllers\AccountCenter\Transaksi\HistoryPengajuanAplikasiController;
 use App\Http\Controllers\AccountCenter\Transaksi\PengajuanAplikasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -360,9 +361,17 @@ Route::prefix('account-center')->group(function () {
         Route::group(['middleware' => ['auth:api', 'optimizeImages']], function () {
             Route::get('pengajuan-aplikasi', [PengajuanAplikasiController::class, 'index']);
             Route::post('pengajuan-aplikasi', [PengajuanAplikasiController::class, 'store']);
+            Route::patch('pengajuan-aplikasi/{id}', [PengajuanAplikasiController::class, 'update']);
+            Route::get('pengajuan-aplikasi/{id}', [PengajuanAplikasiController::class, 'show']);
             Route::patch('pengajuan-aplikasi/{id}/update-status', [PengajuanAplikasiController::class, 'updateStatus']);
             Route::patch('pengajuan-aplikasi/bulk/proses', [PengajuanAplikasiController::class, 'bulkProses']);
+            Route::patch('pengajuan-aplikasi/proses/{type}', [PengajuanAplikasiController::class, 'prosesAplikasi']);
 
+            Route::resource('history', HistoryPengajuanAplikasiController::class);
+            Route::get('history/download/{aplikasi}/{history_id}', [HistoryPengajuanAplikasiController::class, 'downloadPengajuan']);
         });
     });
+    
+    Route::get('image-ktp/{name}', [PengajuanAplikasiController::class, 'imageKtp']);
+
 });

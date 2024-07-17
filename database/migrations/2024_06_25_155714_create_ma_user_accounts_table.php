@@ -20,6 +20,8 @@ class CreateMaUserAccountsTable extends Migration
             $table->string('nik', 10);
             $table->enum('status_pegawai', ['ORGANIK', 'NON-ORGANIK']);
             $table->string('email', 100);
+            $table->string('no_handphone', 25);
+            $table->string('jabatan_id', 100);
             $table->string('jabatan', 100);
             $table->string('unit', 100);
             $table->string('site_witel', 50);
