@@ -136,7 +136,7 @@ class PengajuanAplikasiExport implements FromView, WithTitle, WithColumnWidths, 
             ]
         );
 
-        $active_sheet->getStyle("A5:M{$row_plus}")->applyFromArray(
+        $active_sheet->getStyle("A5:R{$row_plus}")->applyFromArray(
             [
                 'font' => ['name' => 'Calibri', 'size' => '11'],
                 'alignment' => ['horizontal' => 'center', 'vertical' => 'middle'],
