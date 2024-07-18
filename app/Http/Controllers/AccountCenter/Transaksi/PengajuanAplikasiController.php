@@ -115,6 +115,15 @@ class PengajuanAplikasiController extends Controller
             if ($request->user_account_id != null) {
                 $check = MaUserAccount::find($request->user_account_id);
                 if ($check) {
+
+                    $nama_file = str_replace(' ', '_', $request->nama);
+
+                    if ($request->file('image_ktp'))
+                        $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), `ktp_{$nama_file}`);
+                    
+                    if ($request->file('file_pakta'))
+                        $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), `pakta_{$nama_file}`);
+    
                     MaUserAccount::where('id', $request->user_account_id)
                         ->update(array(
                             'nama' => $request->nama,
@@ -140,8 +149,8 @@ class PengajuanAplikasiController extends Controller
                     $user_account =  MaUserAccount::find($request->user_account_id);
                 }
             } else {
-                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'));
-                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'));
+                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), `ktp_{str_replace(' ', '_', $request->nama)}`);
+                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), `pakta_{str_replace(' ', '_', $request->nama)}`);
 
                 $user_account_id = Uuid::uuid4()->toString();
                 $user_account->id = $user_account_id;
@@ -255,6 +264,11 @@ class PengajuanAplikasiController extends Controller
         try {
             // $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'));
             // $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'));
+            if ($request->file('image_ktp'))
+                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), 'ktp_'.$request->nama);
+                    
+            if ($request->file('file_pakta'))
+                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), 'pakta_'.$request->nama);
             MaUserAccount::where('id', $request->user_account_id)
                 ->update(array(
                     'nama' => $request->nama,
@@ -415,20 +429,16 @@ class PengajuanAplikasiController extends Controller
     }
 
 
-    private function prosesUploadKtp($file)
+    private function prosesUploadKtp($file, $nama_file)
     {
-        $nama_file = Uuid::uuid4()->toString();
-
         $file->move('data-ktp/', $nama_file . '.' . $file->getClientOriginalExtension());
 
         return $nama_file . '.' . $file->getClientOriginalExtension();
     }
 
 
-    private function prosesUploadPakta($file)
+    private function prosesUploadPakta($file, $nama_file)
     {
-        $nama_file = Uuid::uuid4()->toString();
-
         $file->move('file-pakta/', $nama_file . '.' . $file->getClientOriginalExtension());
 
         return $nama_file . '.' . $file->getClientOriginalExtension();

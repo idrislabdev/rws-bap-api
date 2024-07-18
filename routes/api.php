@@ -369,7 +369,10 @@ Route::prefix('account-center')->group(function () {
 
             Route::resource('history', HistoryPengajuanAplikasiController::class);
             Route::get('history/download/{aplikasi}/{history_id}', [HistoryPengajuanAplikasiController::class, 'downloadPengajuan']);
+            Route::get('history/download-zip/{aplikasi}/{history_id}', [HistoryPengajuanAplikasiController::class, 'downloadZip']);
         });
+        // Route::get('history/download-zip/{aplikasi}/{history_id}', [HistoryPengajuanAplikasiController::class, 'downloadZip']);
+
     });
     
     Route::get('image-ktp/{name}', [PengajuanAplikasiController::class, 'imageKtp']);

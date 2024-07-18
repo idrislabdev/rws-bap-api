@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use Excel;
+use ZipArchive;
 
 class HistoryPengajuanAplikasiController extends Controller
 {
@@ -68,7 +69,10 @@ class HistoryPengajuanAplikasiController extends Controller
         $bulan = date('n', strtotime(date('Y-m-d')));
         $tahun = date('Y', strtotime(date('Y-m-d')));
 
-        $batch = TrHistoryPengajuan::where('nama', $request->type)->max('batch') + 1;
+        $batch = TrHistoryPengajuan::where('aplikasi', $request->type)
+                                    ->whereYear('tanggal', $tahun)
+                                    ->whereMonth('tanggal',$bulan)
+                                    ->max('batch') + 1;
 
         $nama = '';
         if ($request->type === 'starclick_ncx') {
@@ -137,5 +141,36 @@ class HistoryPengajuanAplikasiController extends Controller
     {
         
         return Excel::download(new PengajuanAplikasiExport($aplikasi, $history_id), 'pengajuan_aplikasi_starclick.xlsx');
+    }
+
+    public function downloadZip($aplikasi, $history_id)
+    {
+
+        $pengajuans = TrPengajuanAplikasi::with(['userAccount'])->where('history_id',$history_id)->get();
+        $history = TrHistoryPengajuan::find($history_id);
+
+        $excelPath = public_path().'/temp-folder/'.$history->nama;
+        if(file_exists($excelPath))
+            unlink($excelPath);
+
+        Excel::store(new PengajuanAplikasiExport($aplikasi, $history_id), $history->nama, 'public_temp');
+        $zip        = new ZipArchive;
+        $zipFile    = public_path().'/temp-folder/temp-account.zip';
+        if(file_exists($zipFile))
+            unlink($zipFile);
+
+        if ($zip->open($zipFile, ZipArchive::CREATE) === TRUE)
+        {
+            foreach ($pengajuans as $key => $pengajuan) {
+                $user_account = $pengajuan->userAccount;
+                $zip->addFile('data-ktp/' . $user_account->image_ktp_url);
+                $zip->addFile('file-pakta/' . $user_account->file_pakta_url);
+            }
+            $zip->addFile($excelPath, $history->nama);
+            $zip->close();
+        }
+
+        return response()->download($zipFile);
+
     }
 }
