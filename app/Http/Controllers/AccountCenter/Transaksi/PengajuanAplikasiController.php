@@ -149,8 +149,9 @@ class PengajuanAplikasiController extends Controller
                     $user_account =  MaUserAccount::find($request->user_account_id);
                 }
             } else {
-                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), `ktp_{str_replace(' ', '_', $request->nama)}`);
-                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), `pakta_{str_replace(' ', '_', $request->nama)}`);
+                $nama_undescrore = str_replace(" ","_",$request->nama);
+                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), 'ktp_'.$nama_undescrore);
+                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), 'pakta_'.$nama_undescrore);
 
                 $user_account_id = Uuid::uuid4()->toString();
                 $user_account->id = $user_account_id;
@@ -427,7 +428,12 @@ class PengajuanAplikasiController extends Controller
         $storagePath = public_path() . '/data-ktp/' . $name;
         return response()->file($storagePath);
     }
-
+    
+    public function filePakta($name)
+    {
+        $storagePath = public_path() . '/file-pakta/' . $name;
+        return response()->file($storagePath);
+    }
 
     private function prosesUploadKtp($file, $nama_file)
     {

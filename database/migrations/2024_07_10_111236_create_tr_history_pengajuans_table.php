@@ -19,7 +19,7 @@ class CreateTrHistoryPengajuansTable extends Migration
             $table->integer('batch');
             $table->dateTime('tanggal');
             $table->enum('aplikasi', ['starclick_ncx', 'ncx_cons']);
-            $table->enum('status', ['process', 'finished']);
+            $table->enum('status', ['process', 'finished', 'rejected_hub']);
             $table->string('nota_dinas_url')->nullable();
             $table->string('created_by', 100)->nullable();
             $table->foreign('created_by')->references('id')->on('ma_penggunas');

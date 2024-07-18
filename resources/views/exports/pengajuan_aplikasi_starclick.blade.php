@@ -44,9 +44,17 @@
                 @php
                     $jenis_pengajuan = 'USER BARU';
                 @endphp
+            @elseif ($data->jenis_pengajuan = 'tambah_fitur')
+                @php
+                    $jenis_pengajuan = 'PENAMBAHAN PREVILEGE BARU';
+                @endphp
+            @elseif ($data->jenis_pengajuan = 'hapu')
+                  @php
+                      $jenis_pengajuan = 'HAPUS USER';
+                  @endphp
             @else
                 @php
-                    $jenis_pengajuan = 'USER BARU';
+                    $jenis_pengajuan = 'REAKTIVASI USER';
                 @endphp
             @endif
             <tr>

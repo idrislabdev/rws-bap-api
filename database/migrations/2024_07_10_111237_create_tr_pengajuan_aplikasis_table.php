@@ -22,7 +22,7 @@ class CreateTrPengajuanAplikasisTable extends Migration
             $table->json('profiles');
             $table->json('user_account_pengajuan');
             $table->enum('jenis_pengajuan', ['baru', 'reaktivasi', 'tambah_fitur', 'hapus']);
-            $table->enum('status_pengajuan', ['proposed', 'approved', 'rejected', 'process', 'finished']);
+            $table->enum('status_pengajuan', ['proposed', 'approved', 'rejected', 'process', 'rejected_hub', 'finished']);
             $table->dateTime('proposed_date');
             $table->string('proposed_by', 100)->nullable();
             $table->foreign('proposed_by')->references('id')->on('ma_penggunas');
@@ -36,7 +36,11 @@ class CreateTrPengajuanAplikasisTable extends Migration
             $table->string('process_by', 100)->nullable();
             $table->foreign('process_by')->references('id')->on('ma_penggunas');
             $table->json('process_by_data')->nullable();
+            $table->string('rejected_hub_by', 100)->nullable();
+            $table->foreign('rejected_hub_by')->references('id')->on('ma_penggunas');
+            $table->json('rejected_hub_by_data')->nullable();
             $table->text('rejected_note')->nullable();
+            $table->text('rejected_hub_note')->nullable();
             $table->string('history_id')->nullable();
             $table->foreign('history_id')->references('id')->on('tr_history_pengajuans')->onDelete('cascade');
             $table->text('keterangan')->nullable();

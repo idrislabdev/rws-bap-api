@@ -374,6 +374,9 @@ Route::prefix('account-center')->group(function () {
         // Route::get('history/download-zip/{aplikasi}/{history_id}', [HistoryPengajuanAplikasiController::class, 'downloadZip']);
 
     });
+    Route::group(['middleware' => ['auth:api', 'optimizeImages']], function () {
+        Route::get('file-pakta/{name}', [PengajuanAplikasiController::class, 'filePakta']);
+    });
     
     Route::get('image-ktp/{name}', [PengajuanAplikasiController::class, 'imageKtp']);
 

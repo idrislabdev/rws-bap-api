@@ -15,7 +15,7 @@ class CreateMaUserAccountProfilesTable extends Migration
     {
         Schema::create('ma_user_account_profiles', function (Blueprint $table) {
             $table->string('user_account_id');
-            $table->foreign('user_account_id')->references('id')->on('ma_user_accounts');
+            $table->foreign('user_account_id')->references('id')->on('ma_user_accounts')->onDelete('cascade');
             $table->string('username');
             $table->string('aplikasi');
             $table->primary(['user_account_id','aplikasi'], 'user_account_aplikasi_id');
