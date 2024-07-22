@@ -29,4 +29,29 @@ class JabatanController extends Controller
             'message' => null
         ]);
     }
+
+    public function show($id)
+    {
+        try {
+            $data = MaJabatan::find($id);
+            if ($data) {
+                return (new MaJabatanResource($data))->additional([
+                    'success' => true,
+                    'message' => 'suksess'
+                ]);
+            } else {
+                return response()->json([
+                    'data' => null,
+                    'success' => false,
+                    'message' => 'Data Jabatan Tidak Ditemukan'
+                ], 404);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }

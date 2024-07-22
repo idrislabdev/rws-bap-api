@@ -114,6 +114,7 @@ class PengajuanAplikasiController extends Controller
             $user_account = new MaUserAccount();
             if ($request->user_account_id != null) {
                 $check = MaUserAccount::find($request->user_account_id);
+                $user_account_id = $request->user_account_id;
                 if ($check) {
 
                     $nama_file = str_replace(' ', '_', $request->nama);
@@ -144,7 +145,7 @@ class PengajuanAplikasiController extends Controller
                             'channel' => $request->channel,
                             'nama_atasan' => $request->nama_atasan,
                             'jabatan_atasan' => $request->nik_atasan,
-                            'is_deleted' => $request->is_deleted,
+                            'is_deleted' => false,
                     ));
                     $user_account =  MaUserAccount::find($request->user_account_id);
                 }
@@ -205,7 +206,8 @@ class PengajuanAplikasiController extends Controller
                     MaUserAccountProfile::where('user_account_id', $user_account->id)
                     ->where('aplikasi', $pengajuan->aplikasi)
                     ->update(array(
-                        'profile' => json_encode($pengajuan->profile, JSON_PRETTY_PRINT),
+                        'status' => null,
+                        'profiles' => json_encode($pengajuan->profiles, JSON_PRETTY_PRINT),
                         'pengajuan_aplikasi_id' => $data_pengajuan->id
                     ));
                 } else {

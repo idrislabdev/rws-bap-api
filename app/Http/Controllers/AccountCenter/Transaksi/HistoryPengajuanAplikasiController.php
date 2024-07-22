@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HistoryPengajuanAplikasiResource;
 use App\Http\Resources\TrHistoryPengajuanResource;
 use App\Models\MaPengguna;
+use App\Models\MaUserAccountProfile;
 use App\Models\TrHistoryPengajuan;
 use App\Models\TrPengajuanAplikasi;
 use Illuminate\Http\Request;
@@ -119,6 +120,87 @@ class HistoryPengajuanAplikasiController extends Controller
         
     }
 
+    public function update($id, Request $request)
+    {
+        $v = Validator::make($request->all(), [
+            'ids' => 'required',
+            'file' => 'required',
+        ]);
+
+        $check = TrHistoryPengajuan::findOrFail($id);
+        if (!$check) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        DB::beginTransaction();
+        try {
+            $nama = explode(".", $check->nama)[0];
+            $ids = json_decode($request->ids);
+            $url_file = $this->uploadNotaDinas($request->file('file'), 'nota-dinas_'.$nama);
+
+            TrPengajuanAplikasi::where('history_id', $id)->whereIn('id', $ids)
+            ->update(array(
+                'status_pengajuan' => 'finished',
+            ));
+
+            $pengajuans = TrPengajuanAplikasi::whereIn('id', $ids)->get();
+            foreach ($pengajuans as $key => $pengajuan) {
+                $status = 'AKTIF';
+                if ($pengajuan->jenis_pengajuan == 'hapus') {
+                   $status = 'TIDAK-AKTIF';
+                }
+                
+                MaUserAccountProfile::where('pengajuan_aplikasi_id', $pengajuan->id)
+                ->update(array(
+                    'status' => $status,
+                ));
+               
+            }
+
+           
+
+            TrPengajuanAplikasi::where('history_id', $id)->whereNotIn('id', $ids)
+            ->update(array(
+                'status_pengajuan' => 'rejected_hub',
+                'history_id' => null,
+                // 'rejected_hub_by' => Auth::user()->id,
+                // 'rejected_hub_by_data' => json_encode(MaPengguna::find(Auth::user()->id), JSON_PRETTY_PRINT)
+            ));
+
+            TrHistoryPengajuan::where('id', $id)
+            ->update(array(
+                'status' => 'finished',
+                'nota_dinas_url' => $url_file
+            ));
+            
+            DB::commit();
+
+            return (new TrHistoryPengajuanResource($check))->additional([
+                'success' => true,
+                'message' => 'suksess'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'data' => null,
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+
+        if ($v->fails()) {
+            return response()->json([
+                'data' => null,
+                'succes' => false,
+                'message' => $v->errors()
+            ], 422);
+        }
+    }
+
     public function show($id)
     {
         try {
@@ -140,7 +222,14 @@ class HistoryPengajuanAplikasiController extends Controller
     public function downloadPengajuan($aplikasi, $history_id)
     {
         
-        return Excel::download(new PengajuanAplikasiExport($aplikasi, $history_id), 'pengajuan_aplikasi_starclick.xlsx');
+        return Excel::download(new PengajuanAplikasiExport($aplikasi, $history_id), 'pengajuan_aplikasi.xlsx');
+    }
+
+    public function downloadNotaDinas($name)
+    {
+        
+        $storagePath = public_path() . '/nota-dinas/' . $name;
+        return response()->file($storagePath);
     }
 
     public function downloadZip($aplikasi, $history_id)
@@ -150,6 +239,7 @@ class HistoryPengajuanAplikasiController extends Controller
         $history = TrHistoryPengajuan::find($history_id);
 
         $excelPath = public_path().'/temp-folder/'.$history->nama;
+        $notaDinasPath = public_path().'/nota-dinas/'.$history->nota_dinas_url;
         if(file_exists($excelPath))
             unlink($excelPath);
 
@@ -167,10 +257,19 @@ class HistoryPengajuanAplikasiController extends Controller
                 $zip->addFile('file-pakta/' . $user_account->file_pakta_url);
             }
             $zip->addFile($excelPath, $history->nama);
+            $zip->addFile($notaDinasPath, $history->nota_dinas_url);
             $zip->close();
         }
 
         return response()->download($zipFile);
 
     }
+
+    private function uploadNotaDinas($file, $nama_file)
+    {
+        $file->move('nota-dinas/', $nama_file . '.' . $file->getClientOriginalExtension());
+
+        return $nama_file . '.' . $file->getClientOriginalExtension();
+    }
+
 }

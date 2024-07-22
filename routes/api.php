@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountCenter\JabatanController;
 use App\Http\Controllers\AccountCenter\Transaksi\HistoryPengajuanAplikasiController;
 use App\Http\Controllers\AccountCenter\Transaksi\PengajuanAplikasiController;
+use App\Http\Controllers\AccountCenter\UserAccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -356,6 +357,7 @@ Route::prefix('sarpen')->group(function () {
 Route::prefix('account-center')->group(function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::resource('jabatan', JabatanController::class);
+        Route::resource('user-account', UserAccountController::class);
     });
     Route::prefix('transaksi')->group(function () {
         Route::group(['middleware' => ['auth:api', 'optimizeImages']], function () {
@@ -376,6 +378,7 @@ Route::prefix('account-center')->group(function () {
     });
     Route::group(['middleware' => ['auth:api', 'optimizeImages']], function () {
         Route::get('file-pakta/{name}', [PengajuanAplikasiController::class, 'filePakta']);
+        Route::get('nota-dinas/{name}', [HistoryPengajuanAplikasiController::class, 'downloadNotaDinas']);
     });
     
     Route::get('image-ktp/{name}', [PengajuanAplikasiController::class, 'imageKtp']);
