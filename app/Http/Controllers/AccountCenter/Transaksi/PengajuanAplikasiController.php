@@ -32,16 +32,15 @@ class PengajuanAplikasiController extends Controller
             if (isset($_GET['status_pegawai'])) {
                 $q->where('status_pegawai', $_GET['status_pegawai']);
             }
+
+            if (Auth::user()->role === 'WITEL') {
+                $q->where('site_witel', Auth::user()->site_witel);
+            } else if (Auth::user()->role === 'RWS' || Auth::user()->role === 'ROOT') {
+                if (isset($_GET['site_witel']))
+                    $q->where('site_witel', $_GET['site_witel']);
+            }
         });
         if (isset($_GET['page'])) {
-
-            // if (isset($_GET['q']) && $_GET['q'] !== '') {
-            //     $q = $_GET['q'];
-            //     $data = $data->whereRaw("(no_dokumen like '%$q%' or 
-            //         nama_sto like '%$q%' or nama_site like '%$q%' or
-            //         regional like '%$q%' or nama_klien like '%$q%')");
-            // }
-            
 
             if (isset($_GET['history_id'])) {
                 $data = $data->where('history_id', $_GET['history_id']);
@@ -59,22 +58,12 @@ class PengajuanAplikasiController extends Controller
                 $data = $data->where('status_pengajuan', $_GET['status_pengajuan']);
             }
 
-            if (Auth::user()->role === 'WITEL') {
-                $data = $data->where('site_witel', Auth::user()->site_witel);
-            } else if (Auth::user()->role === 'RWS' || Auth::user()->role === 'ROOT') {
-                if (isset($_GET['site_witel']))
-                    $data = $data->where('site_witel', $_GET['site_witel']);
-            }
-
             $per_page = 10;
             if (isset($_GET['per_page']))
                 $per_page = $_GET['per_page'];
 
             $data = $data->orderByDesc('created_at')->paginate($per_page)->onEachSide(5);
         } else {
-            if (isset($_GET['group'])) {
-                $data = $data->where('group', $_GET['group']);
-            }
             $data = $data->get();
         }
 
@@ -117,13 +106,11 @@ class PengajuanAplikasiController extends Controller
                 $user_account_id = $request->user_account_id;
                 if ($check) {
 
-                    $nama_file = str_replace(' ', '_', $request->nama);
-
                     if ($request->file('image_ktp'))
-                        $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), `ktp_{$nama_file}`);
+                        $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), `ktp_{$user_account_id}`);
                     
                     if ($request->file('file_pakta'))
-                        $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), `pakta_{$nama_file}`);
+                        $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), `pakta_{$user_account_id}`);
     
                     MaUserAccount::where('id', $request->user_account_id)
                         ->update(array(
@@ -150,11 +137,11 @@ class PengajuanAplikasiController extends Controller
                     $user_account =  MaUserAccount::find($request->user_account_id);
                 }
             } else {
-                $nama_undescrore = str_replace(" ","_",$request->nama);
-                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), 'ktp_'.$nama_undescrore);
-                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), 'pakta_'.$nama_undescrore);
-
                 $user_account_id = Uuid::uuid4()->toString();
+
+                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), 'ktp_'.$user_account_id);
+                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), 'pakta_'.$user_account_id);
+
                 $user_account->id = $user_account_id;
                 $user_account->nama = $request->nama;
                 $user_account->tanggal_lahir = $request->tanggal_lahir;

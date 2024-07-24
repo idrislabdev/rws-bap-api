@@ -253,11 +253,17 @@ class HistoryPengajuanAplikasiController extends Controller
         {
             foreach ($pengajuans as $key => $pengajuan) {
                 $user_account = $pengajuan->userAccount;
-                $zip->addFile('data-ktp/' . $user_account->image_ktp_url);
-                $zip->addFile('file-pakta/' . $user_account->file_pakta_url);
+                // $zip->addFile('data-ktp/' . $user_account->image_ktp_url);
+                $zip->addFile('data-ktp/' . $user_account->image_ktp_url, 'data-ktp/ktp_'.$user_account->nama.'.'.explode(".", $user_account->image_ktp_url)[1]);
+
+                // $zip->addFile('file-pakta/' . $user_account->file_pakta_url);
+                $zip->addFile('file-pakta/' . $user_account->file_pakta_url, 'file-pakta/pakta_'.$user_account->nama.'.'.explode(".", $user_account->file_pakta_url)[1]);
+
             }
+            if ($history->nota_dinas_url != null)
+                $zip->addFile($notaDinasPath, $history->nota_dinas_url);
+
             $zip->addFile($excelPath, $history->nama);
-            $zip->addFile($notaDinasPath, $history->nota_dinas_url);
             $zip->close();
         }
 

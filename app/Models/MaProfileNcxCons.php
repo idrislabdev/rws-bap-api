@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class MaProfileNcxCons extends Model
 {
     use HasFactory;
+    public $incrementing = false;
+    protected $keyType = 'string';
 }

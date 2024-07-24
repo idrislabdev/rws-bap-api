@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccountCenter\DashboardController as AccountCenterDashboardController;
 use App\Http\Controllers\AccountCenter\JabatanController;
+use App\Http\Controllers\AccountCenter\ProfileNcxController;
+use App\Http\Controllers\AccountCenter\ProfileStarclickController;
 use App\Http\Controllers\AccountCenter\Transaksi\HistoryPengajuanAplikasiController;
 use App\Http\Controllers\AccountCenter\Transaksi\PengajuanAplikasiController;
 use App\Http\Controllers\AccountCenter\UserAccountController;
@@ -356,6 +359,8 @@ Route::prefix('sarpen')->group(function () {
 
 Route::prefix('account-center')->group(function () {
     Route::group(['middleware' => 'auth:api'], function () {
+        Route::resource('profile-ncx', ProfileNcxController::class);
+        Route::resource('profile-starclick', ProfileStarclickController::class);
         Route::resource('jabatan', JabatanController::class);
         Route::resource('user-account', UserAccountController::class);
     });
@@ -376,11 +381,13 @@ Route::prefix('account-center')->group(function () {
         // Route::get('history/download-zip/{aplikasi}/{history_id}', [HistoryPengajuanAplikasiController::class, 'downloadZip']);
 
     });
+    Route::prefix('dashboard')->group(function () {
+        Route::get('summary-witel', [AccountCenterDashboardController::class, 'summaryWitel']);
+    });
     Route::group(['middleware' => ['auth:api', 'optimizeImages']], function () {
         Route::get('file-pakta/{name}', [PengajuanAplikasiController::class, 'filePakta']);
         Route::get('nota-dinas/{name}', [HistoryPengajuanAplikasiController::class, 'downloadNotaDinas']);
     });
     
     Route::get('image-ktp/{name}', [PengajuanAplikasiController::class, 'imageKtp']);
-
 });
