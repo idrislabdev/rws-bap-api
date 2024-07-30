@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\AccountCenter;
 
+use App\Exports\DashboardPengajuanAplikasiExport;
+use App\Exports\DashboardUserAplikasiExport;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MaUserAccountResource;
+use App\Http\Resources\TrPengajuanAplikasiResource;
 use App\Models\MaUserAccount;
 use App\Models\TrPengajuanAplikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Excel;
 
 class DashboardController extends Controller
 {
@@ -104,6 +109,83 @@ class DashboardController extends Controller
         ], 200);
     }
 
-  
+    public function userAccount($aplikasi)
+    {
+        $witel = $_GET['witel'];
+
+        $user_account = MaUserAccount::with(['profiles' => function ($q) use ($aplikasi) {
+            $q->where('aplikasi', $aplikasi)->where('status', 'AKTIF');
+        }])
+        ->whereHas('profiles', function ($q) use ($aplikasi) {
+            $q->where('aplikasi', $aplikasi)->where('status', 'AKTIF');
+        });
+
+        if ($witel != 'ALL') {
+            $user_account = $user_account->where('site_witel', $witel);
+        }
+
+        if (isset($_GET['tanggal_awal']) && isset($_GET['tanggal_akhir'])) {
+            $tanggal_awal = $_GET['tanggal_awal'];
+            $tanggal_akhir = $_GET['tanggal_akhir'];
+            $user_account = $user_account->whereRaw("(created_at >= '$tanggal_awal' and  created_at <= '$tanggal_akhir')");
+        }
+
+        return MaUserAccountResource::collection($user_account->get())->additional([
+            'success' => true,
+            'message' => null
+        ]);
+    }
+
+    public function pengajuanUser($aplikasi)
+    {
+        $witel = $_GET['witel'];
+
+        $pengajuan_account = TrPengajuanAplikasi::with('userAccount')
+                ->whereHas('userAccount', function ($q) use ($witel){
+                    if ($witel != 'ALL')
+                        $q->where('site_witel', $witel);
+                })
+                ->where('aplikasi', $aplikasi)
+                ->where('jenis_pengajuan', 'baru');
+
+        if (isset($_GET['tanggal_awal']) && isset($_GET['tanggal_akhir'])) {
+            $tanggal_awal = $_GET['tanggal_awal'];
+            $tanggal_akhir = $_GET['tanggal_akhir'];
+            $pengajuan_account = $pengajuan_account->whereRaw("(created_at >= '$tanggal_awal' and  created_at <= '$tanggal_akhir')");
+        }
+
+        return TrPengajuanAplikasiResource::collection(($pengajuan_account->get()))->additional([
+            'success' => true,
+            'message' => null,
+        ]);
+    }
+
+    public function downloadUser($aplikasi)
+    {
+        $witel = $_GET['witel'];
+        $tanggal_awal = null;
+        $tanggal_akhir = null;
+
+        if (isset($_GET['tanggal_awal']) && isset($_GET['tanggal_akhir'])) {
+            $tanggal_awal = $_GET['tanggal_awal'];
+            $tanggal_akhir = $_GET['tanggal_akhir'];
+        }
+        
+        return Excel::download(new DashboardUserAplikasiExport($aplikasi, $witel, $tanggal_awal, $tanggal_akhir), 'user_aplikasi_aktif.xlsx');
+    }
+
+    public function downloadPengajuan($aplikasi)
+    {
+        $witel = $_GET['witel'];
+        $tanggal_awal = null;
+        $tanggal_akhir = null;
+
+        if (isset($_GET['tanggal_awal']) && isset($_GET['tanggal_akhir'])) {
+            $tanggal_awal = $_GET['tanggal_awal'];
+            $tanggal_akhir = $_GET['tanggal_akhir'];
+        }
+        
+        return Excel::download(new DashboardPengajuanAplikasiExport($aplikasi, $witel, $tanggal_awal, $tanggal_akhir), 'pengajuan_aplikasi.xlsx');
+    }
 
 }

@@ -77,9 +77,9 @@ class HistoryPengajuanAplikasiController extends Controller
 
         $nama = '';
         if ($request->type === 'starclick_ncx') {
-            $nama = 'Starclick';
+            $nama = 'NCX_STARCLICK';
         } else if ($request->type === 'ncx_cons') {
-            $nama = 'NCX';
+            $nama = 'NCX_CONS';
         }
 
         DB::beginTransaction();

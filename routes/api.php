@@ -383,6 +383,11 @@ Route::prefix('account-center')->group(function () {
     });
     Route::prefix('dashboard')->group(function () {
         Route::get('summary-witel', [AccountCenterDashboardController::class, 'summaryWitel']);
+        Route::get('summary-witel/user/{aplikasi}', [AccountCenterDashboardController::class, 'userAccount']);
+        Route::get('summary-witel/pengajuan/{aplikasi}', [AccountCenterDashboardController::class, 'pengajuanUser']);
+        Route::get('summary-witel/user/{aplikasi}/download', [AccountCenterDashboardController::class, 'downloadUser']);
+        Route::get('summary-witel/pengajuan/{aplikasi}/download', [AccountCenterDashboardController::class, 'downloadPengajuan']);
+
     });
     Route::group(['middleware' => ['auth:api', 'optimizeImages']], function () {
         Route::get('file-pakta/{name}', [PengajuanAplikasiController::class, 'filePakta']);
