@@ -131,7 +131,8 @@ class PengajuanAplikasiController extends Controller
                             'telegram_user' => $request->telegram_user,
                             'channel' => $request->channel,
                             'nama_atasan' => $request->nama_atasan,
-                            'jabatan_atasan' => $request->nik_atasan,
+                            'nik_atasan' => $request->nik_atasan,
+                            'jabatan_atasan' => $request->jabatan_atasan,
                             'is_deleted' => false,
                     ));
                     $user_account =  MaUserAccount::find($request->user_account_id);
@@ -139,8 +140,11 @@ class PengajuanAplikasiController extends Controller
             } else {
                 $user_account_id = Uuid::uuid4()->toString();
 
-                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), 'ktp_'.$user_account_id);
-                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), 'pakta_'.$user_account_id);
+                if ($request->file('image_ktp'))
+                    $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), `ktp_{$user_account_id}`);
+            
+                if ($request->file('file_pakta'))
+                    $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), `pakta_{$user_account_id}`);
 
                 $user_account->id = $user_account_id;
                 $user_account->nama = $request->nama;
@@ -193,7 +197,7 @@ class PengajuanAplikasiController extends Controller
                     MaUserAccountProfile::where('user_account_id', $user_account->id)
                     ->where('aplikasi', $pengajuan->aplikasi)
                     ->update(array(
-                        'status' => null,
+                        // 'status' => null,
                         'profiles' => json_encode($pengajuan->profiles, JSON_PRETTY_PRINT),
                         'pengajuan_aplikasi_id' => $data_pengajuan->id
                     ));
@@ -277,7 +281,8 @@ class PengajuanAplikasiController extends Controller
                     'telegram_user' => $request->telegram_user,
                     'channel' => $request->channel,
                     'nama_atasan' => $request->nama_atasan,
-                    'jabatan_atasan' => $request->nik_atasan,
+                    'nik_atasan' => $request->nik_atasan,
+                    'jabatan_atasan' => $request->jabatan_atasan,
                     'is_deleted' => false,
                     // 'image_ktp_url' => $url_ktp,
                     // 'file_pakta_url' => $url_pakta
@@ -378,8 +383,25 @@ class PengajuanAplikasiController extends Controller
         if ($request->status == 'delete') {
             try {
                 DB::beginTransaction();
-                MaUserAccountProfile::whereIn('pengajuan_aplikasi_id', $request->ids)->delete();
-                TrPengajuanAplikasi::whereIn('id', $request->ids)->delete();
+
+                $ids = $request->ids;
+                foreach ($ids as $key => $id) {
+                    $pengajuan = TrPengajuanAplikasi::where('id', $id)->first();
+                    $last_pengajuan = TrPengajuanAplikasi::where('user_account_id', $pengajuan->user_account_id)
+                            ->where('status_pengajuan', 'finished')
+                            ->where('aplikasi', $pengajuan->aplikasi)
+                            ->orderBy('created_at', 'desc')->first();
+                            
+                    if ($last_pengajuan) {
+                        MaUserAccountProfile::where('user_account_id', $pengajuan->user_account_id)
+                        ->where('aplikasi', $pengajuan->aplikasi)
+                        ->update(array(
+                            'pengajuan_aplikasi_id' => $last_pengajuan->id,
+                            'status' => 'AKTIF'
+                        ));
+                    }
+                    TrPengajuanAplikasi::where('id', $id)->delete();
+                }
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollback();

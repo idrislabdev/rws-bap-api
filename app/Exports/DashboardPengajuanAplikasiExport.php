@@ -79,6 +79,12 @@ class DashboardPengajuanAplikasiExport implements FromView, WithTitle, WithColum
             }
         }
 
+        if ($this->tanggal_awal != null && $this->tanggal_akhir != null) {
+            $tanggal_awal = date_format(date_create($tanggal_awal), 'd-m-Y');
+            $tanggal_akhir = date_format(date_create($tanggal_akhir), 'd-m-Y');
+            $title = $title. ' Tanggal '. $tanggal_awal .' s/d  '. $tanggal_akhir;
+        }
+
         self::$count_rows = $data->count();
 
         return view($view, [
