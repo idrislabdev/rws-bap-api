@@ -158,14 +158,30 @@ class UtilityHelper
     public static function checkNomorDokumen()
     {
         $data_id = DB::table('ma_nomor_dokumens')
-            ->select(DB::raw('max(SUBSTRING(no_dokumen, 6, 4)) as result'))
+            ->select(DB::raw('max(SUBSTRING(no_dokumen, -29, 4)) as result'))
             ->whereYear('tgl_dokumen', date('Y'))
-            ->where('created_at', '>=', '2023-01-02 14:49:50')
+            ->where('tipe_dokumen', '<>', 'PKS')
+            ->where('created_at', '>=', '2024-08-13 10:23:50')
             ->first();
 
         $counter = ($data_id) ? (int)$data_id->result + 1 : 1;
-        $id = 'TEL. ' . sprintf("%04d", $counter);
+        $id = 'TEL.' . sprintf("%04d", $counter);
 
-        return $id . '/YN.000/DR5-11000000/' . date('Y');
+        return $id . '/YN 000/T3R-10000000/' . date('Y');
+    }
+
+    public static function checkNomorDokumenPKS()
+    {
+        $data_id = DB::table('ma_nomor_dokumens')
+            ->select(DB::raw('max(SUBSTRING(no_dokumen, -29, 4)) as result'))
+            ->whereYear('tgl_dokumen', date('Y'))
+            ->where('tipe_dokumen', '=', 'PKS')
+            ->where('created_at', '>=', '2024-08-13 10:23:50')
+            ->first();
+
+        $counter = ($data_id) ? (int)$data_id->result + 1 : 1;
+        $id = sprintf("%04d", $counter);
+
+        return $id . '/HK 810/T3R-10000000/' . date('Y');
     }
 }

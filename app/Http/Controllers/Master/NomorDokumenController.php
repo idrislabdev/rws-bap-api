@@ -27,10 +27,10 @@ class NomorDokumenController extends Controller
 
             if (isset($_GET['q'])) {
                 $q = $_GET['q'];
-                $data = $data->whereRaw("(no_dokumen like '%$q%')");
+                $data = $data->whereRaw("(no_dokumen like '%$q%' or tipe_dokumen like '%$q%')");
             }
 
-            $data = $data->orderBy('no_dokumen')->paginate(25)->onEachSide(5);
+            $data = $data->orderByDesc('created_at')->paginate(25)->onEachSide(5);
         } else {
             $data = $data->get();
         }
@@ -63,7 +63,11 @@ class NomorDokumenController extends Controller
 
             $data = new MaNomorDokumen();
             $data->id = Uuid::uuid4()->toString();
-            $data->no_dokumen = UtilityHelper::checkNomorDokumen();
+            if ($request->tipe_dokumen != 'PKS') {
+                $data->no_dokumen = UtilityHelper::checkNomorDokumen();
+            } else {
+                $data->no_dokumen = UtilityHelper::checkNomorDokumenPKS();
+            }
             $data->tipe_dokumen = $request->tipe_dokumen;
             $data->tgl_dokumen = date('Y-m-d');
             $data->save();

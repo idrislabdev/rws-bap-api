@@ -392,6 +392,7 @@ Route::prefix('account-center')->group(function () {
     Route::group(['middleware' => ['auth:api', 'optimizeImages']], function () {
         Route::get('file-pakta/{name}', [PengajuanAplikasiController::class, 'filePakta']);
         Route::get('nota-dinas/{name}', [HistoryPengajuanAplikasiController::class, 'downloadNotaDinas']);
+        Route::get('feedback-dit/{name}', [HistoryPengajuanAplikasiController::class, 'downloadFeedbackDIT']);
     });
     
     Route::get('image-ktp/{name}', [PengajuanAplikasiController::class, 'imageKtp']);

@@ -107,10 +107,10 @@ class PengajuanAplikasiController extends Controller
                 if ($check) {
 
                     if ($request->file('image_ktp'))
-                        $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), `ktp_{$user_account_id}`);
+                        $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), 'ktp_'.$user_account_id);
                     
                     if ($request->file('file_pakta'))
-                        $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), `pakta_{$user_account_id}`);
+                        $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), 'pakta_'.$user_account_id);
     
                     MaUserAccount::where('id', $request->user_account_id)
                         ->update(array(
@@ -141,10 +141,10 @@ class PengajuanAplikasiController extends Controller
                 $user_account_id = Uuid::uuid4()->toString();
 
                 if ($request->file('image_ktp'))
-                    $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), `ktp_{$user_account_id}`);
+                    $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), 'ktp_'.$user_account_id);
             
                 if ($request->file('file_pakta'))
-                    $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), `pakta_{$user_account_id}`);
+                    $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), 'pakta_'.$user_account_id);
 
                 $user_account->id = $user_account_id;
                 $user_account->nama = $request->nama;
@@ -201,6 +201,14 @@ class PengajuanAplikasiController extends Controller
                         'profiles' => json_encode($pengajuan->profiles, JSON_PRETTY_PRINT),
                         'pengajuan_aplikasi_id' => $data_pengajuan->id
                     ));
+
+                    if ($pengajuan->jenis_pengajuan == 'reaktivasi') {
+                        MaUserAccountProfile::where('user_account_id', $user_account->id)
+                        ->where('aplikasi', $pengajuan->aplikasi)
+                        ->update(array(
+                            'status' => null,
+                        ));
+                    }
                 } else {
                     $user_profile = new MaUserAccountProfile();
                     $user_profile->user_account_id = $user_account_id;
@@ -259,10 +267,10 @@ class PengajuanAplikasiController extends Controller
             // $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'));
             // $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'));
             if ($request->file('image_ktp'))
-                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), 'ktp_'.$request->nama);
+                $url_ktp = $this->prosesUploadKtp($request->file('image_ktp'), 'ktp_'.$id);
                     
             if ($request->file('file_pakta'))
-                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), 'pakta_'.$request->nama);
+                $url_pakta = $this->prosesUploadPakta($request->file('file_pakta'), 'pakta_'.$id);
             MaUserAccount::where('id', $request->user_account_id)
                 ->update(array(
                     'nama' => $request->nama,

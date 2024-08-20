@@ -141,6 +141,7 @@ class HistoryPengajuanAplikasiController extends Controller
             $nama = explode(".", $check->nama)[0];
             $ids = json_decode($request->ids);
             $url_file = $this->uploadNotaDinas($request->file('file'), 'nota-dinas_'.$nama);
+            $url_file_feedback = $this->uploadFeedbackDIT($request->file('file_feedback'), 'feedback-dit_'.$nama);
 
             TrPengajuanAplikasi::where('history_id', $id)->whereIn('id', $ids)
             ->update(array(
@@ -174,7 +175,9 @@ class HistoryPengajuanAplikasiController extends Controller
             TrHistoryPengajuan::where('id', $id)
             ->update(array(
                 'status' => 'finished',
-                'nota_dinas_url' => $url_file
+                'nota_dinas_url' => $url_file,
+                'feedback_dit_url' => $url_file_feedback,
+                
             ));
             
             DB::commit();
@@ -232,6 +235,13 @@ class HistoryPengajuanAplikasiController extends Controller
         return response()->file($storagePath);
     }
 
+    public function downloadFeedbackDIT($name)
+    {
+        
+        $storagePath = public_path() . '/feedback-dit/' . $name;
+        return response()->file($storagePath);
+    }
+
     public function downloadZip($aplikasi, $history_id)
     {
 
@@ -240,6 +250,7 @@ class HistoryPengajuanAplikasiController extends Controller
 
         $excelPath = public_path().'/temp-folder/'.$history->nama;
         $notaDinasPath = public_path().'/nota-dinas/'.$history->nota_dinas_url;
+        $feedbackDITPath = public_path().'/feedback-dit/'.$history->feedback_dit_url;
         if(file_exists($excelPath))
             unlink($excelPath);
 
@@ -263,6 +274,9 @@ class HistoryPengajuanAplikasiController extends Controller
             if ($history->nota_dinas_url != null)
                 $zip->addFile($notaDinasPath, $history->nota_dinas_url);
 
+            if ($history->feedback_dit_url != null)
+                $zip->addFile($feedbackDITPath, $history->feedback_dit_url);
+
             $zip->addFile($excelPath, $history->nama);
             $zip->close();
         }
@@ -277,5 +291,13 @@ class HistoryPengajuanAplikasiController extends Controller
 
         return $nama_file . '.' . $file->getClientOriginalExtension();
     }
+
+    private function uploadFeedbackDIT($file, $nama_file)
+    {
+        $file->move('feedback-dit/', $nama_file . '.' . $file->getClientOriginalExtension());
+
+        return $nama_file . '.' . $file->getClientOriginalExtension();
+    }
+
 
 }
