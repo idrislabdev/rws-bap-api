@@ -36,8 +36,8 @@ class JabatanController extends Controller
     {
         $v = Validator::make($request->all(), [
             'nama'          => 'required',
-            'starclick_ncx' => 'required',
-            'ncx_cons'      => 'required'
+            // 'starclick_ncx' => 'required',
+            // 'ncx_cons'      => 'required'
         ]);
 
         if ($v->fails()) {
@@ -74,8 +74,8 @@ class JabatanController extends Controller
     {
         $v = Validator::make($request->all(), [
             'nama'          => 'required',
-            'starclick_ncx' => 'required',
-            'ncx_cons'      => 'required'
+            // 'starclick_ncx' => 'required',
+            // 'ncx_cons'      => 'required'
         ]);
 
         if ($v->fails()) {

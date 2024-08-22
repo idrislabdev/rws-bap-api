@@ -67,8 +67,20 @@ class HistoryPengajuanAplikasiController extends Controller
             'jenis_pengajuan' => 'required|in:BARU,REAKTIVASI,TAMBAH-FITUR,HAPUS',
         ]);
 
-        $bulan = date('n', strtotime(date('Y-m-d')));
-        $tahun = date('Y', strtotime(date('Y-m-d')));
+        
+
+        if ($request->bulan == null && $request->tahun == null) {
+            $bulan = date('n', strtotime(date('Y-m-d')));
+            $tahun = date('Y', strtotime(date('Y-m-d')));
+            $tanggal = date('Y-m-d');
+        } else {
+            $bulan = $request->bulan;
+            $tahun = $request->tahun;
+            $date = date_create("$tahun-$bulan-1");
+            $tanggal = date_format($date, 'Y-m-d');;
+        }
+
+
 
         $batch = TrHistoryPengajuan::where('aplikasi', $request->type)
                                     ->whereYear('tanggal', $tahun)
@@ -89,7 +101,7 @@ class HistoryPengajuanAplikasiController extends Controller
             $history->nama = "Pengajuan_{$nama}_Batch_{$batch}_{$this->_month[$bulan-1]}_{$tahun}.xlsx";
             $history->aplikasi = $request->type;
             $history->batch = $batch;
-            $history->tanggal = date('Y-m-d');
+            $history->tanggal = $tanggal;
             $history->status = 'process';
             $history->created_by = Auth::user()->id;
             $history->created_by_data = json_encode(MaPengguna::find(Auth::user()->id), JSON_PRETTY_PRINT);

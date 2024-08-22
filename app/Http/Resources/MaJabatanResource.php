@@ -19,6 +19,8 @@ class MaJabatanResource extends JsonResource
             "nama" => $this->nama,
             "starclick_ncx" => json_decode($this->starclick_ncx),
             "ncx_cons" => json_decode($this->ncx_cons),
+            "starclick_ncx_default" => json_decode($this->starclick_ncx_default),
+            "ncx_cons_default" => json_decode($this->ncx_cons_default),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at
         ];
