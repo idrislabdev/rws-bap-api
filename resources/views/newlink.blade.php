@@ -456,7 +456,7 @@
                                         <td>
                                             {{$people_ttd->manager_wholesale->nilai}}
                                             @if($paraf_wholesale !== null)
-                                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
+                                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->paraf_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
                                             @endif
                                         </td>
                                     </tr>
@@ -639,9 +639,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    @if($manager_wholesale !== null)
+                                    @if($paraf_wholesale !== null)
                                         <td>
-                                            <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:70px;">
+                                            <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:70px;">
                                         </td>
                                     @else
                                         <td style="padding-bottom:70px;"></td>
@@ -660,7 +660,7 @@
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$people_ttd->manager_wholesale->nilai}}</td>
+                                    <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$paraf_wholesale ? $paraf_wholesale->nama_lengkap : ''}}</td>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_rto_region_jatim->nilai : $people_ttd->telkomsel_rto_region_balnus->nilai}}</td>
                                     <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_pm_region_jatim->nilai : $people_ttd->telkomsel_pm_region_balnus->nilai}}</td>
                                 </tr>
@@ -887,9 +887,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        @if($manager_wholesale !== null)
+                                        @if($paraf_wholesale !== null)
                                             <td>
-                                                <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:70px;">
+                                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}" style="height:70px;">
                                             </td>
                                         @else
                                             <td style="padding-bottom:70px;"></td>
@@ -908,7 +908,7 @@
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;"></td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$people_ttd->manager_wholesale->nilai}}</td>
+                                        <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{$paraf_wholesale ? $paraf_wholesale->nama_lengkap : ''}}</td>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_rto_region_jatim->nilai : $people_ttd->telkomsel_rto_region_balnus->nilai}}</td>
                                         <td style="text-align:left; font-weight:bold; border-bottom: none; border-top:none;">Name: {{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->telkomsel_pm_region_jatim->nilai : $people_ttd->telkomsel_pm_region_balnus->nilai}}</td>
                                     </tr>

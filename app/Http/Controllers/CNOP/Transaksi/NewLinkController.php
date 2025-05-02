@@ -845,6 +845,8 @@ class NewLinkController extends Controller
             $paraf_wholesale = new \stdClass();
             $paraf_wholesale->status_dokumen = 'APPROVED';
             $paraf_wholesale->ttd_image = $pengguna->ttd_image;
+            $paraf_wholesale->paraf_image = $pengguna->paraf_image;
+            $paraf_wholesale->nama_lengkap = $pengguna->nama_lengkap;
 
             $data->paraf_wholesale_data  = json_encode($paraf_wholesale, JSON_PRETTY_PRINT);
             $data->save();
