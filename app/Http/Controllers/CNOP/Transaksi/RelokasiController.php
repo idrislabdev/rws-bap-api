@@ -92,6 +92,10 @@ class RelokasiController extends Controller
                                     dasar_order like '%$q%')");
         }
 
+        if (($_GET['tahun_order'])) {
+            $data = $data->where("tahun_order", $_GET['tahun_order']);
+        }
+
         $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(25)->onEachSide(5);
 
         return RelokasiResource::collection(($data))->additional([
