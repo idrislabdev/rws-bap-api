@@ -95,6 +95,16 @@ class UtilityHelper
                                                 tr.wo_site_id = ti.wo_site_id
                                             AND
                                                 ti.tipe = 'KONFIGURASI') as konfigurasi,
+
+                                        (SELECT count(*) 
+                                            FROM 
+                                                tr_wo_site_images ti
+                                            WHERE 
+                                                tr.wo_id = ti.wo_id 
+                                            AND 
+                                                tr.wo_site_id = ti.wo_site_id
+                                            AND
+                                                ti.tipe = 'OTDR') as otdr,
                                         
                                         (SELECT count(*) 
                                             FROM 

@@ -24,6 +24,7 @@ use App\Http\Controllers\CNOP\Transaksi\RelokasiController;
 use App\Http\Controllers\CNOP\Transaksi\UpgradeController;
 use App\Http\Controllers\CNOP\Transaksi\WoController;
 use App\Http\Controllers\CNOP\Transaksi\DraftOtherTransactionController;
+use App\Http\Controllers\CNOP\Transaksi\FrontHaulController;
 use App\Http\Controllers\CNOP\Transaksi\OtherTransactionController;
 use App\Http\Controllers\Master\NomorDokumenController;
 use App\Http\Controllers\Master\OloJenisAddOnController;
@@ -141,6 +142,9 @@ Route::prefix('cnop')->group(function () {
             Route::patch('dual-homing/{wo_id}/site/{wo_site_id}/oa', [DualHomingController::class, 'updateOA']);
             Route::patch('dual-homing/{wo_id}/site/{wo_site_id}/ogp', [DualHomingController::class, 'backOGP']);
 
+            Route::get('fronthaul', [FrontHaulController::class, 'index']);
+            Route::get('fronthaul/{wo_id}/site/{wo_site_id}', [FrontHaulController::class, 'show']);
+
             Route::get('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'index']);
             Route::post('evident/image/{wo_id}/site/{wo_site_id}', [ImageController::class, 'store']);
             Route::get('evident/image/{wo_id}/site/{wo_site_id}/data/{id}', [ImageController::class, 'show']);
@@ -212,6 +216,16 @@ Route::prefix('cnop')->group(function () {
                 Route::get('dual-homing/ba/{id}/refresh', [DualHomingController::class, 'fileBA']);
                 Route::delete('dual-homing/ba/{id}/delete', [DualHomingController::class, 'deleteBA']);
 
+                Route::post('fronthaul', [FrontHaulController::class, 'store']);
+                Route::patch('fronthaul/{wo_id}/site/{wo_site_id}', [FrontHaulController::class, 'update']);
+                Route::post('fronthaul/create-ba', [FrontHaulController::class, 'createBA']);
+                Route::post('fronthaul/create-ba/check', [FrontHaulController::class, 'checkSiteBA']);
+                // Route::get('fronthaul/ba/{id}/download', [FrontHaulController::class, 'downloadBA']);
+                Route::get('fronthaul/ba/{id}/refresh', [FrontHaulController::class, 'fileBA']);
+                Route::delete('fronthaul/ba/{id}/delete', [FrontHaulController::class, 'deleteBA']);
+                Route::patch('fronthaul/ba/{id}/paraf', [FrontHaulController::class, 'parafWholesale']);
+                Route::patch('fronthaul/ba/{id}/ttd', [FrontHaulController::class, 'ttdWholesale']);
+
                 Route::resource('other-draft', DraftOtherTransactionController::class);
                 Route::resource('other', OtherTransactionController::class);
                 Route::post('other/check/no-dokumen', [OtherTransactionController::class, 'checkNomor']);
@@ -256,6 +270,7 @@ Route::prefix('cnop')->group(function () {
     Route::get('file/{file_name}', [BaNewLinkController::class, 'fileLampiran']);
     Route::get('transaksi/new-link/ba/{id}/download', [NewLinkController::class, 'downloadBA']);
     Route::get('transaksi/upgrade/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
+    Route::get('transaksi/fronthaul/ba/{id}/download', [UpgradeController::class, 'downloadBA']);
     Route::get('transaksi/relokasi/ba/{id}/download', [RelokasiController::class, 'downloadBA']);
     Route::get('transaksi/dual-homing/ba/{id}/download', [DualHomingController::class, 'downloadBA']);
     Route::get('transaksi/dismantle/ba/{id}/download', [RelokasiController::class, 'downloadBA']);

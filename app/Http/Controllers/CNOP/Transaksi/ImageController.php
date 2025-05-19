@@ -34,7 +34,7 @@ class ImageController extends Controller
     public function store(Request $request, $wo_id, $wo_site_id)
     {
         $v = Validator::make($request->all(), [
-            'tipe' => 'in:KONFIGURASI,TOPOLOGI,CAPTURE_TRAFIK,LV,QC,NODE_1,NODE_2',
+            'tipe' => 'in:KONFIGURASI,TOPOLOGI,CAPTURE_TRAFIK,LV,QC,NODE_1,NODE_2,OTDR',
             'images' => 'required'
         ]);
 
@@ -123,6 +123,19 @@ class ImageController extends Controller
                     && $check_evident->node_1 == 1
                     && $check_evident->node_2 == 1
                     && $check_evident->pr_dual_homing == 1
+                ) {
+                    TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
+                        ->update(array(
+                            'progress' => true,
+                        ));
+                }
+            } else if ($check_evident->tipe_ba == 'FRONTHAUL') {
+                if (
+                    $check_evident->lampiran_url != null
+                    && $check_evident->topologi > 0
+                    && $check_evident->konfigurasi > 0
+                    && $check_evident->otdr > 0
+                    && $check_evident->capture_trafik > 0
                 ) {
                     TrWoSite::where('wo_id', $wo_id)->where('wo_site_id', $wo_site_id)
                         ->update(array(

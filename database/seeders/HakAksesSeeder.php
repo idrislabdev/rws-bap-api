@@ -30,6 +30,7 @@ class HakAksesSeeder extends Seeder
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'cnop.dual_homing', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'cnop.relokasi', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'cnop.dismantle', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'cnop.fronthaul', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'cnop.other_ba', 'deskripsi' => '-'],
 
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'cnop.paraf_wholesale', 'deskripsi' => '-'],
