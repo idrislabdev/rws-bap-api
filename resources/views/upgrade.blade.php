@@ -322,7 +322,7 @@
                             <td style="font-weight:bold; text-decoration: underline">
                                 <table style="width:100%;position:relative;">
                                     <tr>
-                                        <td>
+                                        <td style="font-weight:bold; text-decoration: underline">
                                             {{$people_ttd->osm_regional->nilai}}
                                             @if($manager_wholesale !== null)
                                                 <img src="{{ public_path().'/ttd/'.  $manager_wholesale->paraf_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
@@ -400,7 +400,7 @@
                         </tr>
                         <tr class="text-center">
                             @if($manager_wholesale !== null)
-                                <td style="width:40%; font-weight:bold;">
+                                <td style="width:40%; font-weight:bold; text-decoration: underline;">
                                     <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:100px;">
                                 </td>
                             @else
@@ -414,10 +414,10 @@
                             <td style="font-weight:bold; text-decoration: underline">
                                 <table style="width:100%;position:relative;">
                                     <tr>
-                                        <td>
+                                        <td style="font-weight:bold; text-decoration: underline">
                                             {{$people_ttd->manager_wholesale->nilai}}
                                             @if($paraf_wholesale !== null)
-                                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
+                                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->paraf_wholesale }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
                                             @endif
                                         </td>
                                     </tr>

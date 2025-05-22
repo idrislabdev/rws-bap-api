@@ -300,7 +300,7 @@
                             <td style="font-weight:bold; text-decoration: underline">
                                 <table style="width:100%;position:relative;">
                                     <tr>
-                                        <td>
+                                        <td style="font-weight:bold; text-decoration: underline">
                                             {{$people_ttd->osm_regional->nilai}}
                                             @if($manager_wholesale !== null)
                                                 <img src="{{ public_path().'/ttd/'.  $manager_wholesale->paraf_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
