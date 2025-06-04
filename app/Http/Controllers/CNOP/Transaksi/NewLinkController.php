@@ -216,7 +216,6 @@ class NewLinkController extends Controller
                     $wo_site->tipe_ba = 'NEW_LINK';
                     $wo_site->tahun_order = $site['tahun_order'];
                     $wo_site->siborder_id = $site['siborder_id'];
-                    $wo_site->jarak_m = '0';
                     $wo_site->save();
                 } else {
                     TrWoSite::where('wo_id', $wo_id)
