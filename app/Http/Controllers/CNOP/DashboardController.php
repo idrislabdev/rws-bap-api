@@ -4,7 +4,9 @@ namespace App\Http\Controllers\CNOP;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DualHomingResource;
+use App\Http\Resources\FrontHaulResource;
 use App\Http\Resources\NewlinkResource;
+use App\Http\Resources\RelokasiResource;
 use App\Http\Resources\TrWoSiteResource;
 use App\Http\Resources\UpgradeResource;
 use App\Models\MaPengguna;
@@ -481,6 +483,218 @@ class DashboardController extends Controller
         $data = $data->orderBy('tr.created_at')->orderBy('tr.site_id')->paginate(25)->onEachSide(5);
 
         return DualHomingResource::collection(($data))->additional([
+            'success' => true,
+            'message' => null,
+        ]);
+    }
+
+    public function relokasi()
+    {
+        if (isset($_GET['site_witel'])) {
+            $site_witel = $_GET['site_witel'];
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pilih Witel Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
+        $tahun = date('Y');
+
+        if (isset($_GET['tahun']))
+            $tahun = $_GET['tahun'];
+
+        $data = DB::table(DB::raw('tr_wo_sites tr'))
+            ->select(
+                DB::raw("tr.*, 
+                            trw.dasar_order, 
+                            trw.lampiran_url,  
+                            p.id pengguna_id, 
+                            p.nama_lengkap,
+                            b.no_dokumen,
+                            (SELECT count(*) 
+                                FROM 
+                                    tr_wo_site_images ti
+                                WHERE 
+                                    tr.wo_id = ti.wo_id 
+                                AND 
+                                    tr.wo_site_id = ti.wo_site_id
+                                AND
+                                    ti.tipe = 'KONFIGURASI') as konfigurasi,
+                            
+                            (SELECT count(*) 
+                                FROM 
+                                    tr_wo_site_images ti
+                                WHERE 
+                                    tr.wo_id = ti.wo_id 
+                                AND 
+                                    tr.wo_site_id = ti.wo_site_id
+                                AND
+                                    ti.tipe = 'TOPOLOGI') as topologi,
+                                    
+                            (SELECT count(*) 
+                                    FROM 
+                                        tr_wo_site_images ti
+                                    WHERE 
+                                        tr.wo_id = ti.wo_id 
+                                    AND 
+                                        tr.wo_site_id = ti.wo_site_id
+                                    AND
+                                        ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"),
+            )
+            ->leftJoin('tr_wos as trw', 'tr.wo_id', '=', 'trw.id')
+            ->leftJoin('ma_penggunas as p', 'tr.dibuat_oleh', '=', 'p.id')
+            ->leftJoin('tr_bas as b', 'tr.ba_id', '=', 'b.id')
+            ->whereRaw("tr.tipe_ba = 'RELOKASI'")
+            ->whereRaw("tr.tahun_order = $tahun");
+
+        if ($site_witel != 'ALL') {
+            $data = $data->where('tr.site_witel', $site_witel);
+        }
+
+        if (isset($_GET['status'])) {
+            $data = $data->where('tr.status', $_GET['status']);
+
+            if ($_GET['status'] == 'OA') {
+                if (isset($_GET['progress'])) {
+                    if ($_GET['progress'] == 0) {
+                        $data = $data->where('progress', true);
+                    } else {
+                        $data = $data->where('progress', false);
+                    }
+                }
+            }
+        }
+
+        if (isset($_GET['ba'])) {
+            if ($_GET['ba'] == 0) {
+                $data = $data->where('progress', 1)->whereNull('ba_id');
+            } else {
+                $data = $data->where('progress', 1)->whereNotNull('ba_id');
+            }
+        }
+
+        if (isset($_GET['ba_sirkulir'])) {
+            if ($_GET['ba_sirkulir'] != 0) {
+                $data = $data->whereNotNull('manager_wholesale');
+            }
+        }
+
+        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(10)->onEachSide(5);
+
+        return RelokasiResource::collection(($data))->additional([
+            'success' => true,
+            'message' => null,
+        ]);
+    }
+
+    public function fronthaul()
+    {
+        if (isset($_GET['site_witel'])) {
+            $site_witel = $_GET['site_witel'];
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pilih Witel Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
+        $tahun = date('Y');
+
+        if (isset($_GET['tahun']))
+            $tahun = $_GET['tahun'];
+
+            $data = DB::table(DB::raw('tr_wo_sites tr'))
+                ->select(
+                    DB::raw("tr.*, 
+                                trw.dasar_order, 
+                                trw.lampiran_url,  
+                                p.id pengguna_id, 
+                                p.nama_lengkap,
+                                b.no_dokumen,
+                                (SELECT count(*) 
+                                    FROM 
+                                        tr_wo_site_images ti
+                                    WHERE 
+                                        tr.wo_id = ti.wo_id 
+                                    AND 
+                                        tr.wo_site_id = ti.wo_site_id
+                                    AND
+                                        ti.tipe = 'KONFIGURASI') as konfigurasi,
+                                
+                                (SELECT count(*) 
+                                    FROM 
+                                        tr_wo_site_images ti
+                                    WHERE 
+                                        tr.wo_id = ti.wo_id 
+                                    AND 
+                                        tr.wo_site_id = ti.wo_site_id
+                                    AND
+                                        ti.tipe = 'TOPOLOGI') as topologi,
+
+                                (SELECT count(*) 
+                                    FROM 
+                                        tr_wo_site_images ti
+                                    WHERE 
+                                        tr.wo_id = ti.wo_id 
+                                    AND 
+                                        tr.wo_site_id = ti.wo_site_id
+                                    AND
+                                        ti.tipe = 'OTDR') as otdr,
+                                        
+                                (SELECT count(*) 
+                                        FROM 
+                                            tr_wo_site_images ti
+                                        WHERE 
+                                            tr.wo_id = ti.wo_id 
+                                        AND 
+                                            tr.wo_site_id = ti.wo_site_id
+                                        AND
+                                            ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"),
+                )
+                ->leftJoin('tr_wos as trw', 'tr.wo_id', '=', 'trw.id')
+                ->leftJoin('ma_penggunas as p', 'tr.dibuat_oleh', '=', 'p.id')
+                ->leftJoin('tr_bas as b', 'tr.ba_id', '=', 'b.id')
+                ->whereRaw("tr.tipe_ba = 'FRONTHAUL'")
+                ->whereRaw("tr.tahun_order = $tahun");
+
+        if ($site_witel != 'ALL') {
+            $data = $data->where('tr.site_witel', $site_witel);
+        }
+
+        if (isset($_GET['status'])) {
+            $data = $data->where('tr.status', $_GET['status']);
+
+            if ($_GET['status'] == 'OA') {
+                if (isset($_GET['progress'])) {
+                    if ($_GET['progress'] == 0) {
+                        $data = $data->where('progress', true);
+                    } else {
+                        $data = $data->where('progress', false);
+                    }
+                }
+            }
+        }
+
+        if (isset($_GET['ba'])) {
+            if ($_GET['ba'] == 0) {
+                $data = $data->where('progress', 1)->whereNull('ba_id');
+            } else {
+                $data = $data->where('progress', 1)->whereNotNull('ba_id');
+            }
+        }
+
+        if (isset($_GET['ba_sirkulir'])) {
+            if ($_GET['ba_sirkulir'] != 0) {
+                $data = $data->whereNotNull('manager_wholesale');
+            }
+        }
+
+        $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->paginate(10)->onEachSide(5);
+
+        return FrontHaulResource::collection(($data))->additional([
             'success' => true,
             'message' => null,
         ]);

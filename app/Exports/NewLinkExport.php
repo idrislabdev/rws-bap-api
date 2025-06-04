@@ -8,14 +8,23 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class NewLinkExport implements FromView
+
+class NewLinkExport implements FromView, WithTitle, WithColumnWidths, WithEvents
 {
+    use RegistersEventListeners;
+
     protected $site_witel;
     protected $status;
     protected $ba;
     protected $tahun_order;
     protected $ba_sirkulir;
+    private static $count_rows = 0;
 
     function __construct($site_witel, $status, $ba, $tahun_order, $ba_sirkulir) {
         $this->site_witel = $site_witel;
@@ -27,7 +36,7 @@ class NewLinkExport implements FromView
 
     public function view(): View
     {
-
+        $progress = "";
         $data = DB::table(DB::raw('tr_wo_sites tr')) 
                             ->select(DB::raw("tr.*, 
                                             trw.dasar_order, 
@@ -119,8 +128,10 @@ class NewLinkExport implements FromView
                 if (isset($_GET['progress'])) {
                     if ($_GET['progress'] == 0) {
                         $data = $data->where('progress', true);
+                        $progress = "Completed";
                     } else {
                         $data = $data->where('progress', false);
+                        $progress = "Completed";
                     }
                 }
             } 
@@ -139,8 +150,62 @@ class NewLinkExport implements FromView
         }
                             
         $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->get();   
+        self::$count_rows = $data->count();
         return view('reports.newlink', [
-            'data' => $data
+            'data' => $data,
+            'tahun_order' => $this->tahun_order, 
+            'site_witel' => $this->site_witel,
+            'status' => $this->status,
+            'progress' => $progress,
+            'sirkulir' => $this->ba_sirkulir,
+            'ba' => $this->ba
         ]);  
+    }
+
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 25,
+            'B' => 10,  
+            'C' => 25,
+            'D' => 15,
+            'E' => 20,      
+            'F' => 10,             
+            'G' => 10,             
+            'H' => 10,             
+            'I' => 15,             
+            'J' => 10,             
+            'K' => 10,             
+            'L' => 10,             
+            'M' => 35,             
+        ];
+    }
+
+
+
+    public function title(): string
+    {
+        return 'Report New LInk';
+    }
+
+
+    public static function afterSheet(AfterSheet $event)
+    {
+        $row_length = self::$count_rows+2;
+        $active_sheet = $event->sheet->getDelegate();
+        $active_sheet->getStyle("A2:M2")->applyFromArray(
+            [
+                'font' => ['name' => 'Verdana', 'size' => '13', 'bold' => true],
+                'alignment' => ['horizontal' => 'center', 'vertical' => 'middle'],
+                'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]],
+            ]
+        );
+        $active_sheet->getStyle("A2:M{$row_length}")->applyFromArray(
+            [
+                // 'font' => ['name' => 'Calibri', 'size' => '11', 'bold' => true],
+                'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]],
+            ]
+        );
+       
     }
 }

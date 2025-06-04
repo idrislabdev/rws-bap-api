@@ -14,8 +14,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-
-class RelokasiExport implements FromView, WithTitle, WithColumnWidths, WithEvents
+class FronthaulExport implements FromView, WithTitle, WithColumnWidths, WithEvents
 {
     use RegistersEventListeners;
 
@@ -44,7 +43,37 @@ class RelokasiExport implements FromView, WithTitle, WithColumnWidths, WithEvent
                                             p.id pengguna_id, 
                                             p.nama_lengkap,
                                             b.no_dokumen,
-                                                (SELECT count(*) 
+                                        (SELECT count(*) 
+                                            FROM 
+                                                tr_wo_site_images ti
+                                            WHERE 
+                                                tr.wo_id = ti.wo_id 
+                                            AND 
+                                                tr.wo_site_id = ti.wo_site_id
+                                            AND
+                                                ti.tipe = 'KONFIGURASI') as konfigurasi,
+                                        
+                                        (SELECT count(*) 
+                                            FROM 
+                                                tr_wo_site_images ti
+                                            WHERE 
+                                                tr.wo_id = ti.wo_id 
+                                            AND 
+                                                tr.wo_site_id = ti.wo_site_id
+                                            AND
+                                                ti.tipe = 'TOPOLOGI') as topologi,
+        
+                                        (SELECT count(*) 
+                                            FROM 
+                                                tr_wo_site_images ti
+                                            WHERE 
+                                                tr.wo_id = ti.wo_id 
+                                            AND 
+                                                tr.wo_site_id = ti.wo_site_id
+                                            AND
+                                                ti.tipe = 'OTDR') as otdr,
+                                                
+                                        (SELECT count(*) 
                                                 FROM 
                                                     tr_wo_site_images ti
                                                 WHERE 
@@ -52,34 +81,12 @@ class RelokasiExport implements FromView, WithTitle, WithColumnWidths, WithEvent
                                                 AND 
                                                     tr.wo_site_id = ti.wo_site_id
                                                 AND
-                                                    ti.tipe = 'KONFIGURASI') as konfigurasi,
-                                            
-                                            (SELECT count(*) 
-                                                FROM 
-                                                    tr_wo_site_images ti
-                                                WHERE 
-                                                    tr.wo_id = ti.wo_id 
-                                                AND 
-                                                    tr.wo_site_id = ti.wo_site_id
-                                                AND
-                                                    ti.tipe = 'TOPOLOGI') as topologi,
-                                                    
-                                            (SELECT count(*) 
-                                                    FROM 
-                                                        tr_wo_site_images ti
-                                                    WHERE 
-                                                        tr.wo_id = ti.wo_id 
-                                                    AND 
-                                                        tr.wo_site_id = ti.wo_site_id
-                                                    AND
-                                                        ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"),
-                                                )
+                                                    ti.tipe = 'CAPTURE_TRAFIK') as capture_trafik"))
                             ->leftJoin('tr_wos as trw','tr.wo_id', '=', 'trw.id')
                             ->leftJoin('ma_penggunas as p','tr.dibuat_oleh', '=', 'p.id')
                             ->leftJoin('tr_bas as b','tr.ba_id', '=', 'b.id')
-                            ->whereRaw("tr.tipe_ba = 'RELOKASI'")
+                            ->whereRaw("tr.tipe_ba = 'FRONTHAUL'")
                             ->where('tahun_order', $this->tahun_order);
-
 
         if ($this->site_witel != 'ALL') {
             $data = $data->where('tr.site_witel', $this->site_witel);
@@ -115,7 +122,7 @@ class RelokasiExport implements FromView, WithTitle, WithColumnWidths, WithEvent
                             
         $data = $data->orderBy('trw.dasar_order')->orderBy('tr.site_id')->get();   
         self::$count_rows = $data->count();
-        return view('reports.relokasi', [
+        return view('reports.fronthaul', [
             'data' => $data,
             'tahun_order' => $this->tahun_order, 
             'site_witel' => $this->site_witel,
@@ -125,12 +132,6 @@ class RelokasiExport implements FromView, WithTitle, WithColumnWidths, WithEvent
             'ba' => $this->ba
         ]);  
     }
-
-    public function title(): string
-    {
-        return 'Report Relokasi';
-    }
-
 
     public function columnWidths(): array
     {
@@ -150,6 +151,12 @@ class RelokasiExport implements FromView, WithTitle, WithColumnWidths, WithEvent
             'M' => 35,             
         ];
     }
+
+    public function title(): string
+    {
+        return 'Report Fronthaul';
+    }
+
 
     public static function afterSheet(AfterSheet $event)
     {

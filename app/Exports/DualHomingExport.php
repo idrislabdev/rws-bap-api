@@ -8,13 +8,22 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class DualHomingExport implements FromView
+class DualHomingExport implements FromView, WithTitle, WithColumnWidths, WithEvents
 {
+    use RegistersEventListeners;
+
     protected $site_witel;
     protected $status;
     protected $ba;
+    protected $tahun_order;
     protected $ba_sirkulir;
+    private static $count_rows = 0;
 
     function __construct($site_witel, $status, $ba, $ba_sirkulir) {
         $this->site_witel = $site_witel;
@@ -25,7 +34,7 @@ class DualHomingExport implements FromView
 
     public function view(): View
     {
-
+        $progress = "";
         $data = DB::table(DB::raw('tr_wo_sites tr')) 
         ->select(DB::raw("tr.*, 
                           p.id pengguna_id, 
@@ -89,8 +98,10 @@ class DualHomingExport implements FromView
                 if (isset($_GET['progress'])) {
                     if ($_GET['progress'] == 0) {
                         $data = $data->where('progress', true);
+                        $progress = "Completed";
                     } else {
                         $data = $data->where('progress', false);
+                        $progress = "Completed";
                     }
                 }
             } 
@@ -108,9 +119,36 @@ class DualHomingExport implements FromView
             $data = $data->whereNotNull('manager_wholesale');
         }
                             
-        $data = $data->orderBy('tr.created_at')->orderBy('tr.site_id')->get();   
+        $data = $data->orderBy('tr.created_at')->orderBy('tr.site_id')->get();  
+        self::$count_rows = $data->count();
         return view('reports.dualhoming', [
             'data' => $data
         ]);  
+    }
+
+    public function title(): string
+    {
+        return 'Report Dual Homing';
+    }
+
+
+    public static function afterSheet(AfterSheet $event)
+    {
+        $row_length = self::$count_rows+2;
+        $active_sheet = $event->sheet->getDelegate();
+        $active_sheet->getStyle("A2:M2")->applyFromArray(
+            [
+                'font' => ['name' => 'Verdana', 'size' => '13', 'bold' => true],
+                'alignment' => ['horizontal' => 'center', 'vertical' => 'middle'],
+                'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]],
+            ]
+        );
+        $active_sheet->getStyle("A2:M{$row_length}")->applyFromArray(
+            [
+                // 'font' => ['name' => 'Calibri', 'size' => '11', 'bold' => true],
+                'borders' => ['allBorders' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN]],
+            ]
+        );
+       
     }
 }

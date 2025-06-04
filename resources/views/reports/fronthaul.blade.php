@@ -7,29 +7,29 @@
             <th colspan="13" style="font-size: 14px; text-align: center">
                 @if($site_witel == 'ALL')
                     @if ($status == "")
-                        List Site Newlink Tahun Order {{$tahun_order}} Semua Witel
+                        List Site Fronthaul Tahun Order {{$tahun_order}} Semua Witel
                     @else
                         @if ($ba)
-                            List Site Newlink Tahun Order {{$tahun_order}} Semua Witel Status {{$status}} {{$status == "OA"  ? ($ba == 1 || $progress == 'Completed' ? "(Evidence Completed)" : "(Evidence Not  Completed)") : "(Evidence Not Completed)"}} {{$status == "OA" && $sirkulir == 1 ? "(Full Signed)" : ""}}
+                            List Site Fronthaul Tahun Order {{$tahun_order}} Semua Witel Status {{$status}} {{$status == "OA"  ? ($ba == 1 || $progress == 'Completed' ? "(Evidence Completed)" : "(Evidence Not  Completed)") : "(Evidence Not Completed)"}} {{$status == "OA" && $sirkulir == 1 ? "(Full Signed)" : ""}}
                         @else
                             @if ($progress != "")
-                                List Site Newlink Tahun Order {{$tahun_order}} Semua Witel Status {{$status}} (Evidence {{$progress}})
+                                List Site Fronthaul Tahun Order {{$tahun_order}} Semua Witel Status {{$status}} (Evidence {{$progress}})
                             @else
-                                List Site Newlink Tahun Order {{$tahun_order}} Semua Witel Status {{$status}}
+                                List Site Fronthaul Tahun Order {{$tahun_order}} Semua Witel Status {{$status}}
                             @endif
                         @endif
                     @endif
                 @else
                     @if ($status == "")
-                        List Site Newlink Tahun Order {{$tahun_order}} Witel {{$site_witel}}
+                        List Site Fronthaul Tahun Order {{$tahun_order}} Witel {{$site_witel}}
                     @else
                         @if ($ba) 
-                            List Site Newlink Tahun Order {{$tahun_order}} Witel {{$site_witel}} {{$status != ""  ? "Status $status" : ""}} {{$status == "OA"  ? ($ba == 1 || $progress == 'Completed' ? "(Evidence Completed)" : "(Evidence Not  Completed)") : "(Evidence Not Completed)"}} {{$status == "OA" && $sirkulir == 1 ? "(Full Signed)" : ""}}
+                            List Site Fronthaul Tahun Order {{$tahun_order}} Witel {{$site_witel}} {{$status != ""  ? "Status $status" : ""}} {{$status == "OA"  ? ($ba == 1 || $progress == 'Completed' ? "(Evidence Completed)" : "(Evidence Not  Completed)") : "(Evidence Not Completed)"}} {{$status == "OA" && $sirkulir == 1 ? "(Full Signed)" : ""}}
                         @else
                             @if ($progress != "")
-                                List Site Newlink Tahun Order {{$tahun_order}} Witel {{$site_witel}}  Status {{$status}} (Evidence {{$progress}})
+                                List Site Fronthaul Tahun Order {{$tahun_order}} Witel {{$site_witel}}  Status {{$status}} (Evidence {{$progress}})
                             @else
-                                List Site Newlink Tahun Order {{$tahun_order}} Witel {{$site_witel}} Status {{$status}}
+                                List Site Fronthaul Tahun Order {{$tahun_order}} Witel {{$site_witel}} Status {{$status}}
                             @endif
                         @endif
                     @endif

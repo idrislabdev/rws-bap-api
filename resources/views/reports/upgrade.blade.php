@@ -4,41 +4,69 @@
 <table>
     <thead>
         <tr>
-            <th colspan="8" style="font-size: 14px; text-align: center">
-                List Site Upgrade
+            <th colspan="13" style="font-size: 14px; text-align: center">
+                @if($site_witel == 'ALL')
+                    @if ($status == "")
+                        List Site Upgrade Tahun Order {{$tahun_order}} Semua Witel
+                    @else
+                        @if ($ba)
+                            List Site Upgrade Tahun Order {{$tahun_order}} Semua Witel Status {{$status}} {{$status == "OA"  ? ($ba == 1 || $progress == 'Completed' ? "(Evidence Completed)" : "(Evidence Not  Completed)") : "(Evidence Not Completed)"}} {{$status == "OA" && $sirkulir == 1 ? "(Full Signed)" : ""}}
+                        @else
+                            @if ($progress != "")
+                                List Site Upgrade Tahun Order {{$tahun_order}} Semua Witel Status {{$status}} (Evidence {{$progress}})
+                            @else
+                                List Site Upgrade Tahun Order {{$tahun_order}} Semua Witel Status {{$status}}
+                            @endif
+                        @endif
+                    @endif
+                @else
+                    @if ($status == "")
+                        List Site Upgrade Tahun Order {{$tahun_order}} Witel {{$site_witel}}
+                    @else
+                        @if ($ba) 
+                            List Site Upgrade Tahun Order {{$tahun_order}} Witel {{$site_witel}} {{$status != ""  ? "Status $status" : ""}} {{$status == "OA"  ? ($ba == 1 || $progress == 'Completed' ? "(Evidence Completed)" : "(Evidence Not  Completed)") : "(Evidence Not Completed)"}} {{$status == "OA" && $sirkulir == 1 ? "(Full Signed)" : ""}}
+                        @else
+                            @if ($progress != "")
+                                List Site Upgrade Tahun Order {{$tahun_order}} Witel {{$site_witel}}  Status {{$status}} (Evidence {{$progress}})
+                            @else
+                                List Site Upgrade Tahun Order {{$tahun_order}} Witel {{$site_witel}} Status {{$status}}
+                            @endif
+                        @endif
+                    @endif
+                @endif
             </th>
         </tr>
         <tr>
-            <th style="border: 1px solid #000000; width: 30px; background-color: aqua; font-size: 13px;">Dasar Order</th>
-            <th style="border: 1px solid #000000; width: 10px; background-color: aqua; font-size: 13px;">Site ID</th>
-            <th style="border: 1px solid #000000; width: 40px; background-color: aqua; font-size: 13px;">Site Name</th>
-            <th style="border: 1px solid #000000; width: 20px; background-color: aqua; font-size: 13px;">Site Witel</th>
-            <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Wilayah</th>
-            <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Program</th>
-            <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Order BW</th>
-            <th style="border: 1px solid #000000; width: 10px; background-color: aqua; font-size: 13px;">Status</th>
-            <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Progress</th>
-            <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Alpro Site</th>
-            <th style="border: 1px solid #000000; width: 15px; background-color: aqua; font-size: 13px;">Tgl OA</th>
-            <th style="border: 1px solid #000000; width: 10px; background-color: aqua; font-size: 13px;">Presentase</th>
-            <th style="border: 1px solid #000000; width: 40px; background-color: aqua; font-size: 13px;">Nomor BA</th>
+            <th>Dasar Order</th>
+            <th>Site ID</th>
+            <th>Site Name</th>
+            <th>Site Witel</th>
+            <th>Wilayah</th>
+            <th>Program</th>
+            <th>Order BW</th>
+            <th>Status</th>
+            <th>Progress</th>
+            <th>Alpro Site</th>
+            <th>Tgl OA</th>
+            <th>Presentase</th>
+            <th>Nomor BA</th>
         </tr>
     </thead>
     <tbody>
     @foreach($data as $data)
         <tr>
-            <td style="border: 1px solid #000000">{{ $data->dasar_order }}</td>
-            <td style="border: 1px solid #000000">{{ $data->site_id }}</td>
-            <td style="border: 1px solid #000000">{{ $data->site_name }}</td>
-            <td style="border: 1px solid #000000">{{ $data->site_witel }}</td>
-            <td style="border: 1px solid #000000">{{ $data->tsel_reg }}</td>
-            <td style="border: 1px solid #000000">{{ $data->program }}</td>
-            <td style="border: 1px solid #000000">{{ $data->jumlah }}</td>
-            <td style="border: 1px solid #000000">{{ $data->status }}</td>
-            <td style="border: 1px solid #000000">{{ $data->progress == true ? 'Complete' : 'Not Complete'}}</td>
-            <td style="border: 1px solid #000000">{{ $data->alpro_site }}</td>
-            <td style="border: 1px solid #000000">{{strtoupper(date('d-M-y', strtotime($data->tgl_on_air)))}}</td>
-            <td style="border: 1px solid #000000">
+            <td>{{ $data->dasar_order }}</td>
+            <td>{{ $data->site_id }}</td>
+            <td>{{ $data->site_name }}</td>
+            <td>{{ $data->site_witel }}</td>
+            <td>{{ $data->tsel_reg }}</td>
+            <td>{{ $data->program }}</td>
+            <td>{{ $data->jumlah }}</td>
+            <td>{{ $data->status }}</td>
+            <td>{{ $data->progress == true ? 'Complete' : 'Not Complete'}}</td>
+            <td>{{ $data->alpro_site }}</td>
+            <td>{{strtoupper(date('d-M-y', strtotime($data->tgl_on_air)))}}</td>
+            <td>
                 {{ 
                     ((($data->konfigurasi > 0 ? 1 : 0) + 
                     ($data->topologi > 0 ? 1 : 0) + 
@@ -48,7 +76,7 @@
                      
                 }}
             </td>     
-            <td style="border: 1px solid #000000">{{ $data->no_dokumen }}</td>
+            <td>{{ $data->no_dokumen }}</td>
         </tr>
     @endforeach
     </tbody>

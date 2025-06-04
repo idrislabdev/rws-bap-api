@@ -198,6 +198,8 @@ Route::prefix('cnop')->group(function () {
                 Route::post('relokasi/create-ba/check', [RelokasiController::class, 'checkSiteBA']);
                 Route::get('relokasi/ba/{id}/refresh', [RelokasiController::class, 'fileBA']);
                 Route::delete('relokasi/ba/{id}/delete', [RelokasiController::class, 'deleteBA']);
+                Route::patch('relokasi/ba/{id}/paraf', [RelokasiController::class, 'parafWholesale']);
+                Route::patch('relokasi/ba/{id}/ttd', [RelokasiController::class, 'ttdWholesale']);
 
                 Route::post('dismantle', [DismantleController::class, 'store']);
                 Route::patch('dismantle/{wo_id}/site/{wo_site_id}', [DismantleController::class, 'update']);
@@ -247,6 +249,7 @@ Route::prefix('cnop')->group(function () {
             Route::get('upgrade', [DashboardController::class, 'upgrade']);
             Route::get('dual-homing', [DashboardController::class, 'dualHoming']);
             Route::get('relokasi', [DashboardController::class, 'relokasi']);
+            Route::get('fronthaul', [DashboardController::class, 'fronthaul']);
         });
     });
 
@@ -256,6 +259,7 @@ Route::prefix('cnop')->group(function () {
             Route::get('upgrade', [ReportController::class, 'upgrade']);
             Route::get('dualhoming', [ReportController::class, 'dualhoming']);
             Route::get('relokasi', [ReportController::class, 'relokasi']);
+            Route::get('fronthaul', [ReportController::class, 'fronthaul']);
             Route::get('other/view', [OtherTransactionController::class, 'reportView']);
             Route::get('other/download', [OtherTransactionController::class, 'reportDownload']);
         });

@@ -416,11 +416,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="margin-body mb-large">
-                    <p>
-                        Catatan : * hanya untuk newlink
-                    </p>
-                </div>
                 <div class="margin-body">
                     <table style="width:100%;">
                         <tr class="text-center">
@@ -429,8 +424,31 @@
                             <td style="padding-bottom: 50px; width:40%; font-weight:bold;">TELKOMSEL</td>
                         </tr>
                         <tr class="text-center">
-                            <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->manager_wholesale->nilai}}</td>
-                            <td style="width:20%"></td>
+                            @if($manager_wholesale !== null)
+                                <td style="width:40%; font-weight:bold;">
+                                    <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:100px;">
+                                </td>
+                            @else
+                                <td style="height:70px;width:40%; font-weight:bold;">
+                                </td>
+                            @endif
+                            <td style="height:70px;width:20%;"></td>
+                            <td style="height:70px;width:40%; font-weight:bold;"></td>
+                        </tr>
+                        <tr class="text-center">
+                            <td style="font-weight:bold; text-decoration: underline">
+                                <table style="width:100%;position:relative;">
+                                    <tr>
+                                        <td style="font-weight:bold; text-decoration: underline">
+                                            {{$people_ttd->manager_wholesale->nilai}}
+                                            @if($paraf_wholesale !== null)
+                                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->paraf_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
+                                            @endif
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width:20%;"></td>
                             <td style="font-weight:bold; text-decoration: underline">{{(strtoupper($data_ba->tsel_reg) == 'JAWA TIMUR') ? $people_ttd->manager_pm_jatim->nilai : $people_ttd->manager_pm_balnus->nilai}}</td>
                         </tr>
                         <tr class="text-center">

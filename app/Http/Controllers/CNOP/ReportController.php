@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CNOP;
 
 use App\Http\Controllers\Controller;
 use App\Exports\DualHomingExport;
+use App\Exports\FronthaulExport;
 use App\Exports\NewLinkExport;
 use App\Exports\RelokasiExport;
 use App\Exports\UpgradeExport;
@@ -124,6 +125,44 @@ class ReportController extends Controller
         }
         
         return Excel::download(new RelokasiExport($site_witel, $status, $ba, $tahun_order, $ba_sirkulir), 'relokasi.xlsx');
+    }
+
+    public function fronthaul()
+    {
+        $site_witel = "";
+        $status = "";
+        $ba = "";
+        $tahun_order = "";
+        $ba_sirkulir = "";
+
+        
+        if (isset($_GET['site_witel'])){
+            $site_witel = $_GET['site_witel'];
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pilih Witel Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
+        if (isset($_GET['status'])){
+            $status =  $_GET['status'];
+        }
+
+        if (isset($_GET['ba'])){
+            $ba=$_GET['ba'];
+        }
+
+        if (isset($_GET['tahun'])){
+            $tahun_order=$_GET['tahun'];
+        }
+
+        if (isset($_GET['ba_sirkulir'])){
+            $ba_sirkulir=$_GET['ba_sirkulir'];
+        }
+        
+        return Excel::download(new FronthaulExport($site_witel, $status, $ba, $tahun_order, $ba_sirkulir), 'fronthaul.xlsx');
     }
 
     public function dualhoming()
