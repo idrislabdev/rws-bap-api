@@ -400,25 +400,23 @@ class BeritaAcaraController extends Controller
                     }
                 }
 
-                $url_arr = array();;
-
-                if ($request->file('lampirans')) {
-                    foreach ($request->file('lampirans') as $lampiran) {
-                        $url = $this->prosesUpload($lampiran);
-                        array_push($url_arr, $url);
-                    }
-                }
-
+                // $url_arr = array();;
                 $counter = 0;
-                foreach ($url_arr as $lampiran_url) {
-                    $counter++;
-                    $data = new TrOloBaLampiran();
-                    $data->olo_ba_id = $id;
-                    $data->id = $counter;
-                    $data->url = $request->tipe;
-                    $data->url = $lampiran_url;
-                    $data->dibuat_oleh = Auth::user()->id;
-                    $data->save();
+                $labels = $request->input('lampirans_name');
+                if ($request->file('lampirans')) {
+                    foreach ($request->file('lampirans') as $i => $lampiran) {
+                        $url = $this->prosesUpload($lampiran);
+                        $label_lampiran = $labels[$i] ?? null;
+
+                        $counter++;
+                        $data = new TrOloBaLampiran();
+                        $data->olo_ba_id = $id;
+                        $data->id = $counter;
+                        $data->url = $url;
+                        $data->label = $label_lampiran;
+                        $data->dibuat_oleh = Auth::user()->id;
+                        $data->save();
+                    }
                 }
 
                 DraftOloBa::where('id', $request->draft_id)->delete();
@@ -739,7 +737,8 @@ class BeritaAcaraController extends Controller
 
         $detail = TrOloBaDetail::where('olo_ba_id', $id);
 
-        $lampiran = TrOloBaLampiran::where('olo_ba_id', $id)->get();
+        $lampiran_dokumen = TrOloBaLampiran::where('olo_ba_id', $id)->whereRaw("(label is null or label = 'document')")->get();
+        $lampiran_other = TrOloBaLampiran::where('olo_ba_id', $id)->whereRaw("(label <> 'document')")->get();
 
         $detail = DB::table(DB::raw('tr_olo_ba_details tr, ma_olo_produks p'))
             ->select(DB::raw("tr.*"))
@@ -779,15 +778,16 @@ class BeritaAcaraController extends Controller
             $pdf = PDF::loadView('olo_baut', [
                 'data'              => $data,
                 'detail'            => $detail,
-                'lampiran'          => $lampiran,
+                'lampiran_dokumen'  => $lampiran_dokumen,
+                'lampiran_other'    => $lampiran_other,
                 'format_tanggal'    => $format_tanggal,
                 'people_ttd'        => $people_ttd,
                 'paraf_wholesale'   => $paraf_wholesale,
                 'manager_wholesale' => $manager_wholesale,
 
             ])
-                ->setOption('footer-html', $footer_html)
-                ->setOption('header-html', $header_html)
+                // ->setOption('footer-html', $footer_html)
+                // ->setOption('header-html', $header_html)
                 ->setPaper('a4');
 
             $name = "BAUT_".$data->no_dokumen_baut . ".pdf";
@@ -809,27 +809,6 @@ class BeritaAcaraController extends Controller
             $name = "BAST_".$data->no_dokumen_bast . ".pdf";
             return $pdf->download($name);
         }
-
-        // $file_name = $id.'.pdf';
-
-        // Storage::put('public/pdf/'.$file_name, $pdf->output());
-
-        // return $file_name;
-
-
-
-        // // return view('dualhoming',  [
-        // //     'jenis_dokumen'     => $jenis_dokumen,
-        // //     'data_wo'           => $data_wo,
-        // //     'data_site'         => $data_site,
-        // //     'data_ba'           => $data_ba,
-        // //     'dasar_permintaan'  => $dasar_permintaan,
-        // //     'total_bw'          => $total_bw,
-        // //     'total_site'        => $total_site,
-        // //     'format_tanggal'    => $format_tanggal,
-        // //     'people_ttd'        => $people_ttd
-        // // ]);
-
     }
 
     public static function formatAddOn($id, $olo_ba_id)
@@ -937,7 +916,8 @@ class BeritaAcaraController extends Controller
     public function updateLampiran(Request $request, $olo_ba_id)
     {
         $v = Validator::make($request->all(), [
-            'lampiran' => 'required'
+            'lampiran' => 'required',
+            // 'lampiran_nama' => 'required' 
         ]);
 
         if ($v->fails()) {
@@ -971,7 +951,7 @@ class BeritaAcaraController extends Controller
             $data = new TrOloBaLampiran();
             $data->olo_ba_id = $olo_ba_id;
             $data->id = $counter;
-            $data->url = $request->tipe;
+            $data->label = $request->lampiran_nama;
             $data->url = $url;
             $data->dibuat_oleh = Auth::user()->id;
             $data->save();

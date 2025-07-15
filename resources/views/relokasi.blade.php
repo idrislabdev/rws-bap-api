@@ -360,7 +360,18 @@
                             <td style="padding-bottom: 70px; width:40%; font-weight:bold;">TELKOMSEL</td>
                         </tr>
                         <tr class="text-center">
-                            <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->osm_regional->nilai}}</td>
+                            <td style="font-weight:bold; text-decoration: underline">
+                                <table style="width:100%;position:relative;">
+                                    <tr>
+                                        <td style="font-weight:bold; text-decoration: underline">
+                                            {{$people_ttd->osm_regional->nilai}}
+                                            @if($manager_wholesale !== null)
+                                                <img src="{{ public_path().'/ttd/'.  $manager_wholesale->paraf_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
+                                            @endif
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
                             <td style="width:20%;"></td>
                             <td style="font-weight:bold; text-decoration: underline">{{$people_ttd->gm_core_transport->nilai}}</td>
                         </tr>

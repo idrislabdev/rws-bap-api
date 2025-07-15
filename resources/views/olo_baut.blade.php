@@ -85,6 +85,20 @@
                 border: thin solid black;
                 font-size: 12px;
             }
+            .table-dokumen {
+                width: 100%;
+                border-collapse: collapse;
+                /* border: 1px solid black; */
+            }
+            .table-dokumen td{
+                font-size: 15px;
+                padding: 4px;
+                vertical-align: middle;
+            }
+            .table-dokumen th{
+                font-size: 15px;
+                padding : 5px;
+            }
             .table-kelengkapan {
                 width: 100%;
                 border-collapse: collapse;
@@ -142,10 +156,16 @@
                 margin-bottom: 40px;
             }
             .margin-header-logo {
+                margin-left: 0px;
+                margin-right: 0px;
+                margin-bottom: 0px;
+                top: 0px;
+            }
+            .margin-footer-logo {
                 margin-left: 40px;
                 margin-right: 30px;
                 margin-bottom: 0px;
-                top: 0px;
+                bottom: 0px;
             }
             .margin-body {
                 margin-left: 0px;
@@ -190,7 +210,14 @@
     <body>
         <!-- halaman pertama -->
         <main>
-            <div class="">
+            <div class="page_break_before">
+                <div class="margin-header-logo">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="header">
                     <h3 class="header-margin font-weight-bold"><center>BERITA ACARA {{$data->jenis_order}}</center></h3>
                     <h4 class="header-margin font-weight-bold"><center>Nomor : {{$data->no_dokumen_baut}}</center></h4>
@@ -337,28 +364,89 @@
                     </table>            
                 </div>
             </div>
-            @for($a=0; $a<@count($lampiran); $a++)
-                @if ($a < @count($lampiran))
+            @for($a=0; $a<@count($lampiran_dokumen); $a++)
+                @if ($a < @count($lampiran_dokumen))
                     <div class="page_break_before">
+                        <div class="margin-header-logo">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width:50%"><img src="{{ public_path('/assets/images/iot-telkomsel.png') }}" style="width:100px;"></td>
+                                    <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
+                                </tr>
+                            </table>
+                        </div>
                         <div class="margin-content margin-body mb-small">
-                            <table class="table-kelengkapan cellpadding="0" cellspacing="0">
+                            <div>
+                                <h5 style="font-size: 24px; margin-top:0px; margin-bottom:0px; line-height: 0px; font-weight: 500; text-align: center;">LAMPIRAN</h5>
+                                <p style="font-size: 17px;">Dokumen:</p>
+                            </div>
+                            <table class="table-dokumen cellpadding="0" cellspacing="0">
                                 <tbody>
                                     <tr>
-                                        @php($image = getimagesize(public_path().'/lampirans/'. $lampiran[$a]->url ))
+                                        {{-- @php($image = getimagesize(public_path().'/lampirans/'. $lampiran_dokumen[$a]->url ))
                                         @if($image[0] < $image[1])
                                             <td style="text-align: center">
-                                                <img src="{{ public_path().'/lampirans/'.  $lampiran[$a]->url }}" style="height:90%;">
+                                                <img src="{{ public_path().'/lampirans/'.  $lampiran_dokumen[$a]->url }}" style="height:90%;">
                                             </td>
                                         @else
                                             <td style="text-align: center">
-                                                <img src="{{ public_path().'/lampirans/'.  $lampiran[$a]->url }}" style="width:100%;">
+                                                <img src="{{ public_path().'/lampirans/'.  $lampiran_dokumen[$a]->url }}" style="width:100%;">
                                             </td>
-                                        @endif
+                                        @endif --}}
+                                        <td style="text-align: center">
+                                            <img src="{{ public_path().'/lampirans/'.  $lampiran_dokumen[$a]->url }}" style="max-width:100%; height:auto; max-height: 1000px;">
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div> 
+                @endif
+            @endfor
+            @for($a=0; $a<@count($lampiran_other); $a+=2)
+                @if (@count($lampiran_other) > 0)
+                    <div class="page_break_before">
+                        <div class="margin-header-logo">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width:50%"><img src="{{ public_path('/assets/images/iot-telkomsel.png') }}" style="width:100px;"></td>
+                                    <td style="width:50%; text-align: right;"><img src="{{ public_path('/assets/images/telkom.png') }}" style="width:100px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="margin-content margin-body mb-small">
+                            <div>
+                                <h5 style="font-size: 24px; margin-top:0px; margin-bottom:0px; line-height: 0px; font-weight: 500; text-align: center;">LAMPIRAN</h5>
+                                <p style="font-size: 17px;">Lokasi:</p>
+                            </div>
+                            <table class="table-kelengkapan cellpadding="0" cellspacing="0">
+                                <tbody>
+                                        <tr>
+                                            @if (isset($lampiran_other[$a+1]))
+                                                <td style="text-align: center; padding:20px; width:50%">
+                                                    <img src="{{ public_path().'/lampirans/'.  $lampiran_other[$a]->url }}" style="width: 50%; height:auto; max-height: 500px;">
+                                                </td>
+                                                <td style="text-align: center; padding:20px; width:50%">
+                                                    <img src="{{ public_path().'/lampirans/'.  $lampiran_other[$a+1]->url }}" style="width: 50%; height:auto; max-height: 500px;">
+                                                </td>
+                                            @else
+                                                <td colspan="2" style="text-align: center; padding:20px; width:100%">
+                                                    <img src="{{ public_path().'/lampirans/'.  $lampiran_other[$a]->url }}" style="width: 50%; height:auto; max-height: 500px;">
+                                                </td>
+                                            @endif
+                                        </tr>
+                                        <tr>
+                                            @if (isset($lampiran_other[$a+1]))
+                                                <td style="text-align: center; width:50%">{{$lampiran_other[$a]->label }}</td>
+                                                <td style="text-align: center; width:50%">{{$lampiran_other[$a+1]->label }}</td>
+                                            @else
+                                                <td colspan="2" style="text-align: center; width:100%">{{$lampiran_other[$a]->label }}</td>
+                                            @endif
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 @endif
             @endfor
         </main>

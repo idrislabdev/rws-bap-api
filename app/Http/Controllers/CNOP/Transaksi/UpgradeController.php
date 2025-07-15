@@ -825,6 +825,8 @@ class UpgradeController extends Controller
             $paraf_wholesale = new \stdClass();
             $paraf_wholesale->status_dokumen = 'APPROVED';
             $paraf_wholesale->ttd_image = $pengguna->ttd_image;
+            $paraf_wholesale->paraf_image = $pengguna->paraf_image;
+            $paraf_wholesale->nama_lengkap = $pengguna->nama_lengkap;
 
             $data->paraf_wholesale_data  = json_encode($paraf_wholesale, JSON_PRETTY_PRINT);
             $data->save();
@@ -879,6 +881,7 @@ class UpgradeController extends Controller
             $manager_wholesale->status_dokumen = 'APPROVED';
             $manager_wholesale->ttd_image = $pengguna->ttd_image;
             $manager_wholesale->paraf_image = $pengguna->paraf_image;
+
             $data->manager_wholesale_data  = json_encode($manager_wholesale, JSON_PRETTY_PRINT);
             $data->save();
             $this->fileBA($id);

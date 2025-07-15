@@ -417,7 +417,7 @@
                                         <td style="font-weight:bold; text-decoration: underline">
                                             {{$people_ttd->manager_wholesale->nilai}}
                                             @if($paraf_wholesale !== null)
-                                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->paraf_wholesale }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
+                                                <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->paraf_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
                                             @endif
                                         </td>
                                     </tr>
