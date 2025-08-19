@@ -44,6 +44,8 @@ use App\Http\Controllers\SARPEN\DashboardController as SARPENDashboardController
 use App\Http\Controllers\SARPEN\ReportController as SARPENReportController;
 use App\Http\Controllers\SARPEN\TargetController;
 use App\Http\Controllers\SARPEN\Transaksi\BeritaAcaraController as SARPENTransaksiBeritaAcaraController;
+use App\Http\Controllers\TIF\Transaksi\BeritaAcaraController as TIFTransaksiBeritaAcaraController;
+use App\Http\Controllers\TIF\Transaksi\DraftBeritaAcaraController as TransaksiDraftBeritaAcaraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -415,4 +417,31 @@ Route::prefix('account-center')->group(function () {
     });
     
     Route::get('image-ktp/{name}', [PengajuanAplikasiController::class, 'imageKtp']);
+});
+
+Route::prefix('olo-tif')->group(function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+
+        Route::prefix('transaksi')->group(function () {
+            Route::resource('draft-berita-acara', TransaksiDraftBeritaAcaraController::class);
+            Route::resource('berita-acara', TIFTransaksiBeritaAcaraController::class);
+            Route::post('berita-acara/check/no-dokumen', [TIFTransaksiBeritaAcaraController::class, 'checkNomor']);
+            Route::get('berita-acara/{olo_ba_id}/detail/{id}/add-on', [TIFTransaksiBeritaAcaraController::class, 'addOnlist']);
+            Route::delete('berita-acara/{olo_ba_id}/lampiran/{id}', [TIFTransaksiBeritaAcaraController::class, 'removeLampiran']);
+            Route::post('berita-acara/{olo_ba_id}/lampiran', [TIFTransaksiBeritaAcaraController::class, 'updateLampiran']);
+            Route::patch('berita-acara/{olo_ba_id}/paraf', [TIFTransaksiBeritaAcaraController::class, 'parafWholesale']);
+            Route::patch('berita-acara/{olo_ba_id}/ttd', [TIFTransaksiBeritaAcaraController::class, 'ttdWholesale']);
+            Route::patch('berita-acara/{olo_ba_id}/upload', [TIFTransaksiBeritaAcaraController::class, 'uploadDokumen']);
+            Route::get('berita-acara/{name}/dokumen-sirkulir', [TIFTransaksiBeritaAcaraController::class, 'dokumenSirkulir']);
+
+        });
+
+
+        Route::prefix('report')->group(function () {
+            Route::get('view', [TIFTransaksiBeritaAcaraController::class, 'reportView']);
+            Route::get('download', [TIFTransaksiBeritaAcaraController::class, 'reportDownload']);
+        });
+    });
+    Route::get('transaksi/berita-acara/download/file/{id}/{tipe}', [TIFTransaksiBeritaAcaraController::class, 'fileBA']);
+    Route::get('file/{file_name}', [TIFTransaksiBeritaAcaraController::class, 'fileLampiran']);
 });

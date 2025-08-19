@@ -118,6 +118,18 @@ class HakAksesSeeder extends Seeder
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.master.jabatan', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.master.starclick_profile', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'account_center.master.ncx_profile', 'deskripsi' => '-'],
+
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif.view', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif.create', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif.update', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif.delete', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif.paraf', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif.ttd', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif.report', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif.report.view', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo_tif.report.export', 'deskripsi' => '-'],
+
         ];
 
         foreach ($items as $item) {

@@ -170,7 +170,7 @@ class UtilityHelper
         $data_id = DB::table('ma_nomor_dokumens')
             ->select(DB::raw('max(SUBSTRING(no_dokumen, -29, 4)) as result'))
             ->whereYear('tgl_dokumen', date('Y'))
-            ->where('tipe_dokumen', '<>', 'PKS')
+            ->whereRaw("tipe_dokumen <> 'PKS' and tipe_dokumen <> 'OLO_TIF_BAUT' and tipe_dokumen <> 'OLO_TIF_BAST'")
             ->where('created_at', '>=', '2024-08-13 10:23:50')
             ->first();
 
@@ -193,5 +193,20 @@ class UtilityHelper
         $id = sprintf("%04d", $counter);
 
         return $id . '/HK 810/T3R-10000000/' . date('Y');
+    }
+
+     public static function checkNomorDokumenTIF()
+    {
+        $data_id = DB::table('ma_nomor_dokumens')
+            ->select(DB::raw('max(SUBSTRING(no_dokumen, -29, 4)) as result'))
+            ->whereYear('tgl_dokumen', date('Y'))
+            ->whereRaw("(tipe_dokumen = 'OLO_TIF_BAST' or tipe_dokumen = 'OLO_TIF_BAUT')")
+            ->where('created_at', '>=', '2024-08-13 10:23:50')
+            ->first();
+
+        $counter = ($data_id) ? (int)$data_id->result + 1 : 1;
+        $id = 'TEL.' . sprintf("%04d", $counter);
+
+        return $id . '/YN 000/JIFC-03B1000/' . date('Y');
     }
 }
