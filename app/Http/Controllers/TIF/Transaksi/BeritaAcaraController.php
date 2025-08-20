@@ -290,6 +290,9 @@ class BeritaAcaraController extends Controller
                 $ba->jenis_ba                            = $request->jenis_ba;
                 $ba->alamat_bast                         = $request->alamat_bast;
                 $ba->tipe_ba                             = 'OLO_TIF';
+                $ba->ttd_nama                            = 'ERLANGGA';
+                $ba->ttd_jabatan                         = 'MANAGER CNOP & OLO FULLFILMENT';
+                $ba->ttd_lokasi_kerja                    = 'TELKOM INFRASTRUKTUR INDONESIA';
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -363,6 +366,9 @@ class BeritaAcaraController extends Controller
                 $ba->status_approval                     = false;
                 $ba->jenis_ba                            = $request->jenis_ba;
                 $ba->tipe_ba                             = 'OLO_TIF';
+                $ba->ttd_nama                            = 'ERLANGGA';
+                $ba->ttd_jabatan                         = 'MANAGER CNOP & OLO FULLFILMENT';
+                $ba->ttd_lokasi_kerja                    = 'TELKOM INFRASTRUKTUR INDONESIA';
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -455,6 +461,9 @@ class BeritaAcaraController extends Controller
                 $ba->jenis_ba                            = $request->jenis_ba;
                 $ba->alamat_bast                         = $request->alamat_bast;
                 $ba->tipe_ba                             = 'OLO_TIF';
+                $ba->ttd_nama                            = 'ERLANGGA';
+                $ba->ttd_jabatan                         = 'MANAGER CNOP & OLO FULLFILMENT';
+                $ba->ttd_lokasi_kerja                    = 'TELKOM INFRASTRUKTUR INDONESIA';
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -778,7 +787,7 @@ class BeritaAcaraController extends Controller
 
 
         if ($tipe == 'baut') {
-            $pdf = PDF::loadView('olo_baut', [
+            $pdf = PDF::loadView('olo_tif_baut', [
                 'data'              => $data,
                 'detail'            => $detail,
                 'lampiran_dokumen'  => $lampiran_dokumen,
@@ -796,7 +805,7 @@ class BeritaAcaraController extends Controller
             $name = "BAUT_".$data->no_dokumen_baut . ".pdf";
             return $pdf->download($name);
         } else if ($tipe == 'bast') {
-            $pdf = PDF::loadView('olo_bast', [
+            $pdf = PDF::loadView('olo_tif_bast', [
                 'data'              => $data,
                 'detail'            => $detail,
                 'format_tanggal'    => $format_tanggal,
@@ -1027,7 +1036,7 @@ class BeritaAcaraController extends Controller
         }
 
         $pengguna = MaPengguna::find(Auth::user()->id);
-        if ($pengguna->ttd_image === null) 
+        if ($pengguna->paraf_image === null) 
         {
             return response()->json([
                 'status' => false,
@@ -1042,7 +1051,7 @@ class BeritaAcaraController extends Controller
 
             $paraf_wholesale = new \stdClass();
             $paraf_wholesale->status_dokumen = 'APPROVED';
-            $paraf_wholesale->ttd_image = $pengguna->ttd_image;
+            $paraf_wholesale->paraf_image = $pengguna->paraf_image;
 
             $data->paraf_wholesale_data  = json_encode($paraf_wholesale, JSON_PRETTY_PRINT);
             $data->save();
@@ -1074,11 +1083,7 @@ class BeritaAcaraController extends Controller
             ], 404);
         }
 
-        $user = MaPengguna::find(Auth::user()->id);
-        $pengaturan = MaPengaturan::where('nama', 'MANAGER_WHOLESALE_SUPPORT')->first();
-        $pengguna = MaPengguna::where('nama_lengkap', $pengaturan->nilai)->first();
-
-
+        $pengguna = MaPengguna::find(Auth::user()->id);
         if ($pengguna->ttd_image === null) 
         {
             return response()->json([
