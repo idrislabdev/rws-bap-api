@@ -195,7 +195,7 @@ class UtilityHelper
         return $id . '/HK 810/T3R-10000000/' . date('Y');
     }
 
-     public static function checkNomorDokumenTIF()
+    public static function checkNomorDokumenTIF()
     {
         $data_id = DB::table('ma_nomor_dokumens')
             ->select(DB::raw('max(SUBSTRING(no_dokumen, -29, 4)) as result'))
@@ -208,5 +208,26 @@ class UtilityHelper
         $id = 'TEL.' . sprintf("%04d", $counter);
 
         return $id . '/YN 000/JIFC-03B1000/' . date('Y');
+    }
+
+    public static function formatDateIndo($tanggal)
+    {
+        $bulan = array (
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
+    
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
     }
 }

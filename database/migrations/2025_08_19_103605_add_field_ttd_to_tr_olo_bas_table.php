@@ -17,6 +17,7 @@ class AddFieldTtdToTrOloBasTable extends Migration
             $table->string('ttd_nama')->nullable();
             $table->string('ttd_jabatan')->nullable();
             $table->string('ttd_lokasi_kerja')->nullable();
+            $table->string('ttd_perusahaan')->nullable();
         });
     }
 

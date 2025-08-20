@@ -198,15 +198,14 @@
                 @endif
                     <div class="header">
                         <h3 class="header-margin font-weight-bold"><center>BERITA ACARA {{$data->jenis_order}}</center></h3>
-                        <h4 class="header-margin font-weight-bold"><center>Nomor : {{$data->no_dokumen_bast}}</center></h4>
                     </div>
                     <hr style="border : 1px solid #000">
+                    <h4 class="header-margin font-weight-bold"><center>No.{{$data->no_dokumen_bast}}</center></h4>
                     <div class="margin-body">
-                        <p>
-                            Pada hari ini <stron>{{$format_tanggal->hari}}</stron> tanggal <strong>{{$format_tanggal->tgl}}</strong> Bulan <strong>{{strtoupper($format_tanggal->bulan)}}</strong> Tahun <strong>{{$format_tanggal->tahun}} ({{strtoupper(date('d/m/Y', strtotime($data->tgl_dokumen)))}})</strong>, 
-                            bertempat di <span class="font-weight-bold">Regional Wholesale Service V Jatim Balnus, Gedung Telkom Landmark Tower Surabaya Lt. 9,</span>
-                            kami yang bertanda tangan di bawah ini :
-                        </p>
+                    <p>
+                        Pada hari ini <span style="text-transform: capitalize; font-weight: bold">{{$format_tanggal->hari}}</span> tanggal <span style="text-transform: capitalize; font-weight: bold">{{$format_tanggal->tgl}}</span> bulan <span style="text-transform: capitalize; font-weight: bold">{{$format_tanggal->bulan}}</span> Tahun <span style="text-transform: capitalize; font-weight: bold">{{$format_tanggal->tahun}}</span>, 
+                        kami yang bertanda tangan di bawah ini :
+                    </p>
                     </div>
                     <div class="content-ttd margin-body">
                         <table>
@@ -214,23 +213,23 @@
                                 <td style="width:50px">I. </td>
                                 <td style="width:200px">Nama/NIK</td>
                                 <td style="width:10px">:</td>
-                                <td style="width:600px">{{$people_ttd->manager_wholesale->nilai}}</td>
+                                <td style="width:600px">{{$data->ttd_nama}}</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Jabatan</td>
                                 <td>:</td>
-                                <td>{{$people_ttd->manager_wholesale->detail_nilai}}</td>
+                                <td>{{$data->ttd_jabatan}}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td>Lokasi Kerja</td>
+                                <td>Perusahaan</td>
                                 <td>:</td>
-                                <td>REGIONAL WHOLESALE SERVICE JATIM BALNUS</td>
+                                <td>{{$data->ttd_lokasi_kerja}}</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">TELKOM</span></td>
+                                <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">[TIF]</span></td>
                             </tr>
                         </table>
                     </div>
@@ -246,13 +245,13 @@
                                 <td></td>
                                 <td>Jabatan</td>
                                 <td>:</td>
-                                <td>HEAD OF DC AREA TIMUR</td>
+                                <td>Head Of DC Area Timur</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td>Lokasi Kerja</td>
+                                <td>Perusahaan</td>
                                 <td>:</td>
-                                <td>SIGMA CIPTA CARAKA</td>
+                                <td>Sigma Cipta Caraka</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -319,21 +318,21 @@
                                 <td style="height:100px;width:40%; font-weight:bold;"></td>
                                 <td style="height:100px;width:20%;"></td>
                                 <td style="height:100px;width:40%; font-weight:bold;">
-                                @if($manager_wholesale !== null)
-                                    <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:150px;">
-                                @endif
+                                   @if($manager_wholesale !== null)
+                                        <img src="{{ public_path().'/ttd/'.  $manager_wholesale->ttd_image }}" style="height:150px;">
+                                    @endif
                                 </td>
                             </tr>
                             <tr class="text-center">
                                 <td style="font-weight:bold; text-decoration: underline">WIDODO</td>
                                 <td style="width:20%;"></td>
                                 <td style="font-weight:bold; text-decoration: underline">
-                                    <table style="width:100%;position:relative;">
+                                   <table style="width:100%;position:relative;">
                                         <tr>
-                                            <td>
-                                                {{$people_ttd->manager_wholesale->nilai}}
+                                            <td style="font-weight:bold; text-decoration: underline">
+                                                {{$data->ttd_nama}}
                                                 @if($paraf_wholesale !== null)
-                                                    <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->ttd_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
+                                                    <img src="{{ public_path().'/ttd/'.  $paraf_wholesale->paraf_image }}"  style="height:40px;position:absolute;right:10px;top:-10px;">
                                                 @endif
                                             </td>
                                         </tr>

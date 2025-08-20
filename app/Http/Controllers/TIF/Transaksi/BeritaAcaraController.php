@@ -29,7 +29,7 @@ use Excel;
 
 class BeritaAcaraController extends Controller
 {
-    private $_hari = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU', 'MINGGU'];
+    private $_hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
     private $_month = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
     public function index()
@@ -291,8 +291,9 @@ class BeritaAcaraController extends Controller
                 $ba->alamat_bast                         = $request->alamat_bast;
                 $ba->tipe_ba                             = 'OLO_TIF';
                 $ba->ttd_nama                            = 'ERLANGGA';
-                $ba->ttd_jabatan                         = 'MANAGER CNOP & OLO FULLFILMENT';
-                $ba->ttd_lokasi_kerja                    = 'TELKOM INFRASTRUKTUR INDONESIA';
+                $ba->ttd_jabatan                         = 'Mgr Fulfillment CNOP & OLO MSO';
+                $ba->ttd_lokasi_kerja                    = 'PT. TELKOM INFRASTRUKTUR INDONESIA';
+                $ba->ttd_perusahaan                      = '[TIF]';
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -369,6 +370,7 @@ class BeritaAcaraController extends Controller
                 $ba->ttd_nama                            = 'ERLANGGA';
                 $ba->ttd_jabatan                         = 'MANAGER CNOP & OLO FULLFILMENT';
                 $ba->ttd_lokasi_kerja                    = 'TELKOM INFRASTRUKTUR INDONESIA';
+                $ba->ttd_perusahaan                      = '[TIF]';
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -464,6 +466,7 @@ class BeritaAcaraController extends Controller
                 $ba->ttd_nama                            = 'ERLANGGA';
                 $ba->ttd_jabatan                         = 'MANAGER CNOP & OLO FULLFILMENT';
                 $ba->ttd_lokasi_kerja                    = 'TELKOM INFRASTRUKTUR INDONESIA';
+                $ba->ttd_perusahaan                      = '[TIF]';
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -770,11 +773,11 @@ class BeritaAcaraController extends Controller
 
         $format_tanggal = new \stdClass();
         $format_tanggal->hari = $this->_hari[$hari - 1];
-        $format_tanggal->tgl = strtoupper(UtilityHelper::terbilang($tgl));
+        $format_tanggal->tgl = UtilityHelper::terbilang($tgl);
         $format_tanggal->tgl_nomor = $tgl;
         $format_tanggal->bulan = $this->_month[$bulan - 1];
         $format_tanggal->tahun_nomor = $tahun;
-        $format_tanggal->tahun = strtoupper(UtilityHelper::terbilang($tahun));
+        $format_tanggal->tahun = UtilityHelper::terbilang($tahun);
 
         $people_ttd = new \stdClass();
         $people_ttd->manager_wholesale = MaPengaturan::where('nama', 'MANAGER_WHOLESALE_SUPPORT')->first();
