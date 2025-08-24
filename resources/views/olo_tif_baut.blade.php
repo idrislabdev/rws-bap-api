@@ -79,12 +79,12 @@
             .table-site td{
                 border: thin solid black;
                 text-align: center;
-                font-size: 12px;
+                font-size: 14px;
                 padding: 1px;
             }
             .table-site th{
                 border: thin solid black;
-                font-size: 12px;
+                font-size: 14px;
             }
             .table-dokumen {
                 width: 100%;
@@ -252,7 +252,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">[TIF]</span></td>
+                            <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">{{$data->ttd_perusahaan}}</span></td>
                         </tr>
                     </table>
                 </div>
@@ -292,10 +292,14 @@
                                 <th style="width:5%"  class="td-center">No. </th>
                                 <th style="width:12%"  class="td-center">Layanan</th>
                                 <th style="width:15%"  class="td-center">Layanan Lokasi</th>
-                                <th style="width:10%"  class="td-center">Kapasitas</th>
+                                @if ($jumlah_bw > 0)
+                                    <th style="width:10%"  class="td-center">Kapasitas</th>
+                                @endif
                                 <th style="width:12%"  class="td-center">Order</th>
                                 <th style="width:10%"  class="td-center">SID</th>
-                                <th style="width:15%"  class="td-center">Add On</th>
+                                @if ($jumlah_add_on > 0)
+                                    <th style="width:15%"  class="td-center">Add On</th>                                
+                                @endif
                                 <th style="width:15%"  class="td-center">Tanggal {{$data->jenis_order}}</th>
                             </tr>
                         </thead>
@@ -305,12 +309,16 @@
                                     <td>{{$a+1}}</td>
                                     <td>{{$detail[$a]->produk}}</td>
                                     <td class="wrapword">{{$detail[$a]->alamat_instalasi}}</td>
-                                    <td>{{$detail[$a]->bandwidth_mbps}} Mbps</td>
+                                    @if ($jumlah_bw > 0)
+                                        <td>{{$detail[$a]->bandwidth_mbps}} {{$detail[$a]->bandwidth_mbps != null ? 'Mbps' : ''}}</td>
+                                    @endif
                                     <td>{{$detail[$a]->ao_sc_order}}</td>
                                     <td>{{$detail[$a]->sid}}</td>
-                                    <td>
-                                        {{BeritaAcaraController::formatAddOn($detail[$a]->id, $detail[$a]->olo_ba_id)}}
-                                    </td>
+                                    @if ($jumlah_add_on > 0)
+                                        <td>
+                                            {{BeritaAcaraController::formatAddOn($detail[$a]->id, $detail[$a]->olo_ba_id)}}
+                                        </td>
+                                    @endif
                                     <td>{{UtilityHelper::formatDateIndo(date('Y-m-d', strtotime($detail[$a]->tgl_order)))}}</td>
                                 </tr>
                             @endfor 

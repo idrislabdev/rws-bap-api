@@ -76,6 +76,10 @@ class DraftBeritaAcaraController extends Controller
             $ba->jenis_ba                            = $request->jenis_ba;
             $ba->alamat_bast                         = $request->alamat_bast;
             $ba->tipe_ba                             = 'OLO_TIF';
+            $ba->ttd_nama                            = $request->ttd_nama;
+            $ba->ttd_jabatan                         = $request->ttd_jabatan;
+            $ba->ttd_lokasi_kerja                    = $request->ttd_lokasi_kerja;
+            $ba->ttd_perusahaan                      = $request->ttd_perusahaan;
             $ba->save();
 
             $details = $request->detail;

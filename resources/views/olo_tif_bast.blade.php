@@ -229,7 +229,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">[TIF]</span></td>
+                                <td colspan="3">Selanjutnya disebut <span class="font-weight-bold">{{$data->ttd_perusahaan}}</span></td>
                             </tr>
                         </table>
                     </div>

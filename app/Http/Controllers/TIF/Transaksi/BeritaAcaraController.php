@@ -290,10 +290,10 @@ class BeritaAcaraController extends Controller
                 $ba->jenis_ba                            = $request->jenis_ba;
                 $ba->alamat_bast                         = $request->alamat_bast;
                 $ba->tipe_ba                             = 'OLO_TIF';
-                $ba->ttd_nama                            = 'ERLANGGA';
-                $ba->ttd_jabatan                         = 'Mgr Fulfillment CNOP & OLO MSO';
-                $ba->ttd_lokasi_kerja                    = 'PT. TELKOM INFRASTRUKTUR INDONESIA';
-                $ba->ttd_perusahaan                      = '[TIF]';
+                $ba->ttd_nama                            = $request->ttd_nama;
+                $ba->ttd_jabatan                         = $request->ttd_jabatan;
+                $ba->ttd_lokasi_kerja                    = $request->ttd_lokasi_kerja;
+                $ba->ttd_perusahaan                      = $request->ttd_perusahaan;
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -367,10 +367,10 @@ class BeritaAcaraController extends Controller
                 $ba->status_approval                     = false;
                 $ba->jenis_ba                            = $request->jenis_ba;
                 $ba->tipe_ba                             = 'OLO_TIF';
-                $ba->ttd_nama                            = 'ERLANGGA';
-                $ba->ttd_jabatan                         = 'MANAGER CNOP & OLO FULLFILMENT';
-                $ba->ttd_lokasi_kerja                    = 'TELKOM INFRASTRUKTUR INDONESIA';
-                $ba->ttd_perusahaan                      = '[TIF]';
+                $ba->ttd_nama                            = $request->ttd_nama;
+                $ba->ttd_jabatan                         = $request->ttd_jabatan;
+                $ba->ttd_lokasi_kerja                    = $request->ttd_lokasi_kerja;
+                $ba->ttd_perusahaan                      = $request->ttd_perusahaan;
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -463,10 +463,10 @@ class BeritaAcaraController extends Controller
                 $ba->jenis_ba                            = $request->jenis_ba;
                 $ba->alamat_bast                         = $request->alamat_bast;
                 $ba->tipe_ba                             = 'OLO_TIF';
-                $ba->ttd_nama                            = 'ERLANGGA';
-                $ba->ttd_jabatan                         = 'MANAGER CNOP & OLO FULLFILMENT';
-                $ba->ttd_lokasi_kerja                    = 'TELKOM INFRASTRUKTUR INDONESIA';
-                $ba->ttd_perusahaan                      = '[TIF]';
+                $ba->ttd_nama                            = $request->ttd_nama;
+                $ba->ttd_jabatan                         = $request->ttd_jabatan;
+                $ba->ttd_lokasi_kerja                    = $request->ttd_lokasi_kerja;
+                $ba->ttd_perusahaan                      = $request->ttd_perusahaan;
                 $ba->save();
 
                 $details = json_decode($request->detail);
@@ -788,6 +788,9 @@ class BeritaAcaraController extends Controller
         $paraf_wholesale = json_decode($data->paraf_wholesale_data);
         $manager_wholesale = json_decode($data->manager_wholesale_data);
 
+        $jumlah_add_on = TrOloBaDetailAddOn::where('olo_ba_id', $data->id)->count();
+        $jumlah_bw = $detail->sum('bandwidth_mbps');
+
 
         if ($tipe == 'baut') {
             $pdf = PDF::loadView('olo_tif_baut', [
@@ -799,6 +802,8 @@ class BeritaAcaraController extends Controller
                 'people_ttd'        => $people_ttd,
                 'paraf_wholesale'   => $paraf_wholesale,
                 'manager_wholesale' => $manager_wholesale,
+                'jumlah_add_on'     => $jumlah_add_on,
+                'jumlah_bw'         => $jumlah_bw
 
             ])
                 // ->setOption('footer-html', $footer_html)
