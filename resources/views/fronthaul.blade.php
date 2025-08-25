@@ -1,3 +1,6 @@
+@php 
+    use App\Helper\UtilityHelper;
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -72,14 +75,15 @@
                 /* border: 1px solid black; */
             }
             .table-site td{
-                border: thin solid black;
+                border: thin solid #6a7282;
                 text-align: center;
-                font-size: 12px;
+                font-size: 11px;
                 padding: 1px;
             }
             .table-site th{
-                border: thin solid black;
-                font-size: 12px;
+                border: thin solid #6a7282;
+                font-size: 11px;
+                font-weight: 600;
             }
             .table-kelengkapan {
                 width: 100%;
@@ -138,14 +142,14 @@
                 margin-bottom: 40px;
             }
             .margin-header-logo {
-                margin-left: 40px;
-                margin-right: 30px;
+                margin-left: 20px;
+                margin-right: 20px;
                 margin-bottom: 0px;
                 top: 0px;
             }
             .margin-body {
-                margin-left: 70px;
-                margin-right: 70px;
+                margin-left: 20px;
+                margin-right: 20px;
             }
             .mt-small {
                 margin-top : 5px;
@@ -309,24 +313,32 @@
                     <table class="table-site" cellpadding="0" cellspacing="0">
                         <thead>
                             <tr>
-                                <th style="width:4%" class="td-center">No. </th>
-                                <th style="width:20%" class="td-center">Dasar Order</th>
-                                <th style="width:10%" class="td-center">Site ID</th>
-                                <th style="width:18%" class="td-center">Site Name</th>
-                                <th style="width:13%" class="td-center">TANGGAL ON AIR</th>
-                                <th style="width:10%" class="td-center">Jarak (m)</th>
-                                <th style="width:15%" class="td-center">SOW</th>
+                                <th style="width:10%">DASAR ORDER</th>
+                                <th style="width:10%">SITE ID PARENT</th>
+                                <th style="width:10%">SITE ID FH</th>
+                                <th style="width:17%">SITE NAME FH</th>
+                                <th style="width:13%">SITE WITEL</th>
+                                <th style="width:10%">LOKASI</th>
+                                <th style="width:10%">TANGGAL OA</th>
+                                <th style="width:8%">JARAK (M)</th>
+                                <th style="width:5%">CORE</th>
+                                <th style="width:8%">SOW</th>
                             </tr>
                         </thead>
                         <tbody>
                             @for ($a=0; $a<@count($data_site); $a++)
                                 <tr>
-                                    <td>{{$a+1}}</td>
                                     <td>{{$data_site[$a]->dasar_order}}</td>
                                     <td>{{$data_site[$a]->site_id}}</td>
-                                    <td class="wrapword">{{$data_site[$a]->site_name}}</td>
-                                    <td>{{strtoupper(date('d-M-y', strtotime($data_site[$a]->tgl_on_air)))}}</td>
+                                    <td>{{$data_site[$a]->site_id_fh}}</td>
+                                    <td class="wrapword">{{$data_site[$a]->site_name_fh}}</td>
+                                    <td class="wrapword">{{$data_site[$a]->site_witel}}</td>
+                                    <td class="wrapword">{{$data_site[$a]->latitude_baru}}, {{$data_site[$a]->longitude_baru}}</td>
+                                    <td>
+                                        {{UtilityHelper::formatDateIndo(date('Y-m-d', strtotime($data_site[$a]->tgl_on_air)))}}
+                                    </td>
                                     <td>{{$data_site[$a]->jarak_m}}</td>
+                                    <td>{{$data_site[$a]->core_fh}}</td>
                                     <td>{{$data_site[$a]->sow}}</td>
                                 </tr>
                             @endfor 

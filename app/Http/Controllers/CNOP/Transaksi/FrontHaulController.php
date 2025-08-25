@@ -115,6 +115,8 @@ class FrontHaulController extends Controller
         $v = Validator::make($request->all(), [
             'site_id'       => 'required',
             'site_name'     => 'required',
+            'site_id_fh'    => 'required',
+            'site_name_fh'  => 'required',
             'site_witel'    => 'required',
             'tsel_reg'      => 'required',
             'dasar_order'   => 'required',
@@ -188,6 +190,11 @@ class FrontHaulController extends Controller
                 $wo_site->wo_site_id = $counter;
                 $wo_site->site_id = $request->site_id;
                 $wo_site->site_name = $request->site_name;
+                $wo_site->site_id_fh = $request->site_id_fh;
+                $wo_site->site_name_fh = $request->site_name_fh;
+                $wo_site->core_fh = $request->core_fh;
+                $wo_site->latitude_baru = $request->latitude_baru;
+                $wo_site->longitude_baru = $request->longitude_baru;
                 $wo_site->site_witel = strtoupper($request->site_witel);
                 $wo_site->tsel_reg = strtoupper($request->tsel_reg);
                 $wo_site->tgl_on_air = $request->tgl_on_air;

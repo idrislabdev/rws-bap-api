@@ -86,7 +86,7 @@ class BeritaAcaraController extends Controller
                     }
                 }
             } else {
-                $data = $data->orderByDesc('tgl_dokumen');
+                $data = $data->orderByDesc('created_at');
 
             }
 
@@ -772,6 +772,7 @@ class BeritaAcaraController extends Controller
 
         $paraf_wholesale = json_decode($data->paraf_wholesale_data);
         $manager_wholesale = json_decode($data->manager_wholesale_data);
+        $ttd_client = json_decode($data->ttd_client_data);
 
 
         if ($tipe == 'baut') {
@@ -784,6 +785,7 @@ class BeritaAcaraController extends Controller
                 'people_ttd'        => $people_ttd,
                 'paraf_wholesale'   => $paraf_wholesale,
                 'manager_wholesale' => $manager_wholesale,
+                'ttd_client'        => $ttd_client
 
             ])
                 // ->setOption('footer-html', $footer_html)
@@ -1110,6 +1112,53 @@ class BeritaAcaraController extends Controller
             ], 400);
         }
     }
+
+    public function ttdKlien($id)
+    {
+        $data = TrOloBa::find($id);
+        if(!$data)
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        $pengguna = MaPengguna::find(Auth::user()->id);
+        if ($pengguna->ttd_image === null) 
+        {
+            return response()->json([
+                'status' => false,
+                'message' => 'Anda Belum Set Tanda Tangan, Silahkan Set Tanda Tangan Anda Terlebih Dahulu',
+                'data' => null
+            ], 422);
+        }
+
+        DB::beginTransaction();
+        try {
+            $ttd_client = new \stdClass();
+            $ttd_client->status_dokumen = 'SIGNED';
+            $ttd_client->ttd_image = $pengguna->ttd_image;
+
+            $data->ttd_client_data  = json_encode($ttd_client, JSON_PRETTY_PRINT);
+            $data->save();
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'data' => $e->getMessage(),
+                'success' => true,
+                'message' => 'error',
+            ], 400);
+        }
+    }
+    
 
     public function uploadDokumen(Request $request, $olo_ba_id) 
     {

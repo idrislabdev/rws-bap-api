@@ -299,6 +299,7 @@ Route::prefix('olo')->group(function () {
             Route::patch('berita-acara/{olo_ba_id}/ttd', [TransaksiBeritaAcaraController::class, 'ttdWholesale']);
             Route::patch('berita-acara/{olo_ba_id}/upload', [TransaksiBeritaAcaraController::class, 'uploadDokumen']);
             Route::get('berita-acara/{name}/dokumen-sirkulir', [TransaksiBeritaAcaraController::class, 'dokumenSirkulir']);
+            Route::patch('berita-acara/{olo_ba_id}/ttd-klien', [TransaksiBeritaAcaraController::class, 'ttdKlien']);
 
         });
 

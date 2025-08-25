@@ -81,6 +81,7 @@ class PenggunaController extends Controller
             $data->lokasi_kerja = $request->lokasi_kerja;
             $data->nik = $request->nik;
             $data->role = $request->role;
+            $data->klien_id = $request->klien_id;
             // $data->role = ($request->witel_id) ? $request->witel_id : null;
             $data->witel_id = ($request->witel_id) ? $request->witel_id : null;
             $data->site_witel = ($request->site_witel) ? $request->site_witel : null;
@@ -168,6 +169,9 @@ class PenggunaController extends Controller
 
         if ($request->site_witel != null || $request->site_witel != "")
             $data->site_witel = $request->site_witel;
+
+        if ($request->klien_id != null || $request->klien_id != "")
+            $data->klien_id = $request->klien_id;
 
         $url = '';
         if ($request->file('ttd_image')) {

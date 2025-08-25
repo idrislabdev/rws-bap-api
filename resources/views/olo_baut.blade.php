@@ -336,7 +336,11 @@
                             </td>
                         </tr>
                         <tr class="text-center">
-                            <td style="height:100px;width:40%; font-weight:bold;"></td>
+                            <td style="height:100px;width:40%; font-weight:bold;">
+                            @if($ttd_client !== null)
+                                <img src="{{ public_path().'/ttd/'.  $ttd_client->ttd_image }}" style="height:150px;">
+                            @endif
+                            </td>
                             <td style="height:100px;width:20%;"></td>
                             <td style="height:100px;width:40%; font-weight:bold;">
                             @if($manager_wholesale !== null)

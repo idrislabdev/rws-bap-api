@@ -46,6 +46,7 @@ class HakAksesSeeder extends Seeder
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.report', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.report.view', 'deskripsi' => '-'],
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.report.export', 'deskripsi' => '-'],
+            ['id' => Uuid::uuid1()->toString(), 'nama' => 'olo.ttd_klien', 'deskripsi' => '-'],
 
 
             ['id' => Uuid::uuid1()->toString(), 'nama' => 'sarpen', 'deskripsi' => '-'],
