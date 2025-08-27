@@ -34,6 +34,7 @@ class BeritaAcaraController extends Controller
 
     public function index()
     {
+        $pengguna = MaPengguna::find(Auth::user()->id);
         $data = TrOloBa::with('dibuatOleh')->where('tipe_ba', 'OLO');
         if (isset($_GET['page'])) {
 
@@ -65,6 +66,10 @@ class BeritaAcaraController extends Controller
 
             }
 
+            if ($pengguna->klien_id != null) {
+                $data = $data->where('klien_id', $pengguna->klien_id);
+            }
+
             if (isset($_GET['sort_by']))
             {
                 if ($_GET['sort'] == 'asc') {
@@ -87,7 +92,6 @@ class BeritaAcaraController extends Controller
                 }
             } else {
                 $data = $data->orderByDesc('created_at');
-
             }
 
             $per_page = 50;
