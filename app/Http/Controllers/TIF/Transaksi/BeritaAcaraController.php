@@ -86,8 +86,7 @@ class BeritaAcaraController extends Controller
                     }
                 }
             } else {
-                $data = $data->orderByDesc('tgl_dokumen');
-
+                $data = $data->orderByDesc('created_at');
             }
 
             $per_page = 50;
@@ -789,7 +788,12 @@ class BeritaAcaraController extends Controller
         $manager_wholesale = json_decode($data->manager_wholesale_data);
 
         $jumlah_add_on = TrOloBaDetailAddOn::where('olo_ba_id', $data->id)->count();
-        $jumlah_bw = $detail->sum('bandwidth_mbps');
+        $jumlah_bw = 0; //$detail->sum('bandwidth_mbps');
+
+        foreach ($detail as $item) {
+            if ($item->bandwidth_mbps)
+                $jumlah_bw++;
+        }
 
 
         if ($tipe == 'baut') {

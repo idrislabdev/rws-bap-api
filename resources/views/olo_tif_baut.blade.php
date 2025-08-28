@@ -310,7 +310,7 @@
                                     <td>{{$detail[$a]->produk}}</td>
                                     <td class="wrapword">{{$detail[$a]->alamat_instalasi}}</td>
                                     @if ($jumlah_bw > 0)
-                                        <td>{{$detail[$a]->bandwidth_mbps}} {{$detail[$a]->bandwidth_mbps != null ? 'Mbps' : ''}}</td>
+                                        <td>{{$detail[$a]->bandwidth_mbps}}</td>
                                     @endif
                                     <td>{{$detail[$a]->ao_sc_order}}</td>
                                     <td>{{$detail[$a]->sid}}</td>
