@@ -26,6 +26,7 @@ use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use Excel;
+use iio\libmergepdf\Merger;
 
 class BeritaAcaraController extends Controller
 {
@@ -742,7 +743,9 @@ class BeritaAcaraController extends Controller
         $detail = TrOloBaDetail::where('olo_ba_id', $id);
 
         $lampiran_dokumen = TrOloBaLampiran::where('olo_ba_id', $id)->whereRaw("(label is null or label = 'document')")->get();
-        $lampiran_other = TrOloBaLampiran::where('olo_ba_id', $id)->whereRaw("(label <> 'document')")->get();
+        $lampiran_other = TrOloBaLampiran::where('olo_ba_id', $id)->whereRaw("(label <> 'document' && label <> 'Dokumen PDF')")->get();
+        $lampiran_pdf = TrOloBaLampiran::where('olo_ba_id', $id)->whereRaw("(label = 'Dokumen PDF')")->get();
+
 
         $detail = DB::table(DB::raw('tr_olo_ba_details tr, ma_olo_produks p'))
             ->select(DB::raw("tr.*"))
@@ -797,7 +800,7 @@ class BeritaAcaraController extends Controller
                 ->setPaper('a4');
 
             $name = "BAUT_".$data->no_dokumen_baut . ".pdf";
-            return $pdf->download($name);
+            // return $pdf->download($name);
         } else if ($tipe == 'bast') {
             $pdf = PDF::loadView('olo_bast', [
                 'data'              => $data,
@@ -813,8 +816,36 @@ class BeritaAcaraController extends Controller
 
 
             $name = "BAST_".$data->no_dokumen_bast . ".pdf";
-            return $pdf->download($name);
+            // return $pdf->download($name);
         }
+
+            // hasil PDF utama (binary string)
+        $generatedPdf = $pdf->output();
+
+        // === Merge dengan lampiran PDF (evidence) ===
+        $merger = new Merger();
+        $merger->addRaw($generatedPdf); // halaman utama dulu
+
+        foreach ($lampiran_pdf as $lampiran) {
+            $path = public_path('lampirans/' . $lampiran->url); // sesuaikan path file di storage
+            if (file_exists($path)) {
+                $merger->addFile($path);
+            }
+        }
+
+        if (count($lampiran_pdf) > 0) {
+            // ada lampiran -> merge semua
+            $finalPdf = $merger->merge();
+        } else {
+            // tidak ada lampiran -> pakai PDF utama saja
+            $finalPdf = $generatedPdf;
+        }
+        
+
+        // download hasil merge
+        return response($finalPdf)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="' . $name . '"');
     }
 
     public static function formatAddOn($id, $olo_ba_id)
